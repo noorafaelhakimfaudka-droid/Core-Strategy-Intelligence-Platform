@@ -1,0 +1,92 @@
+{
+  "milestone": "Milestone 9 - Gate G8 System & World Model",
+  "dataset": "weekly_system_state.parquet",
+  "num_weeks": 87,
+  "synthetic_recovery": {
+    "recovered": true,
+    "max_rel_error": 0.016032717706165378,
+    "mean_rel_error": 0.0032942805070704365,
+    "tolerance": 0.15,
+    "phi_star": [
+      [
+        0.75,
+        -0.15,
+        -0.1,
+        -0.05
+      ],
+      [
+        0.05,
+        0.6,
+        0.15,
+        0.2
+      ],
+      [
+        -0.05,
+        0.1,
+        0.7,
+        0.05
+      ],
+      [
+        -0.1,
+        0.25,
+        0.1,
+        0.55
+      ]
+    ],
+    "phi_hat": [
+      [
+        0.7500007941761788,
+        -0.1498047937021595,
+        -0.10112652504237624,
+        -0.04919834808197403
+      ],
+      [
+        0.04998841362443753,
+        0.5999902746183038,
+        0.1499909217125895,
+        0.20000017767166223
+      ],
+      [
+        -0.04999347098060004,
+        0.10026301776573918,
+        0.6988445311911152,
+        0.0507573869949957
+      ],
+      [
+        -0.09999055166169697,
+        0.2500242125671283,
+        0.09964523438970131,
+        0.5502755939549542
+      ]
+    ]
+  },
+  "backtest_metrics": {
+    "weekly_order_volume": {
+      "wape": 0.15834572894954985,
+      "mape": 0.25318146754607496,
+      "rmse": 293.8098324102772
+    },
+    "mean_delivery_delay": {
+      "wape": 0.12737118297302585,
+      "mape": 0.14804142954305655,
+      "rmse": 2.3084188692454397
+    },
+    "mean_freight_ratio": {
+      "wape": 0.041771543964093064,
+      "mape": 0.04202653332114642,
+      "rmse": 0.016467238706890003
+    },
+    "negative_review_rate": {
+      "wape": 0.14676007236809738,
+      "mape": 0.1531632034100401,
+      "rmse": 0.023024608113829614
+    }
+  },
+  "artifact_path": "artifacts\\models\\world_model_state_transition.joblib",
+  "figure_path": "artifacts\\reports\\figures\\world_model_historical_replay.png",
+  "skkni_compliance": [
+    "UK-08 Membangun Skenario Model",
+    "UK-09 Membangun Model",
+    "UK-10 Mengevaluasi Hasil Pemodelan"
+  ]
+}

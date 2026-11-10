@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-10T21:27:22.266110",
+  "saved_at": "2026-11-10T21:30:53.771966",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -85,6 +85,23 @@
       "claim_level": "L1 (Predictive)",
       "evidence_grade": "Grade A (Kuat & Tervalidasi)",
       "notes": "Evaluated out-of-time on locked temporal test set."
+    },
+    "DISC-06": {
+      "discovery_id": "DISC-06",
+      "title": "Macro System Transition Identifiability & Historical Replay Fidelity",
+      "description": "State-Space World Model successfully recovers structural transition parameters (mean relative error: 0.33%) and tracks 87 weeks of empirical e-commerce dynamics with volume WAPE of 15.83% and negative review rate WAPE of 14.68%.",
+      "discovered_at": "2026-11-10",
+      "grain": "weekly_system_state",
+      "key_metrics": {
+        "order_volume_wape": 0.15834572894954985,
+        "negative_review_rate_wape": 0.14676007236809738,
+        "synth_max_rel_error": 0.016032717706165378,
+        "synth_mean_rel_error": 0.0032942805070704365
+      },
+      "skkni_unit": "UK-08 Membangun Skenario Model",
+      "claim_level": "L1 (Predictive)",
+      "evidence_grade": "Grade A (Kuat & Tervalidasi)",
+      "notes": "Gate G8 verified via Historical Replay & Identifiability Recovery."
     }
   },
   "hypotheses": {
