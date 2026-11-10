@@ -24,10 +24,325 @@ from src.csip.engine.universal_csv_xray import UniversalCSVXRay
 
 __all__ = [
     "render_main_story_card",
+    "render_bento_cards",
+    "render_single_visual_stage",
+    "render_voice_card",
     "render_canvas_act1_constellation",
     "render_canvas_act2_breaking_point",
     "render_canvas_act3_dual_world",
 ]
+
+
+# ---------------------------------------------------------------------
+# BENTO CARDS & COCKPIT LIVING STAGE
+# ---------------------------------------------------------------------
+def render_bento_cards(
+    retention_pct: float,
+    top_risk_label: str,
+    impact_delta_label: str,
+    impact_subtext: str = "Respons terhadap tuas kiri",
+) -> None:
+    """Render 3 horizontal glass Bento cards using pure HTML & CSS Grid."""
+    color_ret = NOCTURNAL_PALETTE["gold"] if retention_pct >= 80.0 else NOCTURNAL_PALETTE["crimson"]
+    st.markdown(f"""
+    <div class="bento-grid">
+        <div class="bento-card">
+            <div class="bento-label">Peluang Orang Bertahan</div>
+            <div class="bento-val" style="color: {color_ret};">{retention_pct:.1f}%</div>
+            <div style="height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin: 4px 0;">
+                <div style="height: 100%; width: {min(100.0, max(0.0, retention_pct)):.1f}%; background: {color_ret};"></div>
+            </div>
+            <div class="bento-sub">Kestabilan loyalitas pembeli</div>
+        </div>
+        <div class="bento-card">
+            <div class="bento-label">Titik Rawan Utama</div>
+            <div class="bento-val" style="color: #F43F5E;">{top_risk_label}</div>
+            <div style="height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin: 4px 0;">
+                <div style="height: 100%; width: 75%; background: #F43F5E;"></div>
+            </div>
+            <div class="bento-sub">Faktor pemicu risiko terbesar</div>
+        </div>
+        <div class="bento-card">
+            <div class="bento-label">Dampak Perubahan</div>
+            <div class="bento-val" style="color: #38BDF8;">{impact_delta_label}</div>
+            <div style="height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin: 4px 0;">
+                <div style="height: 100%; width: 85%; background: #38BDF8;"></div>
+            </div>
+            <div class="bento-sub">{impact_subtext}</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_voice_card(voice_sentence: str) -> None:
+    """Render 1-line machine voice summary card (max 20 words) under the main canvas."""
+    st.markdown(f"""
+    <div class="voice-card">
+        <div class="voice-tag">SUARA SISTEM:</div>
+        <div class="voice-text">"{voice_sentence}"</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_single_visual_stage(
+    lens: str,
+    parsed_query: Dict[str, Any],
+    base_sample_df: pd.DataFrame,
+    duel_engine: ScenarioDuelEngine,
+    slider_subsidy: float,
+    slider_delay: float,
+    slider_quality: float,
+    csv_results: Optional[Dict[str, Any]] = None,
+    text_results: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Render exactly ONE large visual canvas (height 450px) according to active lens."""
+    dim_scores = parsed_query.get("dimension_scores", {})
+    cost_s = dim_scores.get("cost_sensitivity", 0.25)
+    time_f = dim_scores.get("time_friction", 0.25)
+    trust_q = dim_scores.get("trust_quality", 0.25)
+
+    if lens == "Peta Rasi Perilaku":
+        if parsed_query.get("mode") == "csv" and csv_results:
+            clusters = csv_results.get("clusters", {})
+            df_clean = csv_results.get("cleaned_dataframe", pd.DataFrame())
+            roles = csv_results.get("roles", {})
+            target_col = roles.get("target_col")
+            labels = clusters.get("labels", [])
+            cluster_palette = [NOCTURNAL_PALETTE["gold"], NOCTURNAL_PALETTE["cyan"], NOCTURNAL_PALETTE["amethyst"], NOCTURNAL_PALETTE["crimson"]]
+            colors = [cluster_palette[lbl % len(cluster_palette)] for lbl in labels]
+            custom_info = []
+            for i, row in df_clean.iterrows():
+                target_val = f"{row[target_col]}" if target_col and target_col in row else "-"
+                custom_info.append([f"Baris {i+1}", f"Kelompok {labels[i % len(labels)] + 1}", target_val])
+            fig = go.Figure(
+                go.Scattergl(
+                    x=clusters.get("pca_x", []),
+                    y=clusters.get("pca_y", []),
+                    mode="markers",
+                    marker=dict(size=6.5, color=colors, opacity=0.88),
+                    customdata=np.array(custom_info),
+                    hovertemplate="<b>%{customdata[0]}</b><br>Grup: %{customdata[1]}<br>Nilai: %{customdata[2]}<extra></extra>",
+                )
+            )
+        else:
+            n_pts = min(1500, len(base_sample_df)) if not base_sample_df.empty else 1500
+            sample_df = base_sample_df.iloc[:n_pts].copy() if not base_sample_df.empty else pd.DataFrame()
+            if sample_df.empty:
+                np.random.seed(42)
+                sample_df = pd.DataFrame({
+                    "buyer_lng": np.random.uniform(-55, -35, 1500),
+                    "buyer_lat": np.random.uniform(-30, -5, 1500),
+                    "delivery_delay_days": np.random.exponential(scale=2.0, size=1500) - 3.0,
+                    "freight_ratio": np.random.beta(2, 7, 1500),
+                    "review_score": np.random.choice([1, 2, 3, 4, 5], 1500, p=[0.1, 0.05, 0.1, 0.35, 0.4]),
+                    "customer_state": np.random.choice(["SP", "RJ", "MG", "RS", "PR"], 1500),
+                    "total_order_value": np.random.exponential(scale=140.0, size=1500) + 20.0,
+                })
+
+            x_shift = (cost_s - 0.25) * 4.0 - (time_f - 0.25) * 2.0 + (slider_subsidy / 50.0) * 1.5
+            y_shift = -(time_f - 0.25) * 5.0 + (trust_q - 0.25) * 3.5 - (slider_delay / 5.0) * 2.5
+            xs = sample_df["buyer_lng"].to_numpy() + x_shift
+            ys = sample_df["buyer_lat"].to_numpy() + y_shift
+
+            colors = []
+            sizes = []
+            custom_info = []
+            for _, row in sample_df.iterrows():
+                delays = row["delivery_delay_days"] + slider_delay
+                freight = row["freight_ratio"] * (1.0 - slider_subsidy / 100.0)
+                score = row["review_score"]
+                is_risk = (delays > 1.5) or (time_f > 0.35 and delays > 0.0) or (score <= 2)
+                is_cost_sensitive = (freight > 0.25) or (cost_s > 0.35 and freight > 0.18)
+                is_satisfied = (score >= 4 and delays <= 0.0) or (slider_quality > 85.0 and score >= 3)
+
+                if is_risk:
+                    colors.append(NOCTURNAL_PALETTE["crimson"])
+                    sizes.append(5.5)
+                    status_str = f"Rawan Kecewa (+{delays:.1f} Hari)"
+                elif is_cost_sensitive:
+                    colors.append(NOCTURNAL_PALETTE["amethyst"])
+                    sizes.append(5.0)
+                    status_str = f"Sensitif Ongkir ({freight*100:.0f}%)"
+                elif is_satisfied:
+                    colors.append(NOCTURNAL_PALETTE["gold"])
+                    sizes.append(4.5)
+                    status_str = "Puas dan Bertahan"
+                else:
+                    colors.append(NOCTURNAL_PALETTE["cyan"])
+                    sizes.append(3.2)
+                    status_str = "Kondisi Netral"
+
+                custom_info.append([row.get("customer_state", "Kota"), f"R$ {row.get('total_order_value', 120.0):,.0f}", status_str])
+
+            fig = go.Figure(
+                go.Scattergl(
+                    x=xs,
+                    y=ys,
+                    mode="markers",
+                    marker=dict(size=sizes, color=colors, opacity=0.88),
+                    customdata=np.array(custom_info),
+                    hovertemplate="<b>%{customdata[0]}</b> | Belanja %{customdata[1]}<br>%{customdata[2]}<extra></extra>",
+                )
+            )
+        fig = nocturnal_plotly_theme(fig, height=440, show_axes=False)
+
+    elif lens == "Titik Habis Sabar":
+        friction = float(round(0.224 - (slider_subsidy / 100.0) * 0.10, 3))
+        phenom = duel_engine.dissect_phenomenon(
+            delay_shift=slider_delay,
+            friction_ratio=friction,
+            quality_score=float(3.5 + (slider_quality / 100.0) * 1.5),
+            trust_factor=float(slider_quality / 100.0),
+        )
+        days = np.array(phenom["delay_days"])
+        scores = np.array(phenom["satisfaction"])
+        cur_d = phenom["current_delay"]
+        cur_s = phenom["current_score"]
+        bp_day = phenom["breaking_point_day"]
+
+        fig = go.Figure()
+        ontime = days <= 0
+        late = days >= 0
+        fig.add_trace(
+            go.Scatter(
+                x=days[ontime],
+                y=scores[ontime],
+                mode="lines",
+                name="Tepat Waktu",
+                line=dict(color=NOCTURNAL_PALETTE["gold"], width=4),
+                fill="tozeroy",
+                fillcolor="rgba(245, 176, 65, 0.10)",
+                hovertemplate="<b>Tepat Waktu (%{x} Hari)</b><br>Kepuasan: %{y:.2f} / 5.0<extra></extra>",
+            )
+        )
+        fig.add_trace(
+            go.Scatter(
+                x=days[late],
+                y=scores[late],
+                mode="lines",
+                name="Terlambat",
+                line=dict(color=NOCTURNAL_PALETTE["crimson"], width=4),
+                fill="tozeroy",
+                fillcolor="rgba(244, 63, 94, 0.14)",
+                hovertemplate="<b>Terlambat +%{x} Hari</b><br>Kepuasan: %{y:.2f} / 5.0<extra></extra>",
+            )
+        )
+        marker_color = NOCTURNAL_PALETTE["gold"] if cur_s >= 3.5 else NOCTURNAL_PALETTE["crimson"]
+        fig.add_trace(
+            go.Scatter(
+                x=[cur_d],
+                y=[cur_s],
+                mode="markers",
+                name="Posisi Tuas Anda",
+                marker=dict(size=14, color="#FFFFFF", line=dict(color=marker_color, width=3.5)),
+                hovertemplate=f"<b>Posisi Pilihan Anda</b><br>Selisih: {cur_d:+.1f} Hari<br>Kepuasan: {cur_s:.1f} / 5.0<extra></extra>",
+            )
+        )
+        fig.add_vline(x=bp_day, line_width=2, line_dash="dash", line_color=NOCTURNAL_PALETTE["crimson"])
+        fig.add_annotation(
+            x=bp_day,
+            y=2.8,
+            text=f"<b>Batas Sabar (Hari ke-{bp_day:.1f})</b>",
+            showarrow=True,
+            arrowhead=2,
+            arrowcolor=NOCTURNAL_PALETTE["crimson"],
+            ax=0,
+            ay=-40,
+            font=dict(family="Plus Jakarta Sans", size=11, color=NOCTURNAL_PALETTE["ivory"]),
+            bgcolor="rgba(20, 25, 38, 0.92)",
+            bordercolor=NOCTURNAL_PALETTE["crimson"],
+            borderwidth=1,
+            borderpad=4,
+        )
+        fig = nocturnal_plotly_theme(fig, height=440, show_axes=True)
+        fig.update_xaxes(title="Selisih Hari Pengiriman (Hari)", range=[-10, 15])
+        fig.update_yaxes(title="Skor Kepuasan (1 - 5)", range=[1.2, 5.0])
+
+    else:  # Adu Dua Dunia
+        if parsed_query.get("mode") == "adu":
+            duel_res = duel_engine.duel_two_options(
+                subsidy_a=slider_subsidy,
+                delay_delta_b=slider_delay,
+                quality_b=slider_quality,
+            )
+            weeks = duel_res["weeks"]
+            fig = go.Figure()
+            fig.add_trace(
+                go.Scatter(
+                    x=weeks,
+                    y=duel_res["traj_a_volume"],
+                    mode="lines+markers",
+                    name="Pilihan A: Subsidi Biaya",
+                    line=dict(color=NOCTURNAL_PALETTE["cyan"], width=3),
+                    hovertemplate="<b>Pilihan A</b> (Minggu %{x}): %{y:,.0f} Pesanan<extra></extra>",
+                )
+            )
+            fig.add_trace(
+                go.Scatter(
+                    x=weeks,
+                    y=duel_res["traj_b_volume"],
+                    mode="lines+markers",
+                    name="Pilihan B: Disiplin Kurir",
+                    line=dict(color=NOCTURNAL_PALETTE["gold"], width=4),
+                    hovertemplate="<b>Pilihan B</b> (Minggu %{x}): %{y:,.0f} Pesanan<extra></extra>",
+                )
+            )
+        else:
+            sim_res = duel_engine.simulate_what_if(
+                subsidy_pct=slider_subsidy,
+                delay_days_delta=slider_delay,
+                quality_pct=slider_quality,
+            )
+            weeks = sim_res["weeks"]
+            fig = go.Figure()
+            fig.add_trace(
+                go.Scatter(
+                    x=weeks,
+                    y=sim_res["optimistic_trajectory"],
+                    mode="lines",
+                    line=dict(color="rgba(56, 189, 248, 0.2)", width=1),
+                    showlegend=False,
+                    hoverinfo="skip",
+                )
+            )
+            fig.add_trace(
+                go.Scatter(
+                    x=weeks,
+                    y=sim_res["pessimistic_trajectory"],
+                    mode="lines",
+                    line=dict(color="rgba(56, 189, 248, 0.2)", width=1),
+                    fill="tonexty",
+                    fillcolor="rgba(56, 189, 248, 0.08)",
+                    name="Rentang Kemungkinan",
+                    hoverinfo="skip",
+                )
+            )
+            fig.add_trace(
+                go.Scatter(
+                    x=weeks,
+                    y=sim_res["expected_trajectory"],
+                    mode="lines+markers",
+                    name="Proyeksi Pilihan Baru",
+                    line=dict(color=NOCTURNAL_PALETTE["gold"], width=4),
+                    hovertemplate="<b>Pilihan Baru</b> (Minggu %{x}): %{y:,.0f} Pesanan<extra></extra>",
+                )
+            )
+            base_weekly = [sim_res["current_volume"] / 12.0 for _ in weeks]
+            fig.add_trace(
+                go.Scatter(
+                    x=weeks,
+                    y=base_weekly,
+                    mode="lines",
+                    name="Kondisi Saat Ini",
+                    line=dict(color=NOCTURNAL_PALETTE["cyan"], width=2.5, dash="dash"),
+                    hovertemplate="<b>Kondisi Saat Ini</b>: %{y:,.0f} Pesanan<extra></extra>",
+                )
+            )
+        fig = nocturnal_plotly_theme(fig, height=440, show_axes=True)
+        fig.update_xaxes(title="Minggu Proyeksi", tickmode="linear", dtick=1)
+        fig.update_yaxes(title="Volume Pesanan Mingguan")
+
+    st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
 
 # ---------------------------------------------------------------------

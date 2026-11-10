@@ -11,6 +11,9 @@ from __future__ import annotations
 from app.components.omni_input import render_omni_input
 from app.components.canvas_story import (
     render_main_story_card,
+    render_bento_cards,
+    render_single_visual_stage,
+    render_voice_card,
     render_canvas_act1_constellation,
     render_canvas_act2_breaking_point,
     render_canvas_act3_dual_world,
@@ -20,6 +23,9 @@ from app.components.curator_vault import render_curator_vault
 __all__ = [
     "render_omni_input",
     "render_main_story_card",
+    "render_bento_cards",
+    "render_single_visual_stage",
+    "render_voice_card",
     "render_canvas_act1_constellation",
     "render_canvas_act2_breaking_point",
     "render_canvas_act3_dual_world",
