@@ -13,7 +13,7 @@ import pandas as pd
 import streamlit as st
 
 
-def render_curator_vault() -> None:
+def render_curator_vault(**kwargs: Any) -> None:
     """Render single glass expander vault for BNSP certification assessors."""
     st.markdown("<div id='curator-vault' style='height: 2rem;'></div>", unsafe_allow_html=True)
 

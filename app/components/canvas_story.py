@@ -28,15 +28,19 @@ from src.csip.engine.universal_csv_xray import UniversalCSVXRay
 def render_canvas_act1_constellation(
     mode: str,
     parsed_query: Dict[str, Any],
-    base_sample_df: pd.DataFrame,
+    base_sample_df: Optional[pd.DataFrame] = None,
     csv_results: Optional[Dict[str, Any]] = None,
     text_results: Optional[Dict[str, Any]] = None,
+    duel_engine: Optional[ScenarioDuelEngine] = None,
+    **kwargs: Any,
 ) -> None:
     """Render Act 1: Celestial Constellation of Human Behavior."""
     st.markdown("<div id='act-1'></div>", unsafe_allow_html=True)
     params = parsed_query.get("parameters", {})
     delay_delta = params.get("delay_days_delta", 0.0)
     subsidy = params.get("subsidy_pct", 0.0)
+    if base_sample_df is None:
+        base_sample_df = pd.DataFrame()
 
     if mode == "csv" and csv_results:
         title = "Setiap titik adalah satu baris data milikmu yang berkumpul menurut kemiripan sifat."
@@ -170,13 +174,17 @@ def render_canvas_act1_constellation(
 def render_canvas_act2_breaking_point(
     mode: str,
     parsed_query: Dict[str, Any],
-    delay_curve_df: pd.DataFrame,
-    duel_engine: ScenarioDuelEngine,
+    delay_curve_df: Optional[pd.DataFrame] = None,
+    duel_engine: Optional[ScenarioDuelEngine] = None,
     csv_results: Optional[Dict[str, Any]] = None,
     text_results: Optional[Dict[str, Any]] = None,
+    **kwargs: Any,
 ) -> None:
     """Render Act 2: Dynamic tension curve highlighting current query position."""
     st.markdown("<div id='act-2'></div>", unsafe_allow_html=True)
+    engine = duel_engine if duel_engine is not None else ScenarioDuelEngine()
+    if delay_curve_df is None:
+        delay_curve_df = pd.DataFrame()
     params = parsed_query.get("parameters", {})
     delay_shift = params.get("delay_days_delta", 0.0)
     friction = params.get("perceived_friction", 0.224)
@@ -225,7 +233,7 @@ def render_canvas_act2_breaking_point(
         fig = nocturnal_plotly_theme(fig, height=420, show_axes=False)
     else:
         # Dynamic phenomenon curve calculated directly from user query
-        phenom = duel_engine.dissect_phenomenon(delay_shift=delay_shift, friction_ratio=friction)
+        phenom = engine.dissect_phenomenon(delay_shift=delay_shift, friction_ratio=friction)
         days = np.array(phenom["delay_days"])
         scores = np.array(phenom["satisfaction"])
         cur_d = phenom["current_delay"]
@@ -319,10 +327,14 @@ def render_canvas_act2_breaking_point(
 def render_canvas_act3_dual_world(
     mode: str,
     parsed_query: Dict[str, Any],
-    duel_engine: ScenarioDuelEngine,
+    duel_engine: Optional[ScenarioDuelEngine] = None,
+    csv_results: Optional[Dict[str, Any]] = None,
+    text_results: Optional[Dict[str, Any]] = None,
+    **kwargs: Any,
 ) -> None:
     """Render Act 3: Side-by-side comparative simulation with interactive glass sliders."""
     st.markdown("<div id='act-3'></div>", unsafe_allow_html=True)
+    engine = duel_engine if duel_engine is not None else ScenarioDuelEngine()
     params = parsed_query.get("parameters", {})
     initial_subsidy = float(params.get("subsidy_pct", 20.0))
     initial_delay = float(params.get("delay_days_delta", 0.0))
@@ -359,7 +371,7 @@ def render_canvas_act3_dual_world(
 
     if mode == "adu":
         title = "Disiplin waktu kurir menghasilkan efisiensi modal dua koma delapan kali lebih tinggi."
-        duel_res = duel_engine.duel_two_options(subsidy_a=param_subsidy, delay_delta_b=param_delay)
+        duel_res = engine.duel_two_options(subsidy_a=param_subsidy, delay_delta_b=param_delay)
         weeks = duel_res["weeks"]
 
         fig = go.Figure()
@@ -389,7 +401,7 @@ def render_canvas_act3_dual_world(
 
     else:
         title = f"Proyeksi pergeseran volume dan kepuasan di bawah subsidi {param_subsidy:.0f}% dan waktu {param_delay:+.1f} hari."
-        sim_res = duel_engine.simulate_what_if(subsidy_pct=param_subsidy, delay_days_delta=param_delay)
+        sim_res = engine.simulate_what_if(subsidy_pct=param_subsidy, delay_days_delta=param_delay)
         weeks = sim_res["weeks"]
 
         fig = go.Figure()

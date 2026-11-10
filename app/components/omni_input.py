@@ -15,7 +15,7 @@ from src.csip.engine.omni_router import PRESET_QUERIES, parse_user_query
 from src.csip.engine.universal_csv_xray import UniversalCSVXRay
 
 
-def render_omni_input() -> Dict[str, Any]:
+def render_omni_input(**kwargs: Any) -> Dict[str, Any]:
     """Render universal interactive command input canvas with 5 mode capsules and form."""
     st.markdown("""
     <div style="text-align: center; margin-bottom: 1.5rem;">
