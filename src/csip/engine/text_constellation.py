@@ -118,18 +118,18 @@ class TextConstellationEngine:
 
     def _project_2d(self, texts: List[str]) -> np.ndarray:
         """Project texts into 2D coordinates using TF-IDF + SVD or organic spiral."""
-        try:
-            vec = TfidfVectorizer(max_features=50, stop_words=None, min_df=1)
-            X = vec.fit_transform(texts)
-            if X.shape[1] >= 2 and len(texts) >= 3:
-                svd = TruncatedSVD(n_components=2, random_state=42)
-                coords = svd.fit_transform(X)
-                # Normalize to range [-10, 10]
-                std = np.std(coords, axis=0) + 1e-5
-                coords = (coords - np.mean(coords, axis=0)) / std * 6.0
-                return coords
-        except Exception:
-            pass
+        if len(texts) >= 3:
+            try:
+                vec = TfidfVectorizer(max_features=50, stop_words=None, min_df=1)
+                X = vec.fit_transform(texts)
+                if X.shape[1] >= 2:
+                    svd = TruncatedSVD(n_components=2, random_state=42)
+                    coords = svd.fit_transform(X)
+                    std = np.std(coords, axis=0) + 1e-5
+                    return (coords - np.mean(coords, axis=0)) / std * 6.0
+            except (ValueError, TypeError):
+                # Deterministic mathematical fallback
+                pass
 
         # Fallback organic celestial spiral distribution
         n = len(texts)

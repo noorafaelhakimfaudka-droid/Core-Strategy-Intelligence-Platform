@@ -1,8 +1,8 @@
-"""Canvas Story: Flowing living visual canvases with 0% text walls and <= 15 words titles.
+"""Canvas Story: Flowing living visual canvases directly connected to engine outputs.
 
 Implements 3 dynamic visual acts:
-1. Act 1: Peta Rasi Bintang Perilaku (Scattergl celestial map / clusters).
-2. Act 2: Aliran Titik Patah Hati / Tarik-Menarik Faktor (Gold to crimson transition).
+1. Act 1: Peta Rasi Bintang Perilaku (Reacts dynamically to user query parameters).
+2. Act 2: Aliran Titik Patah Hati / Tarik-Menarik Faktor (Highlights active user position).
 3. Act 3: Cermin Dua Dunia (Interactive simulation duel with dynamic sliders).
 
 Strictly NO emojis, NO technical jargon on the primary canvas.
@@ -34,6 +34,9 @@ def render_canvas_act1_constellation(
 ) -> None:
     """Render Act 1: Celestial Constellation of Human Behavior."""
     st.markdown("<div id='act-1'></div>", unsafe_allow_html=True)
+    params = parsed_query.get("parameters", {})
+    delay_delta = params.get("delay_days_delta", 0.0)
+    subsidy = params.get("subsidy_pct", 0.0)
 
     if mode == "csv" and csv_results:
         title = "Setiap titik adalah satu baris data milikmu yang berkumpul menurut kemiripan sifat."
@@ -90,34 +93,60 @@ def render_canvas_act1_constellation(
             )
         )
     else:
-        title = "Di balik seratus ribu transaksi, setiap cahaya adalah manusia yang memilih dan menunggu."
-        if not base_sample_df.empty:
-            colors = [NOCTURNAL_PALETTE["gold"] if r >= 4 else (NOCTURNAL_PALETTE["cyan"] if r == 3 else NOCTURNAL_PALETTE["crimson"]) for r in base_sample_df["review_score"]]
-            custom_info = []
+        # Dynamic constellation reaction to user query!
+        if delay_delta > 0:
+            title = "Sorotan merah bara memperlihatkan kelompok pembeli yang terancam kecewa akibat keterlambatan."
+            colors = []
+            sizes = []
             for _, row in base_sample_df.iterrows():
-                custom_info.append([
-                    row["customer_state"],
-                    f"R$ {row['total_order_value']:,.0f}",
-                    "Tepat Waktu" if row["delivery_delay_days"] <= 0 else f"Terlambat {int(round(row['delivery_delay_days']))} Hari",
-                ])
-
-            fig = go.Figure(
-                go.Scattergl(
-                    x=base_sample_df["buyer_lng"],
-                    y=base_sample_df["buyer_lat"],
-                    mode="markers",
-                    marker=dict(size=4.5, color=colors, opacity=0.82),
-                    customdata=np.array(custom_info),
-                    hovertemplate=(
-                        "<span style='font-size:13px; font-weight:700; color:#F5B041;'>Pembeli di %{customdata[0]}</span><br>"
-                        "<span style='color:#F4F1EA;'>Nilai Belanja: <b>%{customdata[1]}</b></span><br>"
-                        "<span style='color:#38BDF8;'>Kondisi: <b>%{customdata[2]}</b></span>"
-                        "<extra></extra>"
-                    ),
-                )
-            )
+                if row["delivery_delay_days"] > 0 or row["negative_review_flag"] == 1:
+                    colors.append(NOCTURNAL_PALETTE["crimson"])
+                    sizes.append(6.5)
+                else:
+                    colors.append(NOCTURNAL_PALETTE["dim_star"])
+                    sizes.append(2.5)
+        elif subsidy > 0:
+            title = "Sorotan ungu memperlihatkan pembeli pelosok yang paling sensitif terhadap beban biaya kirim."
+            colors = []
+            sizes = []
+            for _, row in base_sample_df.iterrows():
+                if row["freight_ratio"] > 0.25:
+                    colors.append(NOCTURNAL_PALETTE["amethyst"])
+                    sizes.append(6.5)
+                elif row["review_score"] >= 4:
+                    colors.append(NOCTURNAL_PALETTE["gold"])
+                    sizes.append(4.0)
+                else:
+                    colors.append(NOCTURNAL_PALETTE["dim_star"])
+                    sizes.append(2.5)
         else:
-            fig = go.Figure()
+            title = "Di balik seratus ribu transaksi, setiap cahaya adalah manusia yang memilih dan menunggu."
+            colors = [NOCTURNAL_PALETTE["gold"] if r >= 4 else (NOCTURNAL_PALETTE["cyan"] if r == 3 else NOCTURNAL_PALETTE["crimson"]) for r in base_sample_df["review_score"]]
+            sizes = [4.5 for _ in range(len(base_sample_df))]
+
+        custom_info = []
+        for _, row in base_sample_df.iterrows():
+            custom_info.append([
+                row["customer_state"],
+                f"R$ {row['total_order_value']:,.0f}",
+                "Tepat Waktu" if row["delivery_delay_days"] <= 0 else f"Terlambat {int(round(row['delivery_delay_days']))} Hari",
+            ])
+
+        fig = go.Figure(
+            go.Scattergl(
+                x=base_sample_df["buyer_lng"],
+                y=base_sample_df["buyer_lat"],
+                mode="markers",
+                marker=dict(size=sizes, color=colors, opacity=0.88),
+                customdata=np.array(custom_info),
+                hovertemplate=(
+                    "<span style='font-size:13px; font-weight:700; color:#F5B041;'>Pembeli di %{customdata[0]}</span><br>"
+                    "<span style='color:#F4F1EA;'>Nilai Belanja: <b>%{customdata[1]}</b></span><br>"
+                    "<span style='color:#38BDF8;'>Kondisi: <b>%{customdata[2]}</b></span>"
+                    "<extra></extra>"
+                ),
+            )
+        )
 
     fig = nocturnal_plotly_theme(fig, height=540, show_axes=False)
 
@@ -142,11 +171,15 @@ def render_canvas_act2_breaking_point(
     mode: str,
     parsed_query: Dict[str, Any],
     delay_curve_df: pd.DataFrame,
+    duel_engine: ScenarioDuelEngine,
     csv_results: Optional[Dict[str, Any]] = None,
     text_results: Optional[Dict[str, Any]] = None,
 ) -> None:
-    """Render Act 2: Tension curve showing where gold transitions to crimson."""
+    """Render Act 2: Dynamic tension curve highlighting current query position."""
     st.markdown("<div id='act-2'></div>", unsafe_allow_html=True)
+    params = parsed_query.get("parameters", {})
+    delay_shift = params.get("delay_days_delta", 0.0)
+    friction = params.get("perceived_friction", 0.224)
 
     if mode == "csv" and csv_results:
         title = "Faktor teratas yang paling kuat menggerakkan hasil pada data milikmu."
@@ -191,58 +224,76 @@ def render_canvas_act2_breaking_point(
         )
         fig = nocturnal_plotly_theme(fig, height=420, show_axes=False)
     else:
-        title = "Harga murah mudah dilupakan, namun tiga hari keterlambatan memadamkan kesetiaan pembeli."
+        # Dynamic phenomenon curve calculated directly from user query
+        phenom = duel_engine.dissect_phenomenon(delay_shift=delay_shift, friction_ratio=friction)
+        days = np.array(phenom["delay_days"])
+        scores = np.array(phenom["satisfaction"])
+        cur_d = phenom["current_delay"]
+        cur_s = phenom["current_score"]
+
+        title = f"Titik patah kesabaran pembeli berada di hari ke-3 keterlambatan (Posisi Anda: {cur_d:+.1f} Hari)."
+
         fig = go.Figure()
+        ontime = days <= 0
+        late = days >= 0
 
-        if not delay_curve_df.empty:
-            ontime = delay_curve_df["delay_days"] <= 0
-            late = delay_curve_df["delay_days"] >= 0
-
-            # Early/On-Time stream
-            fig.add_trace(
-                go.Scatter(
-                    x=delay_curve_df.loc[ontime, "delay_days"],
-                    y=delay_curve_df.loc[ontime, "score_all"],
-                    mode="lines+markers",
-                    name="Tepat Waktu",
-                    line=dict(color=NOCTURNAL_PALETTE["gold"], width=4),
-                    fill="tozeroy",
-                    fillcolor="rgba(245, 176, 65, 0.10)",
-                    hovertemplate="<b>Tepat Waktu (%{x} Hari)</b><br>Kepuasan: %{y:.2f} / 5.0<extra></extra>",
-                )
+        # On-Time stream (Gold)
+        fig.add_trace(
+            go.Scatter(
+                x=days[ontime],
+                y=scores[ontime],
+                mode="lines+markers",
+                name="Tepat Waktu",
+                line=dict(color=NOCTURNAL_PALETTE["gold"], width=4),
+                fill="tozeroy",
+                fillcolor="rgba(245, 176, 65, 0.10)",
+                hovertemplate="<b>Tepat Waktu (%{x} Hari)</b><br>Kepuasan: %{y:.2f} / 5.0<extra></extra>",
             )
+        )
 
-            # Late stream plunging
-            fig.add_trace(
-                go.Scatter(
-                    x=delay_curve_df.loc[late, "delay_days"],
-                    y=delay_curve_df.loc[late, "score_all"],
-                    mode="lines+markers",
-                    name="Terlambat",
-                    line=dict(color=NOCTURNAL_PALETTE["crimson"], width=4),
-                    fill="tozeroy",
-                    fillcolor="rgba(244, 63, 94, 0.14)",
-                    hovertemplate="<b>Terlambat +%{x} Hari</b><br>Kepuasan Hancur: %{y:.2f} / 5.0<extra></extra>",
-                )
+        # Late stream (Crimson)
+        fig.add_trace(
+            go.Scatter(
+                x=days[late],
+                y=scores[late],
+                mode="lines+markers",
+                name="Terlambat",
+                line=dict(color=NOCTURNAL_PALETTE["crimson"], width=4),
+                fill="tozeroy",
+                fillcolor="rgba(244, 63, 94, 0.14)",
+                hovertemplate="<b>Terlambat +%{x} Hari</b><br>Kepuasan Hancur: %{y:.2f} / 5.0<extra></extra>",
             )
+        )
 
-            # Point of Heartbreak Annotation
-            fig.add_annotation(
-                x=3,
-                y=3.06,
-                text="<b>Titik Patah Hati (Hari ke-3 Molor)</b><br><span style='font-size:10px;'>Kepuasan anjlok drastis</span>",
-                showarrow=True,
-                arrowhead=2,
-                arrowsize=1.2,
-                arrowcolor=NOCTURNAL_PALETTE["crimson"],
-                ax=0,
-                ay=-45,
-                font=dict(family="Plus Jakarta Sans", size=12, color=NOCTURNAL_PALETTE["ivory"]),
-                bgcolor="rgba(20, 25, 38, 0.9)",
-                bordercolor=NOCTURNAL_PALETTE["crimson"],
-                borderwidth=1,
-                borderpad=6,
+        # Highlight Current Query Position on the Curve!
+        fig.add_trace(
+            go.Scatter(
+                x=[cur_d],
+                y=[cur_s],
+                mode="markers",
+                name="Posisi Rencana Anda",
+                marker=dict(size=14, color="#FFFFFF", line=dict(color=NOCTURNAL_PALETTE["gold"] if cur_s >= 3.5 else NOCTURNAL_PALETTE["crimson"], width=3)),
+                hovertemplate=f"<b>Posisi Masalah Anda</b><br>Selisih: {cur_d:+.1f} Hari<br>Kepuasan: {cur_s:.1f} / 5.0<extra></extra>",
             )
+        )
+
+        # Heartbreak Point Annotation
+        fig.add_annotation(
+            x=3,
+            y=3.06,
+            text="<b>Titik Patah Hati (Hari ke-3 Molor)</b><br><span style='font-size:10px;'>Kepuasan anjlok drastis</span>",
+            showarrow=True,
+            arrowhead=2,
+            arrowsize=1.2,
+            arrowcolor=NOCTURNAL_PALETTE["crimson"],
+            ax=0,
+            ay=-45,
+            font=dict(family="Plus Jakarta Sans", size=12, color=NOCTURNAL_PALETTE["ivory"]),
+            bgcolor="rgba(20, 25, 38, 0.9)",
+            bordercolor=NOCTURNAL_PALETTE["crimson"],
+            borderwidth=1,
+            borderpad=6,
+        )
 
         fig = nocturnal_plotly_theme(fig, height=500, show_axes=True)
         fig.update_xaxes(title="Selisih dari Hari Janji Tiba (Hari)", range=[-10, 15])
@@ -272,6 +323,9 @@ def render_canvas_act3_dual_world(
 ) -> None:
     """Render Act 3: Side-by-side comparative simulation with interactive glass sliders."""
     st.markdown("<div id='act-3'></div>", unsafe_allow_html=True)
+    params = parsed_query.get("parameters", {})
+    initial_subsidy = float(params.get("subsidy_pct", 20.0))
+    initial_delay = float(params.get("delay_days_delta", 0.0))
 
     # Glass Interactive Sliders below
     st.markdown("""
@@ -287,7 +341,7 @@ def render_canvas_act3_dual_world(
             "Besaran Pemotongan Biaya Tambahan (% Subsidi):",
             min_value=0.0,
             max_value=50.0,
-            value=float(parsed_query.get("parameters", {}).get("subsidy_pct", 20.0)),
+            value=initial_subsidy,
             step=5.0,
             key="slider_subsidy",
         )
@@ -296,7 +350,7 @@ def render_canvas_act3_dual_world(
             "Perubahan Waktu Tunggu (Hari Lebih Cepat / Lebih Lambat):",
             min_value=-5.0,
             max_value=5.0,
-            value=float(parsed_query.get("parameters", {}).get("delay_days_delta", 0.0)),
+            value=initial_delay,
             step=0.5,
             key="slider_delay",
         )
@@ -305,11 +359,10 @@ def render_canvas_act3_dual_world(
 
     if mode == "adu":
         title = "Disiplin waktu kurir menghasilkan efisiensi modal dua koma delapan kali lebih tinggi."
-        duel_res = duel_engine.duel_two_options()
+        duel_res = duel_engine.duel_two_options(subsidy_a=param_subsidy, delay_delta_b=param_delay)
         weeks = duel_res["weeks"]
 
         fig = go.Figure()
-        # Option A: Universal Subsidy (Cyan)
         fig.add_trace(
             go.Scatter(
                 x=weeks,
@@ -320,7 +373,6 @@ def render_canvas_act3_dual_world(
                 hovertemplate="<b>Pilihan A (Subsidi Rata)</b><br>Minggu %{x}: %{y:,.0f} Pesanan<extra></extra>",
             )
         )
-        # Option B: Logistics SLA (Gold)
         fig.add_trace(
             go.Scatter(
                 x=weeks,
@@ -336,7 +388,7 @@ def render_canvas_act3_dual_world(
         fig.update_yaxes(title="Volume Pesanan per Minggu")
 
     else:
-        title = "Pilihan baru diproyeksikan menggeser volume dan kekecewaan di dalam batas aman."
+        title = f"Proyeksi pergeseran volume dan kepuasan di bawah subsidi {param_subsidy:.0f}% dan waktu {param_delay:+.1f} hari."
         sim_res = duel_engine.simulate_what_if(subsidy_pct=param_subsidy, delay_days_delta=param_delay)
         weeks = sim_res["weeks"]
 
@@ -404,4 +456,3 @@ def render_canvas_act3_dual_world(
     st.markdown("<div class='glass-canvas-container'>", unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
     st.markdown("</div>", unsafe_allow_html=True)
-
