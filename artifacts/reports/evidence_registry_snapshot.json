@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-10T21:05:57.192096",
+  "saved_at": "2026-11-10T21:12:46.550155",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -345,7 +345,7 @@
       "report_artifacts": [
         "reports/hypothesis_report.md"
       ],
-      "status": "TESTED"
+      "status": "VERIFIED"
     },
     "UK-09": {
       "unit_code": "UK-09",
@@ -361,7 +361,7 @@
       "report_artifacts": [
         "artifacts/models/"
       ],
-      "status": "TESTED"
+      "status": "VERIFIED"
     },
     "UK-10": {
       "unit_code": "UK-10",
