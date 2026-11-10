@@ -81,3 +81,60 @@ def test_split_before_transform_policy():
     assert "SimpleImputer" in training_only_fit
     assert "TfidfVectorizer" in training_only_fit
 
+
+def test_processed_customer_cohort_zero_leakage():
+    """Verify that actual customer_cohort.parquet has zero lifetime aggregate columns."""
+    cohort_path = REPO_ROOT / "data" / "processed" / "customer_cohort.parquet"
+    if not cohort_path.exists():
+        pytest.skip("customer_cohort.parquet not yet generated.")
+
+    import pandas as pd
+    cohort_df = pd.read_parquet(cohort_path)
+
+    # 1. Zero prohibited lifetime columns
+    prohibited = ["lifetime_order_count", "lifetime_total_spend", "lifetime_avg_review"]
+    for col in prohibited:
+        assert col not in cohort_df.columns, f"LEAKAGE: {col} present in customer_cohort!"
+
+    # 2. Key uniqueness
+    assert cohort_df["customer_unique_id"].is_unique, "customer_unique_id not unique in cohort!"
+
+    # 3. Valid target values
+    assert set(cohort_df["repeat_purchase_flag"].unique()).issubset({0, 1})
+
+    # 4. Positive rate is sensible (~2-3% after right-censoring exclusion)
+    repeat_rate = cohort_df["repeat_purchase_flag"].mean()
+    assert 0.01 <= repeat_rate <= 0.05, f"Unexpected repeat rate: {repeat_rate}"
+
+
+def test_processed_order_level_engineered_features():
+    """Verify order_level.parquet contains all engineered features and valid types."""
+    order_path = REPO_ROOT / "data" / "processed" / "order_level.parquet"
+    if not order_path.exists():
+        pytest.skip("order_level.parquet not yet generated.")
+
+    import pandas as pd
+    order_df = pd.read_parquet(order_path)
+
+    # Engineered columns presence
+    required_cols = [
+        "total_order_value",
+        "freight_ratio",
+        "delivery_lead_time_days",
+        "delivery_delay_days",
+        "seller_buyer_distance_km",
+        "delay_x_freight_ratio",
+        "distance_x_weight",
+        "high_value_late_flag",
+        "is_late",
+        "negative_review_flag",
+    ]
+    for col in required_cols:
+        assert col in order_df.columns, f"Missing engineered column: {col}"
+
+    # Non-negative checks
+    assert (order_df["total_order_value"] > 0).all()
+    assert (order_df["freight_ratio"] >= 0).all()
+    assert (order_df["seller_buyer_distance_km"] >= 0).all()
+
+

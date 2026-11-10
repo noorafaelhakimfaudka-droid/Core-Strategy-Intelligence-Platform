@@ -195,3 +195,4 @@ print(f"Artifact saved: {fig_path_ts}")
 
 if __name__ == "__main__":
     create_notebook_03()
+
