@@ -1,0 +1,98 @@
+{
+  "target": "negative_review_flag",
+  "champion_model": "B3 LightGBM",
+  "shap_attribution": {
+    "num_samples_explained": 800,
+    "top_features": [
+      {
+        "rank": 1,
+        "feature": "delivery_delay_days",
+        "mean_abs_shap": 0.3058077222877858
+      },
+      {
+        "rank": 2,
+        "feature": "delivery_lead_time_days",
+        "mean_abs_shap": 0.22516918738465752
+      },
+      {
+        "rank": 3,
+        "feature": "item_count",
+        "mean_abs_shap": 0.20857919734831698
+      },
+      {
+        "rank": 4,
+        "feature": "estimated_lead_time_days",
+        "mean_abs_shap": 0.07402614580520263
+      },
+      {
+        "rank": 5,
+        "feature": "total_freight",
+        "mean_abs_shap": 0.07013435256820771
+      },
+      {
+        "rank": 6,
+        "feature": "distance_x_weight",
+        "mean_abs_shap": 0.06652504109534502
+      },
+      {
+        "rank": 7,
+        "feature": "payment_installments_max",
+        "mean_abs_shap": 0.04235129427078845
+      },
+      {
+        "rank": 8,
+        "feature": "seller_buyer_distance_km",
+        "mean_abs_shap": 0.041006142908029064
+      },
+      {
+        "rank": 9,
+        "feature": "approval_lag_hours",
+        "mean_abs_shap": 0.029752445677476213
+      },
+      {
+        "rank": 10,
+        "feature": "freight_ratio",
+        "mean_abs_shap": 0.02771814691671843
+      },
+      {
+        "rank": 11,
+        "feature": "total_item_price",
+        "mean_abs_shap": 0.026768660438036072
+      },
+      {
+        "rank": 12,
+        "feature": "delay_x_freight_ratio",
+        "mean_abs_shap": 0.0198711709423747
+      },
+      {
+        "rank": 13,
+        "feature": "total_order_value",
+        "mean_abs_shap": 0.01803538787040852
+      },
+      {
+        "rank": 14,
+        "feature": "high_value_late_flag",
+        "mean_abs_shap": 0.0006098482272547463
+      },
+      {
+        "rank": 15,
+        "feature": "is_late",
+        "mean_abs_shap": 0.0
+      }
+    ],
+    "evidence_grade": "Grade A",
+    "claim_level": "Level L1 (Predictive) / L2 (Associational)"
+  },
+  "calibration": {
+    "uncalibrated_brier": 0.13747823307401072,
+    "calibrated_brier": 0.07617672823059148,
+    "brier_improvement_pct": 44.589971425089445,
+    "uncalibrated_ece": 0.23548553686140056,
+    "calibrated_ece": 0.0070149240914395275,
+    "ece_improvement_pct": 97.02108070629905,
+    "calibrator_params": {
+      "coef": 0.9020214510783185,
+      "intercept": -1.8089497066518683
+    }
+  }
+}

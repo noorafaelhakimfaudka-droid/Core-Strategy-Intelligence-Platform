@@ -491,5 +491,27 @@
     "mae": 4.8256,
     "rmse": 6.2458,
     "r2": 0.3926
+  },
+  {
+    "target": "negative_review_flag",
+    "model_name": "B4 Tabular MLP (Entity Embeddings)",
+    "baseline_tier": "B4 Deep Learning",
+    "val_pr_auc": 0.34498753269450083,
+    "test_pr_auc": 0.2874889948626821,
+    "test_roc_auc": 0.6790140727837967,
+    "test_f1": 0.32677966101694916,
+    "test_brier": 0.15610501170158386,
+    "artifact_path": "artifacts\\models\\tabular_mlp_negative_review.pt"
+  },
+  {
+    "target": "review_comment_sentiment",
+    "model_name": "B4 Text Bi-LSTM (Word Embeddings)",
+    "baseline_tier": "B4 Deep Learning (NLP)",
+    "val_pr_auc": 0.8500667210233365,
+    "test_pr_auc": 0.8076437575645986,
+    "test_roc_auc": 0.9524114248651359,
+    "test_f1": 0.7748478701825557,
+    "test_brier": 0.07738378643989563,
+    "artifact_path": "artifacts\\models\\text_bilstm_review_sentiment.pt"
   }
 ]

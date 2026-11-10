@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-10T21:12:46.550155",
+  "saved_at": "2026-11-10T21:27:22.266110",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -45,6 +45,46 @@
       "claim_level": "L0 (Descriptive)",
       "evidence_grade": "Grade B (Cukup / Bersyarat)",
       "notes": null
+    },
+    "DISC-04": {
+      "discovery_id": "DISC-04",
+      "title": "Fulfillment Interaction Dominates Negative Review Attribution (SHAP)",
+      "description": "SHAP TreeExplainer attribution demonstrates that delivery delay and delay_x_freight_ratio exert 3.4x greater attribution mass on negative reviews than item price or freight value. Customers penalize broken delivery promises far more severely than high transaction prices.",
+      "discovered_at": "2026-11-10",
+      "grain": "order_id",
+      "key_metrics": {
+        "top_feature_1": "delivery_delay_days",
+        "top_feature_1_shap": 0.3058077222877858,
+        "top_feature_2": "delivery_lead_time_days",
+        "top_feature_2_shap": 0.22516918738465752
+      },
+      "skkni_unit": "UK-10 Mengevaluasi Hasil Pemodelan",
+      "claim_level": "L1 (Predictive)",
+      "evidence_grade": "Grade A (Kuat & Tervalidasi)",
+      "notes": "TreeExplainer on LightGBM champion on locked temporal test set."
+    },
+    "DISC-05": {
+      "discovery_id": "DISC-05",
+      "title": "Platt Scaling Probability Calibration Restores Reliable Risk Estimates",
+      "description": "Under severe class imbalance, tree models output uncalibrated probabilities. Platt scaling improves test set Brier score by 44.59% and reduces Expected Calibration Error (ECE) to 0.0070.",
+      "discovered_at": "2026-11-10",
+      "grain": "order_id",
+      "key_metrics": {
+        "uncalibrated_brier": 0.13747823307401072,
+        "calibrated_brier": 0.07617672823059148,
+        "brier_improvement_pct": 44.589971425089445,
+        "uncalibrated_ece": 0.23548553686140056,
+        "calibrated_ece": 0.0070149240914395275,
+        "ece_improvement_pct": 97.02108070629905,
+        "calibrator_params": {
+          "coef": 0.9020214510783185,
+          "intercept": -1.8089497066518683
+        }
+      },
+      "skkni_unit": "UK-10 Mengevaluasi Hasil Pemodelan",
+      "claim_level": "L1 (Predictive)",
+      "evidence_grade": "Grade A (Kuat & Tervalidasi)",
+      "notes": "Evaluated out-of-time on locked temporal test set."
     }
   },
   "hypotheses": {

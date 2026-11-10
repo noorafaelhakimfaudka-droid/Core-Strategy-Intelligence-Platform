@@ -124,3 +124,4 @@ def test_trainer_temporal_splits_ordering():
     assert train["order_purchase_timestamp"].max() <= pd.Timestamp("2018-03-31")
     assert val["order_purchase_timestamp"].min() > pd.Timestamp("2018-03-31")
     assert test["order_purchase_timestamp"].min() > pd.Timestamp("2018-06-30")
+

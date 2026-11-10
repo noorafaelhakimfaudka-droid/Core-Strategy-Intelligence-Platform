@@ -127,3 +127,4 @@ display(reg_models[["model_name", "split_name", "mae", "rmse", "r2"]])
 
 if __name__ == "__main__":
     create_notebook_07()
+
