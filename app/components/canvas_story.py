@@ -22,11 +22,21 @@ from src.csip.engine.text_constellation import TextConstellationEngine
 from src.csip.engine.universal_csv_xray import UniversalCSVXRay
 
 
+__all__ = [
+    "render_main_story_card",
+    "render_canvas_act1_constellation",
+    "render_canvas_act2_breaking_point",
+    "render_canvas_act3_dual_world",
+]
+
+
 # ---------------------------------------------------------------------
 # KARTU KESIMPULAN UTAMA (TOP STORY CARD & 3 METRIC TILES)
 # ---------------------------------------------------------------------
-def render_main_story_card(engine_output: Dict[str, Any]) -> None:
+def render_main_story_card(engine_output: Optional[Dict[str, Any]] = None, **kwargs: Any) -> None:
     """Render top human narrative card with 3 prominent metric tiles."""
+    if engine_output is None:
+        engine_output = {}
     story = engine_output.get("story_summary", {})
     params = engine_output.get("parameters", {})
     headline = story.get("headline", "Hasil Analisis Perilaku Pelanggan")

@@ -14,6 +14,9 @@ from src.csip.engine.omni_router import PRESET_QUERIES, parse_user_query
 from src.csip.engine.universal_csv_xray import UniversalCSVXRay
 
 
+__all__ = ["render_omni_input", "QUICK_PROMPTS"]
+
+
 QUICK_PROMPTS = [
     ("Kenapa Pelanggan Kabur?", "Mengapa orang rela membayar lebih mahal untuk barang yang datang cepat, tetapi tempat murah yang sering terlambat justru sepi?"),
     ("Uji Potong Biaya & Molor Waktu", "Bagaimana jika biaya tambahan dipotong 20 persen, namun waktu tunggu pengiriman bertambah 1 hari?"),
