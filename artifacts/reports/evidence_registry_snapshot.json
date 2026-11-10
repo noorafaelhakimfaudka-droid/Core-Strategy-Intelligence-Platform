@@ -1,0 +1,233 @@
+{
+  "saved_at": "2026-11-10T20:58:38.272244",
+  "discoveries": {
+    "DISC-01": {
+      "discovery_id": "DISC-01",
+      "title": "High Freight Ratio Friction Segment",
+      "description": "Segmen pembeli dengan rasio ongkos kirim tinggi (>35% nilai barang) mengalami risiko ulasan negatif yang meningkat 1.8x.",
+      "discovered_at": "2026-11-10",
+      "grain": "order_id",
+      "key_metrics": {
+        "median_freight_ratio": 0.38,
+        "risk_ratio_negative_review": 1.78
+      },
+      "skkni_unit": "UK-03 Menelaah Data",
+      "claim_level": "L0 (Descriptive)",
+      "evidence_grade": "Grade A (Kuat & Tervalidasi)",
+      "notes": null
+    },
+    "DISC-02": {
+      "discovery_id": "DISC-02",
+      "title": "Long Lead Time Distant Buyer Friction",
+      "description": "Segmen geografis jarak jauh (lead time > 18 hari) menunjukkan sensitivitas keterlambatan tertinggi dan tingkat repeat order terendah.",
+      "discovered_at": "2026-11-10",
+      "grain": "order_id",
+      "key_metrics": {
+        "median_lead_time_days": 21.2,
+        "repeat_purchase_rate_pct": 1.62
+      },
+      "skkni_unit": "UK-09 Membangun Model",
+      "claim_level": "L2 (Associational)",
+      "evidence_grade": "Grade B (Cukup / Bersyarat)",
+      "notes": null
+    },
+    "DISC-03": {
+      "discovery_id": "DISC-03",
+      "title": "High-Ticket Installment Buyer Cluster",
+      "description": "Kelompok transaksi bernilai tinggi (>250 BRL) dengan cicilan panjang (>6x) memiliki toleransi ongkos kirim lebih tinggi jika SLA pengiriman tepat waktu.",
+      "discovered_at": "2026-11-10",
+      "grain": "order_id",
+      "key_metrics": {
+        "median_order_value": 284.5,
+        "median_installments": 8
+      },
+      "skkni_unit": "UK-09 Membangun Model",
+      "claim_level": "L0 (Descriptive)",
+      "evidence_grade": "Grade B (Cukup / Bersyarat)",
+      "notes": null
+    }
+  },
+  "hypotheses": {},
+  "failures": [],
+  "skkni_matrix": {
+    "UK-01": {
+      "unit_code": "UK-01",
+      "unit_title": "Menentukan Objektif Bisnis",
+      "implementation_in_csip": "Perumusan masalah retensi, friksi ongkir, dan kepuasan pengiriman.",
+      "code_locations": [
+        "config/business_objectives.yaml",
+        "config/analysis_plan.yaml"
+      ],
+      "notebook_locations": [
+        "notebooks/01_business_and_data_understanding.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/skkni_bnsp_traceability_matrix.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-02": {
+      "unit_code": "UK-02",
+      "unit_title": "Menentukan Tujuan Teknis Data Science",
+      "implementation_in_csip": "Target teknis PR-AUC, ROC-AUC, MAE, Silhouette, dan batas baseline.",
+      "code_locations": [
+        "config/models.yaml",
+        "config/business_objectives.yaml"
+      ],
+      "notebook_locations": [
+        "notebooks/01_business_and_data_understanding.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/skkni_bnsp_traceability_matrix.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-03": {
+      "unit_code": "UK-03",
+      "unit_title": "Menelaah Data",
+      "implementation_in_csip": "Profiling relasional 9 tabel Olist, distribusi, dan eksplorasi EDA.",
+      "code_locations": [
+        "src/csip/data/loader.py"
+      ],
+      "notebook_locations": [
+        "notebooks/01_business_and_data_understanding.ipynb",
+        "notebooks/03_exploratory_data_analysis.ipynb"
+      ],
+      "report_artifacts": [
+        "data/data_dictionary.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-04": {
+      "unit_code": "UK-04",
+      "unit_title": "Memvalidasi Data",
+      "implementation_in_csip": "Pemeriksaan skema, duplikasi PK, dan kronologi timestamp.",
+      "code_locations": [
+        "src/csip/data/loader.py",
+        "tests/test_data_validation.py"
+      ],
+      "notebook_locations": [
+        "notebooks/02_data_validation_and_cleaning.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/data_quality_report.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-05": {
+      "unit_code": "UK-05",
+      "unit_title": "Menentukan Objek Data",
+      "implementation_in_csip": "Pemisahan 4 grain analitik dan mitigasi right-censoring delta_w=90 hari.",
+      "code_locations": [
+        "config/data.yaml",
+        "config/analysis_plan.yaml"
+      ],
+      "notebook_locations": [
+        "notebooks/02_data_validation_and_cleaning.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/skkni_bnsp_traceability_matrix.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-06": {
+      "unit_code": "UK-06",
+      "unit_title": "Membersihkan Data",
+      "implementation_in_csip": "Penyaringan status delivered, deduplikasi koordinat dan ulasan, imputasi.",
+      "code_locations": [
+        "src/csip/cleaning/"
+      ],
+      "notebook_locations": [
+        "notebooks/02_data_validation_and_cleaning.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/data_quality_report.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-07": {
+      "unit_code": "UK-07",
+      "unit_title": "Mengkonstruksi Data",
+      "implementation_in_csip": "Rekayasa fitur ekonomi, pengalaman, histori as-of, dan interaksi non-linear.",
+      "code_locations": [
+        "config/features.yaml",
+        "src/csip/features/",
+        "tests/test_feature_leakage.py"
+      ],
+      "notebook_locations": [
+        "notebooks/04_feature_engineering_and_construction.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/skkni_bnsp_traceability_matrix.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-08": {
+      "unit_code": "UK-08",
+      "unit_title": "Membangun Skenario Model",
+      "implementation_in_csip": "Perancangan matriks eksperimen E0-E9, hipotesis H1-H6, dan temporal split.",
+      "code_locations": [
+        "config/models.yaml",
+        "config/scenarios.yaml",
+        "config/analysis_plan.yaml"
+      ],
+      "notebook_locations": [
+        "notebooks/06_hypothesis_investigation.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/hypothesis_report.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-09": {
+      "unit_code": "UK-09",
+      "unit_title": "Membangun Model",
+      "implementation_in_csip": "Pelatihan model statistik (B1), ML klasik (B2, B3), dan Deep Learning (B4).",
+      "code_locations": [
+        "src/csip/models/"
+      ],
+      "notebook_locations": [
+        "notebooks/07_supervised_ml_and_competency_lab.ipynb",
+        "notebooks/08_neural_network_and_deep_learning.ipynb"
+      ],
+      "report_artifacts": [
+        "artifacts/models/"
+      ],
+      "status": "TESTED"
+    },
+    "UK-10": {
+      "unit_code": "UK-10",
+      "unit_title": "Mengevaluasi Hasil Pemodelan",
+      "implementation_in_csip": "Evaluasi holdout temporal, PR-AUC, kalibrasi, SHAP, dan verifikasi World Model.",
+      "code_locations": [
+        "src/csip/evaluation/",
+        "src/csip/scenarios/"
+      ],
+      "notebook_locations": [
+        "notebooks/09_model_evaluation_and_explainability.ipynb",
+        "notebooks/11_alternative_world_simulation.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/model_evaluation_and_review_report.md"
+      ],
+      "status": "IMPLEMENTED"
+    },
+    "UK-11": {
+      "unit_code": "UK-11",
+      "unit_title": "Melakukan Proses Review Pemodelan",
+      "implementation_in_csip": "Audit klaim L0-L3, ablation study, Failure Register, dan verifikasi Streamlit.",
+      "code_locations": [
+        "src/csip/evidence/registry.py",
+        "tests/test_artifact_parity.py"
+      ],
+      "notebook_locations": [
+        "notebooks/13_model_review_and_failure_analysis.ipynb",
+        "notebooks/14_final_research_and_bnsp_report.ipynb"
+      ],
+      "report_artifacts": [
+        "reports/evidence_and_failure_register.md"
+      ],
+      "status": "IMPLEMENTED"
+    }
+  }
+}

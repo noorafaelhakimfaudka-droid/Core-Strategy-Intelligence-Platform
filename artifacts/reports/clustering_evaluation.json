@@ -1,0 +1,135 @@
+{
+  "evaluation": {
+    "selected_k": 3,
+    "features": [
+      "total_order_value",
+      "freight_ratio",
+      "delivery_lead_time_days",
+      "item_count",
+      "payment_installments_max"
+    ],
+    "k_metrics": [
+      {
+        "k": 3,
+        "silhouette_score": 0.3865,
+        "davies_bouldin_index": 1.2168,
+        "calinski_harabasz_index": 3124.5,
+        "inertia": 56676.86
+      },
+      {
+        "k": 4,
+        "silhouette_score": 0.3485,
+        "davies_bouldin_index": 1.2361,
+        "calinski_harabasz_index": 3214.7,
+        "inertia": 48866.38
+      },
+      {
+        "k": 5,
+        "silhouette_score": 0.3483,
+        "davies_bouldin_index": 1.1223,
+        "calinski_harabasz_index": 3333.3,
+        "inertia": 42501.74
+      },
+      {
+        "k": 6,
+        "silhouette_score": 0.3602,
+        "davies_bouldin_index": 0.9605,
+        "calinski_harabasz_index": 3552.8,
+        "inertia": 36751.62
+      }
+    ],
+    "pca_explained_variance": [
+      0.3115,
+      0.2166
+    ],
+    "total_samples": 96470,
+    "anomaly_threshold_dist": 3.1838,
+    "anomaly_count": 4824
+  },
+  "profiles": [
+    {
+      "cluster_id": 0,
+      "persona_name": "Segmen 0: High-Ticket Premium Basket",
+      "size": 18987,
+      "size_pct": 19.68,
+      "feature_means": {
+        "total_order_value": 333.16,
+        "freight_ratio": 0.16,
+        "delivery_lead_time_days": 14.58,
+        "item_count": 1.11,
+        "payment_installments_max": 7.33
+      },
+      "feature_medians": {
+        "total_order_value": 211.01,
+        "freight_ratio": 0.13,
+        "delivery_lead_time_days": 11.46,
+        "item_count": 1.0,
+        "payment_installments_max": 8.0
+      },
+      "repeat_rate": 0.0,
+      "negative_review_rate": 15.2,
+      "key_characteristics": [
+        "Median Order Value: 211.0 BRL",
+        "Freight Ratio: 13.0%",
+        "Delivery Days: 11.5 hari",
+        "Negative Review Rate: 15.2%"
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "persona_name": "Segmen 1: Fast Single-Item Convenience",
+      "size": 75244,
+      "size_pct": 78.0,
+      "feature_means": {
+        "total_order_value": 109.76,
+        "freight_ratio": 0.34,
+        "delivery_lead_time_days": 12.07,
+        "item_count": 1.07,
+        "payment_installments_max": 1.79
+      },
+      "feature_medians": {
+        "total_order_value": 86.93,
+        "freight_ratio": 0.25,
+        "delivery_lead_time_days": 10.02,
+        "item_count": 1.0,
+        "payment_installments_max": 1.0
+      },
+      "repeat_rate": 0.0,
+      "negative_review_rate": 11.56,
+      "key_characteristics": [
+        "Median Order Value: 86.9 BRL",
+        "Freight Ratio: 25.0%",
+        "Delivery Days: 10.0 hari",
+        "Negative Review Rate: 11.6%"
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "persona_name": "Segmen 2: High-Ticket Premium Basket",
+      "size": 2239,
+      "size_pct": 2.32,
+      "feature_means": {
+        "total_order_value": 372.51,
+        "freight_ratio": 0.41,
+        "delivery_lead_time_days": 11.84,
+        "item_count": 3.82,
+        "payment_installments_max": 3.79
+      },
+      "feature_medians": {
+        "total_order_value": 242.24,
+        "freight_ratio": 0.31,
+        "delivery_lead_time_days": 10.01,
+        "item_count": 3.0,
+        "payment_installments_max": 2.0
+      },
+      "repeat_rate": 0.0,
+      "negative_review_rate": 30.73,
+      "key_characteristics": [
+        "Median Order Value: 242.2 BRL",
+        "Freight Ratio: 31.0%",
+        "Delivery Days: 10.0 hari",
+        "Negative Review Rate: 30.7%"
+      ]
+    }
+  ]
+}

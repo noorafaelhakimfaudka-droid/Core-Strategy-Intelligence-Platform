@@ -113,3 +113,4 @@ Konstruksi fitur telah selesai dan memenuhi **Validation Gate G3**:
 
 if __name__ == "__main__":
     create_notebook_04()
+
