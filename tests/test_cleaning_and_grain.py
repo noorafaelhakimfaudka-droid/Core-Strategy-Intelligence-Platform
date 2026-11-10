@@ -79,3 +79,4 @@ def test_right_censoring_exclusion_logic():
 
     assert len(valid_evaluation_cohort) == 2
     assert "cust_censored_3" not in valid_evaluation_cohort["customer_unique_id"].values
+

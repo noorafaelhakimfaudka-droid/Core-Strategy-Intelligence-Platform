@@ -163,3 +163,4 @@ downcasting_rules:
   int_target_small: "int16"
   int_target_large: "int32"
   max_categorical_cardinality: 50
+

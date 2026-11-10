@@ -359,3 +359,4 @@ class OlistDataLoader:
                 }
             )
         return pd.DataFrame(records)
+

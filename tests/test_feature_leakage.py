@@ -80,3 +80,4 @@ def test_split_before_transform_policy():
     assert "MinMaxScaler" in training_only_fit
     assert "SimpleImputer" in training_only_fit
     assert "TfidfVectorizer" in training_only_fit
+

@@ -1,0 +1,608 @@
+{
+  "summary": [
+    {
+      "table_name": "orders",
+      "filename": "olist_orders_dataset.csv",
+      "rows": 99441,
+      "columns": 8,
+      "primary_key": "['order_id']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 21.95,
+      "downsized_mb": 11.48,
+      "reduction_pct": 47.7,
+      "chronological_violations": 23,
+      "warnings_count": 1,
+      "errors_count": 0,
+      "warnings": [
+        "Chronological anomaly: 23 orders delivered to customer BEFORE carrier date"
+      ],
+      "errors": []
+    },
+    {
+      "table_name": "order_items",
+      "filename": "olist_order_items_dataset.csv",
+      "rows": 112650,
+      "columns": 7,
+      "primary_key": "['order_id', 'order_item_id']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 18.37,
+      "downsized_mb": 14.83,
+      "reduction_pct": 19.3,
+      "chronological_violations": 0,
+      "warnings_count": 0,
+      "errors_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "table_name": "order_payments",
+      "filename": "olist_order_payments_dataset.csv",
+      "rows": 103886,
+      "columns": 5,
+      "primary_key": "['order_id', 'payment_sequential']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 8.11,
+      "downsized_mb": 4.85,
+      "reduction_pct": 40.1,
+      "chronological_violations": 0,
+      "warnings_count": 0,
+      "errors_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "table_name": "order_reviews",
+      "filename": "olist_order_reviews_dataset.csv",
+      "rows": 99224,
+      "columns": 7,
+      "primary_key": "['review_id']",
+      "duplicate_pk_rows": 1603,
+      "initial_mb": 17.84,
+      "downsized_mb": 13.68,
+      "reduction_pct": 23.3,
+      "chronological_violations": 0,
+      "warnings_count": 1,
+      "errors_count": 0,
+      "warnings": [
+        "Found 1603 duplicated primary key rows for keys: ['review_id']"
+      ],
+      "errors": []
+    },
+    {
+      "table_name": "customers",
+      "filename": "olist_customers_dataset.csv",
+      "rows": 99441,
+      "columns": 5,
+      "primary_key": "['customer_id']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 11.03,
+      "downsized_mb": 9.8,
+      "reduction_pct": 11.2,
+      "chronological_violations": 0,
+      "warnings_count": 0,
+      "errors_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "table_name": "sellers",
+      "filename": "olist_sellers_dataset.csv",
+      "rows": 3095,
+      "columns": 4,
+      "primary_key": "['seller_id']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 0.22,
+      "downsized_mb": 0.19,
+      "reduction_pct": 17.0,
+      "chronological_violations": 0,
+      "warnings_count": 0,
+      "errors_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "table_name": "products",
+      "filename": "olist_products_dataset.csv",
+      "rows": 32951,
+      "columns": 9,
+      "primary_key": "['product_id']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 3.73,
+      "downsized_mb": 2.17,
+      "reduction_pct": 41.9,
+      "chronological_violations": 0,
+      "warnings_count": 0,
+      "errors_count": 0,
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "table_name": "geolocation",
+      "filename": "olist_geolocation_dataset.csv",
+      "rows": 1000163,
+      "columns": 5,
+      "primary_key": "['geolocation_zip_code_prefix']",
+      "duplicate_pk_rows": 999120,
+      "initial_mb": 50.12,
+      "downsized_mb": 30.09,
+      "reduction_pct": 40.0,
+      "chronological_violations": 0,
+      "warnings_count": 1,
+      "errors_count": 0,
+      "warnings": [
+        "Found 999120 duplicated primary key rows for keys: ['geolocation_zip_code_prefix']"
+      ],
+      "errors": []
+    },
+    {
+      "table_name": "category_translation",
+      "filename": "product_category_name_translation.csv",
+      "rows": 71,
+      "columns": 2,
+      "primary_key": "['product_category_name']",
+      "duplicate_pk_rows": 0,
+      "initial_mb": 0.0,
+      "downsized_mb": 0.0,
+      "reduction_pct": 0.0,
+      "chronological_violations": 0,
+      "warnings_count": 0,
+      "errors_count": 0,
+      "warnings": [],
+      "errors": []
+    }
+  ],
+  "columns_catalog": {
+    "orders": [
+      {
+        "column_name": "order_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 99441,
+        "sample_value": "e481f51cbdc54678b7cc49136f2d6af7"
+      },
+      {
+        "column_name": "customer_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 99441,
+        "sample_value": "9ef432eb6251297304e76186b10a928d"
+      },
+      {
+        "column_name": "order_status",
+        "dtype": "category",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 8,
+        "sample_value": "delivered"
+      },
+      {
+        "column_name": "order_purchase_timestamp",
+        "dtype": "datetime64[us]",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 98875,
+        "sample_value": "2017-10-02 10:56:33"
+      },
+      {
+        "column_name": "order_approved_at",
+        "dtype": "datetime64[us]",
+        "null_count": 160,
+        "null_pct": 0.16,
+        "unique_count": 90733,
+        "sample_value": "2017-10-02 11:07:15"
+      },
+      {
+        "column_name": "order_delivered_carrier_date",
+        "dtype": "datetime64[us]",
+        "null_count": 1783,
+        "null_pct": 1.79,
+        "unique_count": 81018,
+        "sample_value": "2017-10-04 19:55:00"
+      },
+      {
+        "column_name": "order_delivered_customer_date",
+        "dtype": "datetime64[us]",
+        "null_count": 2965,
+        "null_pct": 2.98,
+        "unique_count": 95664,
+        "sample_value": "2017-10-10 21:25:13"
+      },
+      {
+        "column_name": "order_estimated_delivery_date",
+        "dtype": "datetime64[us]",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 459,
+        "sample_value": "2017-10-18 00:00:00"
+      }
+    ],
+    "order_items": [
+      {
+        "column_name": "order_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 98666,
+        "sample_value": "00010242fe8c5a6d1ba2dd792cb16214"
+      },
+      {
+        "column_name": "order_item_id",
+        "dtype": "int16",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 21,
+        "sample_value": 1
+      },
+      {
+        "column_name": "product_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 32951,
+        "sample_value": "4244733e06e7ecb4970a6e2683c13e61"
+      },
+      {
+        "column_name": "seller_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 3095,
+        "sample_value": "48436dade18ac8b2bce089ec2a041202"
+      },
+      {
+        "column_name": "shipping_limit_date",
+        "dtype": "datetime64[us]",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 93318,
+        "sample_value": "2017-09-19 09:45:35"
+      },
+      {
+        "column_name": "price",
+        "dtype": "float32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 5968,
+        "sample_value": 58.9
+      },
+      {
+        "column_name": "freight_value",
+        "dtype": "float32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 6999,
+        "sample_value": 13.29
+      }
+    ],
+    "order_payments": [
+      {
+        "column_name": "order_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 99440,
+        "sample_value": "b81ef226f3fe1789b1e8b2acac839d17"
+      },
+      {
+        "column_name": "payment_sequential",
+        "dtype": "int16",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 29,
+        "sample_value": 1
+      },
+      {
+        "column_name": "payment_type",
+        "dtype": "category",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 5,
+        "sample_value": "credit_card"
+      },
+      {
+        "column_name": "payment_installments",
+        "dtype": "int16",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 24,
+        "sample_value": 8
+      },
+      {
+        "column_name": "payment_value",
+        "dtype": "float32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 29077,
+        "sample_value": 99.33
+      }
+    ],
+    "order_reviews": [
+      {
+        "column_name": "review_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 98410,
+        "sample_value": "7bc2406110b926393aa56f80a40eba40"
+      },
+      {
+        "column_name": "order_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 98673,
+        "sample_value": "73fc7af87114b39712e6da79b0a377eb"
+      },
+      {
+        "column_name": "review_score",
+        "dtype": "int16",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 5,
+        "sample_value": 4
+      },
+      {
+        "column_name": "review_comment_title",
+        "dtype": "str",
+        "null_count": 87656,
+        "null_pct": 88.34,
+        "unique_count": 4527,
+        "sample_value": "recomendo"
+      },
+      {
+        "column_name": "review_comment_message",
+        "dtype": "str",
+        "null_count": 58247,
+        "null_pct": 58.7,
+        "unique_count": 36159,
+        "sample_value": "Recebi bem antes do prazo estipulado."
+      },
+      {
+        "column_name": "review_creation_date",
+        "dtype": "datetime64[us]",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 636,
+        "sample_value": "2018-01-18 00:00:00"
+      },
+      {
+        "column_name": "review_answer_timestamp",
+        "dtype": "datetime64[us]",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 98248,
+        "sample_value": "2018-01-18 21:46:59"
+      }
+    ],
+    "customers": [
+      {
+        "column_name": "customer_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 99441,
+        "sample_value": "06b8999e2fba1a1fbc88172c00ba8bc7"
+      },
+      {
+        "column_name": "customer_unique_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 96096,
+        "sample_value": "861eff4711a542e4b93843c6dd7febb0"
+      },
+      {
+        "column_name": "customer_zip_code_prefix",
+        "dtype": "int32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 14994,
+        "sample_value": 14409
+      },
+      {
+        "column_name": "customer_city",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 4119,
+        "sample_value": "franca"
+      },
+      {
+        "column_name": "customer_state",
+        "dtype": "category",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 27,
+        "sample_value": "SP"
+      }
+    ],
+    "sellers": [
+      {
+        "column_name": "seller_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 3095,
+        "sample_value": "3442f8959a84dea7ee197c632cb2df15"
+      },
+      {
+        "column_name": "seller_zip_code_prefix",
+        "dtype": "int32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 2246,
+        "sample_value": 13023
+      },
+      {
+        "column_name": "seller_city",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 611,
+        "sample_value": "campinas"
+      },
+      {
+        "column_name": "seller_state",
+        "dtype": "category",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 23,
+        "sample_value": "SP"
+      }
+    ],
+    "products": [
+      {
+        "column_name": "product_id",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 32951,
+        "sample_value": "1e9e8ef04dbcff4541ed26657ea517e5"
+      },
+      {
+        "column_name": "product_category_name",
+        "dtype": "category",
+        "null_count": 610,
+        "null_pct": 1.85,
+        "unique_count": 73,
+        "sample_value": "perfumaria"
+      },
+      {
+        "column_name": "product_name_lenght",
+        "dtype": "float32",
+        "null_count": 610,
+        "null_pct": 1.85,
+        "unique_count": 66,
+        "sample_value": 40.0
+      },
+      {
+        "column_name": "product_description_lenght",
+        "dtype": "float32",
+        "null_count": 610,
+        "null_pct": 1.85,
+        "unique_count": 2960,
+        "sample_value": 287.0
+      },
+      {
+        "column_name": "product_photos_qty",
+        "dtype": "float32",
+        "null_count": 610,
+        "null_pct": 1.85,
+        "unique_count": 19,
+        "sample_value": 1.0
+      },
+      {
+        "column_name": "product_weight_g",
+        "dtype": "float32",
+        "null_count": 2,
+        "null_pct": 0.01,
+        "unique_count": 2204,
+        "sample_value": 225.0
+      },
+      {
+        "column_name": "product_length_cm",
+        "dtype": "float32",
+        "null_count": 2,
+        "null_pct": 0.01,
+        "unique_count": 99,
+        "sample_value": 16.0
+      },
+      {
+        "column_name": "product_height_cm",
+        "dtype": "float32",
+        "null_count": 2,
+        "null_pct": 0.01,
+        "unique_count": 102,
+        "sample_value": 10.0
+      },
+      {
+        "column_name": "product_width_cm",
+        "dtype": "float32",
+        "null_count": 2,
+        "null_pct": 0.01,
+        "unique_count": 95,
+        "sample_value": 14.0
+      }
+    ],
+    "geolocation": [
+      {
+        "column_name": "geolocation_zip_code_prefix",
+        "dtype": "int32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 19015,
+        "sample_value": 1037
+      },
+      {
+        "column_name": "geolocation_lat",
+        "dtype": "float32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 618974,
+        "sample_value": -23.5456
+      },
+      {
+        "column_name": "geolocation_lng",
+        "dtype": "float32",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 586469,
+        "sample_value": -46.6393
+      },
+      {
+        "column_name": "geolocation_city",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 8011,
+        "sample_value": "sao paulo"
+      },
+      {
+        "column_name": "geolocation_state",
+        "dtype": "category",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 27,
+        "sample_value": "SP"
+      }
+    ],
+    "category_translation": [
+      {
+        "column_name": "product_category_name",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 71,
+        "sample_value": "beleza_saude"
+      },
+      {
+        "column_name": "product_category_name_english",
+        "dtype": "str",
+        "null_count": 0,
+        "null_pct": 0.0,
+        "unique_count": 71,
+        "sample_value": "health_beauty"
+      }
+    ]
+  },
+  "orphan_records": {
+    "orders_without_customer": 0,
+    "order_items_without_order": 0,
+    "order_items_without_product": 0,
+    "order_items_without_seller": 0,
+    "payments_without_order": 0,
+    "reviews_without_order": 0
+  },
+  "customer_entity_audit": {
+    "total_customer_sessions": 99441,
+    "unique_real_customers": 96096,
+    "repeat_customers": 2997,
+    "repeat_customer_pct": 3.12
+  },
+  "order_date_range": {
+    "min_purchase": "2016-09-04 21:15:19",
+    "max_purchase": "2018-10-17 17:30:18"
+  }
+}

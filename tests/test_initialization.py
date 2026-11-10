@@ -158,3 +158,4 @@ def test_config_scenarios_yaml_structure():
     assert "baseline_world" in scenarios
     assert "freight_subsidy_moderate" in scenarios
     assert "sla_improvement_carrier" in scenarios
+

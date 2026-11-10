@@ -82,3 +82,4 @@ technical_targets:
     name: "World Model & Simulasi Skenario"
     target: "Lolos Synthetic Recovery Test, historical replay error terukur, menampilkan 90%/95% prediction interval."
     skkni_unit: "UK-08 Membangun Skenario Model & UK-10 Mengevaluasi Hasil Pemodelan"
+

@@ -116,3 +116,4 @@ def test_save_registry_snapshot(tmp_path):
     assert "hypotheses" in data
     assert "discoveries" in data
     assert "failures" in data
+

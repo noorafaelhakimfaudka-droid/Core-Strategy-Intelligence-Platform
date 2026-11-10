@@ -81,3 +81,29 @@ def test_validation_result_metrics():
     )
     assert res.passed is True
     assert pytest.approx(res.memory_reduction_pct, rel=1e-2) == 60.0
+
+
+def test_real_raw_csv_files_present():
+    """Verify all 9 raw Olist CSV files exist on disk in data/raw."""
+    loader = OlistDataLoader(config_path=REPO_ROOT / "config" / "data.yaml")
+    for tbl in loader.tables_config:
+        file_path = loader.get_table_path(tbl)
+        assert file_path.exists(), f"Raw CSV missing for table: {tbl} at {file_path}"
+
+
+def test_real_orders_referential_integrity():
+    """Verify referential integrity on real Olist data (zero orphan records)."""
+    loader = OlistDataLoader(config_path=REPO_ROOT / "config" / "data.yaml")
+    orders_df = loader.load_table("orders")
+    customers_df = loader.load_table("customers")
+
+    assert len(orders_df) == 99441
+    assert orders_df["order_id"].nunique() == 99441  # 100% unique PK
+
+    # Check zero orphan orders
+    order_cust_ids = set(orders_df["customer_id"].dropna())
+    customer_cust_ids = set(customers_df["customer_id"].dropna())
+    orphan_orders = order_cust_ids - customer_cust_ids
+    assert len(orphan_orders) == 0, f"Found {len(orphan_orders)} orphan orders!"
+
+
