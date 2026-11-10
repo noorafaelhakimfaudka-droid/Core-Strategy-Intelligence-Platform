@@ -75,3 +75,4 @@ def test_discovery_registry_entries():
         assert "DISC-01" in discoveries
         assert "DISC-02" in discoveries
         assert "DISC-03" in discoveries
+

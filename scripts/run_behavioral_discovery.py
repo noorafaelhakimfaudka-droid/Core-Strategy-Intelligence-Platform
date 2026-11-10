@@ -223,3 +223,4 @@ def generate_markdown_report(eval_res: Dict[str, Any], profiles: list):
 
 if __name__ == "__main__":
     run_discovery()
+

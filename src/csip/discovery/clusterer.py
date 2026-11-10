@@ -299,3 +299,4 @@ class BehavioralClusterer:
                 indent=2,
             )
         logger.info("Saved clustering pipeline to %s and evaluation to %s", model_p, rep_p)
+

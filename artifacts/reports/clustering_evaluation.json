@@ -28,7 +28,7 @@
         "silhouette_score": 0.3483,
         "davies_bouldin_index": 1.1223,
         "calinski_harabasz_index": 3333.3,
-        "inertia": 42501.74
+        "inertia": 42501.75
       },
       {
         "k": 6,

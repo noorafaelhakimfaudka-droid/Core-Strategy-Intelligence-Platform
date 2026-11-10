@@ -124,6 +124,25 @@ class EvidenceRegistry:
         self.skkni_matrix: Dict[str, SKKNITraceabilityItem] = {}
 
         self._initialize_default_skkni_matrix()
+        self._load_existing_snapshot()
+
+    def _load_existing_snapshot(self, filename: str = "evidence_registry_snapshot.json") -> None:
+        """Load previously saved registry state if present on disk."""
+        snapshot_file = self.registry_dir / filename
+        if snapshot_file.exists():
+            try:
+                with open(snapshot_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                for k, v in data.get("discoveries", {}).items():
+                    self.discoveries[k] = DiscoveryEntry(**v)
+                for k, v in data.get("hypotheses", {}).items():
+                    self.hypotheses[k] = HypothesisRecord(**v)
+                for f_dict in data.get("failures", []):
+                    self.failures.append(FailureRecord(**f_dict))
+                for k, v in data.get("skkni_matrix", {}).items():
+                    self.skkni_matrix[k] = SKKNITraceabilityItem(**v)
+            except Exception:
+                pass
 
     def _initialize_default_skkni_matrix(self) -> None:
         """Seed the 11 SKKNI BNSP competence units traceability mapping."""
@@ -239,6 +258,8 @@ class EvidenceRegistry:
 
     def record_failure(self, failure: FailureRecord) -> None:
         """Record an explicit limitation, rejected model, or failed hypothesis in Failure Register."""
+        # Avoid duplicate failure_id
+        self.failures = [f for f in self.failures if f.failure_id != failure.failure_id]
         self.failures.append(failure)
 
     def update_skkni_status(self, unit_code: str, status: str) -> None:
