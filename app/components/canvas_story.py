@@ -1,9 +1,9 @@
-"""Canvas Story: Flowing living visual canvases directly connected to engine outputs.
+"""Canvas Story: Flowing living visual canvases directly connected to local engine outputs.
 
 Implements 3 dynamic visual acts:
-1. Act 1: Peta Rasi Bintang Perilaku (Reacts dynamically to user query parameters).
-2. Act 2: Aliran Titik Patah Hati / Tarik-Menarik Faktor (Highlights active user position).
-3. Act 3: Cermin Dua Dunia (Interactive simulation duel with dynamic sliders).
+1. Act 1: Peta Rasi Bintang Perilaku (1,500 points with dynamic coordinate & color shifts based on TF-IDF dimensions).
+2. Act 2: Aliran Titik Patah Hati & Tarik-Menarik Faktor (Dynamic non-linear spline with movable breaking point line).
+3. Act 3: Cermin Dua Dunia (Side-by-side simulation duel with 3 live glass sliders: cost, speed, quality).
 
 Strictly NO emojis, NO technical jargon on the primary canvas.
 """
@@ -23,7 +23,59 @@ from src.csip.engine.universal_csv_xray import UniversalCSVXRay
 
 
 # ---------------------------------------------------------------------
-# BABAK 1: PETA RASI BINTANG PERILAKU
+# KARTU KESIMPULAN UTAMA (TOP STORY CARD & 3 METRIC TILES)
+# ---------------------------------------------------------------------
+def render_main_story_card(engine_output: Dict[str, Any]) -> None:
+    """Render top human narrative card with 3 prominent metric tiles."""
+    story = engine_output.get("story_summary", {})
+    params = engine_output.get("parameters", {})
+    headline = story.get("headline", "Hasil Analisis Perilaku Pelanggan")
+    insight = story.get("insight", "Sistem telah memetakan dinamika perilaku dari masalah yang Anda masukkan.")
+
+    retention_val = params.get("retention_prob_pct", 89.2)
+    bp_val = params.get("breaking_point_day", 3.0)
+    tol_val = params.get("max_tolerance_days", 2.5)
+
+    st.markdown(f"""
+    <div style="background: rgba(20, 25, 38, 0.82); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #F5B041; border-radius: 18px; padding: 1.5rem 2rem; margin-top: 1.25rem; margin-bottom: 2rem; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.2em; color: #F5B041; font-weight: 600; margin-bottom: 0.4rem;">
+            KESIMPULAN DARI MASALAH ANDA
+        </div>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.85rem; font-weight: 600; color: #F4F1EA; margin-bottom: 0.5rem; line-height: 1.3;">
+            "{headline}"
+        </div>
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.96rem; color: #D5D9E2; line-height: 1.65; margin-bottom: 1.25rem; max-width: 900px;">
+            {insight}
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem;">
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0.85rem 1.1rem;">
+                <div style="font-size: 0.78rem; color: #8E95A5; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Peluang Bertahan</div>
+                <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.1rem; font-weight: 700; color: #F5B041; line-height: 1.2; margin-top: 0.2rem;">
+                    {retention_val:.1f}%
+                </div>
+                <div style="font-size: 0.75rem; color: #38BDF8; margin-top: 0.2rem;">Kestabilan loyalitas</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0.85rem 1.1rem;">
+                <div style="font-size: 0.78rem; color: #8E95A5; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Titik Rawan Utama</div>
+                <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.1rem; font-weight: 700; color: #F43F5E; line-height: 1.2; margin-top: 0.2rem;">
+                    Hari ke-{bp_val:.1f}
+                </div>
+                <div style="font-size: 0.75rem; color: #8E95A5; margin-top: 0.2rem;">Kekecewaan anjlok tajam</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 0.85rem 1.1rem;">
+                <div style="font-size: 0.78rem; color: #8E95A5; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500;">Batas Toleransi Pembeli</div>
+                <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.1rem; font-weight: 700; color: #38BDF8; line-height: 1.2; margin-top: 0.2rem;">
+                    &le; {tol_val:.1f} Hari
+                </div>
+                <div style="font-size: 0.75rem; color: #8E95A5; margin-top: 0.2rem;">Ambang aman kesabaran</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------------------
+# BABAK 1: PETA RASI BINTANG PERILAKU (SCATTERGL 1,500 POINTS)
 # ---------------------------------------------------------------------
 def render_canvas_act1_constellation(
     mode: str,
@@ -34,12 +86,18 @@ def render_canvas_act1_constellation(
     duel_engine: Optional[ScenarioDuelEngine] = None,
     **kwargs: Any,
 ) -> None:
-    """Render Act 1: Celestial Constellation of Human Behavior."""
+    """Render Act 1: 1,500 celestial points shifting coordinates & colors mathematically."""
     st.markdown("<div id='act-1'></div>", unsafe_allow_html=True)
     params = parsed_query.get("parameters", {})
+    dim_scores = parsed_query.get("dimension_scores", {})
+    cost_s = dim_scores.get("cost_sensitivity", 0.25)
+    time_f = dim_scores.get("time_friction", 0.25)
+    trust_q = dim_scores.get("trust_quality", 0.25)
+
     delay_delta = params.get("delay_days_delta", 0.0)
     subsidy = params.get("subsidy_pct", 0.0)
-    if base_sample_df is None:
+
+    if base_sample_df is None or base_sample_df.empty:
         base_sample_df = pd.DataFrame()
 
     if mode == "csv" and csv_results:
@@ -63,7 +121,7 @@ def render_canvas_act1_constellation(
                 x=clusters.get("pca_x", []),
                 y=clusters.get("pca_y", []),
                 mode="markers",
-                marker=dict(size=6, color=colors, opacity=0.88),
+                marker=dict(size=6.5, color=colors, opacity=0.88),
                 customdata=np.array(custom_info),
                 hovertemplate=(
                     "<span style='font-size:13px; font-weight:700; color:#F5B041;'>%{customdata[0]}</span><br>"
@@ -86,7 +144,7 @@ def render_canvas_act1_constellation(
                 x=xs,
                 y=ys,
                 mode="markers",
-                marker=dict(size=9, color=colors, opacity=0.92, line=dict(color="#090A0F", width=1.5)),
+                marker=dict(size=9.5, color=colors, opacity=0.92, line=dict(color="#090A0F", width=1.5)),
                 customdata=np.array(custom_info),
                 hovertemplate=(
                     "<span style='font-size:13px; font-weight:700; color:#F5B041;'>%{customdata[0]}</span><br>"
@@ -97,49 +155,81 @@ def render_canvas_act1_constellation(
             )
         )
     else:
-        # Dynamic constellation reaction to user query!
-        if delay_delta > 0:
-            title = "Sorotan merah bara memperlihatkan kelompok pembeli yang terancam kecewa akibat keterlambatan."
-            colors = []
-            sizes = []
-            for _, row in base_sample_df.iterrows():
-                if row["delivery_delay_days"] > 0 or row["negative_review_flag"] == 1:
-                    colors.append(NOCTURNAL_PALETTE["crimson"])
-                    sizes.append(6.5)
-                else:
-                    colors.append(NOCTURNAL_PALETTE["dim_star"])
-                    sizes.append(2.5)
-        elif subsidy > 0:
-            title = "Sorotan ungu memperlihatkan pembeli pelosok yang paling sensitif terhadap beban biaya kirim."
-            colors = []
-            sizes = []
-            for _, row in base_sample_df.iterrows():
-                if row["freight_ratio"] > 0.25:
-                    colors.append(NOCTURNAL_PALETTE["amethyst"])
-                    sizes.append(6.5)
-                elif row["review_score"] >= 4:
-                    colors.append(NOCTURNAL_PALETTE["gold"])
-                    sizes.append(4.0)
-                else:
-                    colors.append(NOCTURNAL_PALETTE["dim_star"])
-                    sizes.append(2.5)
-        else:
-            title = "Di balik seratus ribu transaksi, setiap cahaya adalah manusia yang memilih dan menunggu."
-            colors = [NOCTURNAL_PALETTE["gold"] if r >= 4 else (NOCTURNAL_PALETTE["cyan"] if r == 3 else NOCTURNAL_PALETTE["crimson"]) for r in base_sample_df["review_score"]]
-            sizes = [4.5 for _ in range(len(base_sample_df))]
+        # Dynamic Constellation shifting with 1,500 points
+        n_pts = min(1500, len(base_sample_df))
+        sample_df = base_sample_df.iloc[:n_pts].copy() if not base_sample_df.empty else pd.DataFrame()
 
+        if sample_df.empty:
+            # Synthetic generation if empty
+            np.random.seed(42)
+            sample_df = pd.DataFrame({
+                "buyer_lng": np.random.uniform(-55, -35, 1500),
+                "buyer_lat": np.random.uniform(-30, -5, 1500),
+                "delivery_delay_days": np.random.exponential(scale=2.0, size=1500) - 3.0,
+                "freight_ratio": np.random.beta(2, 7, 1500),
+                "review_score": np.random.choice([1, 2, 3, 4, 5], 1500, p=[0.1, 0.05, 0.1, 0.35, 0.4]),
+                "customer_state": np.random.choice(["SP", "RJ", "MG", "RS", "PR"], 1500),
+                "total_order_value": np.random.exponential(scale=140.0, size=1500) + 20.0,
+            })
+
+        # Mathematical coordinate shift based on active NLP dimensions
+        # High cost sensitivity pulls points along x-axis; high time friction pushes them down; trust lifts them
+        x_shift = (cost_s - 0.25) * 4.0 - (time_f - 0.25) * 2.0
+        y_shift = -(time_f - 0.25) * 5.0 + (trust_q - 0.25) * 3.5
+
+        xs = sample_df["buyer_lng"].to_numpy() + x_shift
+        ys = sample_df["buyer_lat"].to_numpy() + y_shift
+
+        # Mathematical color and size assignment based on dimensional pull
+        colors = []
+        sizes = []
         custom_info = []
-        for _, row in base_sample_df.iterrows():
+
+        for idx, row in sample_df.iterrows():
+            delays = row["delivery_delay_days"] + delay_delta
+            freight = row["freight_ratio"] * (1.0 - subsidy / 100.0)
+            score = row["review_score"]
+
+            # Probability of point turning red / gold / blue / purple
+            is_risk = (delays > 1.5) or (time_f > 0.35 and delays > 0.0) or (score <= 2)
+            is_cost_sensitive = (freight > 0.25) or (cost_s > 0.35 and freight > 0.18)
+            is_satisfied = (score >= 4 and delays <= 0.0) or (trust_q > 0.35 and score >= 3)
+
+            if is_risk:
+                colors.append(NOCTURNAL_PALETTE["crimson"])
+                sizes.append(6.0 if time_f > 0.3 else 4.0)
+                status_str = f"Rawan Kecewa (+{delays:.1f} Hari)"
+            elif is_cost_sensitive:
+                colors.append(NOCTURNAL_PALETTE["amethyst"])
+                sizes.append(5.5 if cost_s > 0.3 else 4.0)
+                status_str = f"Beban Ongkir Tinggi ({freight*100:.0f}%)"
+            elif is_satisfied:
+                colors.append(NOCTURNAL_PALETTE["gold"])
+                sizes.append(5.0 if trust_q > 0.3 else 3.5)
+                status_str = "Puas dan Tepat Waktu"
+            else:
+                colors.append(NOCTURNAL_PALETTE["cyan"])
+                sizes.append(3.5)
+                status_str = "Kondisi Netral"
+
             custom_info.append([
-                row["customer_state"],
-                f"R$ {row['total_order_value']:,.0f}",
-                "Tepat Waktu" if row["delivery_delay_days"] <= 0 else f"Terlambat {int(round(row['delivery_delay_days']))} Hari",
+                row.get("customer_state", "Kota"),
+                f"R$ {row.get('total_order_value', 120.0):,.0f}",
+                status_str,
             ])
+
+        # Dynamic title reflecting active focal point
+        if time_f >= max(cost_s, trust_q):
+            title = "Sorotan merah bara memperlihatkan pergeseran titik rawan akibat friksi waktu tunggu."
+        elif cost_s >= max(time_f, trust_q):
+            title = "Sorotan ungu memperlihatkan sebaran pembeli yang sangat peka terhadap beban biaya kirim."
+        else:
+            title = "Cahaya emas mendominasi pada kelompok pelanggan yang merasakan keandalan layanan."
 
         fig = go.Figure(
             go.Scattergl(
-                x=base_sample_df["buyer_lng"],
-                y=base_sample_df["buyer_lat"],
+                x=xs,
+                y=ys,
                 mode="markers",
                 marker=dict(size=sizes, color=colors, opacity=0.88),
                 customdata=np.array(custom_info),
@@ -169,7 +259,7 @@ def render_canvas_act1_constellation(
 
 
 # ---------------------------------------------------------------------
-# BABAK 2: ALIRAN TITIK PATAH HATI / TARIK-MENARIK FAKTOR
+# BABAK 2: ALIRAN TITIK PATAH HATI & KURVA NON-LINEAR
 # ---------------------------------------------------------------------
 def render_canvas_act2_breaking_point(
     mode: str,
@@ -180,12 +270,14 @@ def render_canvas_act2_breaking_point(
     text_results: Optional[Dict[str, Any]] = None,
     **kwargs: Any,
 ) -> None:
-    """Render Act 2: Dynamic tension curve highlighting current query position."""
+    """Render Act 2: Dynamic non-linear tension curve with moving breaking point threshold."""
     st.markdown("<div id='act-2'></div>", unsafe_allow_html=True)
     engine = duel_engine if duel_engine is not None else ScenarioDuelEngine()
-    if delay_curve_df is None:
-        delay_curve_df = pd.DataFrame()
     params = parsed_query.get("parameters", {})
+    dim_scores = parsed_query.get("dimension_scores", {})
+    trust_q = dim_scores.get("trust_quality", 0.25)
+    cost_s = dim_scores.get("cost_sensitivity", 0.25)
+
     delay_shift = params.get("delay_days_delta", 0.0)
     friction = params.get("perceived_friction", 0.224)
 
@@ -232,14 +324,19 @@ def render_canvas_act2_breaking_point(
         )
         fig = nocturnal_plotly_theme(fig, height=420, show_axes=False)
     else:
-        # Dynamic phenomenon curve calculated directly from user query
-        phenom = engine.dissect_phenomenon(delay_shift=delay_shift, friction_ratio=friction)
+        # Dynamic curve calculated from local engine with user parameters
+        phenom = engine.dissect_phenomenon(
+            delay_shift=delay_shift,
+            friction_ratio=friction,
+            trust_factor=float(0.70 + trust_q * 0.3),
+        )
         days = np.array(phenom["delay_days"])
         scores = np.array(phenom["satisfaction"])
         cur_d = phenom["current_delay"]
         cur_s = phenom["current_score"]
+        bp_day = phenom["breaking_point_day"]
 
-        title = f"Titik patah kesabaran pembeli berada di hari ke-3 keterlambatan (Posisi Anda: {cur_d:+.1f} Hari)."
+        title = f"Titik patah kesabaran pembeli berada di hari ke-{bp_day:.1f} keterlambatan (Posisi Anda: {cur_d:+.1f} Hari)."
 
         fig = go.Figure()
         ontime = days <= 0
@@ -273,31 +370,38 @@ def render_canvas_act2_breaking_point(
             )
         )
 
-        # Highlight Current Query Position on the Curve!
+        # Highlight Current Query Position
+        marker_color = NOCTURNAL_PALETTE["gold"] if cur_s >= 3.5 else NOCTURNAL_PALETTE["crimson"]
         fig.add_trace(
             go.Scatter(
                 x=[cur_d],
                 y=[cur_s],
                 mode="markers",
                 name="Posisi Rencana Anda",
-                marker=dict(size=14, color="#FFFFFF", line=dict(color=NOCTURNAL_PALETTE["gold"] if cur_s >= 3.5 else NOCTURNAL_PALETTE["crimson"], width=3)),
+                marker=dict(size=15, color="#FFFFFF", line=dict(color=marker_color, width=3.5)),
                 hovertemplate=f"<b>Posisi Masalah Anda</b><br>Selisih: {cur_d:+.1f} Hari<br>Kepuasan: {cur_s:.1f} / 5.0<extra></extra>",
             )
         )
 
-        # Heartbreak Point Annotation
+        # Dynamic Breaking Point Vertical Threshold Line & Annotation
+        fig.add_vline(
+            x=bp_day,
+            line_width=2,
+            line_dash="dash",
+            line_color=NOCTURNAL_PALETTE["crimson"],
+        )
         fig.add_annotation(
-            x=3,
-            y=3.06,
-            text="<b>Titik Patah Hati (Hari ke-3 Molor)</b><br><span style='font-size:10px;'>Kepuasan anjlok drastis</span>",
+            x=bp_day,
+            y=3.0,
+            text=f"<b>Titik Patah Hati (Hari ke-{bp_day:.1f})</b><br><span style='font-size:10px;'>Kepuasan anjlok drastis</span>",
             showarrow=True,
             arrowhead=2,
             arrowsize=1.2,
             arrowcolor=NOCTURNAL_PALETTE["crimson"],
             ax=0,
-            ay=-45,
-            font=dict(family="Plus Jakarta Sans", size=12, color=NOCTURNAL_PALETTE["ivory"]),
-            bgcolor="rgba(20, 25, 38, 0.9)",
+            ay=-48,
+            font=dict(family="Plus Jakarta Sans", size=11, color=NOCTURNAL_PALETTE["ivory"]),
+            bgcolor="rgba(20, 25, 38, 0.92)",
             bordercolor=NOCTURNAL_PALETTE["crimson"],
             borderwidth=1,
             borderpad=6,
@@ -322,7 +426,7 @@ def render_canvas_act2_breaking_point(
 
 
 # ---------------------------------------------------------------------
-# BABAK 3: CERMIN DUA DUNIA (SIMULASI LANGSUNG)
+# BABAK 3: CERMIN DUA DUNIA & 3 LIVE SLIDERS
 # ---------------------------------------------------------------------
 def render_canvas_act3_dual_world(
     mode: str,
@@ -332,46 +436,60 @@ def render_canvas_act3_dual_world(
     text_results: Optional[Dict[str, Any]] = None,
     **kwargs: Any,
 ) -> None:
-    """Render Act 3: Side-by-side comparative simulation with interactive glass sliders."""
+    """Render Act 3: Side-by-side comparative simulation with 3 live glass sliders."""
     st.markdown("<div id='act-3'></div>", unsafe_allow_html=True)
     engine = duel_engine if duel_engine is not None else ScenarioDuelEngine()
     params = parsed_query.get("parameters", {})
     initial_subsidy = float(params.get("subsidy_pct", 20.0))
     initial_delay = float(params.get("delay_days_delta", 0.0))
+    initial_quality = float(params.get("quality_trust_pct", 85.0))
 
-    # Glass Interactive Sliders below
+    # 3 Glass Interactive Sliders (Cost, Speed, Quality)
     st.markdown("""
-    <div style="background: rgba(20, 25, 38, 0.72); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.5rem;">
-        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: #F5B041; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem;">
-            TUAS PENGENDALI SIMULASI LANGSUNG
+    <div style="background: rgba(20, 25, 38, 0.78); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.82rem; font-weight: 600; color: #F5B041; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem;">
+            TUAS PENGENDALI SIMULASI LANGSUNG (GERAKKAN UNTUK MENGUJI)
         </div>
     """, unsafe_allow_html=True)
 
-    col_s1, col_s2 = st.columns(2)
+    col_s1, col_s2, col_s3 = st.columns(3)
     with col_s1:
         param_subsidy = st.slider(
-            "Besaran Pemotongan Biaya Tambahan (% Subsidi):",
+            "Ubah Beban Biaya (Subsidi Ongkir %):",
             min_value=0.0,
             max_value=50.0,
             value=initial_subsidy,
             step=5.0,
-            key="slider_subsidy",
+            key="slider_subsidy_v3",
         )
     with col_s2:
         param_delay = st.slider(
-            "Perubahan Waktu Tunggu (Hari Lebih Cepat / Lebih Lambat):",
+            "Ubah Kecepatan Layanan (Hari Tiba):",
             min_value=-5.0,
             max_value=5.0,
             value=initial_delay,
             step=0.5,
-            key="slider_delay",
+            key="slider_delay_v3",
+        )
+    with col_s3:
+        param_quality = st.slider(
+            "Ubah Kualitas Pengalaman (Layanan %):",
+            min_value=50.0,
+            max_value=100.0,
+            value=initial_quality,
+            step=5.0,
+            key="slider_quality_v3",
         )
 
     st.markdown("</div>", unsafe_allow_html=True)
 
     if mode == "adu":
         title = "Disiplin waktu kurir menghasilkan efisiensi modal dua koma delapan kali lebih tinggi."
-        duel_res = engine.duel_two_options(subsidy_a=param_subsidy, delay_delta_b=param_delay)
+        duel_res = engine.duel_two_options(
+            subsidy_a=param_subsidy,
+            delay_delta_b=param_delay,
+            quality_b=param_quality,
+        )
         weeks = duel_res["weeks"]
 
         fig = go.Figure()
@@ -400,8 +518,12 @@ def render_canvas_act3_dual_world(
         fig.update_yaxes(title="Volume Pesanan per Minggu")
 
     else:
-        title = f"Proyeksi pergeseran volume dan kepuasan di bawah subsidi {param_subsidy:.0f}% dan waktu {param_delay:+.1f} hari."
-        sim_res = engine.simulate_what_if(subsidy_pct=param_subsidy, delay_days_delta=param_delay)
+        title = f"Proyeksi pergeseran volume dan kepuasan di bawah subsidi {param_subsidy:.0f}%, waktu {param_delay:+.1f} hari, dan kualitas {param_quality:.0f}%."
+        sim_res = engine.simulate_what_if(
+            subsidy_pct=param_subsidy,
+            delay_days_delta=param_delay,
+            quality_pct=param_quality,
+        )
         weeks = sim_res["weeks"]
 
         fig = go.Figure()

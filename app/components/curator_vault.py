@@ -1,7 +1,8 @@
 """Curator Vault: Hidden scientific audit vault for BNSP assessors and data scientists.
 
 Houses complete mathematical formulations, 16 algorithms benchmark ladder,
-data validation audit, 6 hypothesis tests, and 11 SKKNI Competency Units.
+data validation audit, 6 hypothesis tests, 11 SKKNI Competency Units, and
+real-time pure local NLP TF-IDF feature inspection for the active user query.
 Strictly NO emojis. Clean dark glass aesthetic.
 """
 
@@ -9,31 +10,74 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any, Dict, List, Optional
 import pandas as pd
 import streamlit as st
 
 
-def render_curator_vault(**kwargs: Any) -> None:
+def render_curator_vault(engine_output: Optional[Dict[str, Any]] = None, **kwargs: Any) -> None:
     """Render single glass expander vault for BNSP certification assessors."""
     st.markdown("<div id='curator-vault' style='height: 2rem;'></div>", unsafe_allow_html=True)
 
-    with st.expander("Buka Catatan Kurator dan Bukti Ilmiah"):
+    with st.expander("Buka Catatan Kurator dan Bukti Ilmiah (Khusus Asesor BNSP & Tim Sains)"):
         st.markdown("""
-        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.6rem; color: #F5B041; margin-bottom: 0.4rem;">
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.65rem; color: #F5B041; margin-bottom: 0.4rem;">
             Catatan Dapur Ilmiah dan Dokumen Pembuktian Kompetensi BNSP
         </div>
         <div style="font-size: 0.88rem; color: #8E95A5; margin-bottom: 1.5rem; line-height: 1.5;">
-            Prinsip Tata Kelola Proyek SHADOW: Menghormati fakta empiris, mencatat temuan negatif secara transparan,
-            dan memetakan seluruh bukti matematis ke dalam 11 Unit Standar Kompetensi Kerja Nasional Indonesia (SKKNI).
+            Prinsip Tata Kelola Proyek SHADOW: 100% Pemrosesan Data Science Lokal (Tanpa Cloud LLM API),
+            menghormati fakta empiris 96.470 transaksi, dan memetakan seluruh bukti matematis ke dalam 11 Unit SKKNI.
         </div>
         """, unsafe_allow_html=True)
 
-        tab_skkni, tab_algo, tab_hyp, tab_audit = st.tabs([
+        tab_nlp, tab_skkni, tab_algo, tab_hyp, tab_audit = st.tabs([
+            "Otak NLP Lokal (TF-IDF & Cosine)",
             "Matriks 11 Unit SKKNI",
             "Tangga 16 Metode Algoritma",
             "Uji Ekonometrika 6 Hipotesis",
             "Validasi Data dan Log Batasan",
         ])
+
+        with tab_nlp:
+            st.markdown("##### Bukti Pemrosesan Bahasa Alami Lokal (Pure scikit-learn & Linear Algebra):")
+            st.markdown("""
+            Sistem memproses kalimat pengguna secara **100% lokal** menggunakan arsitektur ganda:
+            - **Character n-gram TF-IDF (3-5)**: Kebal terhadap variasi imbuhan bahasa Indonesia dan salah ketik.
+            - **Word n-gram TF-IDF (1-2)**: Menangkap frasa spesifik dan konteks semantik.
+            - **Cosine Similarity Matrix**: Menghitung jarak proyeksi terhadap 60+ variasi korpus jangkar manusia.
+            """)
+
+            if engine_output:
+                dim_scores = engine_output.get("dimension_scores", {})
+                params = engine_output.get("parameters", {})
+                top_tokens = engine_output.get("top_tokens", [])
+
+                c_n1, c_n2 = st.columns([1.5, 2.5])
+                with c_n1:
+                    st.markdown("**Skor Cosine Similarity 4 Dimensi:**")
+                    dim_df = pd.DataFrame([
+                        {"Dimensi Perilaku": "Sensitivitas Biaya (Cost)", "Skor Vektor": f"{dim_scores.get('cost_sensitivity', 0.0):.4f}"},
+                        {"Dimensi Perilaku": "Friksi Waktu Tunggu (Time)", "Skor Vektor": f"{dim_scores.get('time_friction', 0.0):.4f}"},
+                        {"Dimensi Perilaku": "Kepercayaan & Kualitas (Trust)", "Skor Vektor": f"{dim_scores.get('trust_quality', 0.0):.4f}"},
+                        {"Dimensi Perilaku": "Adu Dua Skenario (Duel)", "Skor Vektor": f"{dim_scores.get('comparison_duel', 0.0):.4f}"},
+                    ])
+                    st.dataframe(dim_df, use_container_width=True, hide_index=True)
+
+                with c_n2:
+                    st.markdown("**Parameter Simulasi Hasil Proyeksi Deterministik:**")
+                    param_df = pd.DataFrame([
+                        {"Parameter": "Selisih Hari Pengiriman", "Nilai Terhitung": f"{params.get('delay_days_delta', 0.0):+.1f} Hari", "Keterangan": "Respons terhadap friksi waktu"},
+                        {"Parameter": "Subsidi Biaya Tambahan", "Nilai Terhitung": f"{params.get('subsidy_pct', 0.0):.1f}%", "Keterangan": "Respons terhadap sensitivitas biaya"},
+                        {"Parameter": "Titik Patah Hati (Breaking Point)", "Nilai Terhitung": f"Hari ke-{params.get('breaking_point_day', 3.0):.1f}", "Keterangan": "Batas toleransi psikologis"},
+                        {"Parameter": "Proyeksi Risiko Kekecewaan", "Nilai Terhitung": f"{params.get('simulated_risk_pct', 9.88):.2f}%", "Keterangan": "Tingkat ulasan buruk model"},
+                    ])
+                    st.dataframe(param_df, use_container_width=True, hide_index=True)
+
+                if top_tokens:
+                    token_str = ", ".join([f"`{t['token']}`" for t in top_tokens])
+                    st.markdown(f"**Token Kata Terdeteksi pada Kueri Aktif:** {token_str}")
+            else:
+                st.info("Ketik pertanyaan pada kotak input di atas untuk melihat dekomposisi vektor TF-IDF secara langsung.")
 
         with tab_skkni:
             st.markdown("##### Pemetaan Keterlacakan 11 Unit Kompetensi Data Science BNSP:")
@@ -98,4 +142,3 @@ def render_curator_vault(**kwargs: Any) -> None:
             1. **`FAIL-HYP-H3` (Penolakan Hipotesis H3)**: Keputusan belanja kembali pada platform Olist tidak berkorelasi dengan skor ulasan pertama (p = 0.859). Konsumsi berulang ditentukan oleh kebutuhan kategori produk berulang, bukan semata-mata kepuasan instan.
             2. **`FAIL-OOD-S4` (Pemicu Pagar Pengaman Skenario S4)**: Kebijakan subsidi ekstrem 50% memicu pelanggaran batas ekstrapolasi Z = 4.14 > 3.50. Sistem secara otomatis menurunkan tingkat keyakinan bukti ke Grade C Spekulatif guna melindungi pengambil keputusan.
             """)
-

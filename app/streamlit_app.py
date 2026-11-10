@@ -1,12 +1,13 @@
 """CSIP — Universal Interactive Decision Lab.
 
-Midnight Gallery Design System | Active Processing Engines | Zero Emojis
+Midnight Gallery Design System | 100% Local Data Science Engine | Zero Emojis
 0% Technical Jargon on Main Screen | Full BNSP SKKNI Competency Verification
 """
 
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any, Dict, Optional
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -17,6 +18,7 @@ from app.ui_components import (
 )
 from app.components.omni_input import render_omni_input
 from app.components.canvas_story import (
+    render_main_story_card,
     render_canvas_act1_constellation,
     render_canvas_act2_breaking_point,
     render_canvas_act3_dual_world,
@@ -44,7 +46,7 @@ render_floating_navigation()
 # 2. DATA CACHING WITH SELF-CONTAINED FALLBACK (NEVER EMPTY)
 # ---------------------------------------------------------------------
 @st.cache_data(show_spinner=False)
-def load_base_celestial_sample(n_points: int = 2500) -> pd.DataFrame:
+def load_base_celestial_sample(n_points: int = 1500) -> pd.DataFrame:
     """Load cached sample of base benchmark orders with guaranteed fallback."""
     pq_path = Path("data/processed/order_level_clustered.parquet")
     if pq_path.exists():
@@ -129,68 +131,77 @@ def load_base_delay_curve() -> pd.DataFrame:
     })
 
 
-base_sample_df = load_base_celestial_sample(2500)
+base_sample_df = load_base_celestial_sample(1500)
 base_delay_df = load_base_delay_curve()
 
-# Initialize engines
+# Initialize 100% local mathematical engines
 duel_engine = ScenarioDuelEngine()
 text_engine = TextConstellationEngine()
 csv_engine = UniversalCSVXRay()
 
 
 # ---------------------------------------------------------------------
-# 3. KOTAK INPUT SERBAGUNA (THE COMMAND CANVAS)
+# 3. KOTAK INPUT SERBAGUNA (THE UNIFIED COMMAND CANVAS)
 # ---------------------------------------------------------------------
-parsed_input = render_omni_input()
-active_mode = parsed_input["mode"]
+engine_output = render_omni_input()
+active_mode = engine_output["mode"]
 
-# Execute active engine calculations
+# Execute active engine calculations for CSV or multi-line text
 csv_results = None
 text_results = None
 
 if active_mode == "csv":
-    df_to_xray = parsed_input.get("uploaded_df")
+    df_to_xray = engine_output.get("uploaded_df")
     if df_to_xray is None or df_to_xray.empty:
         df_to_xray = UniversalCSVXRay.generate_sample_csv(350)
     csv_results = csv_engine.analyze(df_to_xray)
 
 elif active_mode == "teks":
-    raw_corpus = parsed_input.get("raw_text", "")
+    raw_corpus = engine_output.get("clean_text", "")
     text_results = text_engine.process_text_corpus(raw_corpus)
 
 
 # ---------------------------------------------------------------------
-# 4. KANVAS VISUAL MENGALIR (3 BABAK VISUAL)
+# 4. KARTU KESIMPULAN UTAMA & 3 KARTU ANGKA BESAR
+# ---------------------------------------------------------------------
+render_main_story_card(engine_output)
+
+
+# ---------------------------------------------------------------------
+# 5. KANVAS VISUAL MENGALIR (3 BABAK VISUAL DINAMIS)
 # ---------------------------------------------------------------------
 
-# Babak 1: Rasi Bintang Perilaku
+# Babak 1: Rasi Bintang Perilaku (1,500 titik cahaya bergerak matematis)
 render_canvas_act1_constellation(
     mode=active_mode,
-    parsed_query=parsed_input,
+    parsed_query=engine_output,
     base_sample_df=base_sample_df,
     csv_results=csv_results,
     text_results=text_results,
+    duel_engine=duel_engine,
 )
 
-# Babak 2: Aliran Titik Patah Hati & Tarik-Menarik Faktor
+# Babak 2: Aliran Titik Patah Hati & Garis Batas Kritis Bergerak
 render_canvas_act2_breaking_point(
     mode=active_mode,
-    parsed_query=parsed_input,
+    parsed_query=engine_output,
     delay_curve_df=base_delay_df,
     duel_engine=duel_engine,
     csv_results=csv_results,
     text_results=text_results,
 )
 
-# Babak 3: Cermin Dua Dunia (Simulasi Langsung)
+# Babak 3: Cermin Dua Dunia & 3 Slider Interaktif (Biaya, Kecepatan, Kualitas)
 render_canvas_act3_dual_world(
     mode=active_mode,
-    parsed_query=parsed_input,
+    parsed_query=engine_output,
     duel_engine=duel_engine,
+    csv_results=csv_results,
+    text_results=text_results,
 )
 
 
 # ---------------------------------------------------------------------
-# 5. LACI CATATAN KURATOR (KHUSUS PENGUJI BNSP)
+# 6. LACI CATATAN KURATOR & BUKTI ILMIAH (11 UNIT SKKNI & TF-IDF AUDIT)
 # ---------------------------------------------------------------------
-render_curator_vault()
+render_curator_vault(engine_output=engine_output)
