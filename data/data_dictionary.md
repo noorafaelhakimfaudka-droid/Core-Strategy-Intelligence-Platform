@@ -192,3 +192,4 @@ Dokumen ini mendokumentasikan skema, tipe data, relasi kunci, dan peran analitik
    - Primary Key: `year_week`
    - Kolom: Volume pesanan, rata-rata rasio ongkir, rata-rata durasi kirim, persentase telat, estimasi repeat rate.
    - Peran: *World Model* dan simulasi skenario intervensi (*Alternative World*).
+

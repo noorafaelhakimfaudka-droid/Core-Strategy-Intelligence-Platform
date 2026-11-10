@@ -80,3 +80,50 @@ def test_right_censoring_exclusion_logic():
     assert len(valid_evaluation_cohort) == 2
     assert "cust_censored_3" not in valid_evaluation_cohort["customer_unique_id"].values
 
+
+def test_clean_interim_orders_integrity():
+    """Verify clean_orders.parquet has delivered status only and zero chronological anomalies."""
+    interim_orders_path = REPO_ROOT / "data" / "interim" / "clean_orders.parquet"
+    if not interim_orders_path.exists():
+        pytest.skip("Interim clean orders not yet generated.")
+
+    clean_orders = pd.read_parquet(interim_orders_path)
+
+    # 1. Status strictly delivered
+    assert (clean_orders["order_status"] == "delivered").all()
+
+    # 2. Delivered date is non-null
+    assert clean_orders["order_delivered_customer_date"].notnull().all()
+
+    # 3. Zero chronological violations (delivered >= purchase)
+    viol = (
+        clean_orders["order_purchase_timestamp"]
+        > clean_orders["order_delivered_customer_date"]
+    ).sum()
+    assert viol == 0, f"Found {viol} chronological violations in clean_orders!"
+
+
+def test_clean_interim_reviews_deduplication():
+    """Verify clean_order_reviews.parquet has strictly 1 review per order_id."""
+    interim_reviews_path = REPO_ROOT / "data" / "interim" / "clean_order_reviews.parquet"
+    if not interim_reviews_path.exists():
+        pytest.skip("Interim clean reviews not yet generated.")
+
+    clean_reviews = pd.read_parquet(interim_reviews_path)
+    assert clean_reviews["order_id"].is_unique, "Duplicate order_id found in clean reviews!"
+    assert "has_review_comment" in clean_reviews.columns
+    assert set(clean_reviews["review_score"].unique()).issubset({1, 2, 3, 4, 5})
+
+
+def test_clean_geolocation_deduplication():
+    """Verify clean_geolocation_dedup.parquet has unique zip prefixes and bounded coordinates."""
+    interim_geo_path = REPO_ROOT / "data" / "interim" / "clean_geolocation_dedup.parquet"
+    if not interim_geo_path.exists():
+        pytest.skip("Interim clean geolocation not yet generated.")
+
+    clean_geo = pd.read_parquet(interim_geo_path)
+    assert clean_geo["geolocation_zip_code_prefix"].is_unique
+    assert (clean_geo["geolocation_lat"].between(-35.0, 6.0)).all()
+    assert (clean_geo["geolocation_lng"].between(-75.0, -33.0)).all()
+
+

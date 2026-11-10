@@ -233,3 +233,4 @@ Validasi integritas data Olist berstatus **PASS**:
 if __name__ == "__main__":
     create_notebook_01()
     create_notebook_02()
+

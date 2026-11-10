@@ -99,3 +99,4 @@ Analisis entitas pelanggan mengonfirmasi aturan kritis PRD Bagian 5.3:
 2. **Deduplikasi Review Ganda**: Untuk pesanan dengan ulasan lebih dari satu, ambil ulasan berdasarkan `review_creation_date` terbaru.
 3. **Penyaringan Status Pesanan**: Pisahkan analisis pengalaman pengiriman hanya pada status `delivered` dengan timestamp yang valid secara kronologis.
 4. **First-Order Isolation**: Pastikan seluruh fitur prediktor retensi hanya bersumber dari pesanan pertama pelanggan untuk menjamin **Zero Data Leakage**.
+

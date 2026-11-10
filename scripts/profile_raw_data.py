@@ -172,3 +172,4 @@ def profile_all_tables():
 
 if __name__ == "__main__":
     profile_all_tables()
+
