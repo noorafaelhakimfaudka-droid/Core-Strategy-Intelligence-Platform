@@ -51,3 +51,4 @@ To ensure scientific honesty and prevent overconfident decision-making, all coun
    - Simulated delivery delay spiked to $+4.0$ days above historical mean, driving negative reviews to $24.20\%$ ($Z_{\text{max}} = 3.68$, violating the $3.5\sigma$ tolerance threshold).
    - **Automated Claim Downgrade**: The system automatically flagged `is_out_of_distribution = True` and downgraded the evidence claim to **Grade C (Spekulatif / Guardrail Triggered)**.
    - Decision-makers are explicitly alerted that out-of-distribution macro shocks involve non-linear behavioral regime shifts that cannot be reliably guaranteed by linear-quadratic state-space estimators.
+

@@ -83,3 +83,4 @@ Every competency requirement is accompanied by executable evidence meeting the s
 ### [UK-11] Mengembangkan Solusi
 - **Kriteria Unjuk Kerja**: Menerjemahkan temuan pemodelan ke dalam platform intelijen keputusan bisnis interaktif dan transparan.
 - **Bukti Empiris**: Dashboard showcase Streamlit 9 halaman (`app/streamlit_app.py`), memvisualisasikan data observatory, lab hipotesis, prediktor risiko pelanggan, simulator dunia alternatif, decision studio, dan audit register kegagalan secara real-time.
+

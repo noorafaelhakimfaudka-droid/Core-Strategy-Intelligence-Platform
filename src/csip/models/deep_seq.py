@@ -215,3 +215,4 @@ class TextBiLSTMClassifier:
             "hidden_dim": self.hidden_dim,
             "loss_history": self.loss_history,
         }, p)
+

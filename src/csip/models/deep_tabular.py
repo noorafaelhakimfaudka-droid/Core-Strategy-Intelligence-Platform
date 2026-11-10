@@ -183,3 +183,4 @@ class TabularMLPClassifier:
             "hidden_dims": self.hidden_dims,
             "loss_history": self.loss_history,
         }, p)
+

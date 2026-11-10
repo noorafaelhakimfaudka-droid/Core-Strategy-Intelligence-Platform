@@ -101,3 +101,4 @@ In strict adherence to the PRD Failure Protocol and scientific honesty guideline
    - Standard classifiers collapsed towards majority class prediction; tree models required aggressive class weighting (`class_weight='balanced'`) to detect repeat signals.
 3. **Temporal Out-of-Time Degradation**:
    - Models trained in 2017 exhibited a $12\%$ PR-AUC attenuation when evaluated on late 2018 transactions, driven by macro platform growth, expanding geographic reach into Northern Brazil, and shifting category mixes.
+

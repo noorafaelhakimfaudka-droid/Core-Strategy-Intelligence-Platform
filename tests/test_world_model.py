@@ -98,3 +98,4 @@ def test_world_model_rollout_and_save_load():
         s1_orig = model.step(s0)
         s1_loaded = loaded.step(s0)
         np.testing.assert_allclose(s1_orig, s1_loaded, atol=1e-5)
+

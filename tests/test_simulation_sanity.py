@@ -86,3 +86,4 @@ def test_simulation_results_artifact_parity():
         assert sid in data
         assert "cumulative_volume" in data[sid]
         assert "comparison_to_s0" in data[sid]
+

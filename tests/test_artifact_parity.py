@@ -112,3 +112,4 @@ def test_streamlit_pages_parity():
     for i in range(1, 10):
         matches = list(Path("app/pages").glob(f"{i}_*.py"))
         assert len(matches) == 1, f"Missing Streamlit page {i}: {matches}"
+

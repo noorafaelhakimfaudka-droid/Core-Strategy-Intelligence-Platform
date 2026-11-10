@@ -1,0 +1,269 @@
+/* CSIP Warm Art Gallery Editorial Design System */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap');
+
+:root {
+  --bg-canvas: #FAF7F2;
+  --bg-card: #FFFFFF;
+  --border-subtle: #EAE4DC;
+  --text-main: #1C1917;
+  --text-muted: #655E57;
+  --accent-terracotta: #C85A32;
+  --accent-sage: #2E6F40;
+  --accent-indigo: #2B4C7E;
+  --accent-amber: #D9822B;
+  --accent-crimson: #B83A2E;
+  --font-serif: 'Newsreader', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --card-radius: 16px;
+  --card-shadow: 0 4px 20px rgba(28, 25, 23, 0.04);
+}
+
+/* Base App Background */
+.stApp {
+  background-color: var(--bg-canvas) !important;
+  color: var(--text-main) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+  background-color: #F4EFEB !important;
+  border-right: 1px solid var(--border-subtle) !important;
+}
+
+section[data-testid="stSidebar"] .stMarkdown p {
+  color: var(--text-muted) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, .editorial-serif {
+  font-family: var(--font-serif) !important;
+  color: var(--text-main) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+}
+
+h1 {
+  font-size: 2.5rem !important;
+  line-height: 1.15 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+h2 {
+  font-size: 1.85rem !important;
+  line-height: 1.25 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+h3 {
+  font-size: 1.35rem !important;
+  line-height: 1.3 !important;
+}
+
+p, li, span, div {
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Hide Default Streamlit Clutter */
+#MainMenu, header, footer, footer {
+  visibility: hidden;
+  height: 0%;
+}
+
+div[data-testid="stToolbar"] {
+  visibility: hidden;
+  display: none;
+}
+
+/* Editorial Story Card */
+.editorial-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 1.75rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editorial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(28, 25, 23, 0.07);
+}
+
+.card-tag {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background-color: #F3ECE6;
+  color: var(--accent-terracotta);
+  margin-bottom: 0.75rem;
+}
+
+.card-tag.sage {
+  background-color: #EBF4EE;
+  color: var(--accent-sage);
+}
+
+.card-tag.indigo {
+  background-color: #EDF2F7;
+  color: var(--accent-indigo);
+}
+
+.card-tag.amber {
+  background-color: #FEF3E2;
+  color: var(--accent-amber);
+}
+
+/* Editorial Hero Box */
+.hero-box {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FBF9F6 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 6px 24px rgba(28, 25, 23, 0.05);
+  margin-bottom: 2rem;
+}
+
+.hero-tagline {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Metric Display Card */
+.stat-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.stat-num {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+/* Persona Profile Card */
+.persona-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--card-shadow);
+}
+
+.persona-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.persona-avatar {
+  font-size: 2.2rem;
+  background-color: #F6F1EC;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Q&A / Mitos vs Fakta Box */
+.qa-box {
+  background-color: var(--bg-card);
+  border-left: 4px solid var(--accent-terracotta);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--card-shadow);
+  border-top: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Before / After Comparison */
+.comparison-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.comparison-pane {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.comparison-pane.before {
+  border-top: 3px solid #94A3B8;
+}
+
+.comparison-pane.after {
+  border-top: 3px solid var(--accent-sage);
+}
+
+/* Streamlit Button & Input Overrides */
+.stButton>button {
+  background-color: var(--accent-terracotta) !important;
+  color: #FFFFFF !important;
+  border-radius: 10px !important;
+  border: none !important;
+  padding: 0.6rem 1.4rem !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.stButton>button:hover {
+  background-color: #B24E2B !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(200, 90, 50, 0.25) !important;
+}
+
+/* Streamlit Expander (Scientific Drawer) */
+div[data-testid="stExpander"] {
+  background-color: #F8F5F0 !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+  margin-top: 1.5rem !important;
+}
+
+div[data-testid="stExpander"] summary {
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+}
+

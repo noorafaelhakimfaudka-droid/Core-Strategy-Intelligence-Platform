@@ -124,3 +124,4 @@ class ResidualBootstrapper:
             "mean": mean_traj,
             "std": std_traj,
         }
+

@@ -166,3 +166,4 @@ def test_model_explainer_calibration():
         assert "calibrated_brier" in res
         assert "calibrated_ece" in res
         assert fig_path.exists()
+

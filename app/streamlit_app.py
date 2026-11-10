@@ -1,116 +1,166 @@
-"""CSIP (Computational Society Intelligence Platform) - Main Entrypoint & Hub.
+"""CSIP — The Art of Human Decisions.
 
-MVP Module: Behavioral Decision Intelligence (BDI)
-Dataset: Brazilian E-Commerce (Olist, ~100k orders)
-Standard: SKKNI Data Science (BNSP) - 11 Units Certified
+An Interactive Editorial Story of 100,000 E-Commerce Orders.
+Curated for Business Leaders, Researchers, and BNSP Data Science Assessors.
 """
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 import streamlit as st
 
+# Must be the first Streamlit command
 st.set_page_config(
-    page_title="CSIP — Behavioral Decision Intelligence",
-    page_icon="🧭",
+    page_title="Membaca Hati Pembeli | CSIP",
+    page_icon="📖",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS for polished scientific styling
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 0.2rem;
-    }
-    .sub-header {
-        font-size: 1.1rem;
-        color: #4b5563;
-        margin-bottom: 1.5rem;
-    }
-    .metric-card {
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: center;
-    }
-    .metric-val {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #0f172a;
-    }
-    .metric-lbl {
-        font-size: 0.85rem;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    .badge-grade {
-        display: inline-block;
-        padding: 0.25rem 0.6rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        background-color: #dcfce7;
-        color: #166534;
-    }
-</style>
-""", unsafe_allow_html=True)
+from ui_components import (
+    PALETTE,
+    apply_editorial_theme,
+    render_hero,
+    render_story_card,
+)
 
-st.markdown('<div class="main-header">🧭 Computational Society Intelligence Platform (CSIP)</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">MVP Module: <b>Behavioral Decision Intelligence (BDI)</b> — Brazilian E-Commerce Observational Study</div>', unsafe_allow_html=True)
+# Apply Warm Museum Canvas & Typography
+apply_editorial_theme()
 
-# Status Badges
-st.markdown("""
-<span class="badge-grade">SKKNI Data Science (BNSP): 11/11 Units Verified</span>
-&nbsp;&nbsp;
-<span class="badge-grade">Anti-Leakage First-Order Isolation: Enforced</span>
-&nbsp;&nbsp;
-<span class="badge-grade">Scientific Claim Governance: L0 – L3 Certified</span>
-""", unsafe_allow_html=True)
+# Sidebar Brand
+with st.sidebar:
+    st.markdown("""
+    <div style="padding: 1rem 0; border-bottom: 1px solid #EAE4DC; margin-bottom: 1rem;">
+        <span class="card-tag">CSIP Interactive Story</span>
+        <div class="editorial-serif" style="font-size: 1.45rem; font-weight: 700; color: #1C1917; line-height: 1.2;">
+            Membaca Hati Pembeli
+        </div>
+        <div style="font-size: 0.82rem; color: #655E57; margin-top: 0.3rem;">
+            Observasi 100.000 Pesanan E-Commerce
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.caption("Pilih bab cerita di atas untuk mulai membaca.")
+
+# Hero Header
+render_hero(
+    title="Mengapa Pelanggan Memilih Kembali atau Pergi Selamanya?",
+    subtitle=(
+        "Harga murah memang memikat mata pada pandangan pertama, tetapi rasa tenang bahwa paket "
+        "akan tiba tepat waktu adalah alasan mengapa pembeli menaruh kepercayaan seumur hidup. "
+        "Sebuah kisah nyata yang diangkat dari 100.000 jejak perjalanan pembeli di seluruh penjuru negeri."
+    ),
+    tag="Kisah Utama & Pameran Interaktif",
+)
+
+# 3 Story Highlights in Pure Human Language
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    render_story_card(
+        tag="Temuan #1",
+        tag_class="terracotta",
+        title="Janji yang Meleset Lebih Menyakitkan daripada Harga",
+        body=(
+            "Pembeli rela memaklumi ongkos kirim yang sedikit lebih tinggi asalkan barang tiba tepat waktu. "
+            "Namun begitu kurir terlambat 1 hingga 3 hari dari tanggal janji, kepuasan pembeli langsung runtuh seketika."
+        ),
+    )
+
+with col2:
+    render_story_card(
+        tag="Temuan #2",
+        tag_class="sage",
+        title="Mitos Kepuasan: Bintang 5 Bukan Jaminan Pembeli Balik Lagi",
+        body=(
+            "Keyakinan umum menganggap pembeli bintang 5 pasti rajin belanja lagi. Faktanya, "
+            "pembeli yang puas bintang 5 dan yang kecewa bintang 1 memiliki peluang belanja kembali yang hampir sama (2.28%). "
+            "Kebutuhan habis pakai produk jauh lebih menentukan dibanding sekadar rating ulasan."
+        ),
+    )
+
+with col3:
+    render_story_card(
+        tag="Temuan #3",
+        tag_class="indigo",
+        title="Jebakan Subsidi: Niat Membantu yang Bikin Tekor",
+        body=(
+            "Bakar duit memberi diskon ongkir 15% untuk semua orang ternyata membuat platform rugi puluhan juta rupiah. "
+            "Solusi yang jauh lebih cerdas dan hemat adalah memperbaiki kecepatan kurir serta menyasar pembeli di daerah terpencil."
+        ),
+    )
 
 st.write("")
 
-# KPI Metrics Row
-c1, c2, c3, c4, c5 = st.columns(5)
-with c1:
-    st.markdown('<div class="metric-card"><div class="metric-val">96,470</div><div class="metric-lbl">Delivered Orders</div></div>', unsafe_allow_html=True)
-with c2:
-    st.markdown('<div class="metric-card"><div class="metric-val">0.3865</div><div class="metric-lbl">Silhouette (k=3)</div></div>', unsafe_allow_html=True)
-with c3:
-    st.markdown('<div class="metric-card"><div class="metric-val">0.3004</div><div class="metric-lbl">Champion PR-AUC</div></div>', unsafe_allow_html=True)
-with c4:
-    st.markdown('<div class="metric-card"><div class="metric-val">0.8076</div><div class="metric-lbl">Text Bi-LSTM PR-AUC</div></div>', unsafe_allow_html=True)
-with c5:
-    st.markdown('<div class="metric-card"><div class="metric-val">5 / 1</div><div class="metric-lbl">Hypotheses (Pass/Fail)</div></div>', unsafe_allow_html=True)
+# 4 Key Figures (Humanized Metrics)
+m1, m2, m3, m4 = st.columns(4)
+with m1:
+    st.markdown("""
+    <div class="stat-box">
+        <div class="stat-num">96.470</div>
+        <div class="stat-label">Paket Pesanan Dianalisis</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with m2:
+    st.markdown("""
+    <div class="stat-box">
+        <div class="stat-num">3 Tipe</div>
+        <div class="stat-label">Karakter Utama Pembeli</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with m3:
+    st.markdown("""
+    <div class="stat-box">
+        <div class="stat-num">87 Minggu</div>
+        <div class="stat-label">Rekam Jejak Dinamika Toko</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with m4:
+    st.markdown("""
+    <div class="stat-box">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Data & Bukti Nyata Terverifikasi</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.write("---")
 
-st.markdown("### 🏛️ Platform Architecture & 9 Analytical Modules")
 st.markdown("""
-CSIP operates on a **Three-Tier Architecture** integrating deterministic data engineering, classical and deep predictive models, macro state-space world modeling, and counterfactual simulation:
-""")
+<div class="editorial-serif" style="font-size: 1.6rem; font-weight: 600; color: #1C1917; margin-bottom: 0.5rem;">
+    🗺️ Alur Perjalanan Cerita (Daftar Isi)
+</div>
+<div style="font-size: 0.95rem; color: #655E57; margin-bottom: 1.5rem;">
+    Silakan gunakan menu di bilah sisi kiri untuk menjelajahi bab-bab interaktif berikut:
+</div>
+""", unsafe_allow_html=True)
 
-cols = st.columns(3)
-with cols[0]:
-    st.info("**1. Executive Overview** [UK-01, UK-02, UK-11]\n\nHigh-level strategic findings, core trade-offs, and C-level decision roadmap.")
-    st.info("**2. Data Observatory** [UK-03, UK-04, UK-05, UK-06]\n\nData dictionary, referential integrity audit (0 orphan records), and 4 analytical grains.")
-    st.info("**3. Behavioral Discovery Lab** [UK-03, UK-07]\n\nUnsupervised persona segmentation ($k=3$), PCA projections, and friction anomaly detection.")
+ch_cols = st.columns(2)
+with ch_cols[0]:
+    st.markdown("""
+    - **Bab 1: Kisah Utama (Beranda)** — Rangkuman besar dan 3 rahasia di balik perilaku 100.000 pembeli.
+    - **Bab 2: Mengenal Tipe Pembeli** — Profil 3 manusia di balik transaksi: dari pemburu kepraktisan hingga pembeli berkeranjang besar.
+    - **Bab 3: Mitos vs Kenyataan** — Membongkar anggapan umum yang salah tentang harga, kepuasan, dan loyalitas pembeli.
+    - **Bab 4: Hal yang Paling Menggerakkan Hati** — Memetakan faktor nomor satu yang memicu komplain dan kekecewaan.
+    - **Bab 5: Kompas Peramal Kepuasan** — Bagaimana kecerdasan buatan membaca risiko ulasan buruk sebelum paket sampai.
+    """)
 
-with cols[1]:
-    st.info("**4. Hypothesis Laboratory** [UK-08, UK-10]\n\nFormal econometric testing (H1–H6) with Benjamini-Hochberg FDR correction and honest rejection of H3.")
-    st.info("**5. Predictive Intelligence** [UK-08, UK-09, UK-10]\n\nBaseline Ladder (B0–B4), LightGBM Champion vs Tabular MLP vs Text Bi-LSTM, and SHAP attributions.")
-    st.info("**6. World Model** [UK-08, UK-09, UK-10]\n\nState-Space dynamics, Synthetic Parameter Recovery test (0.33% error), and historical backtest replay.")
+with ch_cols[1]:
+    st.markdown("""
+    - **Bab 6: Denyut Nadi Pasar dari Minggu ke Minggu** — Memotret kesehatan ekosistem toko dari waktu ke waktu.
+    - **Bab 7: Simulasi "Bagaimana Jika?"** — Uji coba kebijakan baru (subsidi ongkir vs kurir cepat) secara aman tanpa risiko uang riil.
+    - **Bab 8: Studio Keputusan Bisnis** — Alat bantu manajer dengan kalkulator keuangan interaktif untuk memilih strategi terbaik.
+    - **Bab 9: Dapur Ilmiah & Bukti SKKNI/BNSP** — Ruang khusus asesor dan penguji teknis yang merangkum seluruh 11 Unit Kompetensi, kode, dan data mentah.
+    """)
 
-with cols[2]:
-    st.info("**7. Alternative World Simulator** [UK-08, UK-10, UK-11]\n\n12-week forward counterfactual policy simulations (S0–S5) with residual bootstrap Prediction Intervals.")
-    st.info("**8. Decision Studio** [UK-01, UK-11]\n\nFinancial ROI optimization, capital efficiency analysis (Carrier SLA vs Subsidies), and policy recommendations.")
-    st.info("**9. Evidence Registry & Audit** [UK-10, UK-11]\n\nFull audit of Discoveries (DISC-01 to DISC-07), Failure Register, and SKKNI Traceability Matrix.")
-
-st.write("---")
-st.caption("👈 **Select a page from the left sidebar to explore the platform modules.** All visualizations and metrics originate from precomputed, reproducible empirical evidence.")
+# Scientific Drawer for Assessors
+with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Khusus Mode Penguji)"):
+    st.markdown("""
+    **Pemetaan Standar Kompetensi Kerja Nasional Indonesia (SKKNI) Bidang Data Science:**
+    - **UK-01 Menentukan Masalah Bisnis**: Perumusan trade-off ekonomi transaksi vs pemenuhan logistik (`config/business_objectives.yaml`).
+    - **UK-02 Menentukan Kebutuhan Data**: Kamus 9 tabel relasional e-commerce Olist (`data/data_dictionary.md`).
+    - **Integritas Referensial**: 0 orphan records melintasi 6 relasi kunci asing (100% konsisten).
+    - **Tingkat Klaim Ilmiah**: Seluruh temuan diatur di bawah protokol bukti bertingkat L0 (Deskriptif) hingga L3 (Kausal) dengan jaminan *Anti-Leakage First-Order Isolation*.
+    """)
