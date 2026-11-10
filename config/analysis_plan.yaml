@@ -1,0 +1,106 @@
+# CSIP Analysis Plan & Research Protocol
+# SKKNI Compliance: [UK-01 Objektif Bisnis], [UK-02 Tujuan Teknis DS], [UK-08 Membangun Skenario Model]
+
+research_framing:
+  title: "Behavioral Decision Intelligence (BDI) — E-Commerce Customer Experience & Retention"
+  module: "MVP BDI Module"
+  primary_research_question: >
+    Bagaimana hubungan dan interaksi antara struktur biaya transaksi (harga dan ongkos kirim),
+    pengalaman pemenuhan pesanan (durasi dan keterlambatan pengiriman), serta karakteristik
+    produk terhadap kepuasan dan probabilitas pelanggan melakukan pembelian ulang dalam
+    ekosistem e-commerce?
+
+observation_windows:
+  primary_window_days: 90
+  sensitivity_windows_days: [60, 90, 180]
+  right_censoring_mitigation:
+    description: >
+      Customers whose first transaction occurs within delta_w days prior to dataset maximum
+      date (T_max) are excluded from repeat purchase evaluation to prevent censoring bias.
+    min_required_history_days: 90
+
+temporal_split:
+  split_type: "Strict Out-of-Time Temporal Split"
+  time_column: "order_purchase_timestamp"
+  dataset_bounds:
+    start_date: "2016-09-04"
+    end_date: "2018-10-17"
+    effective_analysis_start: "2017-01-01"
+  splits:
+    train:
+      start: "2017-01-01"
+      end: "2018-03-31"
+      purpose: "Parameter estimation, feature transformations fit, baseline exploration"
+    validation:
+      start: "2018-04-01"
+      end: "2018-06-30"
+      purpose: "Hyperparameter tuning, threshold calibration, model selection"
+    test:
+      start: "2018-07-01"
+      end: "2018-08-31"
+      purpose: "Locked holdout evaluation, final PR-AUC/ROC-AUC reporting"
+    censoring_buffer:
+      start: "2018-09-01"
+      end: "2018-10-17"
+      purpose: "Unbiased observation buffer for right-censoring mitigation"
+
+hypotheses:
+  H1:
+    id: "H1"
+    statement: "Rasio ongkos kirim terhadap harga produk (Freight Ratio) memiliki asosiasi negatif terhadap nilai kepuasan transaksi dan konversi keranjang multi-item."
+    analysis_type: "Associational & Regression"
+    key_variables: ["price", "freight_value", "freight_ratio", "review_score"]
+    skkni_unit: "UK-08 Membangun Skenario Model"
+    target_claim_level: "L2"
+    falsification_condition: "Koefisien freight_ratio pada model regresi ordinal/linear tidak signifikan (p > 0.05) atau bertanda positif setelah kontrol kategori."
+
+  H2:
+    id: "H2"
+    statement: "Keterlambatan pengiriman melewati tanggal estimasi (Delivery Delay > 0) memberikan dampak penurunan kepuasan pelanggan yang bersifat asimetris (non-linear) dibandingkan pengiriman lebih cepat."
+    analysis_type: "Non-linear Association & Piecewise Regression"
+    key_variables: ["delivery_delay_days", "delivered_on_time", "review_score"]
+    skkni_unit: "UK-08 Membangun Skenario Model"
+    target_claim_level: "L2"
+    falsification_condition: "Slope kepuasan untuk delivery_delay_days > 0 tidak berbeda signifikan dengan slope untuk delivery_delay_days <= 0."
+
+  H3:
+    id: "H3"
+    statement: "Pengalaman pengiriman dan skor ulasan pada transaksi pertama berasosiasi secara signifikan dengan probabilitas pelanggan melakukan pembelian ulang (repeat purchase)."
+    analysis_type: "Binary Classification & Survival/Cohort Odds Ratio"
+    key_variables: ["first_order_review", "first_order_delay", "repeat_purchase_flag"]
+    skkni_unit: "UK-08 Membangun Skenario Model"
+    target_claim_level: "L2"
+    falsification_condition: "Odds ratio first_order_review terhadap repeat purchase tidak berbeda signifikan dari 1.0 (95% CI mencakup 1.0)."
+
+  H4:
+    id: "H4"
+    statement: "Sensitivitas pelanggan terhadap ongkos kirim dan keterlambatan pengiriman bersifat heterogen (berbeda secara signifikan) antarsegmen perilaku dan kategori produk."
+    analysis_type: "Heterogeneity & Moderated Interaction Analysis"
+    key_variables: ["cluster_id", "product_category", "delay_x_freight"]
+    skkni_unit: "UK-08 Membangun Skenario Model"
+    target_claim_level: "L2"
+    falsification_condition: "Interaksi antara cluster_id dan freight_ratio / delay tidak signifikan secara statistik (p-adj > 0.05)."
+
+  H5:
+    id: "H5"
+    statement: "Penggabungan fitur ekonomi, indikator pengalaman pengiriman, dan representasi teks ulasan/embedding meningkatkan daya prediksi model dibandingkan hanya menggunakan fitur ekonomi."
+    analysis_type: "Predictive Ablation & Model Comparison"
+    key_variables: ["economic_features", "experience_features", "text_embedding_features"]
+    skkni_unit: "UK-10 Mengevaluasi Hasil Pemodelan"
+    target_claim_level: "L1"
+    falsification_condition: "Delta PR-AUC pada model gabungan <= 0 dibandingkan model ekonomi pada holdout test set."
+
+  H6:
+    id: "H6"
+    statement: "Pola hubungan yang tampak antara nilai pengeluaran dan pembelian ulang sebagian dijelaskan oleh faktor pembaur (confounders) seperti kategori produk kebutuhan berulang dan lokasi geografis."
+    analysis_type: "Alternative Explanation & Confounder Adjustment"
+    key_variables: ["customer_state", "category_repeatability", "total_spending"]
+    skkni_unit: "UK-11 Melakukan Proses Review Pemodelan"
+    target_claim_level: "L2"
+    falsification_condition: "Ukuran efek spending tidak berubah (< 5% perubahan estimasi) setelah memasukkan kontrol confounder."
+
+statistical_controls:
+  multiple_testing_correction: "Benjamini-Hochberg (FDR)"
+  alpha: 0.05
+  confidence_level: 0.95
+  bootstrap_replications: 1000

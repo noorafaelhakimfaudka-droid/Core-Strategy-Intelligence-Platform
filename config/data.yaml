@@ -1,0 +1,165 @@
+# CSIP Data Configuration & Schema Registry
+# SKKNI Compliance: [UK-03 Menelaah Data], [UK-04 Memvalidasi Data], [UK-05 Menentukan Objek Data]
+
+raw_data_dir: "data/raw"
+interim_data_dir: "data/interim"
+processed_data_dir: "data/processed"
+synthetic_data_dir: "data/synthetic"
+
+# Olist Public E-Commerce Dataset (9 Relational Tables)
+tables:
+  orders:
+    filename: "olist_orders_dataset.csv"
+    primary_key: ["order_id"]
+    foreign_keys:
+      customer_id: "customers.customer_id"
+    grain: "order"
+    date_columns:
+      - "order_purchase_timestamp"
+      - "order_approved_at"
+      - "order_delivered_carrier_date"
+      - "order_delivered_customer_date"
+      - "order_estimated_delivery_date"
+    categorical_columns:
+      - "order_status"
+    valid_statuses:
+      - "delivered"
+      - "shipped"
+      - "canceled"
+      - "unavailable"
+      - "invoiced"
+      - "processing"
+      - "created"
+      - "approved"
+    analysis_status_filter: "delivered"
+
+  order_items:
+    filename: "olist_order_items_dataset.csv"
+    primary_key: ["order_id", "order_item_id"]
+    foreign_keys:
+      order_id: "orders.order_id"
+      product_id: "products.product_id"
+      seller_id: "sellers.seller_id"
+    grain: "order_item"
+    date_columns:
+      - "shipping_limit_date"
+    numeric_columns:
+      price: "float32"
+      freight_value: "float32"
+      order_item_id: "int16"
+
+  order_payments:
+    filename: "olist_order_payments_dataset.csv"
+    primary_key: ["order_id", "payment_sequential"]
+    foreign_keys:
+      order_id: "orders.order_id"
+    grain: "order_payment"
+    categorical_columns:
+      - "payment_type"
+    numeric_columns:
+      payment_sequential: "int16"
+      payment_installments: "int16"
+      payment_value: "float32"
+
+  order_reviews:
+    filename: "olist_order_reviews_dataset.csv"
+    primary_key: ["review_id"]
+    foreign_keys:
+      order_id: "orders.order_id"
+    grain: "order_review"
+    date_columns:
+      - "review_creation_date"
+      - "review_answer_timestamp"
+    numeric_columns:
+      review_score: "int8"
+    deduplication_policy: "latest_created"  # if multiple reviews per order, take latest review_creation_date
+
+  customers:
+    filename: "olist_customers_dataset.csv"
+    primary_key: ["customer_id"]
+    entity_key: "customer_unique_id"  # TRUE customer identifier
+    grain: "customer_session"
+    categorical_columns:
+      - "customer_state"
+    text_columns:
+      - "customer_city"
+    numeric_columns:
+      customer_zip_code_prefix: "int32"
+
+  sellers:
+    filename: "olist_sellers_dataset.csv"
+    primary_key: ["seller_id"]
+    grain: "seller"
+    categorical_columns:
+      - "seller_state"
+    text_columns:
+      - "seller_city"
+    numeric_columns:
+      seller_zip_code_prefix: "int32"
+
+  products:
+    filename: "olist_products_dataset.csv"
+    primary_key: ["product_id"]
+    grain: "product"
+    categorical_columns:
+      - "product_category_name"
+    numeric_columns:
+      product_name_lenght: "float32"
+      product_description_lenght: "float32"
+      product_photos_qty: "float32"
+      product_weight_g: "float32"
+      product_length_cm: "float32"
+      product_height_cm: "float32"
+      product_width_cm: "float32"
+
+  geolocation:
+    filename: "olist_geolocation_dataset.csv"
+    primary_key: ["geolocation_zip_code_prefix"]
+    grain: "zip_code_prefix"
+    aggregation_policy: "median_coordinates"  # prevents Cartesian explosion upon join
+    numeric_columns:
+      geolocation_zip_code_prefix: "int32"
+      geolocation_lat: "float32"
+      geolocation_lng: "float32"
+
+  category_translation:
+    filename: "product_category_name_translation.csv"
+    primary_key: ["product_category_name"]
+    grain: "category"
+    text_columns:
+      - "product_category_name"
+      - "product_category_name_english"
+
+# Analytical Grains Defined in PRD Section 5.3
+analytical_grains:
+  grain_1_order_level:
+    key: "order_id"
+    description: "Order-level table for fulfillment delay risk and transaction satisfaction prediction."
+    skkni_unit: "UK-05 Menentukan Objek Data"
+    output_path: "data/processed/order_level.parquet"
+
+  grain_2_customer_cohort:
+    key: "customer_unique_id"
+    description: "Customer cohort table for retention, behavioral segmentation, and repeat purchase prediction."
+    skkni_unit: "UK-05 Menentukan Objek Data"
+    output_path: "data/processed/customer_cohort.parquet"
+
+  grain_3_review_text:
+    key: "review_id"
+    description: "Review text corpus for sentiment analysis, TF-IDF, and Deep Learning sequence modeling."
+    skkni_unit: "UK-05 Menentukan Objek Data"
+    output_path: "data/processed/review_corpus.parquet"
+
+  grain_4_weekly_system_state:
+    key: "year_week"
+    description: "Weekly system state panel for World Model, time series, and scenario simulation."
+    skkni_unit: "UK-05 Menentukan Objek Data"
+    output_path: "data/processed/weekly_system_state.parquet"
+
+# Memory Optimization Rules for 8 GB RAM constraints
+downcasting_rules:
+  enable_automatic_downcasting: true
+  float_target: "float32"
+  int_target_small: "int16"
+  int_target_large: "int32"
+  max_categorical_cardinality: 50

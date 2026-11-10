@@ -1,0 +1,152 @@
+# CSIP Modeling, Baseline Ladder & Competency Laboratory Configuration
+# SKKNI Compliance: [UK-02 Tujuan Teknis DS], [UK-08 Membangun Skenario Model], [UK-09 Membangun Model], [UK-10 Mengevaluasi Hasil Pemodelan]
+
+random_seed: 42
+
+targets:
+  classification:
+    repeat_purchase:
+      name: "repeat_purchase_flag"
+      positive_class: 1
+      grain: "customer_cohort"
+      description: "Binary flag indicating customer purchased again within 90 days."
+      primary_metric: "pr_auc"
+      secondary_metrics: ["roc_auc", "f1_score", "brier_score"]
+      baseline_success_threshold:
+        roc_auc: 0.65
+        pr_auc_lift_over_prior: 0.05
+    negative_review:
+      name: "negative_review_flag"
+      positive_class: 1
+      grain: "order_level"
+      description: "Binary flag indicating customer gave a review score <= 2."
+      primary_metric: "pr_auc"
+      secondary_metrics: ["roc_auc", "f1_score", "brier_score"]
+  regression:
+    delivery_delay:
+      name: "delivery_delay_days"
+      grain: "order_level"
+      description: "Difference in days between delivered date and estimated delivery date."
+      primary_metric: "mae"
+      secondary_metrics: ["rmse", "r2", "wape"]
+      baseline_success_threshold:
+        mae_reduction_pct: 10.0
+
+baseline_ladder:
+  B0_naive:
+    description: "Majority class classifier / Mean regression / Simple heuristic rule"
+    models:
+      classifier: "MajorityClassClassifier"
+      regressor: "MeanRegressor"
+      heuristic_rule: "is_late == 1 -> negative_review = 1"
+
+  B1_statistical:
+    description: "Interpretable linear models with direct parameter inference"
+    models:
+      classifier:
+        algorithm: "LogisticRegression"
+        params:
+          C: 1.0
+          max_iter: 1000
+          class_weight: "balanced"
+          solver: "lbfgs"
+      regressor:
+        algorithm: "Ridge"
+        params:
+          alpha: 1.0
+
+  B2_classical_benchmarks:
+    description: "Classical non-linear and probabilistic algorithms (Competency Lab)"
+    models:
+      decision_tree:
+        algorithm: "DecisionTreeClassifier"
+        params:
+          max_depth: 6
+          min_samples_split: 50
+      knn:
+        algorithm: "KNeighborsClassifier"
+        params:
+          n_neighbors: 15
+          weights: "distance"
+          metric: "euclidean"
+      naive_bayes:
+        algorithm_tabular: "GaussianNB"
+        algorithm_text: "MultinomialNB"
+        params:
+          alpha: 1.0
+
+  B3_ensemble_trees:
+    description: "Gradient boosted trees and random forest ensembles"
+    models:
+      random_forest:
+        algorithm: "RandomForestClassifier"
+        params:
+          n_estimators: 100
+          max_depth: 8
+          min_samples_leaf: 20
+          n_jobs: 4
+      lightgbm:
+        algorithm: "LGBMClassifier"
+        params:
+          n_estimators: 150
+          max_depth: 6
+          num_leaves: 31
+          learning_rate: 0.05
+          subsample: 0.8
+          colsample_bytree: 0.8
+          class_weight: "balanced"
+          n_jobs: 4
+          random_state: 42
+          verbose: -1
+
+  B4_neural_and_deep_learning:
+    description: "Neural Network Tabular Entity Embeddings and Text Deep Learning"
+    models:
+      mlp_embeddings:
+        framework: "torch"
+        architecture: "TabularEmbeddingMLP"
+        embedding_dims:
+          product_category: [75, 16]
+          customer_state: [28, 8]
+        dense_layers: [128, 64]
+        activation: "relu"
+        dropout: 0.2
+        batch_norm: true
+        learning_rate: 0.001
+        batch_size: 128
+        epochs: 15
+      deep_text_seq:
+        framework: "torch"
+        architecture: "TextBiLSTMClassifier"
+        vocab_size: 5000
+        embedding_dim: 32
+        hidden_dim: 64
+        num_layers: 1
+        dropout: 0.3
+        batch_size: 64
+        epochs: 10
+        max_seq_len: 64
+
+clustering:
+  algorithm: "KMeans"
+  k_range: [3, 4, 5, 6, 7]
+  optimal_k_metric: "silhouette_score"
+  min_silhouette_threshold: 0.35
+  features:
+    - "total_order_value"
+    - "freight_ratio"
+    - "delivery_lead_time_days"
+    - "item_count"
+    - "payment_installments_max"
+
+experiments_matrix:
+  E0: "Naive & Heuristic Baselines"
+  E1: "Economic Features Only"
+  E2: "Experience & Fulfillment Only"
+  E3: "Combined + Interaction Features"
+  E4: "Imbalanced Data Handling (Class Weights vs Threshold Tuning)"
+  E5: "Unsupervised Behavioral Clustering"
+  E6: "Classical Algorithm Competency Lab (KNN & Naive Bayes)"
+  E7: "Deep Learning 1 (Tabular MLP + Entity Embeddings)"
+  E8: "Deep Learning 2 (Text Deep Learning NLP)"
+  E9: "Ablation, Error Subgroup Audit & Robustness"

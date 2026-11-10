@@ -1,0 +1,147 @@
+# CSIP Feature Engineering Specification & Anti-Leakage Governance
+# SKKNI Compliance: [UK-06 Membersihkan Data], [UK-07 Mengkonstruksi Data]
+
+feature_groups:
+  economic:
+    description: "Transaction cost, pricing structure, and payment burden features."
+    columns:
+      total_item_price:
+        formula: "sum(price) per order"
+        dtype: "float32"
+        description: "Total price of all items in order (excluding freight)."
+      total_freight:
+        formula: "sum(freight_value) per order"
+        dtype: "float32"
+        description: "Total freight cost across items."
+      total_order_value:
+        formula: "total_item_price + total_freight"
+        dtype: "float32"
+        description: "Gross order amount paid by customer."
+      freight_ratio:
+        formula: "total_freight / (total_item_price + 1e-5)"
+        dtype: "float32"
+        description: "Relative shipping burden compared to basket item value."
+      item_count:
+        formula: "count(order_item_id) per order"
+        dtype: "int16"
+        description: "Number of physical items in basket."
+      payment_installments_max:
+        formula: "max(payment_installments) per order"
+        dtype: "int16"
+        description: "Maximum installments utilized for payment."
+
+  fulfillment_experience:
+    description: "Logistics speed, delivery reliability, and delay metrics."
+    columns:
+      delivery_lead_time_days:
+        formula: "(order_delivered_customer_date - order_purchase_timestamp).dt.total_seconds() / 86400"
+        dtype: "float32"
+        description: "Total elapsed calendar days from order placement to delivery."
+      estimated_lead_time_days:
+        formula: "(order_estimated_delivery_date - order_purchase_timestamp).dt.total_seconds() / 86400"
+        dtype: "float32"
+        description: "Promised delivery days at the time of purchase."
+      delivery_delay_days:
+        formula: "(order_delivered_customer_date - order_estimated_delivery_date).dt.total_seconds() / 86400"
+        dtype: "float32"
+        description: "Actual vs promised delay (+ late, - early)."
+      is_late:
+        formula: "int(delivery_delay_days > 0)"
+        dtype: "int8"
+        description: "Binary flag indicating delivery exceeded SLA date."
+      approval_lag_hours:
+        formula: "(order_approved_at - order_purchase_timestamp).dt.total_seconds() / 3600"
+        dtype: "float32"
+        description: "Processing latency from purchase to payment approval."
+      seller_buyer_distance_km:
+        formula: "haversine_distance(seller_lat, seller_lng, buyer_lat, buyer_lng)"
+        dtype: "float32"
+        description: "Geographic distance between seller and buyer in kilometers."
+
+  as_of_behavioral:
+    description: "Point-in-time historical metrics computed strictly prior to current order."
+    columns:
+      prior_order_count:
+        formula: "count of completed orders by customer_unique_id before current purchase_timestamp"
+        dtype: "int16"
+        description: "Cumulative order count prior to this session."
+      prior_avg_order_value:
+        formula: "mean order value of past orders before current purchase_timestamp"
+        dtype: "float32"
+        description: "Customer historical basket average."
+      prior_avg_review_score:
+        formula: "mean review_score of past orders before current purchase_timestamp"
+        dtype: "float32"
+        description: "Customer historical satisfaction average."
+      days_since_prev_order:
+        formula: "days between current order and immediately previous order"
+        dtype: "float32"
+        description: "Recency gap in days."
+
+  interaction_nonlinear:
+    description: "Engineered interaction terms capturing compound friction."
+    columns:
+      delay_x_freight_ratio:
+        formula: "max(0, delivery_delay_days) * freight_ratio"
+        dtype: "float32"
+        description: "Compound friction of expensive shipping arriving late."
+      distance_x_weight:
+        formula: "seller_buyer_distance_km * log1p(product_weight_g)"
+        dtype: "float32"
+        description: "Logistics complexity composite."
+      high_value_late_flag:
+        formula: "int(total_order_value > Q75) * is_late"
+        dtype: "int8"
+        description: "High-ticket orders experiencing fulfillment failure."
+
+  text_and_deep_learning:
+    description: "Review sentiment and categorical entity embeddings."
+    columns:
+      has_review_comment:
+        formula: "int(review_comment_message is not null and len(text) > 0)"
+        dtype: "int8"
+        description: "Binary flag indicating customer submitted text feedback."
+      comment_length:
+        formula: "len(review_comment_message or '')"
+        dtype: "int16"
+        description: "Character count of review comment."
+      word_count:
+        formula: "count_words(review_comment_message or '')"
+        dtype: "int16"
+        description: "Word count of review comment."
+      category_idx:
+        formula: "categorical label encoder on product_category_name"
+        dtype: "int16"
+        description: "Entity index for tabular deep learning embedding layer."
+      customer_state_idx:
+        formula: "categorical label encoder on customer_state"
+        dtype: "int8"
+        description: "Entity index for state-level spatial embedding."
+
+# Anti-Leakage Governance Rules (PRD Section 6.3)
+anti_leakage_rules:
+  checkout_stage_restricted_features:
+    - "order_delivered_customer_date"
+    - "order_delivered_carrier_date"
+    - "delivery_lead_time_days"
+    - "delivery_delay_days"
+    - "is_late"
+    - "review_score"
+    - "review_comment_message"
+    - "has_review_comment"
+
+  first_order_repeat_prediction_rule:
+    allowed_sources: "Strictly features from Order 1 (the first chronological transaction)"
+    prohibited_sources:
+      - "lifetime_order_count"
+      - "lifetime_total_spend"
+      - "lifetime_avg_review"
+      - "any future order timestamps or values"
+
+  split_before_transform_enforcement:
+    training_only_fit:
+      - "StandardScaler"
+      - "MinMaxScaler"
+      - "SimpleImputer"
+      - "TfidfVectorizer"
+      - "TargetEncoder"

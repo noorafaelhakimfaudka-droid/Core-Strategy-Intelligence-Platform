@@ -1,0 +1,84 @@
+# CSIP Alternative World Simulation & Scenario Analysis Configuration
+# SKKNI Compliance: [UK-08 Membangun Skenario Model], [UK-10 Mengevaluasi Hasil Pemodelan]
+
+world_model:
+  cadence: "weekly"
+  time_grain: "year_week"
+  state_variables:
+    - "weekly_order_volume"
+    - "mean_item_price"
+    - "mean_freight_value"
+    - "mean_freight_ratio"
+    - "mean_delivery_days"
+    - "delay_rate"
+    - "negative_review_rate"
+    - "cohort_repeat_rate_est"
+
+simulation_scenarios:
+  baseline_world:
+    id: "S0_baseline"
+    name: "Status Quo (No Intervention)"
+    description: "System evolves under historical trend and baseline operational conditions."
+    params:
+      freight_delta_pct: 0.0
+      lead_time_delta_days: 0.0
+      tail_delay_reduction_pct: 0.0
+
+  freight_subsidy_moderate:
+    id: "S1_freight_subsidy_10"
+    name: "10% Platform Freight Subsidy"
+    description: "Platform subsidizes 10% of logistics costs for customers."
+    params:
+      freight_delta_pct: -0.10
+      lead_time_delta_days: 0.0
+      tail_delay_reduction_pct: 0.0
+
+  freight_subsidy_aggressive:
+    id: "S2_freight_subsidy_25"
+    name: "25% Platform Freight Subsidy"
+    description: "Aggressive shipping subsidy to boost conversion and basket size."
+    params:
+      freight_delta_pct: -0.25
+      lead_time_delta_days: 0.0
+      tail_delay_reduction_pct: 0.0
+
+  sla_improvement_carrier:
+    id: "S3_logistics_sla_improvement"
+    name: "Logistics Carrier SLA Optimization (-2 Days)"
+    description: "Partner with regional carriers to compress delivery lead time by 2 days."
+    params:
+      freight_delta_pct: 0.0
+      lead_time_delta_days: -2.0
+      tail_delay_reduction_pct: 0.20
+
+  joint_subsidy_and_sla:
+    id: "S4_joint_policy"
+    name: "Joint Policy: 15% Subsidy + SLA Acceleration (-1.5 Days)"
+    description: "Combined intervention targeting friction in both economic and fulfillment dimensions."
+    params:
+      freight_delta_pct: -0.15
+      lead_time_delta_days: -1.5
+      tail_delay_reduction_pct: 0.15
+
+  stress_test_inflation:
+    id: "S5_logistics_cost_shock"
+    name: "Fuel / Freight Inflation Shock (+20%)"
+    description: "Carrier rates spike by 20%, testing customer elasticity and retention drop."
+    params:
+      freight_delta_pct: 0.20
+      lead_time_delta_days: 1.0
+      tail_delay_reduction_pct: 0.0
+
+extrapolation_guardrails:
+  freight_delta_pct_range: [-0.50, 0.50]
+  lead_time_delta_days_range: [-7.0, 7.0]
+  min_achievable_lead_time_days: 1.5
+  out_of_distribution_warning: >
+    OUT-OF-DISTRIBUTION EXTRAPOLATION WARNING: Skenario intervensi yang dimasukkan berada
+    di luar batas dukungan data historis. Hasil simulasi diturunkan ke Evidence Grade C/D
+    dan tidak direkomendasikan untuk keputusan operasional langsung.
+
+uncertainty_estimation:
+  method: "Residual Bootstrapping"
+  bootstrap_samples: 500
+  prediction_intervals: [0.50, 0.90, 0.95]
