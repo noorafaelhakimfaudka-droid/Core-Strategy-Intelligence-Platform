@@ -20,7 +20,7 @@ from app.ui_components import (
     render_story_card,
 )
 
-st.set_page_config(page_title="Bab 7: Simulasi 'Bagaimana Jika?' | CSIP", page_icon="🔮", layout="wide")
+st.set_page_config(page_title="Bab 7: Simulasi 'Bagaimana Jika?' | CSIP", page_icon="", layout="wide")
 apply_editorial_theme()
 
 # --- HERO SECTION ---
@@ -94,7 +94,7 @@ with c3:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 1: PEMILIH SKENARIO KEBIJAKAN ---
-st.markdown("### 🎛️ Pilih Uji Coba Kebijakan yang Ingin Dilihat Dampaknya:")
+st.markdown("###  Pilih Uji Coba Kebijakan yang Ingin Dilihat Dampaknya:")
 
 scenario_keys = list(sim_data.keys())
 default_index = scenario_keys.index("S2_carrier_sla") if "S2_carrier_sla" in scenario_keys else 0
@@ -120,7 +120,7 @@ if selected_key in sim_data:
         st.markdown(f"""
         <div style="background-color: #FEF2F2; border-left: 4px solid #B83A2E; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
             <div style="font-weight: 700; color: #991B1B; font-size: 1.05rem; margin-bottom: 0.25rem;">
-                ⚠️ Peringatan: Kebijakan Ini Terlalu Ekstrem (Melampaui Rekam Jejak Sejarah)
+                 Peringatan: Kebijakan Ini Terlalu Ekstrem (Melampaui Rekam Jejak Sejarah)
             </div>
             <div style="color: #7F1D1D; font-size: 0.92rem; line-height: 1.5;">
                 Tingkat deviasi kebijakan ini mencapai <b>{guard.get('max_z_score', 0):.2f}x lipat</b> di atas kebiasaan normal pembeli. 
@@ -133,7 +133,7 @@ if selected_key in sim_data:
         st.markdown(f"""
         <div style="background-color: #F0FDF4; border-left: 4px solid #2E6F40; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem;">
             <div style="font-weight: 700; color: #166534; font-size: 1.05rem; margin-bottom: 0.25rem;">
-                ✅ Kebijakan Berada di Zona Aman (Dapat Dipercaya)
+                 Kebijakan Berada di Zona Aman (Dapat Dipercaya)
             </div>
             <div style="color: #14532D; font-size: 0.92rem; line-height: 1.5;">
                 Simulasi ini beroperasi di dalam zona kebiasaan belanja yang realistis. 
@@ -145,12 +145,12 @@ if selected_key in sim_data:
     # Narrative Description of Scenario
     st.markdown(f"""
     <div style="background-color: #FFFFFF; border: 1px solid #EAE4DC; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
-        <b>🎯 Rancangan Kebijakan:</b> {sc.get('description', '')}
+        <b> Rancangan Kebijakan:</b> {sc.get('description', '')}
     </div>
     """, unsafe_allow_html=True)
 
     # Before-and-After Comparison Card
-    st.markdown("#### ⚖️ Perbandingan Sebelum vs Sesudah (Proyeksi 12 Minggu)")
+    st.markdown("####  Perbandingan Sebelum vs Sesudah (Proyeksi 12 Minggu)")
     col_comp1, col_comp2 = st.columns(2)
 
     with col_comp1:
@@ -190,7 +190,7 @@ if selected_key in sim_data:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 2: GRAFIK TREN 12 MINGGU MULTI-SKENARIO ---
-st.markdown("### 📊 Peta Proyeksi 12 Minggu ke Depan")
+st.markdown("###  Peta Proyeksi 12 Minggu ke Depan")
 st.markdown(
     "Gambar di bawah ini memperlihatkan bagaimana volume belanja dan tingkat komplain pembeli berkembang "
     "dari minggu ke minggu di bawah berbagai pilihan kebijakan, lengkap dengan pita ketidakpastian (rentang keyakinan 90%):"
@@ -203,7 +203,7 @@ if fig_sc.exists():
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 3: KARTU RAPOR 6 KEBIJAKAN (TABEL BAHASA MANUSIA) ---
-st.markdown("### 📋 Rapor Ringkas 6 Pilihan Kebijakan Toko")
+st.markdown("###  Rapor Ringkas 6 Pilihan Kebijakan Toko")
 st.markdown("Bandingkan keenam pilihan kebijakan secara menyeluruh untuk mengambil keputusan strategis terbaik:")
 
 if sim_data:
@@ -220,7 +220,7 @@ if sim_data:
             "Dampak Kekecewaan": f"{c.get('delta_negative_review_pp', 0):+.2f}%",
             "Anggaran Subsidi": f"R$ {s['subsidy_cost_brl']:,.0f}",
             "Laba Bersih Tambahan": f"R$ {c.get('net_incremental_profit_brl', 0):,.0f}",
-            "Status Keamanan": "⚠️ Terlalu Ekstrem" if is_ood else "✅ Aman & Teruji",
+            "Status Keamanan": " Terlalu Ekstrem" if is_ood else " Aman & Teruji",
         })
 
     df_scorecard = pd.DataFrame(table_human)
@@ -229,7 +229,7 @@ if sim_data:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
     st.markdown(r"""
     - **`[UK-08 Membangun Skenario Model]`**: Perumusan intervensi kebijakan S0 hingga S5 dengan action vector $\mathbf{A}_t$.

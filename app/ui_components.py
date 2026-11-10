@@ -201,19 +201,17 @@ def render_floating_navigation() -> None:
     """Render top floating glass capsule bar and right-edge floating dots."""
     html = """
     <div class="nocturnal-nav">
-        <div class="nocturnal-nav-logo">✦ CSIP NOCTURNE</div>
+        <div class="nocturnal-nav-logo">CSIP NOCTURNE</div>
         <a href="#act-1">Rasi Bintang</a>
-        <a href="#act-2">Empat Pulau</a>
-        <a href="#act-3">Janji Patah</a>
-        <a href="#act-4">Lingkaran Kendali</a>
-        <a href="#curator-door" style="color: #F5B041;">✦ Ruang Kurator</a>
+        <a href="#act-2">Titik Patah</a>
+        <a href="#act-3">Cermin Dunia</a>
+        <a href="#curator-vault" style="color: #F5B041;">Catatan Kurator</a>
     </div>
     <div class="floating-dots">
-        <a href="#act-1" class="floating-dot" title="Babak I: Rasi Bintang"></a>
-        <a href="#act-2" class="floating-dot" title="Babak II: Empat Pulau"></a>
-        <a href="#act-3" class="floating-dot" title="Babak III: Janji Patah"></a>
-        <a href="#act-4" class="floating-dot" title="Babak IV: Lingkaran Kendali"></a>
-        <a href="#curator-door" class="floating-dot" style="background: #F5B041;" title="Ruang Kurator"></a>
+        <a href="#act-1" class="floating-dot" title="Babak 1: Rasi Bintang"></a>
+        <a href="#act-2" class="floating-dot" title="Babak 2: Titik Patah"></a>
+        <a href="#act-3" class="floating-dot" title="Babak 3: Cermin Dunia"></a>
+        <a href="#curator-vault" class="floating-dot" style="background: #F5B041;" title="Catatan Kurator"></a>
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
@@ -245,7 +243,7 @@ def render_qa_box(question: str, myth: str, reality: str, verdict_tag: str = "Fa
     <div class="glass-canvas-container" style="padding: 1.25rem; margin-bottom: 1.25rem;">
         <span class="poetic-act-tag">{verdict_tag}</span>
         <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 600; color: #F4F1EA; margin-bottom: 0.75rem;">
-            ❓ {question}
+            {question}
         </div>
         <div style="background: rgba(245, 176, 65, 0.08); border-left: 3px solid #F5B041; padding: 0.6rem 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; font-size: 0.9rem; color: #F5B041;">
             <b>Mitos:</b> <i>"{myth}"</i>
@@ -280,13 +278,13 @@ def render_persona_card(
             </div>
         </div>
         <div style="font-size: 0.9rem; color: #F4F1EA; line-height: 1.6; margin-bottom: 0.5rem;">
-            <b>🛍️ Kebiasaan:</b> {habits}
+            <b>Kebiasaan:</b> {habits}
         </div>
         <div style="font-size: 0.88rem; color: #F5B041; margin-bottom: 0.35rem;">
-            <b>💚 Sukai:</b> {likes}
+            <b>Disukai:</b> {likes}
         </div>
         <div style="font-size: 0.88rem; color: #F43F5E;">
-            <b>💔 Kapok:</b> {dislikes}
+            <b>Dihindari:</b> {dislikes}
         </div>
     </div>
     """

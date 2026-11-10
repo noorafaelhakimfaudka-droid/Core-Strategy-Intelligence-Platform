@@ -20,7 +20,7 @@ from app.ui_components import (
     render_story_card,
 )
 
-st.set_page_config(page_title="Bab 6: Denyut Nadi Toko | CSIP", page_icon="🌐", layout="wide")
+st.set_page_config(page_title="Bab 6: Denyut Nadi Toko | CSIP", page_icon="", layout="wide")
 apply_editorial_theme()
 
 # --- HERO SECTION ---
@@ -84,7 +84,7 @@ with c3:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 1: GRAFIK INTERAKTIF DENYUT NADI MINGGUAN ---
-st.markdown("### 📈 Grafik Denyut Nadi: Ritme Pesanan vs Gelombang Kekecewaan")
+st.markdown("###  Grafik Denyut Nadi: Ritme Pesanan vs Gelombang Kekecewaan")
 st.markdown(
     "Perhatikan interaksi antara volume pesanan mingguan (batang hangat) dan tingkat kekecewaan pembeli (garis merah terakota). "
     "Setiap lonjakan belanja selalu menjadi ujian nyata bagi ketahanan logistik platform:"
@@ -143,7 +143,7 @@ if not df_weekly.empty:
 st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 2: PENJELASAN BAHASA MANUSIA - UJI KEJUJURAN SISTEM ---
-st.markdown("### 🔬 Uji Kejujuran Sistem: Mengapa Kita Yakin Model Ini Tidak 'Mengarang'?")
+st.markdown("###  Uji Kejujuran Sistem: Mengapa Kita Yakin Model Ini Tidak 'Mengarang'?")
 
 col_u1, col_u2 = st.columns([1.1, 0.9])
 
@@ -189,7 +189,7 @@ with col_u2:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
     st.markdown(r"""
     - **`[UK-08 Membangun Skenario Model]`**: Perumusan Vector AutoRegressive State-Space transition function 4-variabel.

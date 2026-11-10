@@ -43,7 +43,7 @@ with c1:
     render_persona_card(
         name="Si Praktis Barang Tunggal",
         share_pct="51.0% (Mayoritas Toko)",
-        avatar_emoji="⚡",
+        avatar_emoji="",
         tag="Tulang Punggung Toko",
         habits="Membeli 1 barang yang langsung dibutuhkan saat itu juga. Nilai pesanan wajar dan ongkir terjangkau.",
         likes="Paket cepat sampai dalam hitungan hari dan kurir yang ramah.",
@@ -54,7 +54,7 @@ with c2:
     render_persona_card(
         name="Si Pejuang Ongkir Pelosok",
         share_pct="40.2% (Paling Rentan Kecewa)",
-        avatar_emoji="📦",
+        avatar_emoji="",
         tag="Sensitif Ongkir & Waktu",
         habits="Tinggal jauh dari pusat kota. Membeli barang penting, namun ongkos kirimnya bisa menelan 38% dari total belanjaan.",
         likes="Kupon potongan ongkir dan kepastian tanggal paket mendarat di rumah.",
@@ -65,7 +65,7 @@ with c3:
     render_persona_card(
         name="Si Pembeli Keranjang Mewah",
         share_pct="8.8% (Paling Bernilai)",
-        avatar_emoji="💎",
+        avatar_emoji="",
         tag="Konsumen Premium",
         habits="Belanja dalam jumlah besar atau barang berharga tinggi. Beban ongkir tidak mereka permasalahkan.",
         likes="Kemasan ekstra aman, asuransi terpercaya, dan pelacakan kurir yang akurat.",
@@ -77,7 +77,7 @@ st.write("---")
 # Interactive Story Chart: Persona Composition & Behavior
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.35rem; font-weight: 600; color: #1C1917; margin-bottom: 0.3rem;">
-    📊 Perbandingan Nyata: Seberapa Besar Beban Ongkir Mereka?
+     Perbandingan Nyata: Seberapa Besar Beban Ongkir Mereka?
 </div>
 <div style="font-size: 0.92rem; color: #655E57; margin-bottom: 1rem;">
     Grafik di bawah memperlihatkan perbandingan beban ongkos kirim terhadap harga barang di antara ketiga kepribadian pembeli.
@@ -118,7 +118,7 @@ editorial_plotly_theme(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown(r"""
     **Unit Kompetensi yang Dipenuhi:**
     - `[UK-07 Menentukan Objek Data]`: Algoritma *K-Means Clustering* dengan evaluasi $k \in [3, 4, 5, 6]$.

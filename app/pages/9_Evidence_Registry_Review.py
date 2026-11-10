@@ -17,7 +17,7 @@ from app.ui_components import (
     render_story_card,
 )
 
-st.set_page_config(page_title="Bab 9: Ruang Asesor BNSP | CSIP", page_icon="📜", layout="wide")
+st.set_page_config(page_title="Bab 9: Ruang Asesor BNSP | CSIP", page_icon="", layout="wide")
 apply_editorial_theme()
 
 # --- HERO SECTION ---
@@ -82,15 +82,15 @@ st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- 4 TABS GALERI BUKTI ILMIAH ---
 tab_skkni, tab_disc, tab_hyp, tab_fail = st.tabs([
-    "🏛️ Matriks 11 Unit SKKNI/BNSP",
-    "💡 7 Temuan Utama (Discoveries)",
-    "🧪 6 Uji Hipotesis Ekonometrika",
-    "⚠️ Buku Catatan Kegagalan (Failure Log)",
+    " Matriks 11 Unit SKKNI/BNSP",
+    " 7 Temuan Utama (Discoveries)",
+    " 6 Uji Hipotesis Ekonometrika",
+    " Buku Catatan Kegagalan (Failure Log)",
 ])
 
 # --- TAB 1: MATRIKS 11 UNIT SKKNI ---
 with tab_skkni:
-    st.markdown("### 🏛️ Matriks Keterlacakan 11 Unit Kompetensi Data Science (SKKNI)")
+    st.markdown("###  Matriks Keterlacakan 11 Unit Kompetensi Data Science (SKKNI)")
     st.markdown(
         "Tabel ini memetakan setiap Unit Kompetensi SKKNI terhadap artefak kode sumber, "
         "notebook Jupyter penjelas, skrip pengujian otomatis, dan status verifikasi resmi:"
@@ -113,7 +113,7 @@ with tab_skkni:
 
 # --- TAB 2: 7 TEMUAN UTAMA ---
 with tab_disc:
-    st.markdown("### 💡 7 Penemuan Ilmiah Utama (Master Discoveries)")
+    st.markdown("###  7 Penemuan Ilmiah Utama (Master Discoveries)")
     disc_data = snap_data.get("discoveries", {})
     if disc_data:
         for d_id, d in disc_data.items():
@@ -138,7 +138,7 @@ with tab_disc:
 
 # --- TAB 3: 6 HIPOTESIS EKONOMETRIKA ---
 with tab_hyp:
-    st.markdown("### 🧪 Hasil Pengujian 6 Hipotesis Formal (Ekonometrika & Statistik)")
+    st.markdown("###  Hasil Pengujian 6 Hipotesis Formal (Ekonometrika & Statistik)")
     hyp_data = snap_data.get("hypotheses", {})
     if hyp_data:
         hyp_rows = []
@@ -150,7 +150,7 @@ with tab_hyp:
                 "Statistik Uji": f"{h.get('test_statistic', 0):.4f}",
                 "Ukuran Efek": f"{h.get('effect_size', 0):.4f}",
                 "p-value (FDR)": f"{h.get('p_value_adj', 0):.3e}",
-                "Status": "✅ DITERIMA" if h.get("status") == "ACCEPTED" else "❌ DITOLAK (Jujur)",
+                "Status": " DITERIMA" if h.get("status") == "ACCEPTED" else " DITOLAK (Jujur)",
                 "Tingkat Klaim": h.get("claim_level", "L2"),
                 "Kualitas Bukti": h.get("evidence_grade", "Grade A"),
             })
@@ -158,7 +158,7 @@ with tab_hyp:
 
 # --- TAB 4: BUKU CATATAN KEGAGALAN ---
 with tab_fail:
-    st.markdown("### ⚠️ Buku Catatan Kegagalan & Batasan Model (Failure Register)")
+    st.markdown("###  Buku Catatan Kegagalan & Batasan Model (Failure Register)")
     st.markdown("""
     Sesuai **Prinsip Utama Proyek SHADOW (Aturan 2 & 13)**, kami tidak menyembunyikan kegagalan eksperimen. 
     Hasil negatif dan skenario di luar batas model dicatat secara terbuka sebagai bukti ketelitian riset:
@@ -179,13 +179,13 @@ with tab_fail:
                     {f_entry.get('description', '')}
                 </div>
                 <div style="font-size: 0.9rem; color: #450A0A; line-height: 1.6; margin-bottom: 0.5rem;">
-                    <b>🔍 Analisis Akar Penyebab:</b> {f_entry.get('root_cause', '')}
+                    <b> Analisis Akar Penyebab:</b> {f_entry.get('root_cause', '')}
                 </div>
                 <div style="font-size: 0.9rem; color: #450A0A; line-height: 1.6; margin-bottom: 0.5rem;">
-                    <b>⚠️ Dampak Terhadap Bisnis:</b> {f_entry.get('impact_assessment', '')}
+                    <b> Dampak Terhadap Bisnis:</b> {f_entry.get('impact_assessment', '')}
                 </div>
                 <div style="font-size: 0.9rem; color: #14532D; background-color: #F0FDF4; padding: 0.6rem 0.8rem; border-radius: 6px; line-height: 1.5;">
-                    <b>🛡️ Tindakan Mitigasi Teruji:</b> {f_entry.get('mitigation_action', '')}
+                    <b> Tindakan Mitigasi Teruji:</b> {f_entry.get('mitigation_action', '')}
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -203,13 +203,13 @@ with tab_fail:
             Pemicu Pagar Pengaman Ekstrapolasi pada Skenario S4 (Z-Score = 4.14 > 3.50)
         </div>
         <div style="font-size: 0.9rem; color: #78350F; line-height: 1.6; margin-bottom: 0.5rem;">
-            <b>🔍 Analisis Akar Penyebab:</b> Kebijakan diskon ekstrem 50% menghasilkan dinamika sistem yang melampaui amplop data historis 87 minggu.
+            <b> Analisis Akar Penyebab:</b> Kebijakan diskon ekstrem 50% menghasilkan dinamika sistem yang melampaui amplop data historis 87 minggu.
         </div>
         <div style="font-size: 0.9rem; color: #78350F; line-height: 1.6; margin-bottom: 0.5rem;">
-            <b>⚠️ Dampak Terhadap Bisnis:</b> Proyeksi model tidak lagi dapat dijamin kepastiannya (diturunkan ke Grade C Spekulatif).
+            <b> Dampak Terhadap Bisnis:</b> Proyeksi model tidak lagi dapat dijamin kepastiannya (diturunkan ke Grade C Spekulatif).
         </div>
         <div style="font-size: 0.9rem; color: #14532D; background-color: #F0FDF4; padding: 0.6rem 0.8rem; border-radius: 6px; line-height: 1.5;">
-            <b>🛡️ Tindakan Mitigasi Teruji:</b> Menolak otomatis rekomendasi skenario S4 dan memberi peringatan visual berwarna merah kepada pembuat keputusan.
+            <b> Tindakan Mitigasi Teruji:</b> Menolak otomatis rekomendasi skenario S4 dan memberi peringatan visual berwarna merah kepada pembuat keputusan.
         </div>
     </div>
     """, unsafe_allow_html=True)

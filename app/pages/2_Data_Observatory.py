@@ -83,7 +83,7 @@ st.write("---")
 # Clean Data Metric Cards
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.35rem; font-weight: 600; color: #1C1917; margin-bottom: 0.8rem;">
-    🧹 Hasil Kerja Pembersihan di Balik Layar
+     Hasil Kerja Pembersihan di Balik Layar
 </div>
 """, unsafe_allow_html=True)
 
@@ -117,7 +117,7 @@ st.write("")
 # Interactive Plotly Chart: Distribution of Delivery Times
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.35rem; font-weight: 600; color: #1C1917; margin-bottom: 0.3rem;">
-    🚚 Berapa Hari Rata-Rata Paket Sampai di Tangan Pembeli?
+     Berapa Hari Rata-Rata Paket Sampai di Tangan Pembeli?
 </div>
 <div style="font-size: 0.92rem; color: #655E57; margin-bottom: 1rem;">
     Sebagian besar paket sampai dalam waktu 5 hingga 15 hari. Namun ada sebagian kecil yang tertahan berminggu-minggu melintasi pedalaman benua.
@@ -153,7 +153,7 @@ editorial_plotly_theme(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown("""
     **Unit Kompetensi yang Dipenuhi:**
     - `[UK-03 Menelaah Data]`: Profiling 9 tabel, rasio missing value, dan distribusi variabel.

@@ -79,7 +79,7 @@ st.write("---")
 # Interactive Story Chart (Plotly Painting)
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.4rem; font-weight: 600; color: #1C1917; margin-bottom: 0.3rem;">
-    📈 Lukisan Data: Hubungan Antara Keterlambatan dan Kepuasan Hati Pembeli
+     Lukisan Data: Hubungan Antara Keterlambatan dan Kepuasan Hati Pembeli
 </div>
 <div style="font-size: 0.92rem; color: #655E57; margin-bottom: 1rem;">
     Garis di bawah memperlihatkan bagaimana nilai ulasan pembeli berubah drastis begitu barang tiba terlambat melewati tanggal yang dijanjikan toko.
@@ -137,7 +137,7 @@ st.write("---")
 
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.35rem; font-weight: 600; color: #1C1917; margin-bottom: 0.5rem;">
-    💡 Tiga Saran Nyata untuk Pemilik Usaha
+     Tiga Saran Nyata untuk Pemilik Usaha
 </div>
 <div style="font-size: 0.95rem; color: #44403C; line-height: 1.7;">
     1. <b>Pasang Janji Estimasi yang Sedikit Lebih Longgar:</b> Lebih baik berjanji paket sampai dalam 5 hari dan tiba di hari ke-4 (pembeli merasa bahagia dapat kejutan cepat), daripada berjanji 3 hari namun baru tiba di hari ke-4 (pembeli merasa dibohongi).<br>
@@ -147,7 +147,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Assessor Scientific Drawer
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown("""
     **Unit Kompetensi yang Dipenuhi:**
     - `[UK-01 Menentukan Masalah Bisnis]`: Pemetaan dilema biaya transaksi vs kepuasan pelanggan pada platform e-commerce Olist.

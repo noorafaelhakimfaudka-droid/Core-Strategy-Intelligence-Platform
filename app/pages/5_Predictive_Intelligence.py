@@ -19,7 +19,7 @@ from app.ui_components import (
     render_story_card,
 )
 
-st.set_page_config(page_title="Bab 5: Hal yang Menggerakkan Hati | CSIP", page_icon="🧭", layout="wide")
+st.set_page_config(page_title="Bab 5: Hal yang Menggerakkan Hati | CSIP", page_icon="", layout="wide")
 apply_editorial_theme()
 
 # --- HERO SECTION ---
@@ -74,7 +74,7 @@ with c3:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 1: GRAFIK PIRAMIDA PENGARUH (SHAP FEATURE IMPORTANCE DALAM BAHASA MANUSIA) ---
-st.markdown("### 🔍 Anatomi Kekecewaan: Apa yang Paling Mempengaruhi Pembeli?")
+st.markdown("###  Anatomi Kekecewaan: Apa yang Paling Mempengaruhi Pembeli?")
 st.markdown(
     "Setiap kali sebuah pesanan berjalan, algoritma kami menimbang berbagai variabel untuk memperkirakan risiko komplain. "
     "Berikut adalah porsi seberapa besar setiap faktor menggerakkan jarum kepuasan pembeli:"
@@ -122,7 +122,7 @@ st.plotly_chart(fig_drivers, use_container_width=True, config={"displayModeBar":
 st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 2: KOMPAS PERAMAL (KALIBRASI PELUANG) ---
-st.markdown("### 🎯 Kompas Peramal: Mengapa Persentase Harus Selaras dengan Realita?")
+st.markdown("###  Kompas Peramal: Mengapa Persentase Harus Selaras dengan Realita?")
 
 col_k1, col_k2 = st.columns([1.1, 0.9])
 
@@ -163,7 +163,7 @@ with col_k2:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 3: PERLOMBAAN 10 MODEL KECERDASAN (LEADERBOARD DALAM BAHASA MANUSIA) ---
-st.markdown("### 🏆 Tangga Kecerdasan: Memilih Peramal Terbaik dari 10 Pendekatan")
+st.markdown("###  Tangga Kecerdasan: Memilih Peramal Terbaik dari 10 Pendekatan")
 st.markdown(
     "Kami tidak langsung mengandalkan satu model. Kami menguji **10 pendekatan pemodelan berbeda** "
     "secara bertingkat di atas 12.630 pesanan yang benar-benar terisolasi dari masa depan:"
@@ -175,9 +175,9 @@ leaderboard_human = [
     {"Tingkat": "Level 2: Rumus Garis", "Nama Pendekatan": "Regresi Logistik Teratur", "Kemampuan Peramal": "Cukup (Menangkap tren linear umum)", "Status": "Standar Cepat"},
     {"Tingkat": "Level 3: Pohon Keputusan", "Nama Pendekatan": "Pohon Pencabang Keputusan (CART)", "Kemampuan Peramal": "Baik (Mampu melihat aturan bercabang)", "Status": "Mudah Dibaca Manusia"},
     {"Tingkat": "Level 4: Gabungan Pohon", "Nama Pendekatan": "Hutan Acak (Random Forest 200 Pohon)", "Kemampuan Peramal": "Sangat Baik (Stabil dan tahan banting)", "Status": "Sangat Tangguh"},
-    {"Tingkat": "Level 4: Gradient Boosting", "Nama Pendekatan": "LightGBM (Gradien Bertingkat)", "Kemampuan Peramal": "TERBAIK UNTUK TABEL (Paling tajam & akurat)", "Status": "👑 JUARA KELAS TABULAR"},
+    {"Tingkat": "Level 4: Gradient Boosting", "Nama Pendekatan": "LightGBM (Gradien Bertingkat)", "Kemampuan Peramal": "TERBAIK UNTUK TABEL (Paling tajam & akurat)", "Status": " JUARA KELAS TABULAR"},
     {"Tingkat": "Level 5: Deep Learning Tabel", "Nama Pendekatan": "Jaringan Saraf Tiruan Tabular (MLP)", "Kemampuan Peramal": "Sangat Baik (Menangkap interaksi tersembunyi)", "Status": "Eksplorasi Mendalam"},
-    {"Tingkat": "Level 5: Deep Learning Teks", "Nama Pendekatan": "Bi-LSTM (Membaca Teks Ulasan Pelanggan)", "Kemampuan Peramal": "LUAR BIASA (Membaca nada emosi pembeli)", "Status": "👑 JUARA KELAS BAHASA"},
+    {"Tingkat": "Level 5: Deep Learning Teks", "Nama Pendekatan": "Bi-LSTM (Membaca Teks Ulasan Pelanggan)", "Kemampuan Peramal": "LUAR BIASA (Membaca nada emosi pembeli)", "Status": " JUARA KELAS BAHASA"},
 ]
 
 df_board = pd.DataFrame(leaderboard_human)
@@ -186,7 +186,7 @@ st.dataframe(df_board, use_container_width=True, hide_index=True)
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
     st.markdown("""
     - **`[UK-08 Membangun Skenario Model]`**: Perancangan skenario evaluasi out-of-time (Juli–Agustus 2018) temporal split tanpa data leakage.

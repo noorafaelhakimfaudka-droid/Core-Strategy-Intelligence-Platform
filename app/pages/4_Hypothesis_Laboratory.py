@@ -84,7 +84,7 @@ st.write("---")
 # Interactive Plotly Chart: Strength of Evidence
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.35rem; font-weight: 600; color: #1C1917; margin-bottom: 0.3rem;">
-    📊 Ringkasan Hasil Pengujian: Mitos Mana yang Terbukti & Mana yang Gugur?
+     Ringkasan Hasil Pengujian: Mitos Mana yang Terbukti & Mana yang Gugur?
 </div>
 <div style="font-size: 0.92rem; color: #655E57; margin-bottom: 1rem;">
     Visualisasi kekuatan bukti dari 6 pengujian terencana. Batang ke arah kanan menunjukkan temuan terbukti kuat; batang abu-abu menunjukkan mitos yang gugur.
@@ -146,7 +146,7 @@ editorial_plotly_theme(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown(r"""
     **Unit Kompetensi yang Dipenuhi:**
     - `[UK-08 Membangun Skenario Model]`: Perancangan pengujian hipotesis formal H1 s.d. H6 dengan koreksi *Benjamini-Hochberg False Discovery Rate (FDR)* pada tingkat signifikansi $\alpha = 0.05$.

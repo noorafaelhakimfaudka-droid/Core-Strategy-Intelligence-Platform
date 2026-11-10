@@ -17,7 +17,7 @@ from app.ui_components import (
     render_story_card,
 )
 
-st.set_page_config(page_title="Bab 8: Studio Keputusan Bisnis | CSIP", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="Bab 8: Studio Keputusan Bisnis | CSIP", page_icon="", layout="wide")
 apply_editorial_theme()
 
 # --- HERO SECTION ---
@@ -73,7 +73,7 @@ with c3:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 1: MATRIKS KEPUTUSAN STRATEGIS (EDITORIAL CARDS) ---
-st.markdown("### 🧭 Matriks 4 Pilihan Kebijakan: Menimbang Untung & Rugi")
+st.markdown("###  Matriks 4 Pilihan Kebijakan: Menimbang Untung & Rugi")
 st.markdown("Berikut adalah evaluasi jujur terhadap 4 skenario intervensi yang paling sering diajukan dalam rapat eksekutif:")
 
 col_m1, col_m2 = st.columns(2)
@@ -91,7 +91,7 @@ with col_m1:
             <b>Efisiensi Modal:</b> Sangat Buruk (Laba platform negatif)
         </div>
         <div style="background-color: #FEF2F2; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.88rem; color: #991B1B;">
-            <b>🚫 Vonis Pimpinan: JANGAN DIJALANKAN.</b> Terjadi kebocoran subsidi pada pembeli yang sebenarnya tidak butuh diskon.
+            <b> Vonis Pimpinan: JANGAN DIJALANKAN.</b> Terjadi kebocoran subsidi pada pembeli yang sebenarnya tidak butuh diskon.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -110,7 +110,7 @@ with col_m1:
             <b>Efisiensi Modal:</b> Sangat Seimbang (Raih 84% manfaat di 50% biaya)
         </div>
         <div style="background-color: #FEF3C7; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.88rem; color: #92400E;">
-            <b>✨ Vonis Pimpinan: SANGAT DIREKOMENDASIKAN.</b> Alokasikan voucher ongkir khusus untuk pesanan antar-pulau / pelosok.
+            <b> Vonis Pimpinan: SANGAT DIREKOMENDASIKAN.</b> Alokasikan voucher ongkir khusus untuk pesanan antar-pulau / pelosok.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -128,7 +128,7 @@ with col_m2:
             <b>Efisiensi Modal:</b> 2.8x Lipat Lebih Efisien daripada Subsidi
         </div>
         <div style="background-color: #F0FDF4; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.88rem; color: #166534;">
-            <b>👑 Vonis Pimpinan: PRIORITAS UTAMA.</b> Berikan sanksi tegas bagi kurir yang molor lebih dari 3 hari dari estimasi.
+            <b> Vonis Pimpinan: PRIORITAS UTAMA.</b> Berikan sanksi tegas bagi kurir yang molor lebih dari 3 hari dari estimasi.
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -147,7 +147,7 @@ with col_m2:
             <b>Efisiensi Modal:</b> Investasi Musiman Agresif
         </div>
         <div style="background-color: #EFF6FF; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.88rem; color: #1E40AF;">
-            <b>🎯 Vonis Pimpinan: TAKTIS MUSIMAN.</b> Simpan strategi ini khusus untuk periode belanja puncak (Black Friday / Harbolnas).
+            <b> Vonis Pimpinan: TAKTIS MUSIMAN.</b> Simpan strategi ini khusus untuk periode belanja puncak (Black Friday / Harbolnas).
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -155,7 +155,7 @@ with col_m2:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 2: KALKULATOR DAMPAK KEUANGAN INTERAKTIF ---
-st.markdown("### 🧮 Kalkulator Finansial Platform: Uji Simulasi Margin Anda")
+st.markdown("###  Kalkulator Finansial Platform: Uji Simulasi Margin Anda")
 st.markdown(
     "Gunakan tuas di bawah ini untuk melihat bagaimana perubahan komisi toko dan besaran subsidi per pesanan "
     "akan memengaruhi pendapatan kotor, beban anggaran, dan sisa keuntungan bersih platform:"
@@ -167,7 +167,7 @@ with col_in:
     st.markdown("""
     <div style="background-color: #FFFFFF; border: 1px solid #EAE4DC; border-radius: 14px; padding: 1.25rem;">
         <div class="editorial-serif" style="font-size: 1.15rem; font-weight: 700; color: #1C1917; margin-bottom: 1rem;">
-            ⚙️ Parameter Operasional Toko
+             Parameter Operasional Toko
         </div>
     """, unsafe_allow_html=True)
 
@@ -188,7 +188,7 @@ with col_out:
     st.markdown(f"""
     <div style="background-color: #FFFFFF; border: 1px solid #EAE4DC; border-radius: 14px; padding: 1.25rem;">
         <div class="editorial-serif" style="font-size: 1.15rem; font-weight: 700; color: #1C1917; margin-bottom: 1rem;">
-            📊 Proyeksi Dampak Keuangan Toko
+             Proyeksi Dampak Keuangan Toko
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid #F5F0E8;">
             <span style="font-size: 0.9rem; color: #655E57;">Total Transaksi Belanja (GMV)</span>
@@ -212,7 +212,7 @@ with col_out:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- BAGIAN 3: PETA JALAN OPERASIONAL 90 HARI ---
-st.markdown("### 🗓️ Rencana Aksi Eksekusi 90 Hari ke Depan")
+st.markdown("###  Rencana Aksi Eksekusi 90 Hari ke Depan")
 st.markdown("Agar rekomendasi ini tidak hanya menjadi wacana, berikut adalah linimasa tindakan nyata yang bertahap dan terukur:")
 
 col_t1, col_t2, col_t3 = st.columns(3)
@@ -265,7 +265,7 @@ with col_t3:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander("🏛️ Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
     st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
     st.markdown("""
     - **`[UK-01 Menentukan Masalah Bisnis]`**: Perumusan tujuan bisnis optimasi margin platform dan minimasi churn pelanggan e-commerce.
