@@ -1,269 +1,266 @@
-/* CSIP Warm Art Gallery Editorial Design System */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap');
+/* =====================================================================
+   THE NOCTURNAL GALLERY: MIDNIGHT MUSEUM DESIGN SYSTEM
+   Dark Living Canvas & Scrollytelling for CSIP
+   ===================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+/* --- 1. CORE CANVAS & DARK THEME PALETTE --- */
 :root {
-  --bg-canvas: #FAF7F2;
-  --bg-card: #FFFFFF;
-  --border-subtle: #EAE4DC;
-  --text-main: #1C1917;
-  --text-muted: #655E57;
-  --accent-terracotta: #C85A32;
-  --accent-sage: #2E6F40;
-  --accent-indigo: #2B4C7E;
-  --accent-amber: #D9822B;
-  --accent-crimson: #B83A2E;
-  --font-serif: 'Newsreader', 'Playfair Display', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --card-radius: 16px;
-  --card-shadow: 0 4px 20px rgba(28, 25, 23, 0.04);
+    --bg-obsidian: #090A0F;
+    --bg-velvet: #121521;
+    --card-glass: rgba(22, 27, 41, 0.72);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-ivory: #F4F1EA;
+    --text-stardust: #8E95A5;
+    --glow-gold: #F5B041;
+    --glow-cyan: #38BDF8;
+    --glow-crimson: #F43F5E;
+    --glow-amethyst: #A855F7;
 }
 
-/* Base App Background */
-.stApp {
-  background-color: var(--bg-canvas) !important;
-  color: var(--text-main) !important;
-  font-family: var(--font-sans) !important;
+/* Reset Background & Hide Streamlit Noise */
+html, body, .stApp {
+    background-color: var(--bg-obsidian) !important;
+    color: var(--text-ivory) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
-/* Sidebar Styling */
-section[data-testid="stSidebar"] {
-  background-color: #F4EFEB !important;
-  border-right: 1px solid var(--border-subtle) !important;
+/* Strictly Hide Sidebar and Floating Default Controls */
+[data-testid="stSidebar"],
+section[data-testid="stSidebar"],
+div[data-testid="collapsedControl"],
+#MainMenu,
+header[data-testid="stHeader"],
+footer {
+    display: none !important;
 }
 
-section[data-testid="stSidebar"] .stMarkdown p {
-  color: var(--text-muted) !important;
-  font-family: var(--font-sans) !important;
+/* Full Width Container without Margins */
+.main .block-container {
+    max-width: 1300px !important;
+    padding-top: 5rem !important;
+    padding-bottom: 6rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
 }
 
-/* Typography Overrides */
-h1, h2, h3, h4, .editorial-serif {
-  font-family: var(--font-serif) !important;
-  color: var(--text-main) !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
+/* --- 2. FLOATING NAVIGATION: GLASS CAPSULE --- */
+.nocturnal-nav {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background: rgba(18, 21, 33, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    padding: 0.55rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
 }
 
-h1 {
-  font-size: 2.5rem !important;
-  line-height: 1.15 !important;
-  margin-bottom: 0.5rem !important;
+.nocturnal-nav-logo {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--glow-gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
-h2 {
-  font-size: 1.85rem !important;
-  line-height: 1.25 !important;
-  margin-top: 1.5rem !important;
-  margin-bottom: 0.75rem !important;
+.nocturnal-nav a {
+    color: var(--text-stardust);
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    padding: 0.2rem 0;
 }
 
-h3 {
-  font-size: 1.35rem !important;
-  line-height: 1.3 !important;
+.nocturnal-nav a:hover {
+    color: var(--text-ivory);
+    text-shadow: 0 0 10px rgba(245, 176, 65, 0.5);
 }
 
-p, li, span, div {
-  font-family: var(--font-sans);
-  color: var(--text-main);
-  line-height: 1.6;
+/* Floating Vertical Dots on the Right Edge */
+.floating-dots {
+    position: fixed;
+    right: 1.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 }
 
-/* Hide Default Streamlit Clutter */
-#MainMenu, header, footer, footer {
-  visibility: hidden;
-  height: 0%;
+.floating-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    transition: all 0.3s ease;
+    display: block;
+    text-decoration: none;
 }
 
-div[data-testid="stToolbar"] {
-  visibility: hidden;
-  display: none;
+.floating-dot:hover {
+    background: var(--glow-gold);
+    box-shadow: 0 0 12px var(--glow-gold);
+    transform: scale(1.4);
 }
 
-/* Editorial Story Card */
-.editorial-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--card-radius);
-  padding: 1.75rem;
-  box-shadow: var(--card-shadow);
-  margin-bottom: 1.25rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* --- 3. POETIC HEADERS (MAX 15 WORDS) --- */
+.poetic-section {
+    padding: 3rem 0 1rem 0;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
-.editorial-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(28, 25, 23, 0.07);
+.poetic-act-tag {
+    display: inline-block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--glow-gold);
+    background: rgba(245, 176, 65, 0.1);
+    border: 1px solid rgba(245, 176, 65, 0.25);
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    margin-bottom: 0.85rem;
 }
 
-.card-tag {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  background-color: #F3ECE6;
-  color: var(--accent-terracotta);
-  margin-bottom: 0.75rem;
+.poetic-title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text-ivory);
+    line-height: 1.3;
+    max-width: 900px;
+    margin: 0 auto;
+    letter-spacing: -0.01em;
+    text-shadow: 0 4px 25px rgba(244, 241, 234, 0.12);
 }
 
-.card-tag.sage {
-  background-color: #EBF4EE;
-  color: var(--accent-sage);
+/* --- 4. GLASSMORPHISM CONTAINERS --- */
+.glass-canvas-container {
+    background: var(--card-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55);
+    margin-bottom: 3.5rem;
+    position: relative;
+    overflow: hidden;
 }
 
-.card-tag.indigo {
-  background-color: #EDF2F7;
-  color: var(--accent-indigo);
+.glass-canvas-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
 }
 
-.card-tag.amber {
-  background-color: #FEF3E2;
-  color: var(--accent-amber);
+/* Glass Pill Buttons (Streamlit Radio Replacement) */
+div[data-testid="stRadio"] > div {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 0.85rem !important;
+    background: transparent !important;
+    margin-bottom: 1rem !important;
 }
 
-/* Editorial Hero Box */
-.hero-box {
-  background: linear-gradient(135deg, #FFFFFF 0%, #FBF9F6 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  padding: 2.25rem 2rem;
-  box-shadow: 0 6px 24px rgba(28, 25, 23, 0.05);
-  margin-bottom: 2rem;
+div[data-testid="stRadio"] label {
+    background: rgba(22, 27, 41, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 9999px !important;
+    padding: 0.45rem 1.25rem !important;
+    color: var(--text-stardust) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
 }
 
-.hero-tagline {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-style: italic;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
+div[data-testid="stRadio"] label:hover {
+    border-color: rgba(245, 176, 65, 0.4) !important;
+    color: var(--text-ivory) !important;
+    background: rgba(245, 176, 65, 0.08) !important;
 }
 
-/* Metric Display Card */
-.stat-box {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 1.25rem 1rem;
-  text-align: center;
-  box-shadow: var(--card-shadow);
+div[data-testid="stRadio"] label[data-checked="true"],
+div[data-testid="stRadio"] label:has(input:checked) {
+    background: rgba(245, 176, 65, 0.15) !important;
+    border-color: var(--glow-gold) !important;
+    color: var(--glow-gold) !important;
+    box-shadow: 0 0 15px rgba(245, 176, 65, 0.25) !important;
 }
 
-.stat-num {
-  font-family: var(--font-serif);
-  font-size: 2.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.1;
-  margin-bottom: 0.25rem;
+/* Hide standard radio circle */
+div[data-testid="stRadio"] input[type="radio"] {
+    display: none !important;
 }
 
-.stat-label {
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 600;
-}
-
-/* Persona Profile Card */
-.persona-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--card-radius);
-  padding: 1.75rem;
-  margin-bottom: 1.25rem;
-  box-shadow: var(--card-shadow);
-}
-
-.persona-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.persona-avatar {
-  font-size: 2.2rem;
-  background-color: #F6F1EC;
-  width: 58px;
-  height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 1px solid var(--border-subtle);
-}
-
-/* Q&A / Mitos vs Fakta Box */
-.qa-box {
-  background-color: var(--bg-card);
-  border-left: 4px solid var(--accent-terracotta);
-  border-radius: 0 var(--card-radius) var(--card-radius) 0;
-  padding: 1.5rem;
-  margin-bottom: 1.25rem;
-  box-shadow: var(--card-shadow);
-  border-top: 1px solid var(--border-subtle);
-  border-right: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-/* Before / After Comparison */
-.comparison-container {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.comparison-pane {
-  flex: 1;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 1.25rem;
-}
-
-.comparison-pane.before {
-  border-top: 3px solid #94A3B8;
-}
-
-.comparison-pane.after {
-  border-top: 3px solid var(--accent-sage);
-}
-
-/* Streamlit Button & Input Overrides */
-.stButton>button {
-  background-color: var(--accent-terracotta) !important;
-  color: #FFFFFF !important;
-  border-radius: 10px !important;
-  border: none !important;
-  padding: 0.6rem 1.4rem !important;
-  font-family: var(--font-sans) !important;
-  font-weight: 600 !important;
-  transition: all 0.2s ease !important;
-}
-
-.stButton>button:hover {
-  background-color: #B24E2B !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(200, 90, 50, 0.25) !important;
-}
-
-/* Streamlit Expander (Scientific Drawer) */
+/* --- 5. CURATOR EXPANDER STYLING --- */
 div[data-testid="stExpander"] {
-  background-color: #F8F5F0 !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 12px !important;
-  margin-top: 1.5rem !important;
+    background: rgba(18, 21, 33, 0.75) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 16px !important;
+    margin-top: 4rem !important;
+    margin-bottom: 3rem !important;
 }
 
 div[data-testid="stExpander"] summary {
-  font-family: var(--font-sans) !important;
-  font-weight: 600 !important;
-  color: var(--text-muted) !important;
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: var(--glow-gold) !important;
+    letter-spacing: 0.05em !important;
+    padding: 1rem 1.5rem !important;
 }
 
+div[data-testid="stExpander"] summary:hover {
+    color: var(--text-ivory) !important;
+}
+
+/* Custom Scrollbar for Nocturnal Space */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-obsidian);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--glow-gold);
+}

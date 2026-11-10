@@ -1,9 +1,6 @@
-"""CSIP UI Components & Warm Art Gallery Design System Helper.
+"""CSIP UI Components & The Nocturnal Gallery Design System.
 
-Provides:
-- Editorial CSS injection
-- Plotly painting theme formatter (0% visual noise, story-driven annotations)
-- High-level HTML components for human-first storytelling
+Living Canvas, Scrollytelling, and Midnight Museum aesthetics for CSIP.
 """
 
 from __future__ import annotations
@@ -17,32 +14,44 @@ import streamlit as st
 
 logger = logging.getLogger(__name__)
 
-# Editorial Painting Palette
-PALETTE = {
-    "terracotta": "#C85A32",
-    "forest_sage": "#2E6F40",
-    "indigo_ink": "#2B4C7E",
-    "warm_amber": "#D9822B",
-    "crimson_clay": "#B83A2E",
-    "muted_stone": "#A8A29E",
-    "canvas": "#FAF7F2",
-    "card_bg": "#FFFFFF",
-    "charcoal": "#1C1917",
-    "subtle_text": "#655E57",
+# --- NOCTURNAL GALLERY PALETTE (MIDNIGHT OBSIDIAN & BIOLUMINESCENCE) ---
+NOCTURNAL_PALETTE = {
+    "obsidian": "#090A0F",
+    "velvet": "#121521",
+    "glass": "rgba(22, 27, 41, 0.72)",
+    "ivory": "#F4F1EA",
+    "stardust": "#8E95A5",
+    "gold": "#F5B041",       # Luminous Gold: Kepuasan & Kesetiaan
+    "cyan": "#38BDF8",       # Cyan Nebula: Aliran Pesanan & Nilai
+    "crimson": "#F43F5E",    # Crimson Ember: Keterlambatan & Kecewa
+    "amethyst": "#A855F7",   # Amethyst Glow: Friksi Ongkir & Keraguan
+    "dim_star": "rgba(142, 149, 165, 0.18)",
 }
 
-PLOTLY_COLORWAY = [
-    PALETTE["terracotta"],
-    PALETTE["forest_sage"],
-    PALETTE["indigo_ink"],
-    PALETTE["warm_amber"],
-    PALETTE["crimson_clay"],
-    PALETTE["muted_stone"],
+# Editorial legacy palette for backwards compatibility
+PALETTE = {
+    "terracotta": "#F43F5E",
+    "forest_sage": "#F5B041",
+    "indigo_ink": "#38BDF8",
+    "warm_amber": "#D9822B",
+    "crimson_clay": "#F43F5E",
+    "muted_stone": "#8E95A5",
+    "canvas": "#090A0F",
+    "card_bg": "rgba(22, 27, 41, 0.72)",
+    "charcoal": "#F4F1EA",
+    "subtle_text": "#8E95A5",
+}
+
+NOCTURNAL_COLORWAY = [
+    NOCTURNAL_PALETTE["gold"],
+    NOCTURNAL_PALETTE["cyan"],
+    NOCTURNAL_PALETTE["amethyst"],
+    NOCTURNAL_PALETTE["crimson"],
 ]
 
 
 def apply_editorial_theme() -> None:
-    """Inject warm art gallery custom CSS into Streamlit."""
+    """Inject Midnight Museum / Nocturnal Gallery custom CSS into Streamlit."""
     css_path = Path(__file__).resolve().parent / "style.css"
     if css_path.exists():
         with open(css_path, "r", encoding="utf-8") as f:
@@ -52,18 +61,78 @@ def apply_editorial_theme() -> None:
         logger.warning(f"style.css not found at {css_path}")
 
 
+def apply_nocturnal_theme() -> None:
+    """Alias for apply_editorial_theme."""
+    apply_editorial_theme()
+
+
+def nocturnal_plotly_theme(
+    fig: go.Figure,
+    height: int = 580,
+    show_axes: bool = False,
+) -> go.Figure:
+    """Format Plotly figure into a living canvas painting of light in a dark space."""
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        colorway=NOCTURNAL_COLORWAY,
+        font=dict(family="Plus Jakarta Sans, sans-serif", size=12, color=NOCTURNAL_PALETTE["ivory"]),
+        height=height,
+        margin=dict(l=15, r=15, t=20, b=20),
+        showlegend=False,
+        hoverlabel=dict(
+            bgcolor="rgba(18, 21, 33, 0.95)",
+            bordercolor="rgba(255, 255, 255, 0.15)",
+            font=dict(family="Plus Jakarta Sans, sans-serif", size=12, color=NOCTURNAL_PALETTE["ivory"]),
+        ),
+    )
+
+    if not show_axes:
+        fig.update_xaxes(
+            showgrid=False,
+            zeroline=False,
+            showline=False,
+            showticklabels=False,
+            visible=False,
+        )
+        fig.update_yaxes(
+            showgrid=False,
+            zeroline=False,
+            showline=False,
+            showticklabels=False,
+            visible=False,
+        )
+    else:
+        fig.update_xaxes(
+            showgrid=False,
+            zeroline=False,
+            showline=True,
+            linecolor="rgba(255,255,255,0.1)",
+            tickfont=dict(size=11, color=NOCTURNAL_PALETTE["stardust"]),
+        )
+        fig.update_yaxes(
+            showgrid=True,
+            gridcolor="rgba(255,255,255,0.05)",
+            zeroline=False,
+            showline=False,
+            tickfont=dict(size=11, color=NOCTURNAL_PALETTE["stardust"]),
+        )
+
+    return fig
+
+
 def editorial_plotly_theme(
     fig: go.Figure,
     title: str = "",
     subtitle: str = "",
     x_title: str = "",
     y_title: str = "",
-    height: int = 420,
+    height: int = 440,
 ) -> go.Figure:
-    """Format Plotly figure to look like a clean, publication-grade editorial chart."""
+    """Backwards compatible dark editorial theme."""
     full_title = f"<b>{title}</b>"
     if subtitle:
-        full_title += f"<br><span style='font-size:12px; font-weight:normal; color:#655E57;'>{subtitle}</span>"
+        full_title += f"<br><span style='font-size:12px; font-weight:normal; color:#8E95A5;'>{subtitle}</span>"
 
     fig.update_layout(
         title={
@@ -72,14 +141,14 @@ def editorial_plotly_theme(
             "x": 0.02,
             "xanchor": "left",
             "yanchor": "top",
-            "font": {"family": "Newsreader, Playfair Display, Georgia, serif", "size": 18, "color": PALETTE["charcoal"]},
+            "font": {"family": "Cormorant Garamond, Georgia, serif", "size": 20, "color": NOCTURNAL_PALETTE["ivory"]},
         },
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        colorway=PLOTLY_COLORWAY,
-        font={"family": "Plus Jakarta Sans, sans-serif", "size": 12, "color": PALETTE["charcoal"]},
+        colorway=NOCTURNAL_COLORWAY,
+        font={"family": "Plus Jakarta Sans, sans-serif", "size": 12, "color": NOCTURNAL_PALETTE["ivory"]},
         height=height,
-        margin={"l": 40, "r": 30, "t": 75, "b": 50},
+        margin={"l": 30, "r": 30, "t": 75, "b": 40},
         showlegend=True,
         legend={
             "orientation": "h",
@@ -87,60 +156,83 @@ def editorial_plotly_theme(
             "y": 1.02,
             "xanchor": "right",
             "x": 1.0,
-            "font": {"size": 11, "color": PALETTE["subtle_text"]},
+            "font": {"size": 11, "color": NOCTURNAL_PALETTE["stardust"]},
         },
     )
 
     fig.update_xaxes(
-        title={"text": x_title, "font": {"size": 12, "color": PALETTE["subtle_text"]}},
+        title={"text": x_title, "font": {"size": 12, "color": NOCTURNAL_PALETTE["stardust"]}},
         showgrid=True,
-        gridcolor="rgba(101, 94, 87, 0.1)",
+        gridcolor="rgba(255, 255, 255, 0.06)",
         gridwidth=1,
         zeroline=False,
         showline=True,
-        linecolor="rgba(101, 94, 87, 0.2)",
-        tickfont={"size": 10, "color": PALETTE["subtle_text"]},
+        linecolor="rgba(255, 255, 255, 0.12)",
+        tickfont={"size": 10, "color": NOCTURNAL_PALETTE["stardust"]},
     )
 
     fig.update_yaxes(
-        title={"text": y_title, "font": {"size": 12, "color": PALETTE["subtle_text"]}},
+        title={"text": y_title, "font": {"size": 12, "color": NOCTURNAL_PALETTE["stardust"]}},
         showgrid=True,
-        gridcolor="rgba(101, 94, 87, 0.1)",
+        gridcolor="rgba(255, 255, 255, 0.06)",
         gridwidth=1,
         zeroline=False,
         showline=False,
-        tickfont={"size": 10, "color": PALETTE["subtle_text"]},
+        tickfont={"size": 10, "color": NOCTURNAL_PALETTE["stardust"]},
     )
 
     return fig
 
 
-def render_hero(title: str, subtitle: str, tag: str = "Cerita di Balik 100.000 Pesanan E-Commerce") -> None:
-    """Render high-impact editorial hero header box."""
+def render_poetic_header(act_tag: str, poetic_title: str) -> None:
+    """Render single poetic title (strictly <= 15 words) for living canvas act."""
     html = f"""
-    <div class="hero-box">
-        <span class="card-tag">{tag}</span>
-        <div class="editorial-serif" style="font-size: 2.2rem; font-weight: 700; color: #1C1917; line-height: 1.2; margin-bottom: 0.6rem;">
-            {title}
-        </div>
-        <div style="font-size: 1.05rem; color: #655E57; line-height: 1.6; max-width: 850px;">
-            {subtitle}
+    <div class="poetic-section">
+        <span class="poetic-act-tag">{act_tag}</span>
+        <div class="poetic-title">
+            "{poetic_title}"
         </div>
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
 
 
+def render_floating_navigation() -> None:
+    """Render top floating glass capsule bar and right-edge floating dots."""
+    html = """
+    <div class="nocturnal-nav">
+        <div class="nocturnal-nav-logo">✦ CSIP NOCTURNE</div>
+        <a href="#act-1">Rasi Bintang</a>
+        <a href="#act-2">Empat Pulau</a>
+        <a href="#act-3">Janji Patah</a>
+        <a href="#act-4">Lingkaran Kendali</a>
+        <a href="#curator-door" style="color: #F5B041;">✦ Ruang Kurator</a>
+    </div>
+    <div class="floating-dots">
+        <a href="#act-1" class="floating-dot" title="Babak I: Rasi Bintang"></a>
+        <a href="#act-2" class="floating-dot" title="Babak II: Empat Pulau"></a>
+        <a href="#act-3" class="floating-dot" title="Babak III: Janji Patah"></a>
+        <a href="#act-4" class="floating-dot" title="Babak IV: Lingkaran Kendali"></a>
+        <a href="#curator-door" class="floating-dot" style="background: #F5B041;" title="Ruang Kurator"></a>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
+
+
+# Backwards compatibility helpers
+def render_hero(title: str, subtitle: str, tag: str = "Cerita di Balik 100.000 Pesanan E-Commerce") -> None:
+    render_poetic_header(tag, title)
+
+
 def render_story_card(title: str, body: str, tag: Optional[str] = None, tag_class: str = "") -> None:
-    """Render a clean editorial story card with subtle border and elevation."""
-    tag_html = f'<span class="card-tag {tag_class}">{tag}</span><br>' if tag else ""
+    tag_html = f'<span class="poetic-act-tag">{tag}</span><br>' if tag else ""
     html = f"""
-    <div class="editorial-card">
+    <div class="glass-canvas-container" style="padding: 1.25rem; margin-bottom: 1.25rem;">
         {tag_html}
-        <div class="editorial-serif" style="font-size: 1.35rem; font-weight: 600; color: #1C1917; margin-bottom: 0.5rem;">
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 600; color: #F4F1EA; margin-bottom: 0.5rem;">
             {title}
         </div>
-        <div style="font-size: 0.95rem; color: #44403C; line-height: 1.6;">
+        <div style="font-size: 0.92rem; color: #8E95A5; line-height: 1.6;">
             {body}
         </div>
     </div>
@@ -149,18 +241,17 @@ def render_story_card(title: str, body: str, tag: Optional[str] = None, tag_clas
 
 
 def render_qa_box(question: str, myth: str, reality: str, verdict_tag: str = "Fakta di Lapangan") -> None:
-    """Render interactive myth-buster card."""
     html = f"""
-    <div class="qa-box">
-        <span class="card-tag amber">{verdict_tag}</span>
-        <div class="editorial-serif" style="font-size: 1.25rem; font-weight: 700; color: #1C1917; margin-bottom: 0.75rem;">
+    <div class="glass-canvas-container" style="padding: 1.25rem; margin-bottom: 1.25rem;">
+        <span class="poetic-act-tag">{verdict_tag}</span>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 600; color: #F4F1EA; margin-bottom: 0.75rem;">
             ❓ {question}
         </div>
-        <div style="background-color: #FDFBF7; border-left: 3px solid #D9822B; padding: 0.6rem 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; font-size: 0.9rem; color: #78350F;">
-            <b>Mitos Umum:</b> <i>"{myth}"</i>
+        <div style="background: rgba(245, 176, 65, 0.08); border-left: 3px solid #F5B041; padding: 0.6rem 0.9rem; border-radius: 6px; margin-bottom: 0.75rem; font-size: 0.9rem; color: #F5B041;">
+            <b>Mitos:</b> <i>"{myth}"</i>
         </div>
-        <div style="background-color: #F0FDF4; border-left: 3px solid #2E6F40; padding: 0.6rem 0.9rem; border-radius: 6px; font-size: 0.92rem; color: #14532D; line-height: 1.5;">
-            <b>Temuan Nyata Data:</b> {reality}
+        <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38BDF8; padding: 0.6rem 0.9rem; border-radius: 6px; font-size: 0.92rem; color: #F4F1EA; line-height: 1.5;">
+            <b>Temuan Data:</b> {reality}
         </div>
     </div>
     """
@@ -176,27 +267,26 @@ def render_persona_card(
     likes: str,
     dislikes: str,
 ) -> None:
-    """Render a humanized persona profile card."""
     html = f"""
-    <div class="persona-card">
-        <div class="persona-header">
-            <div class="persona-avatar">{avatar_emoji}</div>
+    <div class="glass-canvas-container" style="padding: 1.25rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
+            <div style="font-size: 2rem;">{avatar_emoji}</div>
             <div>
-                <span class="card-tag sage">{tag}</span>
-                <div class="editorial-serif" style="font-size: 1.3rem; font-weight: 700; color: #1C1917; margin-top: 0.2rem;">
+                <span class="poetic-act-tag">{tag}</span>
+                <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.4rem; font-weight: 600; color: #F4F1EA;">
                     {name}
                 </div>
-                <div style="font-size: 0.85rem; color: #655E57;">Porsi Populasi: <b>{share_pct}</b></div>
+                <div style="font-size: 0.85rem; color: #8E95A5;">Porsi: <b>{share_pct}</b></div>
             </div>
         </div>
-        <div style="font-size: 0.92rem; color: #332F2B; line-height: 1.6; margin-bottom: 0.75rem;">
-            <b>🛍️ Kebiasaan Belanja:</b> {habits}
+        <div style="font-size: 0.9rem; color: #F4F1EA; line-height: 1.6; margin-bottom: 0.5rem;">
+            <b>🛍️ Kebiasaan:</b> {habits}
         </div>
-        <div style="font-size: 0.88rem; color: #2E6F40; margin-bottom: 0.35rem;">
-            <b>💚 Yang Mereka Sukai:</b> {likes}
+        <div style="font-size: 0.88rem; color: #F5B041; margin-bottom: 0.35rem;">
+            <b>💚 Sukai:</b> {likes}
         </div>
-        <div style="font-size: 0.88rem; color: #B83A2E;">
-            <b>💔 Yang Bikin Mereka Kapok:</b> {dislikes}
+        <div style="font-size: 0.88rem; color: #F43F5E;">
+            <b>💔 Kapok:</b> {dislikes}
         </div>
     </div>
     """
@@ -211,25 +301,22 @@ def render_before_after(
     verdict_summary: str,
     is_favorable: bool = True,
 ) -> None:
-    """Render before-and-after comparison block."""
-    color = PALETTE["forest_sage"] if is_favorable else PALETTE["crimson_clay"]
-    icon = "✨" if is_favorable else "⚠️"
+    color = NOCTURNAL_PALETTE["gold"] if is_favorable else NOCTURNAL_PALETTE["crimson"]
     html = f"""
-    <div class="comparison-container">
-        <div class="comparison-pane before">
-            <div style="font-size: 0.8rem; text-transform: uppercase; color: #655E57; font-weight: 600;">Kondisi Saat Ini</div>
-            <div style="font-size: 1.3rem; font-weight: 700; color: #1C1917; margin: 0.3rem 0;">{current_val}</div>
-            <div style="font-size: 0.82rem; color: #655E57;">{current_label}</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;">
+        <div class="glass-canvas-container" style="padding: 1rem; margin-bottom: 0;">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: #8E95A5;">Kondisi Saat Ini</div>
+            <div style="font-size: 1.35rem; font-weight: 700; color: #F4F1EA; margin: 0.3rem 0;">{current_val}</div>
+            <div style="font-size: 0.82rem; color: #8E95A5;">{current_label}</div>
         </div>
-        <div class="comparison-pane after" style="border-top-color: {color};">
-            <div style="font-size: 0.8rem; text-transform: uppercase; color: {color}; font-weight: 700;">Jika Kebijakan Diterapkan</div>
-            <div style="font-size: 1.3rem; font-weight: 700; color: {color}; margin: 0.3rem 0;">{simulated_val}</div>
-            <div style="font-size: 0.82rem; color: #655E57;">{simulated_label}</div>
+        <div class="glass-canvas-container" style="padding: 1rem; margin-bottom: 0; border-top: 3px solid {color};">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: {color};">Dengan Kebijakan</div>
+            <div style="font-size: 1.35rem; font-weight: 700; color: {color}; margin: 0.3rem 0;">{simulated_val}</div>
+            <div style="font-size: 0.82rem; color: #8E95A5;">{simulated_label}</div>
         </div>
     </div>
-    <div style="background-color: #FFFFFF; border: 1px solid #EAE4DC; border-radius: 10px; padding: 0.8rem 1rem; margin-top: 0.75rem; font-size: 0.88rem; color: #1C1917;">
-        <b>{icon} Kesimpulan Keputusan:</b> {verdict_summary}
+    <div class="glass-canvas-container" style="padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.88rem; color: #F4F1EA;">
+        <b>Kesimpulan:</b> {verdict_summary}
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
-
