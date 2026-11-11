@@ -21,6 +21,9 @@ SRC_DIR = ROOT_DIR / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
+import importlib
+import src.csip.data.semantic_profiler
+importlib.reload(src.csip.data.semantic_profiler)
 from src.csip.data.semantic_profiler import build_fluent_schema, fmt_num, get_builtin_dataset
 
 st.set_page_config(
@@ -294,7 +297,19 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
     f2_phrase = top2_row["Frasa"]
     f2_share = top2_row["Pengaruh_Persen"]
 
-    if top1_row["Pearson_r"] <= -0.05:
+    if top1.startswith("Kategori "):
+        clean_cat = top1.replace("Kategori ", "").lower()
+        if top1_row["Pearson_r"] <= -0.05:
+            headline_main = f"Kelompok {clean_cat} level {int(tipping_x)} cenderung menurunkan"
+            headline_em = f"{t_phrase}."
+            act_1 = f"Evaluasi segmen {clean_cat}"
+            act_2 = f"Fokus pada kelompok {int(tipping_x)}"
+        else:
+            headline_main = f"Kelompok {clean_cat} level {int(tipping_x)} mendorong peningkatan"
+            headline_em = f"{t_phrase}."
+            act_1 = f"Prioritaskan segmen {clean_cat}"
+            act_2 = f"Perkuat faktor #{2}: {top2_row['Fitur'].lower()}"
+    elif top1_row["Pearson_r"] <= -0.05:
         headline_main = f"Kendalikan {top1.lower()} di bawah {fmt_num(tipping_x, f1_unit)}, agar"
         headline_em = f"{t_phrase} tetap stabil."
         act_1 = f"Prioritaskan kendali {top1.lower()}"
@@ -1029,6 +1044,8 @@ with col_deck:
             ],
         )
 
+        st.caption("Cakupan Analitik: Optimal untuk metrik bisnis, transaksi, SDM, pemasaran, atau sains dengan variabel kontinu saling berkorelasi.")
+
         if uploaded_csv is not None:
             raw_df = pd.read_csv(uploaded_csv)
             dataset_title = f"Berkas: {uploaded_csv.name}"
@@ -1137,8 +1154,10 @@ with col_deck:
             custom_inputs[f_name] = float(val)
 
             mid_scale = (f_min + f_max) / 2.0
-            if is_discrete and (f_max - f_min == 1.0):
+            if is_discrete and f_min == 0.0 and f_max == 1.0:
                 scale_labels_html = f'<div class="scale-row"><span>0 (Non-aktif / Tidak Ada)</span><span></span><span>1 (Aktif / Tersedia)</span></div>'
+            elif is_discrete and f_name.startswith("Kategori "):
+                scale_labels_html = f'<div class="scale-row"><span>Grup {int(f_min)}</span><span></span><span>Grup {int(f_max)}</span></div>'
             else:
                 scale_labels_html = f'<div class="scale-row"><span>{fmt_num(f_min)}</span><span>{fmt_num(mid_scale)}</span><span>{fmt_num(f_max, f_unit)}</span></div>'
 
