@@ -138,4 +138,4 @@ def test_simulate_and_narrate():
     assert "headline" in sim
     assert "full_narrative" in sim
     assert len(sim["headline"]) > 0
-    assert len(sim["grid_x"]) == 60
+    assert len(sim["grid_x"]) == 70
