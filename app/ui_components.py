@@ -6,8 +6,15 @@ Living Canvas, Scrollytelling, and Midnight Museum aesthetics for CSIP.
 from __future__ import annotations
 
 import logging
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR / "src"))
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 import plotly.graph_objects as go
 import streamlit as st

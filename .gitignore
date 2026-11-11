@@ -28,4 +28,6 @@ htmlcov/
 # OS Specific
 .DS_Store
 Thumbs.db
+*.egg-info/
+.streamlit/secrets.toml
 
