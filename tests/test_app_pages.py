@@ -30,11 +30,10 @@ PAGES_DIR = REPO_ROOT / "app" / "pages"
         "6_World_Model.py",
         "7_Alternative_World_Simulator.py",
         "8_Decision_Studio.py",
-        "9_Evidence_Registry_Review.py",
     ],
 )
 def test_every_page_loads(page_name: str) -> None:
-    """Verifies that all 9 dashboard pages execute cleanly without exceptions."""
+    """Verifies that all 8 modular laboratory pages execute cleanly without exceptions."""
     page_path = PAGES_DIR / page_name
     assert page_path.exists(), f"Page file {page_name} does not exist"
 
@@ -43,6 +42,18 @@ def test_every_page_loads(page_name: str) -> None:
 
     if at.exception:
         pytest.fail(f"Page {page_name} raised uncaught exception: {at.exception[0]}")
+
+
+def test_main_cockpit_loads() -> None:
+    """Verifies that the primary CSIP Studio cockpit (streamlit_app.py) executes cleanly."""
+    app_path = REPO_ROOT / "app" / "streamlit_app.py"
+    assert app_path.exists(), "streamlit_app.py does not exist"
+
+    at = AppTest.from_file(str(app_path), default_timeout=25)
+    at.run(timeout=25)
+
+    if at.exception:
+        pytest.fail(f"streamlit_app.py raised uncaught exception: {at.exception[0]}")
 
 
 def test_app_numbers_match_artifacts() -> None:

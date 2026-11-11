@@ -15,7 +15,7 @@
 
 ## 1. Ringkasan Eksekutif & Realita Masalah Bisnis
 
-**Core Strategy & Intelligence Platform (CSIP)** adalah sistem operasi analitis dan platform *machine learning* skala *enterprise* yang dirancang untuk mengurai friksi operasional *e-commerce*, memprediksi hambatan rantai pasok pengiriman barang, serta menyimulasikan dampak kebijakan intervensi bisnis secara terukur dan dapat diaudit.
+**Core Strategy & Intelligence Platform (CSIP)** adalah sistem operasi analitis dan platform *machine learning* skala *enterprise* yang dirancang untuk mengurai friksi operasional, memprediksi hambatan rantai pasok pengiriman barang, serta menyimulasikan dampak kebijakan intervensi bisnis secara terukur dan dapat diaudit.
 
 Platform perdagangan elektronik modern di wilayah geografis kepulauan atau benua (seperti ekosistem Olist Brasil dengan lebih dari $100.000$ transaksi pesanan di 27 negara bagian) menghadapi friksi operasional asimetris:
 * **Hambatan Logistik & Keterlambatan Pengiriman:** Durasi transit pengiriman berkisar antara 2 hari hingga lebih dari 45 hari. Keterlambatan logistik memicu gelombang kekecewaan pelanggan dan menurunkan retensi secara drastis.
@@ -32,12 +32,36 @@ Platform perdagangan elektronik modern di wilayah geografis kepulauan atau benua
 
 ---
 
-## 2. Arsitektur Sistem Tingkat Tinggi
+## 2. Cakupan Analitik Lintas Sektor & Fleksibilitas Universal
+
+CSIP tidak hanya terbatas pada studi kasus rantai pasok e-commerce, melainkan sebuah **Universal Causal Simulation & Decision Intelligence Platform** yang dioptimalkan untuk memproses data tabular apa pun dengan variabel kontinu yang saling berkorelasi:
+
+> **Cakupan Analitik:** Optimal untuk metrik bisnis, transaksi, SDM, pemasaran, atau sains dengan variabel kontinu saling berkorelasi.
+
+Platform ini menyediakan kapabilitas analitis serbaguna lintas domain industri:
+* **Bisnis & Transaksi Pasar Modal / Komoditas:**
+  - Pemodelan harga pasar aset digital/komoditas (tersedia preset bawaan `PAXG_USD_Daily.csv` untuk estimasi harga emas terhadap volume transaksi pasar dan gejolak volatilitas harian).
+  - Optimasi margin profitabilitas, perputaran persediaan (*inventory turnover*), dan proyeksi arus kas operasional.
+* **Manajemen SDM & People Analytics:**
+  - Analisis produktivitas kerja, retensi talenta, kepuasan karyawan, dan perbandingan kompensasi terhadap masa kerja (*tenure*).
+  - Deteksi dini kejenuhan kerja (*burnout*) dan prediksi pergantian staf (*attrition risk*).
+* **Pemasaran, Pelanggan & Pertumbuhan Bisnis:**
+  - Evaluasi efektivitas kampanye, *Customer Acquisition Cost* (CAC), *Customer Lifetime Value* (LTV).
+  - Prediksi *churn* pelanggan dan elastisitas sensitivitas harga promosi.
+* **Sains, Kesehatan & Riset Medis:**
+  - Studi korelasi gaya hidup terhadap indikator risiko kesehatan klinis (tersedia dataset bawaan *Kasus 2: Risiko Kesehatan & Gaya Hidup*).
+  - Analisis telemetri sensor industri IoT, yield reaksi kimia kontinu, dan evaluasi hasil eksperimen laboratorium.
+* **Mesin Penelaah CSV Universal (Universal CSV X-Ray):**
+  - Cukup unggah berkas CSV apa saja ke dalam studio. Sistem secara otomatis mendeteksi tipe data, menstandardisasi skala intuitif (misal: skor 1-5 dinormalisasi ke 0-100), membersihkan nilai hilang, dan membangun simulator interaktif secara instan.
+
+---
+
+## 3. Arsitektur Sistem Tingkat Tinggi
 
 ```mermaid
 flowchart TD
     subgraph Data_Layer ["1. Rekayasa Data & Pemetaan Butiran Data (Grain Profiling)"]
-        RAW["Data Mentah Relasional Olist (9 Berkas CSV, 100k+ Pesanan)"] --> CLEAN["Pembersihan Deterministik & Deduplikasi Geospasial"]
+        RAW["Data Tabular (Olist E-Commerce, PAXG Gold, Medis, Custom CSV)"] --> CLEAN["Pembersihan Deterministik & Deduplikasi Geospasial"]
         CLEAN --> GRAIN["Pemetaan Butiran Data (Order, Customer, Seller Grains)"]
         GRAIN --> EMBARGO["Partisi Waktu Bergerak (Embargo 90 Hari, 4 Lipatan Waktu)"]
     end
@@ -69,13 +93,13 @@ flowchart TD
         API_SRV -.-> COCKPIT["Studio Single-Page Streamlit (Port 8501)"]
         ARENA -.-> COCKPIT
         COCKPIT --> SIM["Simulator Keputusan Kontrafaktual 'What-If'"]
-        COCKPIT --> WALKTHROUGH["Tur Arsitektur Siklus Hidup CRISP-DM 11-Tahap"]
+        COCKPIT --> LABS["8 Modul Laboratorium Analitik Terfokus"]
     end
 ```
 
 ---
 
-## 3. Keunggulan Ilmiah & Ketegasan Metodologi
+## 4. Keunggulan Ilmiah & Ketegasan Metodologi
 
 ### A. Isolasi Temporal Ketat & Eliminasi Kebocoran Data
 Berbeda dengan pemodelan konvensional yang kerap mencampur data masa depan ke dalam pelatihan, CSIP membagi ketersediaan fitur berdasarkan titik pos operasional secara tegas:
@@ -96,7 +120,7 @@ sehingga para pengambil kebijakan tidak salah mengartikan kepuasan umum dari sam
 
 ---
 
-## 4. Observatorium Konsep Drift & Peluruhan Performa Model
+## 5. Observatorium Konsep Drift & Peluruhan Performa Model
 
 Modul pemantauan CSIP (`csip.monitoring`) memberikan pengawasan statistik secara *real-time* terhadap aliran data produksi tanpa membebani sistem dengan broker eksternal yang berat.
 
@@ -132,7 +156,7 @@ STATUS: Peringatan Kritis Aktif -> Siklus Retraining Model Penantang Diluncurkan
 
 ---
 
-## 5. Spesifikasi REST API Layanan Mikro (FastAPI)
+## 6. Spesifikasi REST API Layanan Mikro (FastAPI)
 
 CSIP dilengkapi dengan peladen mikro berbasis FastAPI (`src/csip/api/server.py`) yang berjalan asinkron untuk melayani kebutuhan inferensi dan telemetri pemantauan.
 
@@ -211,7 +235,7 @@ curl -X POST http://127.0.0.1:8000/monitor/drift \
 
 ---
 
-## 6. Papan Peringkat & Performa Model Empiris
+## 7. Papan Peringkat & Performa Model Empiris
 
 Seluruh model dilatih pada kumpulan data $64.156$ baris dan diuji pada partisi uji terkunci (*locked holdout partition*, $N=12.448$) menggunakan skema lipatan waktu bergerak (*temporal cross-validation*).
 
@@ -229,10 +253,19 @@ Di mana kerugian akibat hilangnya pelanggan karena ulasan buruk yang tidak terta
 
 ---
 
-## 7. Tur Studio Keputusan Interaktif (Streamlit)
+## 8. Arsitektur Antarmuka & Kokpit Studio Keputusan
 
-Antarmuka web CSIP dirancang untuk visualisasi analitis terintegrasi dengan densitas informasi tinggi:
+CSIP menghadirkan arsitektur antarmuka dua lapis yang fleksibel: **CSIP Studio** sebagai kokpit interaktif mandiri (*single-page app*), didukung oleh **8 Modul Laboratorium Analitik Terfokus** untuk investigasi saintifik mendalam.
 
+### A. Antarmuka Utama: CSIP Studio (`app/streamlit_app.py`)
+Kokpit terpadu satu halaman (*Option A single-viewport*) yang memungkinkan simulasi interaktif tanpa navigasi yang rumit:
+1. **Sumber Data & Fokus:** Tarik dan lepas berkas CSV apa saja, atau pilih dari koleksi dataset bawaan (*Kasus 2: Risiko Kesehatan & Gaya Hidup*, *PAXG_USD_Daily.csv*, dll.).
+2. **Tuas Simulasi Dinamis:** Kendalikan parameter operasional (Volume Transaksi Pasar, Gejolak Volatilitas Harian, Posisi vs Tren Bulanan) dan saksikan pergeseran estimasi secara *real-time*.
+3. **Lensa Tampilan Analitik Multi-Dimensi:** Pilihan visualisasi antara *Kurva Simulasi dan Titik Kritis*, *Peringkat Faktor Penentu (Feature Importance)*, dan *Sebaran Kelompok Data*.
+4. **Nara Penasihat Strategi (Prescriptive Advisor):** Panel narasi rekomendasi preskriptif yang menghitung titik ekuilibrium tuas untuk mengoptimalkan metrik target secara matematis.
+
+### B. 8 Modul Laboratorium Analitik Terfokus (`app/pages/`)
+Untuk audit saintifik dan eksplorasi mendalam, tersedia 8 modul laboratorium terdedikasi:
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────────┐
 │ Studio CSIP  •  Platform Analitik Keputusan Enterprise  •  Produksi MLOps                │
@@ -245,13 +278,13 @@ Antarmuka web CSIP dirancang untuk visualisasi analitis terintegrasi dengan dens
 │ 6. Model Dinamika Dunia  │ Matriks transisi probabilitas status operasional rantai pasok │
 │ 7. Simulator Alternatif  │ Uji ketahanan simulasi stres di bawah skenario guncangan pasar│
 │ 8. Studio Keputusan      │ Rekomendasi tindakan logistik berbasis optimasi matriks biaya │
-│ 9. Tur Alur CRISP-DM     │ Pembuktian terstruktur 11 tahap siklus rekayasa data & ML     │
 └──────────────────────────┴───────────────────────────────────────────────────────────────┘
 ```
+*(Catatan Arsitektur: Halaman checklist pengujian lama telah dieliminasi sepenuhnya agar repositori tampil murni sebagai platform analitik produksi profesional).*
 
 ---
 
-## 8. Panduan Memulai Cepat & Reproduksi (Quickstart)
+## 9. Panduan Memulai Cepat & Reproduksi (Quickstart)
 
 ### Kebutuhan Perangkat Keras & Perangkat Lunak
 * Python versi 3.10, 3.11, 3.12, atau 3.14.
@@ -308,7 +341,7 @@ docker run -p 8501:8501 -p 8000:8000 csip-platform:1.0.0
 
 ---
 
-## 9. Struktur Direktori Proyek
+## 10. Struktur Direktori Proyek
 
 ```
 csip/
@@ -319,7 +352,7 @@ csip/
 │   ├── api_server.py             # Pelari daemon FastAPI uvicorn
 │   ├── data_provider.py          # Penyedia cache data terpusat
 │   ├── ui_components.py          # Komponen tampilan dan CSS terintegrasi
-│   └── pages/                    # 9 Modul Halaman Interaktif
+│   └── pages/                    # 8 Modul Laboratorium Analitik Terfokus
 │       ├── 1_Executive_Overview.py
 │       ├── 2_Data_Observatory.py  # Memuat Radar Drift & Plot Distribusi KDE
 │       ├── 3_Behavioral_Discovery_Lab.py
@@ -327,8 +360,7 @@ csip/
 │       ├── 5_Predictive_Intelligence.py
 │       ├── 6_World_Model.py
 │       ├── 7_Alternative_World_Simulator.py
-│       ├── 8_Decisions_and_Prescriptions.py
-│       └── 9_Evidence_Registry_Review.py
+│       └── 8_Decision_Studio.py
 ├── artifacts/                    # Bukti Artefak Model & Evaluasi Nyata
 │   ├── models/                   # Berkas model .joblib dan sidecar metadata .json
 │   ├── metadata/                 # Registri model, ledger riwayat, dan matriks
@@ -362,7 +394,7 @@ csip/
 
 ---
 
-## 10. Tata Kelola Data, Etika & Efisiensi Komputasi
+## 11. Tata Kelola Data, Etika & Efisiensi Komputasi
 
 1. **Privasi Lokal Terkendali:** Seluruh komputasi berjalan secara internal (*in-process*) atau lewat IPC lokal. Tidak ada data pribadi pelanggan, koordinat geospasial, atau teks transaksi yang dikirimkan ke API cloud pihak ketiga.
 2. **Efisiensi Komputasi Tinggi:** Dirancang hemat sumber daya (<8 GB RAM dengan komputasi vektor NumPy/SciPy), memungkinkan implementasi skala *enterprise* pada perangkat keras standar tanpa beban biaya komputasi akselerator GPU eksternal.
@@ -370,7 +402,7 @@ csip/
 
 ---
 
-## 11. Lisensi & Sitasi
+## 12. Lisensi & Sitasi
 
 Proyek ini dirilis secara sumber terbuka (*open-source*) di bawah naungan **Lisensi MIT**.
 
