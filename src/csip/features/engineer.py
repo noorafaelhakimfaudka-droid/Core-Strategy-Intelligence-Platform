@@ -234,7 +234,7 @@ class FeatureEngineer:
     def build_customer_cohort(self, order_level_df: Optional[pd.DataFrame] = None) -> pd.DataFrame:
         """Construct Objek Data 2: Customer Cohort Retention Dataset.
 
-        Enforces PRD Section 6.3:
+        Enforces System Specification Section 6.3:
         1. Strict First-Order Isolation: Predictors use Order 1 features ONLY.
         2. Right-Censoring Mitigation: Excludes customers whose Order 1 occurred
            within delta_w_days of dataset maximum date.

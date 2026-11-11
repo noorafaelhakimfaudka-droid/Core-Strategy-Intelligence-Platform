@@ -1,6 +1,6 @@
 # CSIP Alternative World Scenario Simulation & Financial Impact Report
 
-**Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
+**Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
 **Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-08 Membangun Skenario Model] & [UK-11 Mengembangkan Solusi]  
 **Simulation Engine**: Dynamic State-Space World Model with Non-Parametric Residual Bootstrapping ($B = 300$)  
 **Planning Horizon**: 12 Weeks (Forward Counterfactual Projection)  

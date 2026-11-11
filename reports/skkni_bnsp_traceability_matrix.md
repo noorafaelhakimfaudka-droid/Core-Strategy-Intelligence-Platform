@@ -1,6 +1,6 @@
 # CSIP Metodologi Data Science Data Science (Audit Registry) Traceability & Verification Matrix
 
-**Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
+**Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
 **Standard**: Standar Kompetensi Kerja Nasional Indonesia (Metodologi Data Science) Bidang Data Science  
 **Sertifikasi**: Audit Registry Data Scientist Certification Readiness  
 **Author**: Antigravity Autonomous Data Science Agent  
@@ -66,7 +66,7 @@ Every competency requirement is accompanied by executable evidence meeting the s
 
 ### [UK-07] Menentukan Objek Data (Clustering & Segmentasi)
 - **Kriteria Unjuk Kerja**: Menerapkan algoritma unsupervised learning dan memvalidasi klaster secara objektif.
-- **Bukti Empiris**: `BehavioralClusterer` menemukan $k=3$ persona optimal dengan **Silhouette Score = 0.3865** (melampaui target PRD $\ge 0.35$) dan Davies-Bouldin = 1.2168. Menemukan segmen friksi ongkir berat (`DISC-01`).
+- **Bukti Empiris**: `BehavioralClusterer` menemukan $k=3$ persona optimal dengan **Silhouette Score = 0.3865** (melampaui target Spesifikasi Sistem $\ge 0.35$) dan Davies-Bouldin = 1.2168. Menemukan segmen friksi ongkir berat (`DISC-01`).
 
 ### [UK-08] Membangun Skenario Model
 - **Kriteria Unjuk Kerja**: Menyusun skenario pengujian hipotesis statistik dan dinamika sistem inter-temporal.

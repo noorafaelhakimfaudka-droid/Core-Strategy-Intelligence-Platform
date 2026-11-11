@@ -130,7 +130,7 @@ tables:
       - "product_category_name"
       - "product_category_name_english"
 
-# Analytical Grains Defined in PRD Section 5.3
+# Analytical Grains Defined in System Specification Section 5.3
 analytical_grains:
   grain_1_order_level:
     key: "order_id"

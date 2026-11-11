@@ -118,7 +118,7 @@ feature_groups:
         dtype: "int8"
         description: "Entity index for state-level spatial embedding."
 
-# Anti-Leakage Governance Rules (PRD Section 6.3)
+# Anti-Leakage Governance Rules (System Specification Section 6.3)
 anti_leakage_rules:
   checkout_stage_restricted_features:
     - "order_delivered_customer_date"

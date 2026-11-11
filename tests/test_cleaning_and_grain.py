@@ -32,7 +32,7 @@ def test_grain_specifications_in_config():
 def test_customer_unique_id_vs_customer_id_distinction():
     """Verify that customer entity logic distinguishes customer_id from customer_unique_id.
 
-    PRD Section 5.3: customer_id is per-order session, customer_unique_id identifies repeat buyer.
+    Specification Section 5.3: customer_id is per-order session, customer_unique_id identifies repeat buyer.
     """
     # Synthetic transactions where 1 real customer makes 2 orders
     records = [

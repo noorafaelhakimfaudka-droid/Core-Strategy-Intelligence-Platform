@@ -5,7 +5,7 @@ SKKNI Compliance:
 - [UK-10 Mengevaluasi Hasil Pemodelan]: Review of empirical evidence and model performance.
 - [UK-11 Melakukan Proses Review Pemodelan]: Failure register, claim level governance, and audit trails.
 
-Enforces Claim Levels (L0-L3) and Evidence Grades (A-D) as mandated by PRD Section 7.
+Enforces Claim Levels (L0-L3) and Evidence Grades (A-D) as mandated by System Specification Section 7.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ import pandas as pd
 
 
 class ClaimLevel(str, Enum):
-    """Scientific Claim Hierarchy (PRD Section 7.1)."""
+    """Scientific Claim Hierarchy (System Specification Section 7.1)."""
     L0_DESCRIPTIVE = "L0 (Descriptive)"
     L1_PREDICTIVE = "L1 (Predictive)"
     L2_ASSOCIATIONAL = "L2 (Associational)"
@@ -29,7 +29,7 @@ class ClaimLevel(str, Enum):
 
 
 class EvidenceGrade(str, Enum):
-    """Evidence Grading Standard (PRD Section 7.2)."""
+    """Evidence Grading Standard (System Specification Section 7.2)."""
     GRADE_A = "Grade A (Kuat & Tervalidasi)"
     GRADE_B = "Grade B (Cukup / Bersyarat)"
     GRADE_C = "Grade C (Eksploratif / Lemah)"

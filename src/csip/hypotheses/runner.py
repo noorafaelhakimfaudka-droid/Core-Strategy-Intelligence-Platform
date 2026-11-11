@@ -6,7 +6,7 @@ SKKNI Compliance:
 - [UK-10 Mengevaluasi Hasil Pemodelan]: Evaluasi ukuran efek, interval kepercayaan, dan FDR.
 - [UK-11 Melakukan Proses Review Pemodelan]: Evaluasi penjelasan alternatif dan falsifikasi.
 
-Enforces Benjamini-Hochberg FDR correction and PRD Claim Levels (L1/L2).
+Enforces Benjamini-Hochberg FDR correction and System Specification Claim Levels (L1/L2).
 """
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ if not logger.handlers:
 class HypothesisTestRunner:
     """Rigorous Statistical Hypothesis Testing & Alternative Explanation Engine.
 
-    Fulfills PRD Section 4.1.B and SKKNI Unit 8, 9, 10.
+    Fulfills System Specification Section 4.1.B and SKKNI Unit 8, 9, 10.
     """
 
     def __init__(

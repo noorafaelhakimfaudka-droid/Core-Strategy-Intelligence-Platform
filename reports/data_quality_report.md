@@ -1,5 +1,5 @@
 # LAPORAN VALIDASI KUALITAS DATA (DATA QUALITY REPORT)
-**Kepatuhan Standar: Metodologi Data Science [UK-04 Memvalidasi Data] & PRD Validation Gate G1**
+**Kepatuhan Standar: Metodologi Data Science [UK-04 Memvalidasi Data] & Spesifikasi Sistem Validation Gate G1**
 **Tanggal Audit**: 2026-11-10 | **Dataset**: Olist Brazilian E-Commerce (9 Tabel Relasional)
 **Auditor**: CSIP Lead Data Science Architect
 
@@ -69,7 +69,7 @@ $$\text{Purchase Timestamp} \le \text{Approved At} \le \text{Carrier Date} \le \
 
 ## 5. Audit Entitas Pelanggan & Masalah Repeat Purchase
 
-Analisis entitas pelanggan mengonfirmasi aturan kritis PRD Bagian 5.3:
+Analisis entitas pelanggan mengonfirmasi aturan kritis Spesifikasi Sistem Bagian 5.3:
 - **Total Sesi Belanja (`customer_id`)**: $99,441$ sesi transaksi.
 - **Total Pelanggan Sebenarnya (`customer_unique_id`)**: $96,096$ pelanggan unik.
 - **Pelanggan dengan Pembelian Berulang ($> 1$ transaksi)**: $2,997$ pelanggan (**$3.12\%$**).

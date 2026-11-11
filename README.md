@@ -1,4 +1,4 @@
-# CSIP — Computational Society Intelligence Platform
+# CSIP — Core Strategy & Intelligence Platform
 ### *Universal Data Scientist & Decision Simulator*
 **Enterprise Observational Data Science & Decision Intelligence Platform**
 
@@ -14,7 +14,7 @@
 
 ## 🌟 Executive Overview
 
-**CSIP (Computational Society Intelligence Platform)** is a production-grade observational data science and automated decision intelligence platform. It operates in two unified operational modes:
+**CSIP (Core Strategy & Intelligence Platform)** is a production-grade observational data science and automated decision intelligence platform. It operates in two unified operational modes:
 
 1. **CSIP Studio (Universal Adaptive Decision Simulator)**: A drag-and-drop web studio that accepts **any tabular dataset** (e.g., e-commerce, sports facility reservations, logistics, healthcare, HR). It autonomously profiles semantic roles, trains machine learning models on the fly, computes continuous response curves, identifies mathematical **critical tipping points**, and generates deterministic strategic recommendations from **"Nara"** (Strategic AI Advisor) with **zero hallucination** and **zero hardcoded templates**.
 2. **Deep Behavioral & Macroeconomic Research Hub**: A comprehensive, publication-grade investigation into macroeconomic and behavioral dynamics across **~100,000 real-world customer transactions** in the Brazilian E-Commerce Ecosystem (**Olist**). It validates 6 econometric hypotheses, features a state-space macroeconomic world model, and implements a full baseline ladder from naive heuristics to Tabular MLPs and Bi-LSTM neural networks.
@@ -215,7 +215,7 @@ csip/
 ## 📜 Scientific Governance & Honest Failure Protocol
 
 CSIP strictly follows the **Governing Scientific Principle**:
-> *Build what the PRD specifies. Test what is built. Verify what is claimed. Report what the evidence supports. Never trade scientific integrity for appearance, speed, or a higher score.*
+> *Build what the system architecture specifies. Test what is built. Verify what is claimed. Report what the evidence supports. Never trade scientific integrity for appearance, speed, or a higher score.*
 
 - **Transparent Negative Findings**: When hypothesis H3 failed to demonstrate statistical significance (Odds Ratio = 0.9964, $p\text{-adj} = 0.859$), the system did not manipulate features or p-hack the result. Instead, it was formally registered in the **Failure Register** (`FAIL-HYP-H3`) and highlighted as an empirical discovery.
 - **Extrapolation Guardrails**: When counterfactual scenarios generate out-of-distribution states exceeding $3.5\sigma$, the system automatically flags the simulation as extrapolated and downgrades claim certainty.
@@ -230,7 +230,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ```bibtex
 @software{csip2026,
   author = {CSIP Development Team},
-  title = {CSIP: Computational Society Intelligence Platform & Universal Decision Simulator},
+  title = {CSIP: Core Strategy & Intelligence Platform & Universal Decision Simulator},
   year = {2026},
   url = {https://github.com/your-username/csip}
 }

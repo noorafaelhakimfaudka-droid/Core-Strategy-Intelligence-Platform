@@ -1,6 +1,6 @@
 # CSIP Comprehensive Model Evaluation & Diagnostic Review Report
 
-**Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
+**Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
 **Author**: Antigravity Autonomous Data Science Agent  
 **Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-10 Mengevaluasi Hasil Pemodelan] & [UK-11 Mengembangkan Solusi]  
 **Evaluation Protocol**: Locked Temporal Out-of-Time Test Set (2018-07-01 to 2018-08-31)  
@@ -90,7 +90,7 @@ Platt scaling via logistic sigmoid transformation completely rectifies predictio
 
 ## 5. Failure Analysis & Boundary of Applicability
 
-In strict adherence to the PRD Failure Protocol and scientific honesty guidelines, the following system limitations and negative results are formally recorded:
+In strict adherence to the Spesifikasi Sistem Failure Protocol and scientific honesty guidelines, the following system limitations and negative results are formally recorded:
 
 1. **Failure of H3 (Satisfaction Does NOT Drive Repeat Purchase)**:
    - First-order review score exhibited an Odds Ratio of $0.9964$ ($p\text{-adj} = 0.859$) with 95% CI $[0.957, 1.037]$.

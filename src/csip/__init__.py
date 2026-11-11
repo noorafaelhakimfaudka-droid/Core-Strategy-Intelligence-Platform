@@ -1,4 +1,4 @@
-"""CSIP: Computational Society Intelligence Platform.
+"""CSIP: Core Strategy & Intelligence Platform.
 
 Behavioral Decision Intelligence (BDI) MVP Module.
 Master Edition — SKKNI, BNSP & Industry Portfolio Compliant.
@@ -31,7 +31,7 @@ SKKNI_UNITS = {
     "UK-11": "Melakukan Proses Review Pemodelan",
 }
 
-# Scientific Claim Hierarchy (PRD Section 7.1)
+# Scientific Claim Hierarchy (System Specification Section 7.1)
 CLAIM_LEVELS = {
     "L0": "Descriptive — Menggambarkan distribusi dan pola teramati dalam sampel data.",
     "L1": "Predictive — Model memprediksi target out-of-sample lebih baik dari baseline.",
@@ -39,7 +39,7 @@ CLAIM_LEVELS = {
     "L3": "Causal — Efek perubahan intervensi X terhadap Y teridentifikasi secara kausal.",
 }
 
-# Evidence Grading Standard (PRD Section 7.2)
+# Evidence Grading Standard (System Specification Section 7.2)
 EVIDENCE_GRADES = {
     "Grade A": "Kuat & Tervalidasi (Lolos seluruh gates, stabil lintas waktu, mengalahkan baseline).",
     "Grade B": "Cukup / Bersyarat (Didukung bukti valid dengan asumsi/keterbatasan terdefinisi).",

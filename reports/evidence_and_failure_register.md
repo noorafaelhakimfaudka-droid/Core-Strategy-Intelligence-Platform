@@ -1,6 +1,6 @@
 # CSIP Master Evidence & Failure Register
 
-**Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
+**Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
 **Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-10 Mengevaluasi Hasil Pemodelan] & [UK-11 Mengembangkan Solusi]  
 **Governance Protocol**: SHADOW Evidence Hierarchy (L0 to L3, Grades A to D)  
 **Date**: November 2026  
