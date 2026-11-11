@@ -1,6 +1,6 @@
 """CSIP Automated Data Cleaner Engine.
 
-Implements BNSP SKKNI Competency:
+Implements Enterprise Standard SKKNI Competency:
 - [UK-06] Membersihkan Data: Pembersihan nilai infinit, dedukplikasi baris,
   dan penanganan missing values (imputasi median/modus) secara otomatis dan deterministik.
 

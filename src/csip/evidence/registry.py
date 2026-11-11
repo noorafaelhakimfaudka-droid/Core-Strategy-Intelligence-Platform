@@ -145,7 +145,7 @@ class EvidenceRegistry:
                 pass
 
     def _initialize_default_skkni_matrix(self) -> None:
-        """Seed the 11 SKKNI BNSP competence units traceability mapping."""
+        """Seed the 11 SKKNI Enterprise Standard competence units traceability mapping."""
         units_spec = [
             (
                 "UK-01",
@@ -153,7 +153,7 @@ class EvidenceRegistry:
                 "Perumusan masalah retensi, friksi ongkir, dan kepuasan pengiriman.",
                 ["config/business_objectives.yaml", "config/analysis_plan.yaml"],
                 ["notebooks/01_business_and_data_understanding.ipynb"],
-                ["reports/skkni_bnsp_traceability_matrix.md"],
+                ["reports/research_traceability_matrix.md"],
             ),
             (
                 "UK-02",
@@ -161,7 +161,7 @@ class EvidenceRegistry:
                 "Target teknis PR-AUC, ROC-AUC, MAE, Silhouette, dan batas baseline.",
                 ["config/models.yaml", "config/business_objectives.yaml"],
                 ["notebooks/01_business_and_data_understanding.ipynb"],
-                ["reports/skkni_bnsp_traceability_matrix.md"],
+                ["reports/research_traceability_matrix.md"],
             ),
             (
                 "UK-03",
@@ -185,7 +185,7 @@ class EvidenceRegistry:
                 "Pemisahan 4 grain analitik dan mitigasi right-censoring delta_w=90 hari.",
                 ["config/data.yaml", "config/analysis_plan.yaml"],
                 ["notebooks/02_data_validation_and_cleaning.ipynb"],
-                ["reports/skkni_bnsp_traceability_matrix.md"],
+                ["reports/research_traceability_matrix.md"],
             ),
             (
                 "UK-06",
@@ -201,7 +201,7 @@ class EvidenceRegistry:
                 "Rekayasa fitur ekonomi, pengalaman, histori as-of, dan interaksi non-linear.",
                 ["config/features.yaml", "src/csip/features/", "tests/test_feature_leakage.py"],
                 ["notebooks/04_feature_engineering_and_construction.ipynb"],
-                ["reports/skkni_bnsp_traceability_matrix.md"],
+                ["reports/research_traceability_matrix.md"],
             ),
             (
                 "UK-08",
@@ -232,7 +232,7 @@ class EvidenceRegistry:
                 "Melakukan Proses Review Pemodelan",
                 "Audit klaim L0-L3, ablation study, Failure Register, dan verifikasi Streamlit.",
                 ["src/csip/evidence/registry.py", "tests/test_artifact_parity.py"],
-                ["notebooks/13_model_review_and_failure_analysis.ipynb", "notebooks/14_final_research_and_bnsp_report.ipynb"],
+                ["notebooks/13_model_review_and_failure_analysis.ipynb", "notebooks/14_final_research_report.ipynb"],
                 ["reports/evidence_and_failure_register.md"],
             ),
         ]

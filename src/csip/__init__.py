@@ -1,7 +1,7 @@
 """CSIP: Core Strategy & Intelligence Platform.
 
 Behavioral Decision Intelligence (BDI) MVP Module.
-Master Edition — SKKNI, BNSP & Industry Portfolio Compliant.
+Master Edition — SKKNI, Enterprise Standard & Industry Portfolio Compliant.
 
 Core Principles:
 1. Business & Technical Alignment > Blind Coding (SKKNI Unit 1 & 2)
@@ -16,7 +16,7 @@ Core Principles:
 __version__ = "0.1.0"
 __author__ = "CSIP Data Science Team"
 
-# 11 Unit Kompetensi SKKNI BNSP Registry
+# 11 Unit Kompetensi SKKNI Enterprise Standard Registry
 SKKNI_UNITS = {
     "UK-01": "Menentukan Objektif Bisnis",
     "UK-02": "Menentukan Tujuan Teknis Data Science",

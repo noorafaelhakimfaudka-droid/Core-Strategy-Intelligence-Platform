@@ -99,7 +99,7 @@ All 14 notebooks in `notebooks/` are **fully executed with complete pre-rendered
 | **11** | [`11_alternative_world_simulation.ipynb`](notebooks/11_alternative_world_simulation.ipynb) | Phase 11: Counterfactual Simulation | Counterfactual interventions (S0–S5), carrier SLA optimization | ✅ Executed |
 | **12** | [`12_uncertainty_quantification.ipynb`](notebooks/12_uncertainty_quantification.ipynb) | Phase 12: Uncertainty Quantification | Residual bootstrapping (95% PI), Mahalanobis OOD guardrails | ✅ Executed |
 | **13** | [`13_model_review_and_failure_analysis.ipynb`](notebooks/13_model_review_and_failure_analysis.ipynb) | Phase 13: Failure & Ablation Audit | Feature ablation studies, Evidence Registry, Failure Analysis (H3) | ✅ Executed |
-| **14** | [`14_final_research_and_bnsp_report.ipynb`](notebooks/14_final_research_and_bnsp_report.ipynb) | Phase 14: Executive Research Synthesis | Executive summary, full lifecycle matrix, scientific audit trail | ✅ Executed |
+| **14** | [`14_final_research_report.ipynb`](notebooks/14_final_research_report.ipynb) | Phase 14: Executive Research Synthesis | Executive summary, full lifecycle matrix, scientific audit trail | ✅ Executed |
 
 ---
 
@@ -196,7 +196,7 @@ csip/
 │   ├── hypothesis_report.md
 │   ├── model_evaluation_and_review_report.md
 │   ├── scenario_simulation_report.md
-│   └── skkni_bnsp_traceability_matrix.md
+│   └── research_traceability_matrix.md
 ├── artifacts/                    # Precomputed model checkpoints, JSONs, & figures
 │   ├── models/                   # Trained .joblib & .pt model checkpoints
 │   ├── reports/                  # Precomputed evaluation JSONs

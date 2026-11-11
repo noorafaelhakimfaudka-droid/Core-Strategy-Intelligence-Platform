@@ -304,7 +304,7 @@
         "notebooks/01_business_and_data_understanding.ipynb"
       ],
       "report_artifacts": [
-        "reports/skkni_bnsp_traceability_matrix.md"
+        "reports/research_traceability_matrix.md"
       ],
       "status": "IMPLEMENTED"
     },
@@ -320,7 +320,7 @@
         "notebooks/01_business_and_data_understanding.ipynb"
       ],
       "report_artifacts": [
-        "reports/skkni_bnsp_traceability_matrix.md"
+        "reports/research_traceability_matrix.md"
       ],
       "status": "IMPLEMENTED"
     },
@@ -368,7 +368,7 @@
         "notebooks/02_data_validation_and_cleaning.ipynb"
       ],
       "report_artifacts": [
-        "reports/skkni_bnsp_traceability_matrix.md"
+        "reports/research_traceability_matrix.md"
       ],
       "status": "IMPLEMENTED"
     },
@@ -400,7 +400,7 @@
         "notebooks/04_feature_engineering_and_construction.ipynb"
       ],
       "report_artifacts": [
-        "reports/skkni_bnsp_traceability_matrix.md"
+        "reports/research_traceability_matrix.md"
       ],
       "status": "IMPLEMENTED"
     },
@@ -464,7 +464,7 @@
       ],
       "notebook_locations": [
         "notebooks/13_model_review_and_failure_analysis.ipynb",
-        "notebooks/14_final_research_and_bnsp_report.ipynb"
+        "notebooks/14_final_research_report.ipynb"
       ],
       "report_artifacts": [
         "reports/evidence_and_failure_register.md"

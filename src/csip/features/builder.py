@@ -1,6 +1,6 @@
 """CSIP Automated Feature Construction Engine.
 
-Implements BNSP SKKNI Competency:
+Implements Enterprise Standard SKKNI Competency:
 - [UK-07] Mengonstruksi Data: Menghasilkan fitur interaksi, rasio,
   dan transformasi matematis baru secara terotomatisasi tanpa kebocoran data.
 

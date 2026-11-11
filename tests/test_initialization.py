@@ -19,7 +19,7 @@ from csip import SKKNI_UNITS, CLAIM_LEVELS, EVIDENCE_GRADES
 
 
 def test_skkni_11_units_complete():
-    """Verify all 11 SKKNI BNSP units are registered."""
+    """Verify all 11 SKKNI Enterprise Standard units are registered."""
     assert len(SKKNI_UNITS) == 11
     expected_codes = [f"UK-{i:02d}" for i in range(1, 12)]
     for code in expected_codes:

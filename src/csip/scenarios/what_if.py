@@ -1,6 +1,6 @@
 """CSIP What-If & Partial Dependence Scenario Intelligence.
 
-Implements BNSP SKKNI Competencies:
+Implements Enterprise Standard SKKNI Competencies:
 - [UK-08] Membangun Skenario Model: Simulasi interaktif perubahan variabel input pada model inferensi.
 - [UK-11] Mengembangkan Solusi: Kurva respons parsial (Partial Dependence Curve) dan proyeksi selisih terhadap baseline populasi.
 

@@ -90,7 +90,7 @@ def test_written_reports_parity():
         "reports/model_evaluation_and_review_report.md",
         "reports/scenario_simulation_report.md",
         "reports/evidence_and_failure_register.md",
-        "reports/skkni_bnsp_traceability_matrix.md",
+        "reports/research_traceability_matrix.md",
     ]
     for rel_path in expected_md:
         p = Path(rel_path)
