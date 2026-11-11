@@ -109,9 +109,14 @@ def test_notebooks_suite_parity():
 
 
 def test_streamlit_pages_parity():
-    """Verify Streamlit app entrypoint and all 9 pages exist."""
+    """Verify Streamlit app entrypoint exists and contains all 4 analytical lenses."""
     assert Path("app/streamlit_app.py").exists()
-    for i in range(1, 10):
-        matches = list(Path("app/pages").glob(f"{i}_*.py"))
-        assert len(matches) == 1, f"Missing Streamlit page {i}: {matches}"
+    app_code = Path("app/streamlit_app.py").read_text(encoding="utf-8")
+    for lens in [
+        "1. Kurva Simulasi dan Titik Kritis",
+        "2. Peringkat Faktor Penentu",
+        "3. Sebaran Kelompok Data",
+        "4. Observatorium Drift & Stabilitas",
+    ]:
+        assert lens in app_code, f"Missing analytical lens in cockpit: {lens}"
 

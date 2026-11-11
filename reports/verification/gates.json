@@ -1,5 +1,5 @@
 {
-  "verified_at": "2026-11-11T22:53:47.112067+00:00",
+  "verified_at": "2026-11-11T23:45:44.012225+00:00",
   "mandatory_artifacts_present": true,
   "gates": {
     "G1": {
@@ -40,7 +40,7 @@
     "G8": {
       "name": "Tested Dashboard with Provenance",
       "status": "PASS",
-      "evidence": "All 9 Streamlit dashboard pages tested with AppTest; metrics read directly from artifacts."
+      "evidence": "Streamlit dashboard cockpit and all 4 analytical lenses tested with AppTest; metrics read directly from artifacts."
     },
     "G9": {
       "name": "Rerunable Competency Evidence (63 KUKs)",

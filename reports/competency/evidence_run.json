@@ -1,5 +1,5 @@
 {
-  "executed_at": "2026-11-11T14:34:57.392335+00:00",
+  "executed_at": "2026-11-11T23:44:10.990817+00:00",
   "total_kuks_checked": 63,
   "status_distribution": {
     "CANDIDATE_DEMONSTRATION_REQUIRED": 13,
@@ -35,8 +35,8 @@
       "artifact_location": "README.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "b74cc81793d130395abe845791ecddb692b86fb37a39c3795a6c3859b7dfcb95",
-      "actual_sha256": "b74cc81793d130395abe845791ecddb692b86fb37a39c3795a6c3859b7dfcb95",
+      "declared_sha256": "b83df32a299135524f0ccc10b8de3e46fb8655de3ce7bb37d23c97bd675fd029",
+      "actual_sha256": "b83df32a299135524f0ccc10b8de3e46fb8655de3ce7bb37d23c97bd675fd029",
       "verification_status": "CANDIDATE_DEMONSTRATION_REQUIRED",
       "verification_procedure": "Demonstrasi Praktik Langsung & Penjelasan Lisan Kandidat",
       "demonstration_task": "Buka README.md, tunjukkan implementasi untuk Menentukan Objektif Bisnis Elemen E1 KUK 1.2."
@@ -61,8 +61,8 @@
       "artifact_location": "reports/research_traceability_matrix.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
-      "actual_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
+      "declared_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
+      "actual_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
       "verification_status": "CANDIDATE_DEMONSTRATION_REQUIRED",
       "verification_procedure": "Demonstrasi Praktik Langsung & Penjelasan Lisan Kandidat",
       "demonstration_task": "Buka reports/research_traceability_matrix.md, tunjukkan implementasi untuk Menentukan Objektif Bisnis Elemen E1 KUK 1.4."
@@ -126,8 +126,8 @@
       "artifact_location": "reports/research_traceability_matrix.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
-      "actual_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
+      "declared_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
+      "actual_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
       "verification_status": "EXTERNAL_CONFIRMATION_REQUIRED",
       "verification_procedure": "Review Dokumen Tata Kelola Enterprise & Pertanyaan Lisan Asesor",
       "demonstration_task": "Buka reports/research_traceability_matrix.md, tunjukkan implementasi untuk Menentukan Objektif Bisnis Elemen E3 KUK 3.3."
@@ -165,8 +165,8 @@
       "artifact_location": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
-      "actual_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
+      "declared_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
+      "actual_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
       "verification_status": "EXTERNAL_CONFIRMATION_REQUIRED",
       "verification_procedure": "Review Dokumen Tata Kelola Enterprise & Pertanyaan Lisan Asesor",
       "demonstration_task": "Buka CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md, tunjukkan implementasi untuk Menentukan Objektif Bisnis Elemen E4 KUK 4.3."
@@ -308,8 +308,8 @@
       "artifact_location": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
-      "actual_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
+      "declared_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
+      "actual_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
       "verification_status": "ARTIFACT_ONLY",
       "verification_procedure": "Inspeksi Artefak Disk & Eksekusi Otomatis Pytest",
       "demonstration_task": "Buka CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md, tunjukkan implementasi untuk Menelaah Data Elemen E3 KUK 3.1."
@@ -568,8 +568,8 @@
       "artifact_location": "reports/research_traceability_matrix.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
-      "actual_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
+      "declared_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
+      "actual_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
       "verification_status": "VERIFIED",
       "verification_procedure": "Inspeksi Artefak Disk & Eksekusi Otomatis Pytest",
       "demonstration_task": "Buka reports/research_traceability_matrix.md, tunjukkan implementasi untuk Membangun Skenario Model Elemen E1 KUK 1.1."
@@ -607,8 +607,8 @@
       "artifact_location": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
-      "actual_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
+      "declared_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
+      "actual_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
       "verification_status": "VERIFIED",
       "verification_procedure": "Inspeksi Artefak Disk & Eksekusi Otomatis Pytest",
       "demonstration_task": "Buka CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md, tunjukkan implementasi untuk Membangun Skenario Model Elemen E2 KUK 2.2."
@@ -776,8 +776,8 @@
       "artifact_location": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
-      "actual_sha256": "3dc9951846983094a324457cd1309de6152507bdca8a504a3fe99fdf5550d292",
+      "declared_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
+      "actual_sha256": "b8b128ea72c8e6b149cfb92103c90a2d64fbc2468c176349fabb91486cba8fa9",
       "verification_status": "ARTIFACT_ONLY",
       "verification_procedure": "Inspeksi Artefak Disk & Eksekusi Otomatis Pytest",
       "demonstration_task": "Buka CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md, tunjukkan implementasi untuk Mengevaluasi Hasil Pemodelan Elemen E2 KUK 2.2."
@@ -815,8 +815,8 @@
       "artifact_location": "reports/research_traceability_matrix.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
-      "actual_sha256": "6f12ea69eb6e1f574f80b6f878a200e4efc411f27a873324ed5d16ab43d5ecb6",
+      "declared_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
+      "actual_sha256": "c41fd204669c7ae8184691b40084afbe882dde1b1b64cff3dacae3ee6bfac720",
       "verification_status": "CANDIDATE_DEMONSTRATION_REQUIRED",
       "verification_procedure": "Demonstrasi Praktik Langsung & Penjelasan Lisan Kandidat",
       "demonstration_task": "Buka reports/research_traceability_matrix.md, tunjukkan implementasi untuk Melakukan Proses Review Pemodelan Elemen E2 KUK 2.1."
@@ -828,8 +828,8 @@
       "artifact_location": "FINAL_CSIP_AUDIT_REPORT.md",
       "file_exists": true,
       "sha256_match": true,
-      "declared_sha256": "a8d4fb40d36070f77da882b828db7b53c6108ba52965bac6f8436d5d8b9ce8be",
-      "actual_sha256": "a8d4fb40d36070f77da882b828db7b53c6108ba52965bac6f8436d5d8b9ce8be",
+      "declared_sha256": "8b6dba4372cf264aa658254ae05797289dbe2ca7f6765d6bd24ee0b864a9bf09",
+      "actual_sha256": "8b6dba4372cf264aa658254ae05797289dbe2ca7f6765d6bd24ee0b864a9bf09",
       "verification_status": "ARTIFACT_ONLY",
       "verification_procedure": "Inspeksi Artefak Disk & Eksekusi Otomatis Pytest",
       "demonstration_task": "Buka FINAL_CSIP_AUDIT_REPORT.md, tunjukkan implementasi untuk Melakukan Proses Review Pemodelan Elemen E2 KUK 2.2."

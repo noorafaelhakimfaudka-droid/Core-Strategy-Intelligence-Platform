@@ -24,7 +24,7 @@ The architecture strictly adheres to three governing principles:
 ```
 +-------------------------------------------------------------------------------------------------+
 |                                1. PRESENTATION LAYER (app/)                                     |
-|  Streamlit Interactive Multi-Page Analytical Dashboard (app/streamlit_app.py + app/pages/1-9)   |
+|  Streamlit Interactive Single-Page Analytical Cockpit (app/streamlit_app.py: 4 Analytical Lenses)  |
 |  - Executive Overview        - Data Observatory           - Behavioral Discovery Lab            |
 |  - Hypothesis Laboratory     - Predictive Intelligence    - Macro World Model                   |
 |  - Alternative Simulator     - Decision Studio            - SKKNI Evidence Registry Review       |
@@ -71,7 +71,7 @@ The architecture strictly adheres to three governing principles:
 ### 3. COUPLING, COHESION & DEPENDENCY EVALUATION
 
 #### 3.1 Inter-Module Coupling
-- **Low Coupling between Presentation and Domain:** Streamlit UI pages (`app/pages/`) interact with the analytical core solely through explicit engine entry points (`OmniRouter`, `HypothesisRunner`, `ScenarioSimulator`). UI code contains zero raw model training routines or direct file mutators.
+- **Low Coupling between Presentation and Domain:** Streamlit UI cockpit (`app/streamlit_app.py`) interacts with the analytical core solely through explicit engine entry points (`OmniRouter`, `HypothesisRunner`, `ScenarioSimulator`). UI code contains zero raw model training routines or direct file mutators.
 - **High Cohesion within Domain Packages:**
   - `src/csip/cleaning/` encapsulates all data sanitation, missing value handling, and geolocation deduplication.
   - `src/csip/features/` encapsulates temporal cohort construction and feature assembly.

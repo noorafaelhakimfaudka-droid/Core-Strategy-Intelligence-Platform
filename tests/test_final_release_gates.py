@@ -143,13 +143,17 @@ def test_final_gate_06_dataset_parquet_integrity():
         assert actual_sha == meta["sha256"], f"SHA-256 mismatch for dataset: {rel_path}"
 
 def test_final_gate_07_streamlit_pages_compilation():
-    """Gate 7: Streamlit application pages compile without syntax errors."""
+    """Gate 7: Streamlit application cockpit compiles and has 4 operational lenses."""
     app_root = REPO_ROOT / "app"
     py_compile.compile(str(app_root / "streamlit_app.py"), doraise=True)
-    pages = list((app_root / "pages").glob("*.py"))
-    assert len(pages) >= 9
-    for page in pages:
-        py_compile.compile(str(page), doraise=True)
+    app_content = (app_root / "streamlit_app.py").read_text(encoding="utf-8")
+    for lens in [
+        "1. Kurva Simulasi dan Titik Kritis",
+        "2. Peringkat Faktor Penentu",
+        "3. Sebaran Kelompok Data",
+        "4. Observatorium Drift & Stabilitas",
+    ]:
+        assert lens in app_content, f"Missing lens: {lens}"
 
 def test_final_gate_08_no_credentials_in_src():
     """Gate 8: No hardcoded credentials or private user paths in src/."""

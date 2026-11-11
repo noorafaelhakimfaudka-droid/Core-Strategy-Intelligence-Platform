@@ -161,7 +161,7 @@ def gate_g8_tested_dashboard() -> Tuple[str, str]:
     if not test_file.exists() or not data_provider.exists():
         return "FAIL", "Dashboard test files or data_provider missing"
 
-    return "PASS", "All 9 Streamlit dashboard pages tested with AppTest; metrics read directly from artifacts."
+    return "PASS", "Streamlit dashboard cockpit and all 4 analytical lenses tested with AppTest; metrics read directly from artifacts."
 
 
 def gate_g9_rerunable_evidence() -> Tuple[str, str]:

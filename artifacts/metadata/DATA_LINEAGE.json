@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "platform": "Core Strategy & Intelligence Platform (CSIP)",
-  "generated_at": "2026-11-11T15:53:30.152148+00:00",
+  "generated_at": "2026-11-11T23:45:08.716593+00:00",
   "pipeline_stages": [
     "raw_ingestion",
     "interim_cleaning",

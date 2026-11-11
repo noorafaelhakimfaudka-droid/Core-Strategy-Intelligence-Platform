@@ -60,16 +60,7 @@ Hasil audit inventarisasi:
 
 | File Path | Tipe File | Fungsi Utama & Halaman | Unit SKKNI Terkait | Status Verifikasi | Catatan Audit |
 | :--- | :---: | :--- | :---: | :---: | :--- |
-| `app/streamlit_app.py` | Streamlit App | Entry point aplikasi web, Continuous ML Studio | UK-01 s.d. UK-11 | **VERIFIED** | Telah didelegasikan ke `ml_engine.py` |
-| `app/pages/1_Data_Observatory.py` | Streamlit Page | Eksplorasi data relasional & EDA | UK-03, UK-04 | **VERIFIED** | Menampilkan visualisasi distribusi |
-| `app/pages/2_Behavioral_Discovery.py` | Streamlit Page | Eksplorasi klaster persona sensitivitas ongkir | UK-07 | **VERIFIED** | Menampilkan radar chart persona |
-| `app/pages/3_Hypothesis_Lab.py` | Streamlit Page | Visualisasi pengujian hipotesis H1-H6 | UK-08 | **VERIFIED** | Menampilkan p-value & penolakan H3 |
-| `app/pages/4_Decision_Studio.py` | Streamlit Page | Simulator interaktif What-If kebijakan | UK-08, UK-11 | **VERIFIED** | Menampilkan respons kurva marjinal |
-| `app/pages/5_Predictive_Intelligence.py` | Streamlit Page | Diagnostik model, kurva PR-AUC & kalibrasi | UK-09, UK-10 | **VERIFIED** | Menampilkan perbandingan B0-B4 |
-| `app/pages/6_Alternative_Worlds.py` | Streamlit Page | Simulasi dinamika makro World Model | UK-08, UK-10 | **VERIFIED** | Menampilkan proyeksi deret waktu |
-| `app/pages/7_Intervention_Planner.py` | Streamlit Page | Perencanaan efisiensi subsidi logistik | UK-01, UK-11 | **VERIFIED** | Simulasi ROI kebijakan logistik |
-| `app/pages/8_Model_Governance.py` | Streamlit Page | Failure Register & batas klaim L0-L3 | UK-11 | **VERIFIED** | Menampilkan audit log kegagalan |
-| `app/pages/9_Research_Traceability.py` | Streamlit Page | Matriks keterlacakan 11 unit SKKNI | UK-01 s.d. UK-11 | **VERIFIED** | Interaktif pemetaan kompetensi |
+| `app/streamlit_app.py` | Streamlit App | Entry point aplikasi web, Single-Page Cockpit (4 Lensa Analitik: Kurva Simulasi, Peringkat Faktor, Sebaran Data, Observatorium Drift) | UK-01 s.d. UK-11 | **VERIFIED** | Telah didelegasikan ke `ml_engine.py` & `drift_engine.py` |
 
 ---
 

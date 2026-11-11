@@ -65,7 +65,7 @@ phases:
     name: "Tested Dashboard with Provenance Connection"
     required_files:
       - "app/data_provider.py"
-      - "app/pages/5_Predictive_Intelligence.py"
+      - "app/streamlit_app.py"
       - "tests/test_app_pages.py"
 
   phase_9_reproducibility:

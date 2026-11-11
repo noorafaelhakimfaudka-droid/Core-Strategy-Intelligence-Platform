@@ -78,7 +78,7 @@ Marketplace e-commerce Olist mempertemukan ribuan pedagang UMKM dengan pembeli d
 > [!NOTE] BUKTI KUK (KRITERIA UNJUK KERJA) — UNIT 1
 > - **KUK yang Dipenuhi**: 1.1 (Latar belakang), 1.2 (Objektif bisnis), 1.3 (Metrik sukses), 1.4 (Persetujuan objektif), 2.1 (Terminologi & sumber daya), 3.1–3.2 (Manajemen risiko), 4.1–4.3 (Biaya & keuntungan).
 > - **Skrip / Konfigurasi Pengeksekusi**: `config/business_objectives.yaml`, `RISK_REGISTER.csv`.
-> - **Artefak Bukti Terverifikasi**: `RISK_REGISTER.csv`, `competency/external_approvals/STAKEHOLDER_APPROVAL_DEFENSE_PACKET.md`, `app/pages/1_Executive_Overview.py`.
+> - **Artefak Bukti Terverifikasi**: `RISK_REGISTER.csv`, `competency/external_approvals/STAKEHOLDER_APPROVAL_DEFENSE_PACKET.md`, `app/streamlit_app.py`.
 
 ---
 
@@ -141,7 +141,7 @@ Dataset Olist memuat 9 tabel relasional yang saling terhubung melalui foreign ke
 > [!NOTE] BUKTI KUK (KRITERIA UNJUK KERJA) — UNIT 3
 > - **KUK yang Dipenuhi**: 1.1 (Tipe data), 1.2 (Nilai atribut & batasan bisnis), 1.3 (Relasi data).
 > - **Skrip / Konfigurasi Pengeksekusi**: `scripts/profile_raw_data.py`, `notebooks/01_business_and_data_understanding.ipynb`.
-> - **Artefak Bukti Terverifikasi**: `data/data_dictionary.md`, `app/pages/2_Data_Observatory.py` (Tab 1).
+> - **Artefak Bukti Terverifikasi**: `data/data_dictionary.md`, `app/streamlit_app.py` (Lensa 3: Sebaran Kelompok Data).
 
 ---
 
@@ -167,7 +167,7 @@ Dataset Olist memuat 9 tabel relasional yang saling terhubung melalui foreign ke
 > [!NOTE] BUKTI KUK (KRITERIA UNJUK KERJA) — UNIT 4
 > - **KUK yang Dipenuhi**: 1.1 (Identifikasi anomali data), 1.2 (Validasi kelengkapan data), 1.3 (Keputusan kelayakan data).
 > - **Skrip / Konfigurasi Pengeksekusi**: `src/csip/data/contracts.py`, `tests/test_temporal_leakage.py`.
-> - **Artefak Bukti Terverifikasi**: `AUDIT/TEMPORAL_LEAKAGE_AUDIT.md`, `app/pages/2_Data_Observatory.py` (Tab 2).
+> - **Artefak Bukti Terverifikasi**: `AUDIT/TEMPORAL_LEAKAGE_AUDIT.md`, `app/streamlit_app.py` (Lensa 4: Observatorium Drift & Stabilitas).
 
 ---
 
@@ -187,7 +187,7 @@ Tabel otoritatif yang mengatur hak akses fitur per jendela prediksi:
 > [!NOTE] BUKTI KUK (KRITERIA UNJUK KERJA) — UNIT 5
 > - **KUK yang Dipenuhi**: 1.1 (Kriteria pemilihan data), 1.2 (Seleksi atribut data), 1.3 (Rasionalisasi reduksi data).
 > - **Skrip / Konfigurasi Pengeksekusi**: `AUDIT/FEATURE_AVAILABILITY_MATRIX.csv`, `reports/methodology/CHECKOUT_RISK_FEASIBILITY.md`.
-> - **Artefak Bukti Terverifikasi**: `AUDIT/FEATURE_AVAILABILITY_MATRIX.csv`, `app/pages/2_Data_Observatory.py` (Tab 3).
+> - **Artefak Bukti Terverifikasi**: `AUDIT/FEATURE_AVAILABILITY_MATRIX.csv`, `app/streamlit_app.py` (Lensa 2: Peringkat Faktor Penentu).
 
 ---
 
@@ -211,7 +211,7 @@ Berikut adalah bukti komparasi kuantitatif dari eksekusi pipeline pembersihan:
 > [!NOTE] BUKTI KUK (KRITERIA UNJUK KERJA) — UNIT 6
 > - **KUK yang Dipenuhi**: 1.1 (Penanganan missing data), 1.2 (Penanganan data anomali/outlier), 1.3 (Deduplikasi data), 1.4 (Penyimpanan data bersih).
 > - **Skrip / Konfigurasi Pengeksekusi**: `src/csip/cleaning/cleaner.py`, `scripts/run_cleaning.py`.
-> - **Artefak Bukti Terverifikasi**: `data/interim/clean_*.parquet`, `app/pages/2_Data_Observatory.py` (Tab 4).
+> - **Artefak Bukti Terverifikasi**: `data/interim/clean_*.parquet`, `app/streamlit_app.py` (Lensa 1: Kurva Simulasi dan Titik Kritis).
 
 ---
 
@@ -236,7 +236,7 @@ Dari atribut mentah, dikonstruksi fitur-fitur baru dengan landasan teori operasi
 > [!NOTE] BUKTI KUK (KRITERIA UNJUK KERJA) — UNIT 7
 > - **KUK yang Dipenuhi**: 1.1 (Transformasi data), 1.2 (Rekayasa fitur baru), 1.3 (Pengkodean variabel kategorikal), 1.4 (Penyusunan dataset pemodelan).
 > - **Skrip / Konfigurasi Pengeksekusi**: `src/csip/features/builder.py`, `scripts/build_features.py`.
-> - **Artefak Bukti Terverifikasi**: `data/processed/order_level.parquet`, `app/pages/2_Data_Observatory.py` (Tab 5).
+> - **Artefak Bukti Terverifikasi**: `data/processed/order_level.parquet`, `app/streamlit_app.py` (Lensa 4: Observatorium Drift & Stabilitas).
 
 ---
 

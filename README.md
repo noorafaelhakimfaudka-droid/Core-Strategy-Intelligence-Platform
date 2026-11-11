@@ -267,16 +267,17 @@ Aplikasi utama CSIP berjalan sebagai **CSIP Studio (`app/streamlit_app.py`)** �
 │ 2. Tuas Simulasi Dinamis │ Kendali interaktif variabel operasional utama dengan slider   │
 │    (What-If Levers)      │ responsif untuk memprediksi respons pergeseran target         │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────┤
-│ 3. Lensa Tampilan Multi  │ • Kurva Simulasi & Titik Kritis (Spline interaktif + batas)   │
-│    Dimensi Analitik      │ • Peringkat Faktor Penentu (Feature Importance / SHAP values) │
-│                          │ • Sebaran Kelompok Data (Kurva densitas klaster K-Means)      │
+│ 3. 4 Lensa Analitik      │ • Lensa 1: Kurva Simulasi & Titik Kritis (Spline + Titik)     │
+│    Terintegrasi          │ • Lensa 2: Peringkat Faktor Penentu (Feature Importance)      │
+│                          │ • Lensa 3: Sebaran Kelompok Data (Densitas K-Means Ridgeline) │
+│                          │ • Lensa 4: Observatorium Drift & Stabilitas (Radar PSI & KS)  │
 ├──────────────────────────┼───────────────────────────────────────────────────────────────┤
 │ 4. Nara Penasihat        │ Narasi preskriptif cerdas yang menganalisis kombinasi tuas    │
 │    Strategi              │ optimal untuk memaksimalkan atau meminimalkan metrik bisnis   │
 └──────────────────────────┴───────────────────────────────────────────────────────────────┘
 ```
 
-> **Catatan Teknis Arsitektur:** Bilah samping (*sidebar*) pada `app/streamlit_app.py` sengaja dinonaktifkan secara baku (`initial_sidebar_state="collapsed"` dengan proteksi CSS) agar seluruh visualisasi analitik tampil utuh dalam satu layar kerja (*single-page cockpit*) tanpa distraksi menu bertingkat. Modul laboratorium di folder `app/pages/` merupakan skrip pendukung analitik riset khusus (misalnya investigasi drift mandiri) yang dapat dieksekusi secara independen jika diperlukan.
+> **Catatan Teknis Arsitektur:** Antarmuka `app/streamlit_app.py` dirancang sebagai **Single-Page Cockpit** utuh tanpa menu navigasi bertingkat yang membingungkan. Seluruh kemampuan diagnostik — mulai dari simulasi keputusan non-linear, atribusi faktor penentu, analisis sebaran data, hingga observatorium deteksi drift longitudinal — terintegrasi secara modular dalam 4 Lensa Tampilan (*view lenses*) interaktif berkinerja tinggi.
 
 ---
 
@@ -316,7 +317,7 @@ Buka peramban web pada alamat `http://localhost:8501`.
 
 ### 4. Eksekusi Pengujian Otomatis & Gerbang Kelayakan Rilis
 ```bash
-# Jalankan seluruh rangkaian 43 unit & integration test
+# Jalankan seluruh rangkaian unit & integration test
 pytest
 
 # Evaluasi 12 Quality Gates pengujian rilis
@@ -344,19 +345,11 @@ csip/
 ├── .github/                      # Konfigurasi Alur CI/CD
 │   └── workflows/ci.yml          # Matriks pengujian multi-versi Python
 ├── app/                          # Lapisan Antarmuka Pengguna Streamlit
-│   ├── streamlit_app.py          # Titik masuk utama kokpit eksekutif single-page
+│   ├── streamlit_app.py          # Kokpit Tunggal Interaktif (4 Lensa Analitik Terpadu)
 │   ├── api_server.py             # Pelari daemon FastAPI uvicorn
 │   ├── data_provider.py          # Penyedia cache data terpusat
 │   ├── ui_components.py          # Komponen tampilan dan CSS terintegrasi
-│   └── pages/                    # 8 Modul Laboratorium Analitik Terfokus
-│       ├── 1_Executive_Overview.py
-│       ├── 2_Data_Observatory.py  # Memuat Radar Drift & Plot Distribusi KDE
-│       ├── 3_Behavioral_Discovery_Lab.py
-│       ├── 4_Hypothesis_Laboratory.py
-│       ├── 5_Predictive_Intelligence.py
-│       ├── 6_World_Model.py
-│       ├── 7_Alternative_World_Simulator.py
-│       └── 8_Decision_Studio.py
+│   └── style.css                 # Gaya desain editorial & tema aurora
 ├── artifacts/                    # Bukti Artefak Model & Evaluasi Nyata
 │   ├── models/                   # Berkas model .joblib dan sidecar metadata .json
 │   ├── metadata/                 # Registri model, ledger riwayat, dan matriks
