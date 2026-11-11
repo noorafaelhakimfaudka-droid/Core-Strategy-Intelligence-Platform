@@ -481,6 +481,31 @@ def build_fluent_schema(df: pd.DataFrame) -> tuple[pd.DataFrame, dict, str, dict
 # ==============================================================================
 def try_load_local_olist() -> pd.DataFrame | None:
     root = Path(__file__).resolve().parent.parent.parent.parent
+
+    # Priority 1: High-efficiency preprocessed parquet (committed in repository)
+    proc_f = root / "data" / "processed" / "order_level.parquet"
+    if proc_f.exists():
+        try:
+            cols = [
+                "total_item_price", "total_freight", "freight_ratio",
+                "delivery_lead_time_days", "delivery_delay_days",
+                "total_payment_value", "review_score"
+            ]
+            p_df = pd.read_parquet(proc_f, columns=cols)
+            ren = {
+                "total_item_price": "price",
+                "total_freight": "freight_value",
+                "delivery_lead_time_days": "delivery_days",
+                "delivery_delay_days": "delivery_delay",
+                "total_payment_value": "payment_value",
+            }
+            p_df = p_df.rename(columns=ren).dropna()
+            if len(p_df) > 500:
+                return p_df.sample(n=min(len(p_df), 3500), random_state=42).reset_index(drop=True)
+        except Exception:
+            pass
+
+    # Priority 2: Raw CSV files if available
     raw_dir = root / "data" / "raw"
     orders_f = raw_dir / "olist_orders_dataset.csv"
     items_f = raw_dir / "olist_order_items_dataset.csv"
