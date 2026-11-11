@@ -127,7 +127,7 @@ Evaluated on a strictly locked, temporal out-of-time test set ($N_{\text{test}} 
 ### 1. Clone & Setup Environment
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/csip.git
+git clone https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform.git
 cd csip
 
 # Create and activate virtual environment
@@ -232,6 +232,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
   author = {CSIP Development Team},
   title = {CSIP: Core Strategy & Intelligence Platform & Universal Decision Simulator},
   year = {2026},
-  url = {https://github.com/your-username/csip}
+  url = {https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform}
 }
 ```
