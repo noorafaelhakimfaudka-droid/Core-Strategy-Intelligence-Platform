@@ -12,7 +12,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-import torch
+
+torch = pytest.importorskip("torch", reason="PyTorch tidak terpasang")
 
 from csip.evaluation.explainer import ModelExplainer, compute_ece
 from csip.models.deep_seq import SimpleTokenizer, TextBiLSTM, TextBiLSTMClassifier

@@ -57,7 +57,7 @@ Evaluated chronologically on unseen out-of-sample Test Split (Weeks 79–87, $N 
 | **B2** | K-Nearest Neighbors | `E2_post_delivery_diagnostic` | 0.2532 | 0.6383 | 0.2212 | 0.0839 | +131.0% |
 | **B1** | Logistic / Ridge | `E2_post_delivery_diagnostic` | 0.2436 | 0.6803 | 0.3084 | 0.1533 | +122.3% |
 | **B2** | Naive Bayes | `E2_post_delivery_diagnostic` | 0.1996 | 0.6523 | 0.2805 | 0.1378 | +82.1% |
-| **B3** | LightGBM | `E1_early_warning_checkout` | 0.1335 | 0.5468 | 0.1766 | 0.2370 | +21.8% |
+| **B3** | LightGBM | `E1_checkout_retrospective_conditional` | 0.1335 | 0.5468 | 0.1766 | 0.2370 | +21.8% |
 | **B0** | Naive Majority | All Feature Sets | 0.1096 | 0.5000 | 0.0000 | 0.0975 | Baseline |
 
 ---

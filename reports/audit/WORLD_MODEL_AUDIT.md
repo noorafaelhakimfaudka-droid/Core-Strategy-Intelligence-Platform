@@ -1,3 +1,10 @@
+> [HISTORICAL ARCHIVE] - This document is preserved as an unedited historical audit record from previous versions.
+
+> [!NOTE]
+> **HISTORICAL ARCHIVE NOTE**: This document is an archived record of historical version baselines. For active CSIP V16 canonical standards and evidence, refer to competency/CANONICAL_EVIDENCE_REGISTRY.csv.
+
+---
+
 # CSIP World Model Empirical Audit Report
 ## Parameter Recovery, Transition Matrix Inspection, and Holdout Backtest Results
 ### Standard: SKKNI No. 299 Tahun 2020 | Unit: J.62DMI00.010.1 & J.62DMI00.011.1

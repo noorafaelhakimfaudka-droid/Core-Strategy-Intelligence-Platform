@@ -6,7 +6,7 @@
 
 ## 1. Petunjuk Umum bagi Peserta Asesmen
 
-Panduan ini disusun untuk mempersiapkan Anda dalam menjalani asesmen kompetensi BNSP secara percaya diri, metodologis, dan berbasis bukti kerja nyata.
+Panduan ini disusun untuk mempersiapkan Anda dalam menjalani asesmen kompetensi SKKNI secara percaya diri, metodologis, dan berbasis bukti kerja nyata.
 
 ### Prinsip Utama Pembuktian Kompetensi:
 1. **Bicara Berdasarkan Bukti**: Jangan sekadar menghafal teori. Tunjukkan file kode sumber, notebook tereksekusi, tabel evaluasi, atau test otomatis saat menjawab pertanyaan asesor.

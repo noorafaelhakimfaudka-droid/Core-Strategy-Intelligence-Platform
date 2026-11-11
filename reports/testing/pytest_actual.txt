@@ -1,0 +1,7 @@
+﻿============================== test session starts ==============================
+platform win32 -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\asus\.gemini\antigravity\scratch\csip_v17
+configfile: pytest.ini
+collected 229 items
+
+============================== 229 passed in 88.26s ==============================

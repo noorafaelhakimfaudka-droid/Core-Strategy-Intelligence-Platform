@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-11-11T12:18:02.953187+00:00",
+  "release_version": "16.0.0",
+  "overall_status": "PASS",
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "warning": 0,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "check_id": "CHK-01-VERSION-CONSISTENCY",
+      "description": "Enforce synchronized release version 16.0.0 across core manifests and model cards",
+      "status": "PASS",
+      "details": [
+        "Synchronized version 16.0.0 verified across all active files."
+      ]
+    },
+    {
+      "check_id": "CHK-02-COMPETENCY-CANONICAL-COUNTS",
+      "description": "Verify canonical 35 VERIFIED, 12 ARTIFACT, 13 DEMO, 3 EXTERNAL counts across 63 KUKs",
+      "status": "PASS",
+      "details": [
+        "All canonical counts match 35/12/13/3 across 63 KUKs exactly."
+      ]
+    },
+    {
+      "check_id": "CHK-03-ZERO-INFLATED-CLAIMS",
+      "description": "Verify zero occurrences of obsolete/inflated claims in active documentation",
+      "status": "PASS",
+      "details": [
+        "Zero forbidden inflated claims detected in active documents."
+      ]
+    },
+    {
+      "check_id": "CHK-04-SKKNI-NORMATIVE-ACCURACY",
+      "description": "Verify exact verbatim normative SKKNI wording for KUK 2.2 and 63-KUK traceability matrix",
+      "status": "PASS",
+      "details": [
+        "KUK 2.2 verbatim normative accuracy and 63-KUK traceability verified."
+      ]
+    },
+    {
+      "check_id": "CHK-05-CALIBRATION-METHODOLOGY",
+      "description": "Verify that calibration methodology is consistently documented as Platt Scaling (Logistic Sigmoid on Log-Odds)",
+      "status": "PASS",
+      "details": [
+        "Calibration methodology verified as Platt Scaling across code and active docs."
+      ]
+    },
+    {
+      "check_id": "CHK-06-MODEL-MATURITY-TAXONOMY",
+      "description": "Verify explicit deployment maturity taxonomy across all model cards",
+      "status": "PASS",
+      "details": [
+        "All model cards include explicit deployment maturity levels."
+      ]
+    },
+    {
+      "check_id": "CHK-07-DATASET-MANIFEST-PARITY",
+      "description": "Verify all 13 Apache Parquet tables match SHA-256 in dataset_manifest.json",
+      "status": "PASS",
+      "details": [
+        "All 13 Parquet tables verified bitwise identical with manifest."
+      ]
+    },
+    {
+      "check_id": "CHK-08-HISTORICAL-ARCHIVE-TAGGING",
+      "description": "Verify legacy reports (V4-V13) carry explicit HISTORICAL ARCHIVE NOTE banners",
+      "status": "PASS",
+      "details": [
+        "All historical legacy reports carry required archive disclosure banners."
+      ]
+    }
+  ]
+}

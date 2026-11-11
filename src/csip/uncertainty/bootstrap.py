@@ -125,3 +125,93 @@ class ResidualBootstrapper:
             "std": std_traj,
         }
 
+
+def compute_classification_bootstrap_ci(
+    y_true: np.ndarray,
+    y_prob: np.ndarray,
+    n_bootstraps: int = 1000,
+    alpha: float = 0.05,
+    random_state: int = 42,
+) -> Dict[str, Any]:
+    """Compute 95% bootstrap confidence intervals for classification metrics on test evaluation.
+
+    Metrics computed:
+    - ROC-AUC: 95% CI, point estimate, lift over chance (0.50), spans chance flag
+    - PR-AUC: 95% CI, point estimate, lift over base rate, spans baseline flag
+    - Brier score: 95% CI, point estimate, naive Brier baseline
+    - Overall statistical distinguishability from random/naive baseline
+    """
+    from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_score
+
+    y_true = np.asarray(y_true).astype(int)
+    y_prob = np.clip(np.asarray(y_prob, dtype=np.float64), 0.0, 1.0)
+    n = len(y_true)
+    if n == 0 or len(np.unique(y_true)) < 2:
+        return {}
+
+    rng = np.random.default_rng(random_state)
+    base_rate = float(np.mean(y_true))
+
+    # Point estimates
+    roc_point = float(roc_auc_score(y_true, y_prob))
+    pr_point = float(average_precision_score(y_true, y_prob))
+    brier_point = float(brier_score_loss(y_true, y_prob))
+
+    # Naive Brier baseline (predicting constant base rate)
+    brier_naive = float(brier_score_loss(y_true, np.full_like(y_prob, base_rate)))
+
+    boot_roc = []
+    boot_pr = []
+    boot_brier = []
+
+    for _ in range(n_bootstraps):
+        idx = rng.integers(0, n, size=n)
+        y_b = y_true[idx]
+        if len(np.unique(y_b)) < 2:
+            continue
+        p_b = y_prob[idx]
+        boot_roc.append(roc_auc_score(y_b, p_b))
+        boot_pr.append(average_precision_score(y_b, p_b))
+        boot_brier.append(brier_score_loss(y_b, p_b))
+
+    low_p = (alpha / 2.0) * 100
+    high_p = (1.0 - alpha / 2.0) * 100
+
+    roc_ci = [round(float(np.percentile(boot_roc, low_p)), 4), round(float(np.percentile(boot_roc, high_p)), 4)]
+    pr_ci = [round(float(np.percentile(boot_pr, low_p)), 4), round(float(np.percentile(boot_pr, high_p)), 4)]
+    brier_ci = [round(float(np.percentile(boot_brier, low_p)), 4), round(float(np.percentile(boot_brier, high_p)), 4)]
+
+    # Statistical significance checks
+    roc_spans_chance = bool(roc_ci[0] <= 0.50 <= roc_ci[1])
+    pr_spans_baseline = bool(pr_ci[0] <= base_rate <= pr_ci[1])
+
+    roc_lift = round(roc_point - 0.50, 4)
+    pr_lift = round(pr_point - base_rate, 4)
+    relative_pr_lift_pct = round(((pr_point - base_rate) / (base_rate + 1e-9)) * 100, 2)
+
+    statistically_distinguishable = not (roc_spans_chance or pr_spans_baseline)
+
+    return {
+        "base_rate": round(base_rate, 4),
+        "roc_auc": {
+            "point": round(roc_point, 4),
+            "ci_95": roc_ci,
+            "spans_chance": roc_spans_chance,
+            "lift_over_chance": roc_lift,
+        },
+        "pr_auc": {
+            "point": round(pr_point, 4),
+            "ci_95": pr_ci,
+            "spans_baseline": pr_spans_baseline,
+            "lift_over_base_rate": pr_lift,
+            "relative_lift_pct": relative_pr_lift_pct,
+        },
+        "brier_score": {
+            "point": round(brier_point, 4),
+            "ci_95": brier_ci,
+            "naive_baseline": round(brier_naive, 4),
+        },
+        "statistically_distinguishable_from_baseline": statistically_distinguishable,
+    }
+
+

@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd
 
-from ui_components import (
+from app.ui_components import (
     PALETTE,
     apply_editorial_theme,
     editorial_plotly_theme,
@@ -23,6 +23,9 @@ render_hero(
     ),
     tag="Bab 4: Pembuktian Mitos & Fakta",
 )
+
+st.info("ℹ️ **Status Modul**: Modul ini merupakan **Ekstensi Riset Ekonometrika (Supplementary Statistical Testing)** dengan koreksi Benjamini-Hochberg FDR. Presentasi inti asesmen difokuskan pada pemodelan prediktif LightGBM dan klastering K-Means.")
+
 
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.45rem; font-weight: 600; color: #1C1917; margin-bottom: 0.5rem;">

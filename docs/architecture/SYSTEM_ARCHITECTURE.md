@@ -56,7 +56,7 @@ flowchart TD
     subgraph User & Audit Interface
         EVAL --> STREAMLIT[Streamlit Multi-Page Studio]
         SIM --> STREAMLIT
-        EVAL --> REGISTRY[BNSP Competency Evidence Registry]
+        EVAL --> REGISTRY[SKKNI Competency Evidence Registry]
 ```
 
 ---

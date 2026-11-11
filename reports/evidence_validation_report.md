@@ -1,5 +1,7 @@
+> [HISTORICAL ARCHIVE] - This document is preserved as an unedited historical audit record from previous versions.
+
 # CSIP Evidence Validation & Audit Report
-## Independent Audit of Competency Evidence for BNSP KKNI Level 7 Assessment
+## Independent Audit of Competency Evidence for SKKNI KKNI Level 7 Assessment
 
 **Document ID**: `CSIP-EVAL-EVIDENCE-2026`  
 **Standard**: SKKNI No. 299 Tahun 2020 Subbidang Data Science  
@@ -54,7 +56,7 @@ Setiap unit kompetensi dari **tepat 11 unit SKKNI 299/2020** telah diperiksa ter
 
 ### [UK-04] Memvalidasi Data (`J.62DMI00.006.1`)
 - **Evidence of Process**: Pipeline validasi otomatis memeriksa missing values, inkonsistensi tipe, duplikasi, dan urutan kronologis tanggal.
-- **Evidence of Result**: Penemuan dan eliminasi 23 baris anomali kronologis tanggal (`order_delivered_customer_date < order_purchase_timestamp`) dalam `artifacts/reports/raw_data_profile.json`.
+- **Evidence of Result**: Penemuan dan eliminasi 23 baris anomali kronologis tanggal (`order_delivered_customer_date < order_purchase_timestamp`) dalam `artifacts/reports/data_quality_report.md`.
 - **Evidence of Validation**: Seluruh aturan validasi lulus pengujian otomatis pada `tests/test_data_validation.py`.
 - **Evidence of Explanation**: Menghapus data dengan kronologi terbalik mencegah distorsi nilai negatif pada perhitungan durasi pengiriman.
 - **Audit Status**: **VERIFIED (Grade A)**

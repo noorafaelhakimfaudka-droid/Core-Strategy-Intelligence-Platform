@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-11-11T11:26:00",
+  "generated_at": "2026-11-11T11:49:23.082126+00:00",
+  "release_version": "15.0.0",
   "tables": {
     "data/interim/clean_customers.parquet": {
       "grain_type": "interim",
@@ -144,11 +145,12 @@
       "grain_type": "processed",
       "filename": "customer_cohort.parquet",
       "row_count": 75318,
-      "column_count": 23,
+      "column_count": 29,
       "columns": [
         "customer_unique_id",
         "order_id",
         "order_purchase_timestamp",
+        "order_delivered_customer_date",
         "total_item_price",
         "total_freight",
         "total_order_value",
@@ -168,17 +170,22 @@
         "delay_x_freight_ratio",
         "high_value_late_flag",
         "repeat_purchase_flag",
-        "days_to_repeat"
+        "days_to_repeat",
+        "repeat_before_delivery_flag",
+        "repeat_purchase_post_delivery_flag",
+        "days_to_repeat_post_delivery",
+        "is_censored",
+        "is_censored_post_delivery"
       ],
-      "size_bytes": 8487279,
-      "size_mb": 8.094,
-      "sha256": "7ef094376ff9bd41289315d08a696faaf5d67b57262119eacaf295ffb9098a30"
+      "size_bytes": 9227118,
+      "size_mb": 8.8,
+      "sha256": "13a761705889bf7f9664953dfb95d9f6927195f2896b636f7ef8bd89d6f56333"
     },
     "data/processed/order_level.parquet": {
       "grain_type": "processed",
       "filename": "order_level.parquet",
       "row_count": 96470,
-      "column_count": 41,
+      "column_count": 42,
       "columns": [
         "order_id",
         "customer_id",
@@ -216,21 +223,22 @@
         "approval_lag_hours",
         "review_score",
         "has_review_comment",
+        "has_observed_review",
         "negative_review_flag",
         "delay_x_freight_ratio",
         "distance_x_weight",
         "high_value_late_flag",
         "prior_order_count"
       ],
-      "size_bytes": 19318463,
-      "size_mb": 18.424,
-      "sha256": "f68815ed9d8cc8efa910763510179331da537b7d68c02efda201044d6670acf9"
+      "size_bytes": 19325998,
+      "size_mb": 18.431,
+      "sha256": "d9a8a0ef5ed1bb1677360b70adf85d887da2a388aa644cf5ca40cc54c40b44ff"
     },
     "data/processed/order_level_clustered.parquet": {
       "grain_type": "processed",
       "filename": "order_level_clustered.parquet",
       "row_count": 96470,
-      "column_count": 46,
+      "column_count": 47,
       "columns": [
         "order_id",
         "customer_id",
@@ -268,6 +276,7 @@
         "approval_lag_hours",
         "review_score",
         "has_review_comment",
+        "has_observed_review",
         "negative_review_flag",
         "delay_x_freight_ratio",
         "distance_x_weight",
@@ -279,9 +288,9 @@
         "cluster_dist",
         "is_anomaly"
       ],
-      "size_bytes": 21097353,
-      "size_mb": 20.12,
-      "sha256": "47b0ea4a8e75af866623c6a135afbea324e4889e64e679c3119ac7865c8f1e4b"
+      "size_bytes": 21104868,
+      "size_mb": 20.127,
+      "sha256": "a9be0386fa6119e7ad15c383b9e1c86f1272870547282350f347b4fc15fef0bc"
     },
     "data/processed/review_corpus.parquet": {
       "grain_type": "processed",
@@ -322,7 +331,7 @@
       ],
       "size_bytes": 11517,
       "size_mb": 0.011,
-      "sha256": "22d5b26db4c5baee8188497eea0615c56d7413c26fb104847791254ba2dbecdb"
+      "sha256": "9bccaafd64eaadc5cde930bab1dd5fbb8d31d9c52e71b235f051d60d8f28a1c6"
     }
   }
 }

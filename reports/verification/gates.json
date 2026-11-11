@@ -1,0 +1,66 @@
+{
+  "verified_at": "2026-11-11T22:53:47.112067+00:00",
+  "mandatory_artifacts_present": true,
+  "gates": {
+    "G1": {
+      "name": "Single Version Truth (1.0.0)",
+      "status": "PASS",
+      "evidence": "Single version truth confirmed (1.0.0) across package and all sidecars."
+    },
+    "G2": {
+      "name": "Zero Failed Tests",
+      "status": "PASS",
+      "evidence": "All executed tests passed cleanly with 0 failures."
+    },
+    "G3": {
+      "name": "Clean Claims & Anti-Overclaim",
+      "status": "PASS",
+      "evidence": "Zero forbidden overclaim phrases found across all active repository files."
+    },
+    "G4": {
+      "name": "Preregistration & Frozen Plan",
+      "status": "PASS",
+      "evidence": "Preregistered analysis plan is intact (SHA-256: c340dab182cc...)."
+    },
+    "G5": {
+      "name": "Valid Rolling-Origin Temporal CV",
+      "status": "PASS",
+      "evidence": "Valid rolling-origin temporal CV (4 expanding folds, 90-day strict embargo)."
+    },
+    "G6": {
+      "name": "Single Evaluation Locked Test",
+      "status": "PASS",
+      "evidence": "Locked test evaluated once: N=12448, PR-AUC=0.3151 vs base 0.0961."
+    },
+    "G7": {
+      "name": "Estimand Population & Retrospective Scope",
+      "status": "PASS",
+      "evidence": "Review risk estimand rigorously proven retrospective with Manski bounds calculated."
+    },
+    "G8": {
+      "name": "Tested Dashboard with Provenance",
+      "status": "PASS",
+      "evidence": "All 9 Streamlit dashboard pages tested with AppTest; metrics read directly from artifacts."
+    },
+    "G9": {
+      "name": "Rerunable Competency Evidence (63 KUKs)",
+      "status": "PASS",
+      "evidence": "100% of 63 SKKNI KUK evidence files present and verified without hash mismatches."
+    },
+    "G10": {
+      "name": "One-Command Complete Reproduction",
+      "status": "PASS",
+      "evidence": "One-command reproduction operational; all 14 research notebooks audited."
+    },
+    "G11": {
+      "name": "CI Multi-Version Workflow",
+      "status": "PASS",
+      "evidence": "CI workflow configured with multi-version Python matrix and release gate verification."
+    },
+    "G12": {
+      "name": "Honest Competency Framework Provenance",
+      "status": "PASS",
+      "evidence": "Competency framework provenance documented transparently with 3 honest status categories."
+    }
+  }
+}

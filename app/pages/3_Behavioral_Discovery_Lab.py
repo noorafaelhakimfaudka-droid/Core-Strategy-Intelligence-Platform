@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd
 
-from ui_components import (
+from app.ui_components import (
     PALETTE,
     apply_editorial_theme,
     editorial_plotly_theme,
@@ -21,8 +21,16 @@ render_hero(
         "Tidak ada pembeli yang benar-benar sama. Namun ketika puluhan ribu kebiasaan dipertemukan, "
         "mereka secara alami terbagi ke dalam 3 kelompok kepribadian dengan harapan dan ketakutan yang berbeda."
     ),
-    tag="Bab 3: Mengenal Karakter Pembeli",
+    tag="SKKNI Subbidang Data Science: J.62DMI00.012.1 & J.62DMI00.013.1 (Unsupervised Clustering)",
 )
+
+st.markdown("""
+<div style="background: rgba(56, 189, 248, 0.12); border-left: 4px solid #38BDF8; padding: 0.5rem 1rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.86rem; color: #F4F1EA;">
+    <b>UNIT KOMPETENSI INTI UNSUPERVISED:</b> Memenuhi <code>J.62DMI00.012.1</code> (Skenario Model) & <code>J.62DMI00.013.1</code> (Membangun Model) 
+    melalui algoritma K-Means Clustering dengan metrik validasi Silhouette Score = 0.3865 dan stabilitas bootstrap ARI = 0.9832.
+</div>
+""", unsafe_allow_html=True)
+
 
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.45rem; font-weight: 600; color: #1C1917; margin-bottom: 0.5rem;">

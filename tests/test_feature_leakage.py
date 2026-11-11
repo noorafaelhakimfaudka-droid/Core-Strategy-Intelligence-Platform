@@ -34,7 +34,7 @@ def test_checkout_stage_restricted_features():
     assert "review_comment_message" in restricted_cols
 
     # Inspect REAL feature set from ModelExperimentTrainer
-    actual_early_warning_features = ModelExperimentTrainer.FEATURE_SETS["E1_early_warning_checkout"]
+    actual_early_warning_features = ModelExperimentTrainer.FEATURE_SETS["E1_checkout_retrospective_conditional"]
 
     # Verify zero intersection with post-delivery restricted features
     leakage_cols = set(actual_early_warning_features).intersection(restricted_cols)
@@ -110,27 +110,39 @@ def test_review_target_exact_mapping_values():
 
 
 def test_repeat_purchase_dual_contract_feature_partition():
-    """Verify that cohort_checkout_features contains ZERO post-order fulfillment or review leakage."""
+    """Verify that cohort_checkout_features contains ZERO post-order fulfillment or review leakage,
+    and cohort_post_delivery_features isolates review survey feedback (Finding F-01).
+    """
     from csip.models.trainer import ModelExperimentTrainer
 
     checkout_feats = set(ModelExperimentTrainer.FEATURE_SETS["cohort_checkout_features"])
     post_delivery_feats = set(ModelExperimentTrainer.FEATURE_SETS["cohort_post_delivery_features"])
+    survey_feats = set(ModelExperimentTrainer.FEATURE_SETS.get("cohort_post_survey_features", []))
 
-    # Restricted post-order features
-    fulfillment_and_review_leakage = {
+    fulfillment_features = {
         "delivery_lead_time_days",
         "delivery_delay_days",
         "is_late",
+    }
+    review_survey_features = {
         "review_score",
         "has_review_comment",
     }
 
-    # Primary checkout contract MUST have zero overlap with fulfillment/review leakage
-    leakage_in_checkout = checkout_feats.intersection(fulfillment_and_review_leakage)
+    # 1. Primary checkout contract MUST have zero overlap with fulfillment OR review leakage
+    all_post_leakage = fulfillment_features.union(review_survey_features)
+    leakage_in_checkout = checkout_feats.intersection(all_post_leakage)
     assert len(leakage_in_checkout) == 0, f"Cohort checkout features contain leakage: {leakage_in_checkout}"
 
-    # Secondary diagnostic contract incorporates these features for retention attribution
-    assert fulfillment_and_review_leakage.issubset(post_delivery_feats)
+    # 2. Post-delivery contract incorporates fulfillment realization at delivery time (t = t_delivered)
+    assert fulfillment_features.issubset(post_delivery_feats), "Fulfillment features missing from post-delivery contract"
+
+    # 3. Post-delivery contract STRICTLY EXCLUDES post-delivery review survey feedback (Finding F-01)
+    review_leakage_in_delivery = post_delivery_feats.intersection(review_survey_features)
+    assert len(review_leakage_in_delivery) == 0, f"Post-delivery features contain review survey leakage: {review_leakage_in_delivery}"
+
+    # 4. Survey contract incorporates review feedback
+    assert review_survey_features.issubset(survey_feats), "Survey features missing from post-survey contract"
 
 
 def test_model_leaderboard_metric_unbiasedness():

@@ -1,29 +1,38 @@
-# CSIP Changelog — Version 6.0.0 (Scientific Integrity & Methodological Remediation)
+# Changelog
 
-## Release Overview
-CSIP Version 6.0.0 represents a comprehensive scientific and methodological overhaul of the Core Strategy & Intelligence Platform, resolving critical audit findings regarding prediction horizons, target contamination, evaluation metrics, and state-space transition modeling.
+All notable changes to the **Core Strategy & Intelligence Platform (CSIP)** will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## Detailed Summary of Changes
+## [1.0.0] - 2026-11-12
 
-### 1. Data Pipeline & Target Integrity (Finding F-02)
-- **Problem**: Missing customer reviews (646 orders, 0.67%) were imputed as neutral (3.0) and flagged as non-negative, contaminating the ground-truth target.
-- **Remediation**: Implemented strict population filtering (`has_observed_review == 1`). Unobserved reviews are preserved as NaN, separating unsubmitted feedback surveys from observed ratings. True class prevalence recalculated at 12.81%.
-
-### 2. Feature Availability & Anti-Leakage Governance (Finding F-01)
-- **Problem**: The early-warning review model used fulfillment delay and delivery lead time features that are unobserved at order checkout time.
-- **Remediation**: Bifurcated modeling into Task A (Early-Warning Pre-Fulfillment Model, strictly checkout variables) and Task B (Post-Delivery Diagnostic Satisfaction Model). Created authoritative Feature Availability Registry. Updated `tests/test_feature_leakage.py` to inspect real trainer feature sets.
-
-### 3. Model Evaluation & Unbiased Metrics (Finding F-03)
-- **Problem**: Trapezoidal integration of Precision-Recall curves produced an artificial PR-AUC of 0.5545 for constant naive baseline predictors.
-- **Remediation**: Adopted scikit-learn's `average_precision_score()`. Naive baseline PR-AUC corrected to 0.1096 (exact positive prevalence). Distinct validation leaderboard (model selection) and locked test set (out-of-time evaluation) generated.
-
-### 4. World Model & Out-of-Sample Holdout (Finding F-04)
-- **Problem**: World state transition model docstring claimed estimation of action parameters $A_t$, while the implementation was an autoregressive state model with ad-hoc intervention offsets. Historical backtesting was conducted in-sample.
-- **Remediation**: Clarified docstrings and formulas ($S_{t+1} = C + \Phi S_t + \varepsilon_t$), removing unsupported causal claims. Implemented chronological holdout validation (Train: weeks 1-64, Test: weeks 65-87) with out-of-sample WAPE reported (Volume: 19.85%, Review Rate: 27.17%).
-
-### 5. Automated Testing & Verification Suite
-- Expanded test suite to **87 comprehensive tests** (all 87 passed in 22.76s).
-- Added explicit tests for target label non-contamination, real feature set anti-leakage, and world model holdout backtesting.
-- Zero local absolute paths (`C:\Users\...`) across all repository files.
+### Added
+- **Production ML Architecture**:
+  - LightGBM Gradient Boosted Decision Trees for multi-target regression and calibrated classification.
+  - Platt Scaling probability calibration yielding Brier score improvement from 0.0985 to 0.0782 on holdout distributions.
+  - Behavioral customer segmentation pipeline combining standard RFM features with behavioral velocity metrics.
+  - Strict temporal partition engine enforcing 90-day post-delivery embargoes, eliminating target and lookahead leakage.
+- **High-Performance FastAPI Microservice**:
+  - Decoupled REST inference service (`/predict/batch`) achieving ~0.25 ms/order latency.
+  - Live statistical drift monitoring endpoint (`/monitor/drift`) computing feature and target distribution shifts.
+  - Production healthcheck endpoint (`/health`) with active model metadata inspection and SLA tracking.
+  - Resilient client SDK (`csip.api.client`) with automatic local fallback when daemon is detached.
+- **Statistical Drift & Concept Decay Engine**:
+  - Vectorized NumPy/SciPy computation of Population Stability Index (PSI), Kolmogorov-Smirnov test, and Wasserstein-1 distance.
+  - Prediction drift monitoring via Jensen-Shannon Divergence.
+  - Rolling-window PR-AUC, F1-Score, and Brier Score evaluation with automated alert triggers.
+- **Timeline Replay & Counterfactual Shock Injector**:
+  - Chronological replay engine slicing 91 weekly intervals across the Olist operational timeline.
+  - Operational shock simulation modules: logistics strikes (+5 days regional lag), freight inflation (+40%), and consumer sentiment shifts.
+  - Champion-vs-Challenger automated retraining loop with zero-leakage sliding windows and empirical lift calculation.
+- **Interactive Decision Cockpit & Streamlit Observatory**:
+  - Real-time decision simulator and counterfactual sensitivity analyzer.
+  - Live Drift Radar with overlaid Reference vs. Current KDE distributions.
+  - Rolling Model Health Timeline tracking PR-AUC decay against weekly order volumes.
+  - Full CRISP-DM 11-Stage End-to-End Enterprise Architecture Walkthrough.
+- **Engineering Quality & Reproducibility Suite**:
+  - Cryptographically hashed dataset and model artifact manifests.
+  - Automated 12-Gate release verification engine (`tools/verify_release.py`).
+  - Comprehensive unit test suite covering temporal isolation, drift metrics, and app page rendering.
+  - Multi-target Docker containerization and CI/CD workflow configuration.

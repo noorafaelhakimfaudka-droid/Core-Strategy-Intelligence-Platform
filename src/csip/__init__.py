@@ -6,14 +6,14 @@ Master Edition — SKKNI, Enterprise Standard & Industry Portfolio Compliant.
 Core Principles:
 1. Business & Technical Alignment > Blind Coding (SKKNI Unit 1 & 2)
 2. Evidence > Assumption (Claim Levels L0-L3, Evidence Grades A-D)
-3. Validation > Complexity (Zero Data Leakage, Out-of-Time Evaluation)
+3. Validation > Complexity (Strict Temporal & Feature Isolation, Out-of-Time Evaluation)
 4. Explanation > Superficial Correlation (Alternative Hypothesis Testing)
 5. Reproducibility > One-time Results (Deterministic Pipeline & Audit Registry)
 6. Honest Uncertainty > False Confidence (Prediction Intervals & Guardrails)
 7. Data Science Rigor > Unnecessary AI Hype (Pure ML/DL/Stats Foundations)
 """
 
-__version__ = "0.1.0"
+from csip._version import __version__
 __author__ = "CSIP Data Science Team"
 
 # 11 Unit Kompetensi SKKNI Enterprise Standard Registry
@@ -53,12 +53,5 @@ __all__ = [
     "EVIDENCE_GRADES",
     "__version__",
 ]
-
-# Ensure dual compatibility between `import csip` and `import src.csip`
-import sys
-if "src.csip" not in sys.modules:
-    sys.modules["src.csip"] = sys.modules[__name__]
-if "csip" not in sys.modules:
-    sys.modules["csip"] = sys.modules[__name__]
 
 

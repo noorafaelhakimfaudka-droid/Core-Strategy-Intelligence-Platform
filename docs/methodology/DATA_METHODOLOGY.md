@@ -22,7 +22,7 @@ The primary empirical source comprises 9 relational tables from the Brazilian E-
 
 ---
 
-## 2. Quality Assurance & Anomaly Remediation
+## 2. Quality Assurance & Anomaly Hardening
 
 ### 2.1 Chronological Anomaly Filtering
 - An inspection of order timelines identified **23 orders** where `order_delivered_customer_date < order_purchase_timestamp`.
@@ -67,7 +67,7 @@ Where $R = 6,371 \text{ km}$.
 - `distance_x_weight`: $\text{seller\_buyer\_distance\_km} \times \ln(1 + \text{product\_weight\_g})$ (quantifies fulfillment logistics complexity).
 - `high_value_late_flag`: $\mathbb{I}(\text{total\_order\_value} > Q_{75}) \times \mathbb{I}(\text{is\_late} = 1)$ (flags premium orders suffering delivery failure).
 
-### 4.3 Cohort Selection Integrity (V7 Remediation)
+### 4.3 Cohort Selection Integrity (V7 Hardening)
 - In V6, cohort selection used `df.groupby('customer_unique_id').first()`, which introduced a column-wise non-null selection vulnerability.
 - In V7, this was refactored to deterministic row-level selection:
   ```python

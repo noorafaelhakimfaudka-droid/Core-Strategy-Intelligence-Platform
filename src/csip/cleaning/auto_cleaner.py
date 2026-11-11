@@ -2,7 +2,7 @@
 
 Standards Compliance:
 - Data Cleaning (Phase 06): Imputation of missing/infinite values, deduplication,
-  and handling of mixed/constant features with zero data leakage.
+  and handling of mixed/constant features with strict train-only fitting.
 
 Adheres strictly to Scikit-Learn Transformer contracts (fit / transform / fit_transform)
 with 100% deterministic real computation.

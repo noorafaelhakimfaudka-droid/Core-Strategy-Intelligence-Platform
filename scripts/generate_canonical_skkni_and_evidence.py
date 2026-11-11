@@ -1107,7 +1107,7 @@ EVIDENCE_MAPPING = {
         "csip_evidence": "FINAL_CSIP_AUDIT_REPORT.md",
         "evidence_status": "VERIFIED",
         "verification_method": "Audit Report Inspection",
-        "notes": "Laporan audit akhir merangkum seluruh temuan teknis, gap, dan status kesiapan asesmen BNSP."
+        "notes": "Laporan audit akhir merangkum seluruh temuan teknis, gap, dan status kesiapan evaluasi teknis arsitektur."
     }
 }
 

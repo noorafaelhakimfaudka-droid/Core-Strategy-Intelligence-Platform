@@ -16,9 +16,20 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
-import torch
-import torch.nn as nn
-from torch.utils.data import DataLoader, TensorDataset
+
+try:
+    import torch
+    import torch.nn as nn
+    from torch.utils.data import DataLoader, TensorDataset
+    HAS_TORCH = True
+    _BaseModule = nn.Module
+except ImportError:
+    torch = None
+    nn = None
+    DataLoader = None
+    TensorDataset = None
+    HAS_TORCH = False
+    _BaseModule = object
 
 logger = logging.getLogger(__name__)
 
@@ -66,7 +77,7 @@ class SimpleTokenizer:
         return sequences
 
 
-class TextBiLSTM(nn.Module):
+class TextBiLSTM(_BaseModule):
     """Bidirectional LSTM with Embedding and pooling for review text classification."""
 
     def __init__(
@@ -77,6 +88,8 @@ class TextBiLSTM(nn.Module):
         num_layers: int = 1,
         dropout_rate: float = 0.3,
     ) -> None:
+        if not HAS_TORCH:
+            raise ImportError("PyTorch is required for TextBiLSTM. Install torch to use deep learning models.")
         super().__init__()
         self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)
         self.lstm = nn.LSTM(
@@ -121,6 +134,8 @@ class TextBiLSTMClassifier:
         epochs: int = 6,
         random_state: int = 42,
     ) -> None:
+        if not HAS_TORCH:
+            raise ImportError("PyTorch is required for TextBiLSTMClassifier. Install torch to use deep learning models.")
         self.max_vocab_size = max_vocab_size
         self.max_seq_len = max_seq_len
         self.embedding_dim = embedding_dim

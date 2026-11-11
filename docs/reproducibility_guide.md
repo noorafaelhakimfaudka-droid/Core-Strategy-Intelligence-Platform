@@ -1,5 +1,5 @@
 # CSIP End-to-End Reproducibility Guide
-## Core Strategy & Intelligence Platform (CSIP) — BNSP Data Scientist KKNI Level 7
+## Core Strategy & Intelligence Platform (CSIP) — SKKNI Data Scientist KKNI Level 7
 
 **Standard**: SKKNI No. 299 Tahun 2020 Subbidang Data Science  
 **Environment Target**: Standard Laptop (Windows/macOS/Linux) with 8 GB RAM  

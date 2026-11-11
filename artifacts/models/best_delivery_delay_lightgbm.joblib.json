@@ -1,0 +1,22 @@
+{
+  "target_name": "delivery_delay_days",
+  "feature_set_name": "logistics_features",
+  "feature_list": [
+    "total_order_value",
+    "freight_ratio",
+    "estimated_lead_time_days",
+    "seller_buyer_distance_km",
+    "approval_lag_hours"
+  ],
+  "train_rows": 64156,
+  "split_bounds": {
+    "train_end": "2018-03-31",
+    "val_end": "2018-06-30",
+    "test_start": "2018-07-01"
+  },
+  "sklearn_version": "1.9.0",
+  "lightgbm_version": "4.7.0",
+  "python_version": "3.14.7",
+  "trained_at": "2026-11-11T10:20:33.262201+00:00",
+  "git_or_release_version": "1.0.0"
+}

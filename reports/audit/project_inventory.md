@@ -1,3 +1,10 @@
+> [HISTORICAL ARCHIVE] - This document is preserved as an unedited historical audit record from previous versions.
+
+> [!NOTE]
+> **HISTORICAL ARCHIVE NOTE**: This document is an archived record of historical version baselines. For active CSIP V16 canonical standards and evidence, refer to competency/CANONICAL_EVIDENCE_REGISTRY.csv.
+
+---
+
 # CSIP Full Project Inventory & Audit Register
 ## Skema Sertifikasi Ilmuwan Data — LSP TRI (SKM/2905/LSP-TRI/VII/2025)
 ### Standar Acuan: SKKNI No. 299 Tahun 2020 | Target: KKNI Jenjang 7

@@ -29,8 +29,16 @@ render_hero(
         "Halaman ini menyajikan 4 pilihan strategi teruji, kalkulator keuangan interaktif, "
         "dan peta jalan operasional 90 hari ke depan."
     ),
-    tag="BAB 8: STRATEGI & PENGAMBILAN KEPUTUSAN",
+    tag="SKKNI Subbidang Data Science: J.62DMI00.015.1 (Review Pemodelan & Keputusan Bisnis)",
 )
+
+st.markdown("""
+<div style="background: rgba(168, 85, 247, 0.12); border-left: 4px solid #A855F7; padding: 0.5rem 1rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.86rem; color: #F4F1EA;">
+    <b>UNIT KOMPETENSI 11:</b> Memenuhi <code>J.62DMI00.015.1</code> (Melakukan Proses Review Pemodelan) melalui formulasi 
+    rekomendasi manajerial berbasis bukti empiris, mitigasi utang teknis, dan evaluasi kesiapan deployment operasional.
+</div>
+""", unsafe_allow_html=True)
+
 
 st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 

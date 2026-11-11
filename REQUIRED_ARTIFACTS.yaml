@@ -1,0 +1,98 @@
+# CSIP Mandatory Release Artifacts Specification
+version: "1.0.0"
+updated_at: "2026-11-12T00:00:00Z"
+
+phases:
+  phase_0_claim_cleanup:
+    name: "Claim Layer Cleanup & Single Source of Truth"
+    required_files:
+      - "SELF_ASSESSMENT.md"
+      - "standards/COMPETENCY_FRAMEWORK_PROVENANCE.md"
+      - "src/csip/_version.py"
+      - "reports/testing/pytest_actual.txt"
+      - "reports/security/secret_scan.txt"
+      - "competency/external_approvals/STAKEHOLDER_APPROVAL_DEFENSE_PACKET.md"
+      - "tools/check_claims.py"
+
+  phase_1_release_enforcement:
+    name: "Release Enforcement Engine & Gates"
+    required_files:
+      - "REQUIRED_ARTIFACTS.yaml"
+      - "tools/verify_release.py"
+      - "Makefile"
+
+  phase_2_preregistration:
+    name: "Analysis Plan Preregistration & Tag Freeze"
+    required_files:
+      - "config/analysis_plan.yaml"
+      - "reports/preregistration/PLAN_HASH.txt"
+
+  phase_3_temporal_cv:
+    name: "Rolling-Origin Temporal Cross-Validation"
+    required_files:
+      - "src/csip/evaluation/temporal_cv.py"
+      - "reports/evaluation/TEMPORAL_CV_REPORT.md"
+      - "artifacts/reports/temporal_cv_results.json"
+
+  phase_4_predictive_quality:
+    name: "Predictive Quality, Calibration & Survival"
+    required_files:
+      - "src/csip/evaluation/survival_analysis.py"
+      - "src/csip/features/builder.py"
+
+  phase_5_review_risk_feasibility:
+    name: "Estimand & Feasibility for Review Risk"
+    required_files:
+      - "reports/methodology/CHECKOUT_RISK_FEASIBILITY.md"
+
+  phase_6_statistical_rigor:
+    name: "Non-Predictive Statistical Rigor & Stability"
+    required_files:
+      - "src/csip/hypotheses/runner.py"
+      - "src/csip/discovery/clusterer.py"
+      - "artifacts/reports/hypothesis_evaluation.json"
+      - "artifacts/reports/cluster_stability_evaluation.json"
+
+  phase_7_software_quality:
+    name: "Software Quality, Coverage & Deployment"
+    required_files:
+      - "src/csip/experimental/README.md"
+      - "scripts/predict_batch.py"
+      - ".github/workflows/ci.yml"
+      - "pyproject.toml"
+
+  phase_8_tested_dashboard:
+    name: "Tested Dashboard with Provenance Connection"
+    required_files:
+      - "app/data_provider.py"
+      - "app/pages/5_Predictive_Intelligence.py"
+      - "tests/test_app_pages.py"
+
+  phase_9_reproducibility:
+    name: "One-Command Reproduction & Notebook Audit"
+    required_files:
+      - "scripts/reproduce_all.py"
+      - "reports/notebooks/notebook_exec_summary.json"
+      - "REPRODUCIBILITY.md"
+
+  phase_10_competency_evidence:
+    name: "Rerunable Competency Evidence & Defense Guide"
+    required_files:
+      - "competency/CANONICAL_EVIDENCE_REGISTRY.csv"
+      - "reports/competency/implemented_tested_crosscheck.csv"
+      - "scripts/run_evidence_check.py"
+      - "reports/competency/evidence_run.json"
+      - "competency/CANDIDATE_DEMONSTRATION_DEFENSE_GUIDE.md"
+
+  phase_11_documentation:
+    name: "Unified Documentation & Transparency"
+    required_files:
+      - "KNOWN_LIMITATIONS.md"
+      - "docs/DATA_CARD.md"
+
+  phase_12_reporting:
+    name: "Release Reporting & Verification Status"
+    required_files:
+      - "CHANGELOG.md"
+      - "reports/verification/gates.json"
+

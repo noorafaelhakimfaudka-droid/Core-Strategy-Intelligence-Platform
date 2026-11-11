@@ -12,7 +12,7 @@
 
 This report documents the rigorous evaluation of the CSIP Baseline Ladder (B0 through B4), feature ablation architectures (E0 through E4), probability calibration, SHAP feature attributions, and structural limitations under severe class imbalance and temporal distribution shift.
 
-All models were evaluated on a strictly locked, temporal out-of-time evaluation split ($N_{\text{test}} = 12,630$ orders for order-level outcomes; $N_{\text{test}} = 13,021$ customers for cohort outcomes). In compliance with the SHADOW Project Rules and Metodologi Data Science competency standards, zero data leakage occurred, and all claims are strictly governed under Level L0 to L3 categories.
+All models were evaluated on a strictly locked, temporal out-of-time evaluation split ($N_{\text{test}} = 12,630$ orders for order-level outcomes; $N_{\text{test}} = 6,439$ customers for cohort checkout outcomes; $N_{\text{test}} = 4,232$ customers for post-delivery fulfillment outcomes). In compliance with the SHADOW Project Rules and Metodologi Data Science competency standards, the Temporal & Feature Isolation Protocol (audited, residual risks documented) was strictly applied, and all claims are strictly governed under Level L0 to L3 categories.
 
 ---
 
@@ -96,9 +96,31 @@ In strict adherence to the Spesifikasi Sistem Failure Protocol and scientific ho
    - First-order review score exhibited an Odds Ratio of $0.9964$ ($p\text{-adj} = 0.859$) with 95% CI $[0.957, 1.037]$.
    - Highly satisfied customers (5 stars) repeat at the identical rate ($2.27\%$) as dissatisfied customers (1 star, $2.29\%$).
    - *Root Cause*: E-commerce repeat behavior on Olist is governed by category replenishment need (e.g., recurring consumables vs one-off furniture) and geographic density, rather than initial customer sentiment.
-2. **Extreme Class Imbalance on Customer Repurchase**:
+2. **Extreme Class Imbalance on Customer Repurchase & Statistical Insignificance on Holdout Test (N-03)**:
    - Only $2.28\%$ of cohort customers make a repeat purchase in the 90-day post-order observation window.
-   - Standard classifiers collapsed towards majority class prediction; tree models required aggressive class weighting (`class_weight='balanced'`) to detect repeat signals.
+   - **Checkout Contract (`repeat_purchase_flag`)**:
+     * Test ROC-AUC: **0.5332**, 95% Bootstrap CI: **[0.4874, 0.5880]** (spans chance level 0.50).
+     * Test PR-AUC: **0.0187**, 95% Bootstrap CI: **[0.0150, 0.0265]** (spans base rate 0.0163).
+     * Lift over chance: $+0.0332$; Relative PR lift: $+14.7\%$.
+   - **Post-Delivery Fulfillment Contract (`repeat_purchase_post_delivery_flag`)**:
+     * Evaluated on uncensored non-pre-repeat test population ($N = 4,232$ customers, 57 repeaters, base rate $1.35\%$).
+     * Test ROC-AUC: **0.4688**, 95% Bootstrap CI: **[0.4035, 0.5354]** (spans chance level 0.50).
+     * Test PR-AUC: **0.0132**, 95% Bootstrap CI: **[0.0099, 0.0214]** (spans base rate 0.0135).
+   - **Mandatory Scientific Statement**:
+     > [!WARNING]
+     > **Model repeat purchase TIDAK terbukti lebih baik daripada random baseline secara statistik signifikan pada holdout test set (95% CI mencakup baseline/chance level 0.50). Model ini BELUM siap untuk keputusan operasional tanpa penambahan data replenishment atau data CRM historis berkelanjutan.**
 3. **Temporal Out-of-Time Degradation**:
    - Models trained in 2017 exhibited a $12\%$ PR-AUC attenuation when evaluated on late 2018 transactions, driven by macro platform growth, expanding geographic reach into Northern Brazil, and shifting category mixes.
+
+---
+
+## 6. Formal Estimand & Population Specification (F-03, N-01, N-02)
+
+| Experiment / Contract | Target Variable | Population & Sample Size | Estimand Definition |
+| :--- | :--- | :--- | :--- |
+| **`E1_checkout_retrospective_conditional`** | `negative_review_flag` | Delivered orders with observed reviews ($N_{\text{train}}=63,770$, $N_{\text{val}}=19,506$, $N_{\text{test}}=12,548$) | $\mathbb{P}(\text{Negative Review}=1 \mid X_{\text{checkout}}, \text{Delivered}=1, \text{Review Observed}=1)$ |
+| **`E3_combined_interactions`** | `negative_review_flag` | Delivered orders with observed reviews ($N_{\text{test}}=12,548$) | $\mathbb{P}(\text{Negative Review}=1 \mid X_{\text{fulfillment}}, \text{Delivered}=1, \text{Review Observed}=1)$ |
+| **Cohort Checkout Contract** | `repeat_purchase_flag` | Customers whose order 1 is uncensored ($t_{\text{purch}} \le t_{\max}-90\text{d}$), with 90-day temporal embargo ($N_{\text{test}}=6,439$) | $\mathbb{P}(\text{Order 2 within 90d of Order 1 purchase} \mid X_{\text{first\_order\_checkout}})$ |
+| **Cohort Post-Delivery Contract** | `repeat_purchase_post_delivery_flag` | Customers who did NOT repeat before delivery (`repeat_before_delivery_flag == 0`) and have full 90d follow-up post delivery (`is_censored_post_delivery == 0`) ($N_{\text{test}}=4,232$) | $\mathbb{P}(\text{Later Order within 90d of Order 1 delivery} \mid X_{\text{first\_order\_post\_delivery}}, \text{Delivered}=1, \text{No pre-del repeat})$ |
+
 

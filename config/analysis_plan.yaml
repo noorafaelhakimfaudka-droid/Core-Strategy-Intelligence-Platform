@@ -1,107 +1,179 @@
-# CSIP Analysis Plan & Research Protocol
-# SKKNI Compliance: [UK-01 Objektif Bisnis], [UK-02 Tujuan Teknis DS], [UK-08 Membangun Skenario Model]
+# CSIP Pre-Registered Analysis Plan & Research Protocol (V17 Protocol Freeze)
+# Standards: SKKNI No. 299 Tahun 2020 | LSP TRI SKM/2905/LSP-TRI/VII/2025
+# Governance: Mandatory Pre-Registration & Locked Research Protocol
+
+version: "1.0.0"
+protocol_status: "PRE_REGISTERED_FROZEN"
+registration_date: "2026-11-11"
 
 research_framing:
   title: "Behavioral Decision Intelligence (BDI) — E-Commerce Customer Experience & Retention"
-  module: "MVP BDI Module"
+  module: "CSIP BDI Core Module"
   primary_research_question: >
     Bagaimana hubungan dan interaksi antara struktur biaya transaksi (harga dan ongkos kirim),
     pengalaman pemenuhan pesanan (durasi dan keterlambatan pengiriman), serta karakteristik
     produk terhadap kepuasan dan probabilitas pelanggan melakukan pembelian ulang dalam
     ekosistem e-commerce?
 
+estimands_and_populations:
+  M1_delivery_delay:
+    model_id: "delivery_delay_lgbm"
+    task: "Continuous Lead Time & Delay Regression"
+    population: "All dispatched orders with valid carrier handover timestamps (delivered or in-transit)"
+    prediction_time: "Carrier dispatch timestamp (order_delivered_carrier_date)"
+    target_variable: "delivery_delay_days"
+    target_definition: "Actual delivery date minus estimated delivery date (positive = late, negative/zero = early/on-time)"
+    primary_metric: "Mean Absolute Error (MAE in days)"
+    secondary_metrics: ["RMSE", "WAPE", "R2"]
+    decision_rule: >
+      Model dianggap berguna secara operasional jika batas atas 95% bootstrap CI MAE
+      menunjukkan penurunan minimal 10% dibandingkan baseline terkuat (median predictor).
+
+  M2_retrospective_review_risk:
+    model_id: "negative_review_lgbm"
+    task: "Binary Negative Review Classification"
+    status_label: "RETROSPECTIVE"
+    population: "Orders with completed delivery (status == 'delivered') and recorded customer review"
+    prediction_time: "Post-delivery completion (order_delivered_customer_date)"
+    target_variable: "negative_review_flag"
+    target_definition: "1 if review_score in [1, 2], 0 if review_score in [3, 4, 5]"
+    primary_metric: "PR-AUC (Average Precision)"
+    secondary_metrics: ["ROC-AUC", "Brier Score", "Expected Calibration Error (ECE)"]
+    decision_rule: >
+      Model dianggap berguna jika batas bawah 95% bootstrap CI PR-AUC > base rate prevalensi positif
+      DAN > PR-AUC baseline terkuat (Logistic Regression). Jika batas bawah <= base rate,
+      nyatakan model tidak memiliki sinyal prediktif yang cukup.
+
+  M3_repeat_purchase_post_delivery:
+    model_id: "repeat_purchase_post_delivery_lgbm"
+    task: "Post-Delivery 90-Day Retention Classification & Survival Analysis"
+    population: "First-time customers whose order was successfully delivered; excludes 962 pre-delivery repeaters and right-censored buffer"
+    prediction_time: "Customer receipt of first order (order_delivered_customer_date)"
+    horizon_days: 90
+    target_variable: "repeat_purchase_post_delivery_flag"
+    target_definition: "1 if second order placed within 90 days of first order delivery, 0 otherwise"
+    primary_metric: "PR-AUC (Average Precision)"
+    secondary_metrics: ["ROC-AUC", "Brier Score", "C-Index (Survival Concordance)"]
+    decision_rule: >
+      Model dianggap berguna jika batas bawah 95% CI PR-AUC > base rate positif (2.8%).
+      Jika model tidak mengalahkan baseline heuristik/logistik, laporkan secara transparan
+      sebagai temuan negatif yang sah (valid negative result).
+
+  M4_repeat_purchase_checkout:
+    model_id: "repeat_purchase_checkout_lgbm"
+    task: "Checkout-Time Retention Classification (Diagnostic Benchmark)"
+    population: "First-time buyers at moment of transaction; excludes right-censored buffer"
+    prediction_time: "Order checkout timestamp (order_purchase_timestamp)"
+    horizon_days: 90
+    target_variable: "repeat_purchase_90d"
+    primary_metric: "PR-AUC"
+    secondary_metrics: ["ROC-AUC", "Brier Score"]
+    decision_rule: "Diagnostic comparator against post-delivery model."
+
+data_exclusion_and_hygiene_rules:
+  grain_enforcement:
+    rule: "Exactly 1 record per order_id grain (96,470 clean orders)."
+  pre_delivery_repeat_exclusion:
+    rule: "962 customers who placed repeat orders before first order delivery are excluded from post-delivery retention models."
+    rationale: "Predictor contamination and violation of post-delivery estimand definition."
+  right_censoring_mitigation:
+    rule: "First-time orders occurring within 90 days of dataset maximum date (2018-10-17) are excluded from binary 90-day targets."
+    buffer_days: 90
+    censored_count: 2275
+  non_delivered_orders:
+    rule: "Non-delivered orders (625 canceled, 609 unavailable) are excluded from retrospective delivery models and analyzed via checkout risk feasibility study."
+  missing_review_treatment:
+    rule: "646 missing reviews (0.67%) are analyzed via Manski-type selection bounds; no artificial imputation."
+
 observation_windows:
   primary_window_days: 90
-  sensitivity_windows_days: [60, 90, 180]
-  right_censoring_mitigation:
-    description: >
-      Customers whose first transaction occurs within delta_w days prior to dataset maximum
-      date (T_max) are excluded from repeat purchase evaluation to prevent censoring bias.
-    min_required_history_days: 90
+  buffer_days: 90
 
 temporal_split:
-  split_type: "Strict Out-of-Time Temporal Split"
-  time_column: "order_purchase_timestamp"
-  dataset_bounds:
-    start_date: "2016-09-04"
-    end_date: "2018-10-17"
-    effective_analysis_start: "2017-01-01"
   splits:
-    train:
-      start: "2017-01-01"
-      end: "2018-03-31"
-      purpose: "Parameter estimation, feature transformations fit, baseline exploration"
-    validation:
-      start: "2018-04-01"
-      end: "2018-06-30"
-      purpose: "Hyperparameter tuning, threshold calibration, model selection"
-    test:
-      start: "2018-07-01"
-      end: "2018-08-31"
-      purpose: "Locked holdout evaluation, final PR-AUC/ROC-AUC reporting"
-    censoring_buffer:
-      start: "2018-09-01"
-      end: "2018-10-17"
-      purpose: "Unbiased observation buffer for right-censoring mitigation"
+    train: "2016-09-15 to 2018-03-31"
+    validation: "2018-04-01 to 2018-06-30"
+    test: "2018-07-01 to 2018-08-31"
+    censoring_buffer: "2018-07-19 to 2018-10-17"
+
+cross_validation_scheme:
+  cv_type: "Rolling-Origin Expanding-Window Temporal Cross-Validation"
+  time_column: "order_purchase_timestamp"
+  n_folds: 4
+  embargo_days: 90
+  min_train_days: 180
+  validation_window_days: 60
+  strict_embargo_assertion: "max(train_timestamp) + embargo_days < min(val_timestamp)"
+  tuning_isolation: "Hyperparameter tuning, threshold selection, and probability calibration MUST occur strictly inside CV."
+  locked_test_rule: "Final locked test set (2018-07-01 to 2018-08-31) is evaluated exactly ONCE for final reporting."
+
+candidate_features:
+  checkout_available:
+    - total_item_price
+    - total_freight
+    - total_order_value
+    - freight_ratio
+    - item_count
+    - payment_installments_max
+    - payment_type_primary
+    - customer_state
+    - product_category
+  post_delivery_available:
+    - delivery_lead_time_days
+    - estimated_lead_time_days
+    - delivery_delay_days
+    - is_late
+    - approval_lag_hours
+    - seller_buyer_distance_km
+    - delay_x_freight_ratio
+    - distance_x_weight
+    - high_value_late_flag
+
+hyperparameter_grids:
+  lightgbm:
+    learning_rate: [0.01, 0.05, 0.1]
+    num_leaves: [15, 31, 63]
+    min_child_samples: [20, 50, 100]
+    subsample: [0.8, 1.0]
+    n_estimators: [50, 100, 200]
+  logistic_regression:
+    C: [0.001, 0.01, 0.1, 1.0, 10.0]
+    penalty: ["l2"]
 
 hypotheses:
   H1:
-    id: "H1"
-    statement: "Rasio ongkos kirim terhadap harga produk (Freight Ratio) memiliki asosiasi negatif terhadap nilai kepuasan transaksi dan konversi keranjang multi-item."
-    analysis_type: "Associational & Regression"
-    key_variables: ["price", "freight_value", "freight_ratio", "review_score"]
-    skkni_unit: "UK-08 Membangun Skenario Model"
-    target_claim_level: "L2"
-    falsification_condition: "Koefisien freight_ratio pada model regresi ordinal/linear tidak signifikan (p > 0.05) atau bertanda positif setelah kontrol kategori."
-
+    statement: "Rasio ongkos kirim terhadap harga (Freight Ratio) berasosiasi negatif terhadap kepuasan transaksi."
+    analysis_type: "Multivariate Regression with State & Category Controls"
+    target_claim_level: "L2 (Associational)"
+    falsification_condition: "p-adj > 0.05 atau beta >= 0 setelah Benjamini-Hochberg correction."
   H2:
-    id: "H2"
-    statement: "Keterlambatan pengiriman melewati tanggal estimasi (Delivery Delay > 0) memberikan dampak penurunan kepuasan pelanggan yang bersifat asimetris (non-linear) dibandingkan pengiriman lebih cepat."
-    analysis_type: "Non-linear Association & Piecewise Regression"
-    key_variables: ["delivery_delay_days", "delivered_on_time", "review_score"]
-    skkni_unit: "UK-08 Membangun Skenario Model"
-    target_claim_level: "L2"
-    falsification_condition: "Slope kepuasan untuk delivery_delay_days > 0 tidak berbeda signifikan dengan slope untuk delivery_delay_days <= 0."
-
+    statement: "Keterlambatan pengiriman (Delay > 0) memiliki penalti kepuasan asimetris (non-linear piecewise effect)."
+    analysis_type: "Piecewise Linear Spline & Wald Test"
+    target_claim_level: "L2 (Associational)"
+    falsification_condition: "Wald test F-statistic tidak berbeda signifikan (p-adj > 0.05) antara on-time vs delayed slope."
   H3:
-    id: "H3"
-    statement: "Pengalaman pengiriman dan skor ulasan pada transaksi pertama berasosiasi secara signifikan dengan probabilitas pelanggan melakukan pembelian ulang (repeat purchase)."
-    analysis_type: "Binary Classification & Survival/Cohort Odds Ratio"
-    key_variables: ["first_order_review", "first_order_delay", "repeat_purchase_flag"]
-    skkni_unit: "UK-08 Membangun Skenario Model"
-    target_claim_level: "L2"
-    falsification_condition: "Odds ratio first_order_review terhadap repeat purchase tidak berbeda signifikan dari 1.0 (95% CI mencakup 1.0)."
-
+    statement: "Pengalaman pengiriman transaksi pertama berasosiasi signifikan dengan probabilitas pembelian ulang."
+    analysis_type: "Logistic Odds Ratio & Survival Analysis"
+    target_claim_level: "L2 (Associational)"
+    falsification_condition: "Odds ratio 95% CI mencakup 1.0."
   H4:
-    id: "H4"
-    statement: "Sensitivitas pelanggan terhadap ongkos kirim dan keterlambatan pengiriman bersifat heterogen (berbeda secara signifikan) antarsegmen perilaku dan kategori produk."
-    analysis_type: "Heterogeneity & Moderated Interaction Analysis"
-    key_variables: ["cluster_id", "product_category", "delay_x_freight"]
-    skkni_unit: "UK-08 Membangun Skenario Model"
-    target_claim_level: "L2"
-    falsification_condition: "Interaksi antara cluster_id dan freight_ratio / delay tidak signifikan secara statistik (p-adj > 0.05)."
-
+    statement: "Sensitivitas keterlambatan heterogen antarsegmen perilaku pelanggan."
+    analysis_type: "Moderated Interaction Analysis"
+    target_claim_level: "L2 (Associational)"
+    falsification_condition: "Interaction F-statistic p-adj > 0.05."
   H5:
-    id: "H5"
-    statement: "Penggabungan fitur ekonomi, indikator pengalaman pengiriman, dan representasi teks ulasan/embedding meningkatkan daya prediksi model dibandingkan hanya menggunakan fitur ekonomi."
-    analysis_type: "Predictive Ablation & Model Comparison"
-    key_variables: ["economic_features", "experience_features", "text_embedding_features"]
-    skkni_unit: "UK-10 Mengevaluasi Hasil Pemodelan"
-    target_claim_level: "L1"
-    falsification_condition: "Delta PR-AUC pada model gabungan <= 0 dibandingkan model ekonomi pada holdout test set."
-
+    statement: "Penggabungan teks review BiLSTM embedding meningkatkan PR-AUC prediksi risiko ulasan di atas fitur tabular."
+    analysis_type: "Predictive Ablation on CV"
+    target_claim_level: "L1 (Predictive)"
+    falsification_condition: "Delta PR-AUC <= 0 pada CV temporal."
   H6:
-    id: "H6"
-    statement: "Pola hubungan yang tampak antara nilai pengeluaran dan pembelian ulang sebagian dijelaskan oleh faktor pembaur (confounders) seperti kategori produk kebutuhan berulang dan lokasi geografis."
-    analysis_type: "Alternative Explanation & Confounder Adjustment"
-    key_variables: ["customer_state", "category_repeatability", "total_spending"]
-    skkni_unit: "UK-11 Melakukan Proses Review Pemodelan"
-    target_claim_level: "L2"
-    falsification_condition: "Ukuran efek spending tidak berubah (< 5% perubahan estimasi) setelah memasukkan kontrol confounder."
+    statement: "Korelasi nilai transaksi terhadap retensi terdistorsi oleh faktor pembaur geografis dan kategori."
+    analysis_type: "Confounder Sensitivity & Manski Bound"
+    target_claim_level: "L2 (Associational)"
+    falsification_condition: "Perubahan koefisien < 5% setelah confounder adjustment."
 
 statistical_controls:
   multiple_testing_correction: "Benjamini-Hochberg (FDR)"
-  alpha: 0.05
+  familywise_alpha: 0.05
   confidence_level: 0.95
   bootstrap_replications: 1000
-

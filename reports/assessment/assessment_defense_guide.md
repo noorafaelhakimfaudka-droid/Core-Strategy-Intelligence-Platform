@@ -1,9 +1,9 @@
-# CSIP BNSP Assessment Defense Guide & Technical Question Bank
+# CSIP SKKNI Assessment Defense Guide & Technical Question Bank
 ## Simulasi Uji Lisan & Pembelaan Teknis Asesmen Kompetensi Data Scientist (KKNI Level 7)
 
 **Document ID**: `CSIP-GUIDE-DEFENSE-2026`  
 **Standard**: SKKNI No. 299 Tahun 2020 Subbidang Data Science  
-**Target Sertifikasi**: Data Scientist (KKNI Jenjang 7) — LSP / BNSP  
+**Target Sertifikasi**: Data Scientist (KKNI Jenjang 7) — LSP / SKKNI  
 **Prinsip Utama**: Seluruh jawaban harus didasarkan pada implementasi konkret, kalkulasi empiris, dan rekaman kode/data nyata di dalam repositori CSIP. Hindari jawaban hafalan teoritis generik.  
 **Date**: November 2026  
 
@@ -68,7 +68,7 @@
 - **Pertanyaan Asesor**: *"Apakah Anda menemukan anomali atau data kotor pada dataset Olist? Bagaimana Anda membuktikan bahwa data tersebut valid secara temporal?"*
 - **Kompetensi yang Diuji**: Audit kelengkapan data, validasi kronologi temporal, dan deteksi anomali.
 - **KUK Terkait**: KUK 1.1, 1.2, 2.1, 2.2 (`J.62DMI00.006.1`).
-- **Bukti Empiris CSIP**: `artifacts/reports/raw_data_profile.json`, `reports/data_quality_report.md`, `tests/test_data_validation.py`.
+- **Bukti Empiris CSIP**: `artifacts/reports/data_quality_report.md`, `reports/data_quality_report.md`, `tests/test_data_validation.py`.
 - **Jawaban Berbasis Implementasi**:
   > *"Ya, audit otomatis saya menemukan dua masalah struktural: Pertama, ditemukan 23 baris anomali kronologis di mana tanggal pengiriman sampai di pelanggan dicatat lebih awal daripada tanggal pembelian (order_delivered_customer_date < order_purchase_timestamp), kemungkinan akibat kesalahan input sistem logistik mitra. Kedua, terdapat lebih dari 11,000 transaksi berstatus 'shipped/canceled/unavailable' yang belum memiliki tanggal sampai. Sebagai keputusan metodologis, saya merekomendasikan dan mengeksekusi filter tegas: 23 baris anomali dibuang, dan pesanan yang belum terkirim dikeluarkan dari analisis lead time kedatangan untuk mencegah right-censoring bias. Validasi ini diuji dan lulus 100% pada suite automated tests `test_data_validation.py`."*
 - **Kemungkinan Pertanyaan Lanjutan**: *"Mengapa tidak melakukan imputasi saja pada 23 baris yang tanggalnya terbalik?"*

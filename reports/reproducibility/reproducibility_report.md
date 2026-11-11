@@ -1,3 +1,5 @@
+> [HISTORICAL ARCHIVE] - This document is preserved as an unedited historical audit record from previous versions.
+
 # CSIP Comprehensive Reproducibility & Environment Audit Report
 ## Verifikasi Kemandirian Komputasi & Audit Bitwise Integritas Dataset
 

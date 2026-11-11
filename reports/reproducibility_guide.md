@@ -1,5 +1,5 @@
 # CSIP Scientific Reproducibility Guide & Environment Audit
-## Core Strategy & Intelligence Platform (CSIP) — BNSP Data Scientist KKNI Level 7
+## Core Strategy & Intelligence Platform (CSIP) — SKKNI Data Scientist KKNI Level 7
 
 Silakan merujuk pada dokumen panduan reproduksi utama di root repositori:  
 👉 [REPRODUCIBILITY.md](../REPRODUCIBILITY.md)

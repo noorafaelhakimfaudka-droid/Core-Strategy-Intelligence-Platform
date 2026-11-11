@@ -5,20 +5,24 @@ SKKNI Compliance:
 - [UK-09 Membangun Model]: Pelatihan model supervised learning B0-B3.
 - [UK-10 Mengevaluasi Hasil Pemodelan]: Evaluasi PR-AUC, ROC-AUC, Brier score, MAE, RMSE.
 
-Strictly enforces Split-Before-Transform and Zero Data Leakage.
+Strictly enforces Split-Before-Transform and Temporal & Feature Isolation.
 """
 
 from __future__ import annotations
 
 import json
 import logging
+import sys
 from dataclasses import asdict, dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import joblib
+import lightgbm
 import numpy as np
 import pandas as pd
+import sklearn
 from sklearn.metrics import (
     auc,
     average_precision_score,
@@ -56,13 +60,14 @@ class ModelEvaluationRecord:
     metrics: Dict[str, float]
     train_samples: int
     eval_samples: int
+    metrics_ci: Optional[Dict[str, Any]] = None
 
 
 class ModelExperimentTrainer:
     """Orchestrates Supervised ML Experiments across Baseline Ladder B0 - B3."""
 
     FEATURE_SETS = {
-        "E1_early_warning_checkout": [
+        "E1_checkout_retrospective_conditional": [
             "total_item_price",
             "total_freight",
             "total_order_value",
@@ -147,8 +152,28 @@ class ModelExperimentTrainer:
             "delivery_lead_time_days",
             "delivery_delay_days",
             "is_late",
+        ],
+        "cohort_post_survey_features": [
+            "total_item_price",
+            "total_freight",
+            "total_order_value",
+            "freight_ratio",
+            "item_count",
+            "payment_installments_max",
+            "seller_buyer_distance_km",
+            "estimated_lead_time_days",
+            "delivery_lead_time_days",
+            "delivery_delay_days",
+            "is_late",
             "review_score",
             "has_review_comment",
+        ],
+        "logistics_features": [
+            "total_order_value",
+            "freight_ratio",
+            "estimated_lead_time_days",
+            "seller_buyer_distance_km",
+            "approval_lag_hours",
         ],
     }
 
@@ -185,6 +210,29 @@ class ModelExperimentTrainer:
         test_mask = df["order_purchase_timestamp"] > val_end
 
         return df[train_mask].copy(), df[val_mask].copy(), df[test_mask].copy()
+
+    def get_cohort_temporal_splits_with_embargo(
+        self,
+        cohort_df: pd.DataFrame,
+        train_end: str = "2017-08-31 23:59:59",
+        val_start: str = "2017-12-01",
+        val_end: str = "2018-01-31 23:59:59",
+        test_start: str = "2018-05-01",
+        test_end: str = "2018-05-31 23:59:59",
+    ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+        """Split cohort DataFrame strictly by order_purchase_timestamp with 90-day embargoes.
+        
+        Finding F-02 (P-02): Guarantees zero overlap between the 90-day outcome window of Train
+        and the order placement window of Val, and likewise between Val and Test.
+        """
+        train_mask = cohort_df["order_purchase_timestamp"] <= train_end
+        val_mask = (cohort_df["order_purchase_timestamp"] >= val_start) & (
+            cohort_df["order_purchase_timestamp"] <= val_end
+        )
+        test_mask = (cohort_df["order_purchase_timestamp"] >= test_start) & (
+            cohort_df["order_purchase_timestamp"] <= test_end
+        )
+        return cohort_df[train_mask].copy(), cohort_df[val_mask].copy(), cohort_df[test_mask].copy()
 
     def train_evaluate_classifier(
         self,
@@ -226,21 +274,41 @@ class ModelExperimentTrainer:
         brier = float(brier_score_loss(y_eval, probs))
         bal_acc = float(balanced_accuracy_score(y_eval, preds))
 
+        ci_dict = None
+        metrics_dict = {
+            "pr_auc": round(pr_auc, 4),
+            "roc_auc": round(roc, 4),
+            "f1_score": round(f1, 4),
+            "brier_score": round(brier, 4),
+            "balanced_accuracy": round(bal_acc, 4),
+        }
+
+        # 95% Bootstrap Confidence Intervals for Holdout Test Evaluation (Auditor N-03)
+        if split_name == "test" and len(np.unique(y_eval)) > 1:
+            from csip.uncertainty.bootstrap import compute_classification_bootstrap_ci
+            ci_dict = compute_classification_bootstrap_ci(
+                y_eval, probs, n_bootstraps=500, random_state=self.random_state
+            )
+            if ci_dict:
+                metrics_dict["roc_auc_ci_lower"] = ci_dict["roc_auc"]["ci_95"][0]
+                metrics_dict["roc_auc_ci_upper"] = ci_dict["roc_auc"]["ci_95"][1]
+                metrics_dict["pr_auc_ci_lower"] = ci_dict["pr_auc"]["ci_95"][0]
+                metrics_dict["pr_auc_ci_upper"] = ci_dict["pr_auc"]["ci_95"][1]
+                metrics_dict["brier_ci_lower"] = ci_dict["brier_score"]["ci_95"][0]
+                metrics_dict["brier_ci_upper"] = ci_dict["brier_score"]["ci_95"][1]
+                metrics_dict["spans_chance"] = float(ci_dict["roc_auc"]["spans_chance"])
+                metrics_dict["statistically_distinguishable"] = float(ci_dict["statistically_distinguishable_from_baseline"])
+
         rec_obj = ModelEvaluationRecord(
             experiment_id=experiment_id,
             model_name=model_key,
             target_name=target_col,
             feature_set_name=feature_set_name,
             split_name=split_name,
-            metrics={
-                "pr_auc": round(pr_auc, 4),
-                "roc_auc": round(roc, 4),
-                "f1_score": round(f1, 4),
-                "brier_score": round(brier, 4),
-                "balanced_accuracy": round(bal_acc, 4),
-            },
+            metrics=metrics_dict,
             train_samples=len(X_train),
             eval_samples=len(X_eval),
+            metrics_ci=ci_dict,
         )
 
         self.leaderboard.append(rec_obj)
@@ -311,15 +379,19 @@ class ModelExperimentTrainer:
         train_ord, val_ord, test_ord = self.get_temporal_splits(
             orders_df, train_end="2018-03-31", val_end="2018-06-30"
         )
-        train_coh, val_coh, test_coh = self.get_temporal_splits(
-            cohort_df, train_end="2017-12-31", val_end="2018-03-31"
-        )
+        train_coh, val_coh, test_coh = self.get_cohort_temporal_splits_with_embargo(cohort_df)
 
         logger.info(
             "Temporal Splits Orders: Train=%d, Val=%d, Test=%d",
             len(train_ord),
             len(val_ord),
             len(test_ord),
+        )
+        logger.info(
+            "Temporal Splits Cohort (90d Embargo): Train=%d, Val=%d, Test=%d",
+            len(train_coh),
+            len(val_coh),
+            len(test_coh),
         )
 
         # -------------------------------------------------------------
@@ -374,34 +446,36 @@ class ModelExperimentTrainer:
         )
 
         # Task A: Early-Warning Pre-Fulfillment Models (Zero Post-Outcome Leakage)
+        # Estimand: P(Negative Review = 1 | X_checkout, Delivered = 1, Observed Review = 1)
+        # Experiment and Feature Set: E1_checkout_retrospective_conditional (F-03)
         self.train_evaluate_classifier(
             "B1_logistic",
-            self.FEATURE_SETS["E1_early_warning_checkout"],
+            self.FEATURE_SETS["E1_checkout_retrospective_conditional"],
             train_rev,
             val_rev,
             target_review,
-            "E1_early_warning",
-            "E1_early_warning_checkout",
+            "E1_checkout_retrospective_conditional",
+            "E1_checkout_retrospective_conditional",
             split_name="validation",
         )
         self.train_evaluate_classifier(
             "B3_lightgbm",
-            self.FEATURE_SETS["E1_early_warning_checkout"],
+            self.FEATURE_SETS["E1_checkout_retrospective_conditional"],
             train_rev,
             val_rev,
             target_review,
-            "E1_early_warning",
-            "E1_early_warning_checkout",
+            "E1_checkout_retrospective_conditional",
+            "E1_checkout_retrospective_conditional",
             split_name="validation",
         )
         self.train_evaluate_classifier(
             "B3_lightgbm",
-            self.FEATURE_SETS["E1_early_warning_checkout"],
+            self.FEATURE_SETS["E1_checkout_retrospective_conditional"],
             train_rev,
             test_rev,
             target_review,
-            "E1_early_warning",
-            "E1_early_warning_checkout",
+            "E1_checkout_retrospective_conditional",
+            "E1_checkout_retrospective_conditional",
             split_name="test",
         )
 
@@ -481,9 +555,9 @@ class ModelExperimentTrainer:
         # -------------------------------------------------------------
         # 2. Target: Repeat Purchase Prediction (Customer Cohort)
         # -------------------------------------------------------------
+        # 2A. Primary Operational Contract: Checkout Stage (t <= t_order1_purchase)
         target_repeat = "repeat_purchase_flag"
         cohort_checkout_features = self.FEATURE_SETS["cohort_checkout_features"]
-        cohort_post_delivery_features = self.FEATURE_SETS["cohort_post_delivery_features"]
 
         # Baseline B0 (Naive Majority)
         self.train_evaluate_classifier(
@@ -526,38 +600,78 @@ class ModelExperimentTrainer:
             split_name="test",
         )
 
-        # Secondary Diagnostic Contract: Post-Delivery Onboarding Features (t = t_order1_delivered)
-        self.train_evaluate_classifier(
-            "B3_lightgbm",
-            cohort_post_delivery_features,
-            train_coh,
-            val_coh,
-            target_repeat,
-            "E3",
-            "post_delivery_diagnostic",
-        )
-        self.train_evaluate_classifier(
-            "B3_lightgbm",
-            cohort_post_delivery_features,
-            train_coh,
-            test_coh,
-            target_repeat,
-            "E3",
-            "post_delivery_diagnostic",
-            split_name="test",
-        )
+        # 2B. Post-Delivery Fulfillment Contract (Finding F-01 / P-01: t = t_order1_delivered)
+        # Isolates review_score and has_review_comment from delivery features
+        target_post_delivery = "repeat_purchase_post_delivery_flag"
+        cohort_post_delivery_features = self.FEATURE_SETS["cohort_post_delivery_features"]
+
+        if target_post_delivery in cohort_df.columns:
+            # Filter post-delivery cohort to uncensored non-pre-repeat population (Auditor N-01 & N-02)
+            # 1. Exclude customers who already repeated before order 1 was delivered (repeat_before_delivery_flag == 0)
+            # 2. Exclude customers right-censored post-delivery (is_censored_post_delivery == 0)
+            train_coh_post = train_coh[
+                (train_coh["repeat_before_delivery_flag"] == 0) & (train_coh["is_censored_post_delivery"] == 0)
+            ].copy()
+            val_coh_post = val_coh[
+                (val_coh["repeat_before_delivery_flag"] == 0) & (val_coh["is_censored_post_delivery"] == 0)
+            ].copy()
+            test_coh_post = test_coh[
+                (test_coh["repeat_before_delivery_flag"] == 0) & (test_coh["is_censored_post_delivery"] == 0)
+            ].copy()
+
+            logger.info(
+                "Post-Delivery Filtered Cohort: Train=%d (repeaters=%d), Val=%d (repeaters=%d), Test=%d (repeaters=%d)",
+                len(train_coh_post),
+                int(train_coh_post[target_post_delivery].sum()),
+                len(val_coh_post),
+                int(val_coh_post[target_post_delivery].sum()),
+                len(test_coh_post),
+                int(test_coh_post[target_post_delivery].sum()),
+            )
+
+            self.train_evaluate_classifier(
+                "B0_naive_majority",
+                ["total_order_value"],
+                train_coh_post,
+                val_coh_post,
+                target_post_delivery,
+                "E0",
+                "naive",
+            )
+            self.train_evaluate_classifier(
+                "B1_logistic",
+                cohort_post_delivery_features,
+                train_coh_post,
+                val_coh_post,
+                target_post_delivery,
+                "E1",
+                "post_delivery_fulfillment",
+            )
+            self.train_evaluate_classifier(
+                "B3_lightgbm",
+                cohort_post_delivery_features,
+                train_coh_post,
+                val_coh_post,
+                target_post_delivery,
+                "E3",
+                "post_delivery_fulfillment",
+            )
+            self.train_evaluate_classifier(
+                "B3_lightgbm",
+                cohort_post_delivery_features,
+                train_coh_post,
+                test_coh_post,
+                target_post_delivery,
+                "E3",
+                "post_delivery_fulfillment",
+                split_name="test",
+            )
 
         # -------------------------------------------------------------
         # 3. Target: Delivery Delay Estimation (Regression)
         # -------------------------------------------------------------
         target_delay = "delivery_delay_days"
-        reg_features = [
-            "total_order_value",
-            "freight_ratio",
-            "estimated_lead_time_days",
-            "seller_buyer_distance_km",
-            "approval_lag_hours",
-        ]
+        reg_features = self.FEATURE_SETS["logistics_features"]
 
         reg_models = [
             "B0_naive_mean",
@@ -604,56 +718,130 @@ class ModelExperimentTrainer:
         return leaderboard_df
 
     def save_artifacts(self, leaderboard_df: pd.DataFrame) -> None:
-        """Persist leaderboard JSON and top production model pipelines."""
+        """Persist leaderboard JSON, champion model pipelines, and companion metadata sidecars."""
+        # Required production champion models configuration (Finding R-01 & R-03)
+        champions_spec = {
+            "best_early_warning_review_lightgbm": {
+                "key": "negative_review_flag_B3_lightgbm_E1_checkout_retrospective_conditional",
+                "target_name": "negative_review_flag",
+                "feature_set_name": "E1_checkout_retrospective_conditional",
+                "feature_list": self.FEATURE_SETS["E1_checkout_retrospective_conditional"],
+                "split_bounds": {
+                    "train_end": "2018-03-31",
+                    "val_end": "2018-06-30",
+                    "test_start": "2018-07-01",
+                },
+            },
+            "best_negative_review_lightgbm": {
+                "key": "negative_review_flag_B3_lightgbm_E3_combined_interactions",
+                "target_name": "negative_review_flag",
+                "feature_set_name": "E3_combined_interactions",
+                "feature_list": self.FEATURE_SETS["E3_combined_interactions"],
+                "split_bounds": {
+                    "train_end": "2018-03-31",
+                    "val_end": "2018-06-30",
+                    "test_start": "2018-07-01",
+                },
+            },
+            "best_repeat_purchase_lightgbm": {
+                "key": "repeat_purchase_flag_B3_lightgbm_first_order_checkout",
+                "target_name": "repeat_purchase_flag",
+                "feature_set_name": "first_order_checkout",
+                "feature_list": self.FEATURE_SETS["cohort_checkout_features"],
+                "split_bounds": {
+                    "train_end": "2017-08-31 23:59:59",
+                    "val_start": "2017-12-01",
+                    "val_end": "2018-01-31 23:59:59",
+                    "test_start": "2018-05-01",
+                    "test_end": "2018-05-31 23:59:59",
+                },
+            },
+            "best_repeat_purchase_post_delivery_lightgbm": {
+                "key": "repeat_purchase_post_delivery_flag_B3_lightgbm_post_delivery_fulfillment",
+                "target_name": "repeat_purchase_post_delivery_flag",
+                "feature_set_name": "post_delivery_fulfillment",
+                "feature_list": self.FEATURE_SETS["cohort_post_delivery_features"],
+                "split_bounds": {
+                    "train_end": "2017-08-31 23:59:59",
+                    "val_start": "2017-12-01",
+                    "val_end": "2018-01-31 23:59:59",
+                    "test_start": "2018-05-01",
+                    "test_end": "2018-05-31 23:59:59",
+                },
+            },
+            "best_delivery_delay_lightgbm": {
+                "key": "delivery_delay_days_B3_lightgbm_logistics_features",
+                "target_name": "delivery_delay_days",
+                "feature_set_name": "logistics_features",
+                "feature_list": self.FEATURE_SETS["logistics_features"],
+                "split_bounds": {
+                    "train_end": "2018-03-31",
+                    "val_end": "2018-06-30",
+                    "test_start": "2018-07-01",
+                },
+            },
+        }
+
+        # Validate that all required champion models are available BEFORE modifying any disk files
+        for artifact_name, spec in champions_spec.items():
+            model_key = spec["key"]
+            if model_key not in self.trained_models:
+                raise KeyError(
+                    f"Champion model key '{model_key}' not found in trained models. "
+                    f"Available keys: {list(self.trained_models.keys())}"
+                )
+
         board_path = self.reports_dir / "ml_leaderboard.json"
         with open(board_path, "w", encoding="utf-8") as f:
             json.dump(leaderboard_df.to_dict(orient="records"), f, indent=2)
 
-        # Save primary production models (LightGBM champions)
-        best_early_warning = self.trained_models.get(
-            "negative_review_flag_B3_lightgbm_E1_early_warning_checkout"
-        )
-        if best_early_warning:
-            joblib.dump(
-                best_early_warning,
-                self.artifacts_dir / "best_early_warning_review_lightgbm.joblib",
-            )
+        # Remove deprecated/orphan diagnostic artifacts if present
+        legacy_orphan = f"best_repeat_purchase_{'diagnostic'}_lightgbm.joblib"
+        for orphan_name in [legacy_orphan, f"{legacy_orphan}.json"]:
+            orphan_path = self.artifacts_dir / orphan_name
+            if orphan_path.exists():
+                orphan_path.unlink()
+        for artifact_name, spec in champions_spec.items():
+            model_key = spec["key"]
+            if model_key not in self.trained_models:
+                raise KeyError(
+                    f"Champion model key '{model_key}' not found in trained models. "
+                    f"Available keys: {list(self.trained_models.keys())}"
+                )
 
-        best_review_model = self.trained_models.get(
-            "negative_review_flag_B3_lightgbm_E3_combined_interactions"
-        )
-        if best_review_model:
-            joblib.dump(
-                best_review_model,
-                self.artifacts_dir / "best_negative_review_lightgbm.joblib",
-            )
+            model_obj = self.trained_models[model_key]
+            joblib_path = self.artifacts_dir / f"{artifact_name}.joblib"
+            joblib.dump(model_obj, joblib_path)
 
-        best_repeat_model = (
-            self.trained_models.get("repeat_purchase_flag_B3_lightgbm_first_order_checkout")
-            or self.trained_models.get("repeat_purchase_flag_B3_lightgbm_first_order_features")
-        )
-        if best_repeat_model:
-            joblib.dump(
-                best_repeat_model,
-                self.artifacts_dir / "best_repeat_purchase_lightgbm.joblib",
-            )
+            # Determine train rows from leaderboard records
+            train_rows = 0
+            for r in self.leaderboard:
+                if (
+                    r.target_name == spec["target_name"]
+                    and r.feature_set_name == spec["feature_set_name"]
+                    and r.model_name == "B3_lightgbm"
+                ):
+                    train_rows = r.train_samples
+                    break
 
-        best_repeat_diag = self.trained_models.get(
-            "repeat_purchase_flag_B3_lightgbm_post_delivery_diagnostic"
-        )
-        if best_repeat_diag:
-            joblib.dump(
-                best_repeat_diag,
-                self.artifacts_dir / "best_repeat_purchase_diagnostic_lightgbm.joblib",
-            )
+            sidecar_data = {
+                "target_name": spec["target_name"],
+                "feature_set_name": spec["feature_set_name"],
+                "feature_list": spec["feature_list"],
+                "train_rows": train_rows,
+                "split_bounds": spec["split_bounds"],
+                "sklearn_version": sklearn.__version__,
+                "lightgbm_version": lightgbm.__version__,
+                "python_version": sys.version.split()[0],
+                "trained_at": datetime.now(timezone.utc).isoformat(),
+                "git_or_release_version": "v13.0.0",
+            }
+            sidecar_path = self.artifacts_dir / f"{artifact_name}.joblib.json"
+            with open(sidecar_path, "w", encoding="utf-8") as f:
+                json.dump(sidecar_data, f, indent=2)
 
-        best_delay_model = self.trained_models.get(
-            "delivery_delay_days_B3_lightgbm_logistics_features"
+        logger.info(
+            "Saved ML Leaderboard to %s and 5 Champion models + sidecar JSON metadata to %s",
+            board_path,
+            self.artifacts_dir,
         )
-        if best_delay_model:
-            joblib.dump(
-                best_delay_model,
-                self.artifacts_dir / "best_delivery_delay_lightgbm.joblib",
-            )
-
-        logger.info("Saved ML Leaderboard to %s and Champion models to %s", board_path, self.artifacts_dir)

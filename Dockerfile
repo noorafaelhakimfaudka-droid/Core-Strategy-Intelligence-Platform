@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+LABEL version="1.0.0"
+LABEL description="CSIP 1.0.0 Release — Behavioral Decision Intelligence Platform"
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 

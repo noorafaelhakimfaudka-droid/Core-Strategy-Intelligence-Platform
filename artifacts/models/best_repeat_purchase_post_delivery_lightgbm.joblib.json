@@ -1,0 +1,30 @@
+{
+  "target_name": "repeat_purchase_post_delivery_flag",
+  "feature_set_name": "post_delivery_fulfillment",
+  "feature_list": [
+    "total_item_price",
+    "total_freight",
+    "total_order_value",
+    "freight_ratio",
+    "item_count",
+    "payment_installments_max",
+    "seller_buyer_distance_km",
+    "estimated_lead_time_days",
+    "delivery_lead_time_days",
+    "delivery_delay_days",
+    "is_late"
+  ],
+  "train_rows": 21324,
+  "split_bounds": {
+    "train_end": "2017-08-31 23:59:59",
+    "val_start": "2017-12-01",
+    "val_end": "2018-01-31 23:59:59",
+    "test_start": "2018-05-01",
+    "test_end": "2018-05-31 23:59:59"
+  },
+  "sklearn_version": "1.9.0",
+  "lightgbm_version": "4.7.0",
+  "python_version": "3.14.7",
+  "trained_at": "2026-11-11T10:20:33.254656+00:00",
+  "git_or_release_version": "1.0.0"
+}

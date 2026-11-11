@@ -66,7 +66,7 @@ Berikut adalah rekaman keputusan-keputusan teknis krusial yang diambil oleh pese
   3. Merekam hasil penolakan hipotesis secara transparan sebagai temuan negatif yang valid (*valid negative result*).
 - **Keputusan Peserta**: **Merekam Penolakan Hipotesis di Failure Register (`FAIL-HYP-H3`)**.
 - **Alasan Pemilihan Peserta**: Pengujian statistik inferensial setelah koreksi Benjamini-Hochberg FDR menghasilkan $p_{\text{adj}} = 0.859$ dengan ukuran efek $d = 0.012$ (dapat diabaikan). Menyembunyikan hasil negatif adalah pelanggaran etika ilmiah. Temuan ini membuktikan bahwa di marketplace Olist, pembeli jauh lebih dipengaruhi oleh harga produk dan biaya pengiriman daripada reputasi masa lalu penjual.
-- **Hasil Akhir**: Transparansi kegagalan meningkatkan kredibilitas analitis proyek di hadapan asesor BNSP dan mengarahkan fokus efisiensi bisnis ke subsidi ongkir alih-alih gamifikasi rating penjual.
+- **Hasil Akhir**: Transparansi kegagalan meningkatkan kredibilitas analitis proyek di hadapan lead reviewer dan mengarahkan fokus efisiensi bisnis ke subsidi ongkir alih-alih gamifikasi rating penjual.
 
 ---
 
@@ -75,9 +75,9 @@ Berikut adalah rekaman keputusan-keputusan teknis krusial yang diambil oleh pese
 - **Alternatif Metode**:
   1. Menggunakan skor probabilitas mentah langsung untuk klasifikasi dengan threshold default 0.5.
   2. Menerapkan *Platt Scaling (Logistic Sigmoidal Calibration)* pada validation set terpisah.
-  3. Menerapkan *Isotonic Regression*.
+  3. Menerapkan *Platt Scaling (Logistic Sigmoid on Log-Odds)*.
 - **Metode Terpilih**: **Platt Scaling Calibration**.
-- **Alasan Pemilihan Peserta**: Untuk dataset dengan ketimpangan kelas, Isotonic Regression rawan overfitting pada data yang jarang di ekor. Platt scaling menghasilkan kurva kalibrasi parametrik yang halus dan stabil.
+- **Alasan Pemilihan Peserta**: Untuk dataset dengan ketimpangan kelas, Platt Scaling (Logistic Sigmoid on Log-Odds) rawan overfitting pada data yang jarang di ekor. Platt scaling menghasilkan kurva kalibrasi parametrik yang halus dan stabil.
 - **Validasi**: Brier Score terpangkas sebesar **44.59%** (dari 0.1375 menjadi 0.0762) dan Expected Calibration Error (ECE) merosot dari 0.2355 menjadi 0.0070.
 - **Hasil Akhir**: Probabilitas risiko ulasan negatif yang ditampilkan kepada tim customer service di antarmuka Streamlit benar-benar mencerminkan frekuensi empiris kejadian di dunia nyata.
 

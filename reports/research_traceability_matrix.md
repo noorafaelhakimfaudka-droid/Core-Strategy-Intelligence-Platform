@@ -3,7 +3,7 @@
 
 **Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
 **Standard**: SKKNI No. 299 Tahun 2020 Subbidang Data Science  
-**Sertifikasi**: Data Scientist (KKNI Jenjang 7) — Lembaga Sertifikasi Profesi (LSP) / BNSP  
+**Sertifikasi**: Data Scientist (KKNI Jenjang 7) — Lembaga Sertifikasi Profesi (LSP) / SKKNI  
 **Canonical Reference**: `reports/canonical_skkni_299_2020_mapping.md`  
 **Status**: 100% VERIFIED & CANONICAL  
 **Date**: November 2026  
@@ -18,7 +18,7 @@ Dokumen ini menyajikan matriks ketelusuran (*traceability matrix*) komprehensif 
 3. Pengujian otomatis yang benar-benar dieksekusi (`tests/`)
 4. Laporan teknis dan artefak bukti empiris (`artifacts/` dan `reports/`)
 
-Semua kriteria unjuk kerja didukung oleh bukti nyata (*evidence of process, result, validation, explanation*) yang memenuhi standar ketat pembuktian kompetensi BNSP.
+Semua kriteria unjuk kerja didukung oleh bukti nyata (*evidence of process, result, validation, explanation*) yang memenuhi standar ketat pembuktian kompetensi SKKNI.
 
 ---
 
@@ -29,7 +29,7 @@ Semua kriteria unjuk kerja didukung oleh bukti nyata (*evidence of process, resu
 | **UK-01** | `J.62DMI00.001.1` | **Menentukan Objektif Bisnis** | `config/business_objectives.yaml`<br>`src/csip/scenarios/simulator.py` | `notebooks/01_business_and_data_understanding.ipynb` | `tests/test_initialization.py` | **VERIFIED**<br>Grade A |
 | **UK-02** | `J.62DMI00.002.1` | **Menentukan Tujuan Teknis Data Science** | `config/models.yaml`<br>`config/analysis_plan.yaml` | `notebooks/01_business_and_data_understanding.ipynb` | `tests/test_initialization.py` | **VERIFIED**<br>Grade A |
 | **UK-03** | `J.62DMI00.005.1` | **Menelaah Data** | `src/csip/data/loader.py`<br>`reports/data_quality_report.md` | `notebooks/01_business_and_data_understanding.ipynb`<br>`notebooks/03_exploratory_data_analysis.ipynb` | `tests/test_data_validation.py` | **VERIFIED**<br>Grade A |
-| **UK-04** | `J.62DMI00.006.1` | **Memvalidasi Data** | `src/csip/data/loader.py`<br>`artifacts/reports/raw_data_profile.json` | `notebooks/02_data_validation_and_cleaning.ipynb` | `tests/test_data_validation.py` | **VERIFIED**<br>Grade A |
+| **UK-04** | `J.62DMI00.006.1` | **Memvalidasi Data** | `src/csip/data/loader.py`<br>`artifacts/reports/data_quality_report.md` | `notebooks/02_data_validation_and_cleaning.ipynb` | `tests/test_data_validation.py` | **VERIFIED**<br>Grade A |
 | **UK-05** | `J.62DMI00.007.1` | **Menentukan Objek Data** | `src/csip/cleaning/cleaner.py`<br>`data/processed/` (4 core grains) | `notebooks/02_data_validation_and_cleaning.ipynb` | `tests/test_cleaning_and_grain.py` | **VERIFIED**<br>Grade A |
 | **UK-06** | `J.62DMI00.008.1` | **Membersihkan Data** | `src/csip/cleaning/auto_cleaner.py`<br>`data/interim/` (8 clean parquets) | `notebooks/02_data_validation_and_cleaning.ipynb` | `tests/test_cleaning_and_grain.py`<br>`tests/test_data_pipeline_stress.py` | **VERIFIED**<br>Grade A |
 | **UK-07** | `J.62DMI00.009.1` | **Mengkonstruksi Data** | `src/csip/features/engineer.py`<br>`config/features.yaml` | `notebooks/04_feature_engineering_and_construction.ipynb` | `tests/test_feature_leakage.py` | **VERIFIED**<br>Grade A |
@@ -56,7 +56,7 @@ Semua kriteria unjuk kerja didukung oleh bukti nyata (*evidence of process, resu
 
 ### [UK-04] Memvalidasi Data (`J.62DMI00.006.1`)
 - **Kriteria Unjuk Kerja**: Memeriksa kelengkapan, tipe data, konsistensi temporal, dan mendeteksi anomali kronologis.
-- **Bukti Empiris**: Modul `src/csip/data/loader.py` dan `tests/test_data_validation.py` memfilter status `delivered`, menghapus 23 baris anomali kronologis tanggal (`order_delivered_customer_date < order_purchase_timestamp`), dan menghasilkan laporan `artifacts/reports/raw_data_profile.json`.
+- **Bukti Empiris**: Modul `src/csip/data/loader.py` dan `tests/test_data_validation.py` memfilter status `delivered`, menghapus 23 baris anomali kronologis tanggal (`order_delivered_customer_date < order_purchase_timestamp`), dan menghasilkan laporan `artifacts/reports/data_quality_report.md`.
 
 ### [UK-05] Menentukan Objek Data (`J.62DMI00.007.1`)
 - **Kriteria Unjuk Kerja**: Menetapkan kriteria pemilihan objek data, pemisahan grain analitik, dan penegakan batas observasi right-censoring.

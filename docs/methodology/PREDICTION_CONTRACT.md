@@ -17,14 +17,14 @@ Any feature utilized in model training or real-time inference MUST strictly sati
 
 ---
 
-## 2. Model 1: Early-Warning Customer Dissatisfaction Prediction (`E1_early_warning_checkout`)
+## 2. Model 1: Early-Warning Customer Dissatisfaction Prediction (`E1_checkout_retrospective_conditional`)
 
 ### 2.1 Problem Formulation & Objectives
 - **Business Objective**: Proactively identify high-risk transactions at the moment of customer checkout to initiate immediate operational mitigations (e.g., priority warehouse dispatch, proactive communication, packaging upgrades) before fulfillment failures occur.
 - **Technical Objective**: Supervised binary classification predicting whether an order will result in customer dissatisfaction / detractor review ($Y \in \{0, 1\}$).
 - **Formal Estimand**: 
-  $$\mathbb{P}(Y_{\text{negative}} = 1 \mid X_{t_0}, \text{Delivered} = 1)$$
-  *Methodological Clarification (Conditional Retrospective Risk)*: Because customer review surveys are administered strictly upon delivery confirmation, the empirical model estimates the conditional risk of post-delivery dissatisfaction among fulfilled orders. It is explicitly NOT an unconditional cart abandonment or pre-delivery cancellation model. Canceled and unavailable orders are governed by separate operational fulfillment pipelines.
+  $$\mathbb{P}(Y_{\text{negative}} = 1 \mid X_{t_0}, \text{Delivered} = 1, \text{Review Observed} = 1)$$
+  *Methodological Clarification (Conditional Retrospective Risk)*: Because customer review surveys are administered strictly upon delivery confirmation, the empirical model estimates the conditional risk of post-delivery dissatisfaction among fulfilled orders with submitted feedback. It is explicitly NOT an unconditional cart abandonment or pre-delivery cancellation model. Canceled and unavailable orders are governed by separate operational fulfillment pipelines.
 
 ### 2.2 Temporal and Information Boundaries
 - **Unit of Analysis (Grain)**: Single e-commerce order (`order_id`).
@@ -33,7 +33,7 @@ Any feature utilized in model training or real-time inference MUST strictly sati
 - **Outcome Window**: Review submission date ($t_{\text{review}} \ge t_{\text{delivered}} > t_0$).
 
 ### 2.3 Permitted Feature Schema ($t \le t_0$)
-The feature set `E1_early_warning_checkout` is restricted exclusively to features known at checkout:
+The feature set `E1_checkout_retrospective_conditional` is restricted exclusively to features known at checkout:
 
 | Feature Name | Description | Source / Formula | Timing Verification |
 | :--- | :--- | :--- | :--- |
@@ -49,7 +49,7 @@ The feature set `E1_early_warning_checkout` is restricted exclusively to feature
 | `prior_order_count` | Historical purchases by customer | Count of prior orders with `order_purchase_timestamp < t_0` | Point-in-time historical state |
 
 ### 2.4 Prohibited Features at Checkout ($t > t_0$)
-The following attributes occur strictly after $t_0$ and are **strictly forbidden** from `E1_early_warning_checkout`:
+The following attributes occur strictly after $t_0$ and are **strictly forbidden** from `E1_checkout_retrospective_conditional`:
 1. `order_approved_at` / `approval_lag_hours`: Payment authorization occurs asynchronously (mean lag $\approx 10.2$ hours; up to 48 hours for boleto bancário). At $t_0$, approval status is unobserved.
 2. `order_delivered_carrier_date`: Dispatch to carrier.
 3. `order_delivered_customer_date` / `delivery_lead_time_days`: Fulfillment arrival.
@@ -91,18 +91,37 @@ In addition to all checkout features ($t \le t_0$), diagnostic models may utiliz
 CSIP establishes two explicit, non-leaking prediction contracts for customer cohort retention:
 
 1. **Primary Operational Contract: First-Order Checkout Retention Risk ($t = T_{\text{order1\_purchase}}$)**
+   - **Target Name**: `repeat_purchase_flag` ($Y \in \{0, 1\}$)
+   - **Formal Estimand**: 
+     $$\mathbb{P}(T_{\text{order2}} - T_{\text{order1}} \le 90 \text{ days} \mid X_{\text{checkout}}, T_{\text{order1}} \le T_{\max} - 90 \text{ days})$$
    - **Business Objective**: Identify high-potential lifetime customers at initial basket checkout to optimize welcome incentives and retention interventions.
    - **Permitted Features (`cohort_checkout_features`)**: Strictly features known at Order 1 purchase (`total_item_price`, `total_freight`, `total_order_value`, `freight_ratio`, `item_count`, `payment_installments_max`, `seller_buyer_distance_km`, `estimated_lead_time_days`).
    - **Prohibited Features**: Zero fulfillment metrics (`delivery_lead_time_days`, `delivery_delay_days`, `is_late`) and zero review feedback (`review_score`, `has_review_comment`), which have not occurred at initial purchase.
+   - **Observed Prevalence**: 2.28% (1,714 repeat customers out of 75,318 cohort members).
+   - **Rapid Repeat Sensitivity Disclosure**: Exactly 783 repeat customers (45.68% of repeats) placed Order 2 within $< 1.0$ day of Order 1 purchase (same-session multi-orders). If excluding rapid repeats, the true long-term checkout repurchase rate is 1.24% (931 / 75,318).
 
-2. **Secondary Diagnostic Contract: Post-Delivery Onboarding Retention Attribution ($t = T_{\text{order1\_delivered}}$)**
-   - **Business Objective**: Quantify the empirical retention degradation caused by delivery failure or negative onboarding review experience on subsequent 90-day repeat purchasing.
-   - **Permitted Features (`cohort_post_delivery_features`)**: Checkout features plus realized Order 1 fulfillment speed, delay, and customer review feedback.
+2. **Secondary Diagnostic Contract: Post-Delivery Fulfillment Retention Attribution ($t = T_{\text{order1\_delivered}}$, Findings F-01, N-01, N-02)**
+   - **Target Name**: `repeat_purchase_post_delivery_flag` ($Y_{\text{post\_delivery}} \in \{0, 1\}$)
+   - **Formal Estimand**: 
+     $$\mathbb{P}(\exists \, k > 1 \text{ s.t. } 0 < T_{\text{order\_k}} - T_{\text{order1\_delivered}} \le 90 \text{ days} \mid X_{\text{post\_delivery}}, \text{Delivered}=1, \text{repeat\_before\_delivery}=0, \text{uncensored\_post\_delivery}=1)$$
+   - **Business Objective**: Quantify the empirical retention impact of realized fulfillment performance on true post-delivery repurchase behavior among customers who have not already repurchased.
+   - **Permitted Features (`cohort_post_delivery_features`)**: Checkout features plus realized Order 1 fulfillment speed and delay (`delivery_lead_time_days`, `delivery_delay_days`, `is_late`).
+   - **Strict Feature Isolation (Finding F-01)**: Customer review survey responses (`review_score`, `has_review_comment`) are **strictly excluded** because reviews are submitted days after package delivery.
+   - **Multi-Order Scan (Finding N-01)**: Scans all subsequent orders ($k \ge 2$), capturing 847 true post-delivery repeat buyers across the full uncensored cohort (vs. 812 under-counted in V11).
+   - **Clean Evaluation Population Filtering (Findings N-01 & N-02)**:
+     * Excludes 962 customers who placed a repurchase on or before Order 1 delivery (`repeat_before_delivery_flag == 1`).
+     * Excludes 2,275 customers whose 90-day post-delivery outcome window was truncated by dataset cutoff ($T_{\text{delivered}} + 90\text{d} > T_{\max}$, `is_censored_post_delivery == 1`).
+     * Evaluated clean post-delivery sample: Train $N=21,324$ (234 repeaters, 1.10%), Val $N=12,045$ (120 repeaters, 1.00%), Locked Test $N=4,232$ (57 repeaters, 1.35%).
 
-- **Formal Estimand**: 
-  $$\mathbb{P}(T_{\text{order2}} - T_{\text{order1}} \le 90 \text{ days} \mid X_{\text{contract}}, T_{\text{order1}} \le T_{\max} - 90 \text{ days})$$
+### 4.2 Strict 90-Day Embargo Temporal Split Protocol (Finding F-02 / P-02)
+To eliminate label leakage across temporal partitions in customer cohort evaluation, CSIP enforces strict 90-day embargo buffers:
+- **Train Split**: Order 1 purchase $\le$ `2017-08-31` ($N = 21,664$ customers). The 90-day outcome window fully concludes by `2017-11-29`.
+- **Embargo Buffer 1**: `2017-09-01` to `2017-11-30` (91 days non-overlapping buffer).
+- **Validation Split**: Order 1 purchase `2017-12-01` to `2018-01-31` ($N = 12,180$ customers). The 90-day outcome window fully concludes by `2018-05-01`.
+- **Embargo Buffer 2**: `2018-02-01` to `2018-04-30` (89 days non-overlapping buffer).
+- **Locked Test Split**: Order 1 purchase `2018-05-01` to `2018-05-31` ($N = 6,439$ customers). The 90-day outcome window fully concludes by `2018-08-29` (the final day of orders in the dataset).
 
-### 4.2 Temporal and Information Boundaries
+### 4.3 Temporal and Information Boundaries
 - **Unit of Analysis (Grain)**: Unique customer (`customer_unique_id`).
 - **Feature Source**: Strictly attributes belonging to Order 1.
 - **Prohibited Sources**:
@@ -155,7 +174,7 @@ CSIP establishes two explicit, non-leaking prediction contracts for customer coh
 ## 7. Verification and Enforcement
 
 Compliance with this Prediction Contract is verified by automated regression tests in `tests/test_feature_leakage.py`:
-- `test_checkout_stage_restricted_features()`: Asserts that `E1_early_warning_checkout` has zero overlap with restricted post-checkout columns.
+- `test_checkout_stage_restricted_features()`: Asserts that `E1_checkout_retrospective_conditional` has zero overlap with restricted post-checkout columns.
 - `test_target_label_integrity_and_zero_contamination()`: Confirms unobserved reviews are preserved as NaN.
 - `test_processed_customer_cohort_zero_leakage()`: Verifies absence of lifetime summary features.
 - `test_future_perturbation_invariance()`: Verifies that future order modifications leave prior-order features invariant.

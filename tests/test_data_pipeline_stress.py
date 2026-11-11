@@ -42,7 +42,7 @@ def test_autocleaner_fit_transform_contract():
     assert cleaner.imputed_modes_["cat1"] in ("A", "B")
     assert "const1" in cleaner.constant_cols_
 
-    # Transform test set without fitting on test set (zero data leakage)
+    # Transform test set without fitting on test set (strict feature isolation)
     transformed_test = cleaner.transform(test_df)
     assert transformed_test["num1"].iloc[0] == 3.0  # Uses train median
     assert not transformed_test["num1"].isnull().any()

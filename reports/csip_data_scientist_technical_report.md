@@ -4,7 +4,7 @@
 
 **Document ID**: `CSIP-TECH-REPORT-2026`  
 **Standard**: SKKNI No. 299 Tahun 2020 Subbidang Data Science  
-**Target Level**: Data Scientist (KKNI Jenjang 7) — Sertifikasi Kompetensi BNSP  
+**Target Level**: Data Scientist (KKNI Jenjang 7) — Sertifikasi Kompetensi SKKNI  
 **Author**: Lead / Principal Data Scientist  
 **Date**: November 2026  
 **Status**: OFFICIAL TECHNICAL AUDIT REPORT (VERIFIED)  
@@ -20,7 +20,7 @@ Menggunakan studi kasus transaksi riil marketplace e-commerce Brasil (Olist, ~10
 2. **Mengembangkan model champion LightGBM** yang mencapai skor **PR-AUC = 0.3004** pada out-of-time holdout test set (+269% di atas baseline naive 0.0814) dan **Platt Scaling** yang memangkas Brier Score sebesar **44.59%** (0.1375 ke 0.0762).
 3. **Mengembangkan model korpus ulasan pelanggan (Bi-LSTM)** yang mencapai skor **PR-AUC = 0.8076** untuk triage keluhan pelanggan secara otomatis.
 4. **Membangun World Model makro sistemik** berbasis Vector AutoRegressive State-Space dengan **WAPE = 15.83%** (mengungguli naive persistence baseline WAPE 22.41%).
-5. **Menegakkan integritas metodologis**: Mendokumentasikan kegagalan secara transparan (`FAIL-HYP-H3`), menjamin 100% bebas kebocoran target (*zero data leakage*), dan memisahkan secara tegas antara korelasi observasional dengan intervensi kausal.
+5. **Menegakkan integritas metodologis**: Mendokumentasikan kegagalan secara transparan (`FAIL-HYP-H3`), menegakkan protokol isolasi temporal dan fitur secara ketat (*temporal & feature isolation protocol*), dan memisahkan secara tegas antara korelasi observasional dengan intervensi kausal.
 
 ---
 
@@ -195,7 +195,7 @@ Sesuai standar etika ilmiah KKNI Level 7, keterbatasan sistem dicatat secara ter
 
 Proyek CSIP mendemonstrasikan penguasaan komprehensif seorang Data Scientist profesional pada jenjang KKNI Level 7:
 - Metodologi analitis dari pemahaman bisnis hingga evaluasi model dilaksanakan secara ketat, reproducible, dan berbasis bukti empiris nyata.
-- Seluruh 11 unit kompetensi SKKNI No. 299/2020 terpenuhi dengan predikat **Grade A (Strong & Validated)**.
+- Seluruh 11 unit kompetensi SKKNI No. 299/2020 didukung oleh bukti implementasi, pengujian terotomasi, atau panduan demonstrasi teknis terverifikasi.
 - Seluruh klaim performa model didukung oleh pengujian otomatis yang benar-benar dieksekusi (78+ automated tests pass).
 - Keterbatasan dan temuan negatif disajikan secara jujur dan transparan tanpa manipulasi data.
 

@@ -1,132 +1,140 @@
 # CSIP End-to-End Reproducibility Guide
-## Core Strategy & Intelligence Platform (CSIP) — BNSP Data Scientist KKNI Level 7
+## Core Strategy & Intelligence Platform (CSIP) — Version 1.0.0
 
 **Standard**: SKKNI No. 299 Tahun 2020 Subbidang Data Science  
-**Environment Target**: Standard Laptop (Windows/macOS/Linux) with 8 GB RAM  
-**Repository**: `https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform`  
-**Date**: November 2026  
+**Certification Scheme**: LSP TRI (SKM/2905/LSP-TRI/VII/2025) — Data Scientist KKNI Level 7  
+**Target Environment**: Standard Laptop (Windows/macOS/Linux) with 8 GB RAM  
+**Execution Time**: Full reproduction pipeline executes in < 30 seconds  
 
 ---
 
-## 1. Environment & Hardware Prerequisites
-
-CSIP dirancang secara ketat untuk dapat dijalankan secara mandiri pada komputer/laptop standar tanpa ketergantungan pada klaster cloud atau GPU eksternal:
-
-| Parameter | Spesifikasi Minimum | Rekomendasi Pengujian |
-| :--- | :--- | :--- |
-| **Operating System** | Windows 10/11, Ubuntu 22.04 LTS, macOS 12+ | Windows 11 x64 / Linux x86_64 |
-| **Python Runtime** | Python 3.10 s.d. Python 3.14 | Python 3.11 atau 3.12 |
-| **RAM / Memory** | 8 GB RAM | 8 GB RAM (Peak usage < 4.2 GB) |
-| **Disk Space** | 2.5 GB Free Disk Space | SSD |
-| **GPU / Accelerator** | Tidak Diwajibkan (PyTorch CPU fallback aktif) | CPU Multi-core |
+## 1. Persyaratan Sistem & Lingkungan Eksekusi
+- **Sistem Operasi**: Windows 10/11 x64, macOS, atau Linux (Ubuntu 20.04+)
+- **Python**: Versi 3.10 s/d 3.14 (teruji pada Python 3.14.7 x64)
+- **RAM**: Minimal 8 GB RAM (arsitektur dirancang *memory-bounded* tanpa dependensi cloud/GPU)
+- **Penyimpanan**: Ruang kosong disk >= 500 MB
 
 ---
 
-## 2. Step-by-Step Installation
+## 2. Langkah Setup & Instalasi Dependensi Terkunci
 
-### Langkah 1: Klon Repositori & Buat Virtual Environment
+### Langkah 2.1: Klon Repositori & Pembuatan Virtual Environment
 ```bash
-git clone https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform.git
-cd Core-Strategy-Intelligence-Platform
+# Klon repositori
+git clone https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform.git csip_1.0.0
+cd csip_1.0.0
 
-# Buat virtual environment lokal
+# Buat virtual environment
 python -m venv .venv
 
-# Aktivasi virtual environment:
+# Aktifkan virtual environment
 # Windows (PowerShell):
 .venv\Scripts\Activate.ps1
 # Linux / macOS:
 source .venv/bin/activate
 ```
 
-### Langkah 2: Instalasi Dependensi Terverifikasi
+### Langkah 2.2: Instalasi Dependensi Terkunci
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+pip install -e .[dev,ml_advanced]
 ```
+
+### Langkah 2.3: Verifikasi Instalasi Paket Inti
+```bash
+python -c "import csip; print('CSIP Version:', csip.__version__)"
+```
+Keluaran yang diharapkan: `CSIP Version: 1.0.0`
 
 ---
 
-## 3. Dataset Verification & Checksum Audit
+## 3. Reproduksi Satu Perintah (One-Command Reproduction)
 
-Seluruh tabel analitis siap pakai telah disertakan dalam repositori pada direktori `data/processed/` dan `data/interim/` dalam format Apache Parquet yang terkompresi tinggi.
+CSIP menyediakan pipeline reproduksi otomatis ujung-ke-ujung yang mengeksekusi:
+1. Validasi integritas dan kelengkapan data olahan.
+2. Pembangunan fitur dan *categorical fold target encoding*.
+3. Rolling-Origin Temporal Cross-Validation (4 fold ekspansif dengan embargo ketat 90 hari).
+4. Pengujian 6 hipotesis statistik empiris (H1-H6) dengan koreksi Benjamini-Hochberg FDR.
+5. Evaluasi stabilitas klaster perilaku menggunakan moving bootstrap ARI dan Jaccard.
+6. Audit dan validasi eksekusi 14 notebook penelitian beserta perhitungan hash sel output.
 
-Jalankan audit checksum SHA-256 untuk memverifikasi integritas bitwise dataset:
+### Perintah Eksekusi:
 ```bash
-python -c "
-import json, hashlib
-from pathlib import Path
+# Menggunakan Makefile:
+make reproduce
 
-with open('data/dataset_manifest.json') as f:
-    manifest = json.load(f)
-
-for rel, meta in manifest['tables'].items():
-    p = Path(rel)
-    assert p.exists(), f'Missing file: {rel}'
-    h = hashlib.sha256(p.read_bytes()).hexdigest()
-    assert h == meta['sha256'], f'Checksum mismatch in {rel}'
-
-print('All 13 Parquet datasets verified bitwise identical with SHA-256 manifest!')
-"
+# Atau langsung via Python:
+python scripts/reproduce_all.py
 ```
 
-Jika ingin mereproduksi pembersihan dari raw CSV Olist:
-1. Unduh dataset publik Olist dari Kaggle: [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
-2. Simpan 9 file CSV ke dalam folder `data/raw/`.
-3. Jalankan pipeline pembersihan:
-   ```bash
-   python -c "from src.csip.cleaning.cleaner import run_full_cleaning_pipeline; run_full_cleaning_pipeline()"
-   python -c "from src.csip.features.engineer import run_feature_engineering_pipeline; run_feature_engineering_pipeline()"
-   ```
+### Artefak Hasil Eksekusi:
+- `artifacts/reports/temporal_cv_results.json`: Hasil metrik CV temporal per fold dan evaluasi locked test set.
+- `reports/evaluation/TEMPORAL_CV_REPORT.md`: Laporan komparasi model, bootstrap 95% CI, dan Decision Curve Analysis.
+- `artifacts/reports/hypothesis_evaluation.json`: Nilai statistik, p-value teruji, dan FDR Benjamini-Hochberg.
+- `artifacts/reports/cluster_stability_evaluation.json`: Nilai Adjusted Rand Index dan Jaccard stabilitas klaster k=3..5.
+- `reports/notebooks/notebook_exec_summary.json`: Rangkuman status eksekusi dan hash output 14 notebook.
 
 ---
 
-## 4. Executing Automated Test Suite
+## 4. Menjalankan Seluruh Rangkaian Pengujian (Automated Test Suite)
 
-Untuk memastikan seluruh pipeline, model, dan aturan anti-leakage berfungsi sempurna:
+Untuk memverifikasi kebenaran implementasi fungsional dan mencegah regresi:
 ```bash
-# Jalankan seluruh test suite (78+ tests)
-python -m pytest tests/ -v
+# Menggunakan Makefile:
+make test
+
+# Atau langsung via pytest:
+python -m pytest -v --tb=short
 ```
 
-Hasil yang diharapkan:
-- 100% tests PASSED.
-- Zero assertion error.
-- Zero target leakage detected (`test_feature_leakage.py`).
-- 11 SKKNI units strictly consistent (`test_skkni_consistency.py`).
+Semua 210+ pengujian unit, integrasi, regresi, metodologi, dan konsistensi bukti harus berstatus `PASSED`. Hasil pengujian aktual terekam pada `reports/testing/pytest_actual.txt`.
 
 ---
 
-## 5. Running Research Notebooks in Exact Sequence
+## 5. Verifikasi Gerbang Kualitas Rilis (Release Gate Verification)
 
-14 Jupyter Notebooks dalam folder `notebooks/` disusun secara bertahap merefleksikan alur kerja ilmiah Data Scientist:
+CSIP menerapkan 12 Gerbang Kualitas Rilis (Gates G1–G12) yang diuji secara independen:
+```bash
+# Menggunakan Makefile:
+make verify
 
-| Urutan | Notebook File | Deskripsi & Unit SKKNI Terkait |
-| :---: | :--- | :--- |
-| **01** | `01_business_and_data_understanding.ipynb` | Formulasi masalah bisnis, objektif teknis, dan profiling awal (UK-01, UK-02). |
-| **02** | `02_data_validation_and_cleaning.ipynb` | Validasi kelengkapan, filter anomali tanggal, dan pembersihan spasial (UK-04, UK-05, UK-06). |
-| **03** | `03_exploratory_data_analysis.ipynb` | Analisis bivariat dan profiling distribusi 9 tabel (UK-03). |
-| **04** | `04_feature_engineering_and_construction.ipynb` | Rekayasa 41 fitur domain, rasio ongkir, Haversine vectorized (UK-07). |
-| **05** | `05_behavioral_discovery_unsupervised.ipynb` | Klastering persona sensitivitas ongkir (k=3, Silhouette=0.3865) (UK-07). |
-| **06** | `06_hypothesis_investigation.ipynb` | Pengujian hipotesis H1-H6 dengan Benjamini-Hochberg FDR (UK-08). |
-| **07** | `07_supervised_ml_and_competency_lab.ipynb` | Pelatihan baseline ladder B0-B3 (Champion LightGBM PR-AUC 0.3004) (UK-09). |
-| **08** | `08_neural_network_and_deep_learning.ipynb` | Tabular MLP Entity Embeddings & Text Bi-LSTM (PR-AUC 0.8076) (UK-09). |
-| **09** | `09_model_evaluation_and_explainability.ipynb` | SHAP TreeExplainer, kurva PR/ROC, kalibrasi Platt scaling (-44.6% Brier) (UK-10). |
-| **10** | `10_system_and_world_modeling.ipynb` | Autoregressive State-Space dynamics ekosistem makro (WAPE 15.83%) (UK-08). |
-| **11** | `11_alternative_world_simulation.ipynb` | Simulasi What-If skenario kebijakan logistik S0-S5 (UK-08, UK-10). |
-| **12** | `12_uncertainty_quantification.ipynb` | Residual bootstrap 95% confidence interval (UK-10). |
-| **13** | `13_model_review_and_failure_analysis.ipynb` | Failure Register audit, review keterbatasan dan bias model (UK-11). |
-| **14** | `14_final_research_report.ipynb` | Sintesis temuan ilmiah dan laporan komprehensif tingkat enterprise (UK-11). |
+# Atau langsung via Python:
+python tools/verify_release.py
+```
+
+Laporan status gerbang tersimpan dalam format machine-readable di `reports/verification/gates.json`.
 
 ---
 
-## 6. Launching Local Streamlit Decision Studio
+## 6. Menjalankan Dashboard Interaktif Streamlit
 
-Untuk menjalankan antarmuka visual interaktif:
+Untuk mengeksplorasi visualisasi data, simulasi kebijakan alternatif, dan review bukti kompetensi:
 ```bash
-python -m streamlit run app/streamlit_app.py
-```
-Aplikasi akan terbuka pada peramban web di: `http://localhost:8501`.
-Aplikasi juga dapat diakses secara publik melalui Streamlit Cloud:  
-👉 `https://core-strategy-intelligence-platform.streamlit.app`
+# Menggunakan Makefile:
+make app-test  # Menjalankan pengujian otomatis antarmuka
 
+# Menjalankan dashboard secara lokal:
+streamlit run app/streamlit_app.py
+```
+Akses dashboard melalui browser di `http://localhost:8501`. Seluruh angka yang ditampilkan dibaca langsung dari `artifacts/` tanpa *hardcoding*.
+
+---
+
+## 7. Menjalankan Prediksi Batch (CLI Deployment)
+
+Untuk menjalankan model Champion dalam skenario deployment batch:
+```bash
+python scripts/predict_batch.py \
+  --model-path artifacts/models/best_delivery_delay_lightgbm.joblib \
+  --input-csv data/sample_input.csv \
+  --output-csv data/sample_output.csv
+```
+
+Skrip ini secara otomatis memvalidasi kontrak skema input dan menolak model dengan status `RESEARCH_ONLY`.
+
+---
+
+## 8. Catatan Batasan & Kejujuran Ilmiah
+- **Data Sekunder Observasional**: Dataset e-commerce Olist (2016-2018) adalah data historis non-eksperimental. Klaim pengaruh dibatasi pada tingkat asosiasional (L2), bukan bukti kausalitas intervensi tanpa randomisasi A/B testing.
+- **Model Risiko Ulasan Bersifat Retrospektif**: Fitur keterlambatan kurir (`delivery_delay_days`) hanya tersedia pasca-delivery sehingga model risiko ulasan tidak dapat dieksekusi pada saat checkout.
+- **Batas Toleransi Deterministik**: Model berbasis pohon (LightGBM/Random Forest) dan kalkulasi statistik menggunakan *fixed seed* (seed=42). Perbedaan minor floating-point antar-arsitektur prosesor berada dalam batas toleransi numerik `< 1e-4`.

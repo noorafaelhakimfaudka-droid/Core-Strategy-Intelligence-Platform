@@ -3,10 +3,10 @@
 
 **Document ID**: `CSIP-VAL-SKKNI-2026-V4`  
 **Execution Date**: 2026-11-11  
-**Auditor**: SKKNI Competency Mapping Specialist & BNSP Evidence Auditor  
+**Auditor**: SKKNI Competency Mapping Specialist & SKKNI Evidence Auditor  
 **Standard Source**: Kepmenaker RI No. 299 Tahun 2020 Subbidang Data Science  
-**LSP TRI Reference**: `https://lsptri.id/skema/sertifikasi-ilmuwan-data-bnsp`  
-**Status**: VERIFIED ALIGNMENT (60 VERIFIED, 3 PARTIALLY_VERIFIED, 0 MISSING)  
+**LSP TRI Reference**: `https://lsptri.id/skema/sertifikasi-ilmuwan-data-SKKNI`  
+**Status**: VERIFIED ALIGNMENT (35 VERIFIED, 12 ARTIFACT_ONLY, 13 CANDIDATE_DEMONSTRATION_REQUIRED, 3 EXTERNAL_CONFIRMATION_REQUIRED, 0 MISSING)  
 
 ---
 
@@ -18,20 +18,20 @@ Seluruh teks judul unit, deskripsi unit, elemen kompetensi, dan Kriteria Unjuk K
 
 ## 2. Tabel Verifikasi Kanonikal 11 Unit Kompetensi
 
-| No. | Kode Unit Resmi | Judul Resmi SKKNI 299/2020 | Jumlah Elemen | Jumlah KUK | Status KUK Terpetakan | Status Bukti |
-|:---:|:---|:---|:---:|:---:|:---:|:---:|
-| 1 | `J.62DMI00.001.1` | **Menentukan Objektif Bisnis** | 4 | 12 | 12/12 (100%) | 9 Verified, 3 Partial |
-| 2 | `J.62DMI00.002.1` | **Menentukan Tujuan Teknis Data Science** | 2 | 4 | 4/4 (100%) | 4 Verified |
-| 3 | `J.62DMI00.005.1` | **Menelaah Data** | 3 | 8 | 8/8 (100%) | 8 Verified |
-| 4 | `J.62DMI00.006.1` | **Memvalidasi Data** | 2 | 4 | 4/4 (100%) | 4 Verified |
-| 5 | `J.62DMI00.007.1` | **Menentukan Objek Data** | 2 | 4 | 4/4 (100%) | 4 Verified |
-| 6 | `J.62DMI00.008.1` | **Membersihkan Data** | 2 | 4 | 4/4 (100%) | 4 Verified |
-| 7 | `J.62DMI00.009.1` | **Mengkonstruksi Data** | 3 | 6 | 6/6 (100%) | 6 Verified |
-| 8 | `J.62DMI00.012.1` | **Membangun Skenario Model** | 3 | 7 | 7/7 (100%) | 7 Verified |
-| 9 | `J.62DMI00.013.1` | **Membangun Model** | 2 | 6 | 6/6 (100%) | 6 Verified |
-| 10 | `J.62DMI00.014.1` | **Mengevaluasi Hasil Pemodelan** | 2 | 4 | 4/4 (100%) | 4 Verified |
-| 11 | `J.62DMI00.015.1` | **Melakukan Proses Review Pemodelan** | 2 | 4 | 4/4 (100%) | 4 Verified |
-| **TOTAL** | **11 UNIT** | **STANDAR RESMI SKKNI 299/2020** | **27** | **63** | **63/63 (100%)** | **60 Verified, 3 Partial** |
+| No. | Kode Unit Resmi | Judul Resmi SKKNI 299/2020 | Jumlah Elemen | Jumlah KUK | Status KUK Terpetakan | Status Bukti Kanonikal V15 |
+|:---:|:---|:---|:---:|:---:|:---:|:---|
+| 1 | `J.62DMI00.001.1` | **Menentukan Objektif Bisnis** | 4 | 12 | 12/12 (100%) | 9 DEMO_REQUIRED, 3 EXTERNAL_CONFIRM |
+| 2 | `J.62DMI00.002.1` | **Menentukan Tujuan Teknis Data Science** | 2 | 4 | 4/4 (100%) | 2 ARTIFACT_ONLY, 2 DEMO_REQUIRED |
+| 3 | `J.62DMI00.005.1` | **Menelaah Data** | 3 | 8 | 8/8 (100%) | 2 VERIFIED, 6 ARTIFACT_ONLY |
+| 4 | `J.62DMI00.006.1` | **Memvalidasi Data** | 2 | 4 | 4/4 (100%) | 3 VERIFIED, 1 ARTIFACT_ONLY |
+| 5 | `J.62DMI00.007.1` | **Menentukan Objek Data** | 2 | 4 | 4/4 (100%) | 4 VERIFIED |
+| 6 | `J.62DMI00.008.1` | **Membersihkan Data** | 2 | 4 | 4/4 (100%) | 4 VERIFIED |
+| 7 | `J.62DMI00.009.1` | **Mengkonstruksi Data** | 3 | 6 | 6/6 (100%) | 6 VERIFIED |
+| 8 | `J.62DMI00.012.1` | **Membangun Skenario Model** | 3 | 7 | 7/7 (100%) | 7 VERIFIED |
+| 9 | `J.62DMI00.013.1` | **Membangun Model** | 2 | 6 | 6/6 (100%) | 6 VERIFIED |
+| 10 | `J.62DMI00.014.1` | **Mengevaluasi Hasil Pemodelan** | 2 | 4 | 4/4 (100%) | 3 VERIFIED, 1 ARTIFACT_ONLY |
+| 11 | `J.62DMI00.015.1` | **Melakukan Proses Review Pemodelan** | 2 | 4 | 4/4 (100%) | 2 ARTIFACT_ONLY, 2 DEMO_REQUIRED |
+| **TOTAL** | **11 UNIT** | **STANDAR RESMI SKKNI 299/2020** | **27** | **63** | **63/63 (100%)** | **35 VERIFIED, 12 ARTIFACT, 13 DEMO, 3 EXT** |
 
 ---
 
@@ -39,4 +39,4 @@ Seluruh teks judul unit, deskripsi unit, elemen kompetensi, dan Kriteria Unjuk K
 
 1. **Verbatim Fidelity**: Tidak ada KUK yang diparafrasekan, digabungkan, atau dihilangkan pada naskah standar resmi.
 2. **Exact Evidence Matching**: Setiap KUK memuat bukti spesifik yang terverifikasi keberadaan fisiknya pada repositori.
-3. **Pengungkapan Terbuka**: Status `PARTIALLY_VERIFIED` diakui secara transparan pada 3 KUK yang melibatkan persetujuan stakeholder eksternal karena menggunakan dataset terbuka tanpa sponsor klien komersial.
+3. **Pengungkapan Terbuka**: Status `EXTERNAL_CONFIRMATION_REQUIRED` diakui secara transparan pada 3 KUK yang melibatkan persetujuan stakeholder eksternal karena menggunakan dataset terbuka tanpa sponsor klien komersial.

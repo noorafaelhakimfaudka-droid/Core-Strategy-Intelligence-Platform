@@ -12,20 +12,23 @@ from csip.models.classic import (
     MeanRegressor,
     get_model_pipeline,
 )
-from csip.models.deep_seq import (
-    SimpleTokenizer,
-    TextBiLSTM,
-    TextBiLSTMClassifier,
-)
-from csip.models.deep_tabular import (
-    TabularEmbeddingMLP,
-    TabularMLPClassifier,
-)
 from csip.models.ml_engine import (
     train_real_ml_pipeline,
     train_semantic_ml_pipeline,
 )
 from csip.models.trainer import ModelExperimentTrainer
+
+
+def __getattr__(name: str):
+    """Lazy import for deep learning models and tokenizers (Finding F-04 / P-03)."""
+    if name in ("TabularEmbeddingMLP", "TabularMLPClassifier"):
+        import csip.models.deep_tabular as dt
+        return getattr(dt, name)
+    if name in ("SimpleTokenizer", "TextBiLSTM", "TextBiLSTMClassifier"):
+        import csip.models.deep_seq as ds
+        return getattr(ds, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = [
     "DelayHeuristicClassifier",

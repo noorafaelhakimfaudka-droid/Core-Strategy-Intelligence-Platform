@@ -1,0 +1,14 @@
+{
+  "model_name": "world_model_state_transition",
+  "state_cols": [
+    "weekly_order_volume",
+    "mean_delivery_delay",
+    "mean_freight_ratio",
+    "negative_review_rate"
+  ],
+  "alpha": 0.05,
+  "sklearn_version": "1.9.0",
+  "python_version": "3.14.7",
+  "trained_at": "2026-11-11T10:14:57.839172+00:00",
+  "git_or_release_version": "1.0.0"
+}

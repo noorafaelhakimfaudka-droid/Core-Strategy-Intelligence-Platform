@@ -12,10 +12,10 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
-from src.csip.engine.omni_router import OmniRouter, parse_user_query
-from src.csip.engine.scenario_duel import ScenarioDuelEngine
-from src.csip.engine.text_constellation import TextConstellationEngine
-from src.csip.engine.universal_csv_xray import UniversalCSVXRay
+from csip.experimental.omni_router import OmniRouter, parse_user_query
+from csip.experimental.scenario_duel import ScenarioDuelEngine
+from csip.experimental.text_constellation import TextConstellationEngine
+from csip.experimental.universal_csv_xray import UniversalCSVXRay
 
 
 def test_omni_router_modes_and_parameters():

@@ -1,0 +1,7 @@
+# CSIP Track D: Testing, Quality Assurance & Audit
+# Required for running the complete automated pytest verification suite
+-r requirements.txt
+pytest>=7.4.0
+pytest-cov>=4.1.0
+openpyxl>=3.1.5
+

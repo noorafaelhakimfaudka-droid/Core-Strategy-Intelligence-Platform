@@ -98,5 +98,5 @@ Analisis entitas pelanggan mengonfirmasi aturan kritis Spesifikasi Sistem Bagian
 1. **Deduplikasi Geolocation**: Terapkan agregasi median (`lat`, `lng`) per kode pos `geolocation_zip_code_prefix` sebelum melakukan join jarak geospasial untuk mencegah pembengkakan baris dari 1 juta ke puluhan juta baris.
 2. **Deduplikasi Review Ganda**: Untuk pesanan dengan ulasan lebih dari satu, ambil ulasan berdasarkan `review_creation_date` terbaru.
 3. **Penyaringan Status Pesanan**: Pisahkan analisis pengalaman pengiriman hanya pada status `delivered` dengan timestamp yang valid secara kronologis.
-4. **First-Order Isolation**: Pastikan seluruh fitur prediktor retensi hanya bersumber dari pesanan pertama pelanggan untuk menjamin **Zero Data Leakage**.
+4. **First-Order Isolation**: Pastikan seluruh fitur prediktor retensi hanya bersumber dari pesanan pertama pelanggan untuk menegakkan **Protokol Isolasi Fitur & Temporal**.
 

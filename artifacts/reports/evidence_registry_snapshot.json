@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-11T15:23:51.250628",
+  "saved_at": "2026-11-11T17:20:33.889776",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -106,14 +106,14 @@
     "DISC-07": {
       "discovery_id": "DISC-07",
       "title": "Carrier Logistics SLA Overhaul Dominates Freight Subsidies in ROI",
-      "description": "Carrier logistics SLA optimization (S2) delivers net incremental profit of R$ -11,943.90 with review reduction of 0.90 pp, whereas universal freight subsidy (S1) generates net loss of R$ -24,323.36 due to high subsidy drag. Operational fulfillment capability delivers 2.8x higher return per real invested than financial subsidies.",
+      "description": "Carrier logistics SLA optimization (S2) delivers net incremental profit of R$ -12,086.34 with review reduction of 0.92 pp, whereas universal freight subsidy (S1) generates net loss of R$ -24,361.69 due to high subsidy drag. Operational fulfillment capability delivers 2.8x higher return per real invested than financial subsidies.",
       "discovered_at": "2026-11-10",
       "grain": "weekly_system_state",
       "key_metrics": {
-        "s2_net_profit_brl": -11943.901649222676,
-        "s2_review_reduction_pp": -0.9033258209656087,
-        "s1_net_profit_brl": -24323.36138782508,
-        "s1_review_reduction_pp": -2.435959243475114
+        "s2_net_profit_brl": -12086.336465390492,
+        "s2_review_reduction_pp": -0.9161685703366618,
+        "s1_net_profit_brl": -24361.69242897693,
+        "s1_review_reduction_pp": -2.505351971623844
       },
       "skkni_unit": "UK-11 Mengembangkan Solusi",
       "claim_level": "L1 (Predictive)",

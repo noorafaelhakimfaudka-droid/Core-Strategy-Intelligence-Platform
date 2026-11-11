@@ -25,13 +25,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
 sys.path.insert(0, str(REPO_ROOT))
 
-from src.csip.data.semantic_profiler import (
+from csip.data.semantic_profiler import (
     build_fluent_schema,
     fmt_num,
     get_builtin_dataset,
     smart_transform_uploaded_dataframe,
 )
-from src.csip.models.ml_engine import (
+from csip.models.ml_engine import (
     simulate_and_narrate,
     train_fluent_ml_pipeline,
 )

@@ -1,0 +1,16 @@
+{
+  "model_name": "clustering_pipeline",
+  "optimal_k": 3,
+  "feature_list": [
+    "total_order_value",
+    "freight_ratio",
+    "delivery_lead_time_days",
+    "item_count",
+    "payment_installments_max"
+  ],
+  "train_rows": 96470,
+  "sklearn_version": "1.9.0",
+  "python_version": "3.14.7",
+  "trained_at": "2026-11-11T10:14:53.280683+00:00",
+  "git_or_release_version": "1.0.0"
+}

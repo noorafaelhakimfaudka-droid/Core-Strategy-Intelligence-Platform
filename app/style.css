@@ -28,7 +28,7 @@ html, body, .stApp {
     overflow-x: hidden;
 }
 
-/* Strictly Hide Sidebar and Floating Default Controls */
+/* Strictly Hide Sidebar and Floating Default Controls (Single Viewport Cockpit) */
 [data-testid="stSidebar"],
 section[data-testid="stSidebar"],
 div[data-testid="collapsedControl"],

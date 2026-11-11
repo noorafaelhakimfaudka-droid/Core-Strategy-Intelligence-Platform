@@ -12,7 +12,7 @@
 
 ## 1. Executive Defense Strategy
 
-Dokumen ini merupakan bank pertanyaan teknis komprehensif yang dirancang untuk mempersiapkan peserta dalam menghadapi uji lisan dan demonstrasi portofolio di hadapan dewan asesor **LSP TRI / BNSP**.
+Dokumen ini merupakan bank pertanyaan teknis komprehensif yang dirancang untuk mempersiapkan peserta dalam menghadapi uji lisan dan demonstrasi portofolio di hadapan dewan asesor **LSP TRI / SKKNI**.
 
 Setiap unit memuat:
 1. Kode & Judul Resmi Unit SKKNI 299/2020.
@@ -67,7 +67,7 @@ Setiap unit memuat:
 - **Pertanyaan Lanjutan**: *"Mengapa tidak mengisi data tanggal tersebut dengan rata-rata?"*
 - **Jawaban**: *"Imputasi tanggal kejadian yang tidak logis akan menyuntikkan noise palsu pada variabel target durasi kirim."*
 - **Jebakan Konseptual**: Membiarkan data yang melanggar urutan kronologis tetap masuk ke dalam pelatihan.
-- **Demonstrasi**: Buka `artifacts/reports/raw_data_profile.json` dan jalankan `pytest tests/test_data_validation.py`.
+- **Demonstrasi**: Buka `artifacts/reports/data_quality_report.md` dan jalankan `pytest tests/test_data_validation.py`.
 
 ---
 

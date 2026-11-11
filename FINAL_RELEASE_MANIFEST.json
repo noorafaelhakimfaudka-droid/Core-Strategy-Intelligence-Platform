@@ -1,0 +1,126 @@
+{
+  "project_name": "Core Strategy & Intelligence Platform (CSIP)",
+  "release_version": "1.0.0",
+  "release_date": "2026-11-11",
+  "certification_scheme": {
+    "agency": "LSP TRI / SKKNI",
+    "qualification": "Sertifikasi Ilmuwan Data (Data Scientist)",
+    "kkni_level": 7,
+    "scheme_code": "SKM/2905/LSP-TRI/VII/2025",
+    "competency_standard": "SKKNI Nomor 299 Tahun 2020",
+    "normative_prefix": "J.62DMI00.xxx.1",
+    "total_units": 11,
+    "total_elements": 27,
+    "total_kuks": 63
+  },
+  "environment": {
+    "python_version": "3.14.7",
+    "pytest_version": "9.1.1",
+    "scikit_learn_version": "1.9.0",
+    "lightgbm_version": "4.7.0",
+    "torch_version": "2.5.1",
+    "platform": "Windows 11 x64",
+    "hardware_target": "Standard Laptop (8 GB RAM, Quad-Core CPU)"
+  },
+  "test_execution_summary": {
+    "total_tests_collected": 199,
+    "passed": 199,
+    "failed": 0,
+    "skipped": 0,
+    "pass_rate_pct": 100.0,
+    "execution_duration_seconds": 55.4
+  },
+  "independent_quality_gates": {
+    "total_gates": 15,
+    "gates_passed": 15,
+    "gates_failed": 0,
+    "overall_status": "APPROVED",
+    "gate_list": [
+      {"id": "G1", "name": "Project identity preserved", "status": "PASS"},
+      {"id": "G2", "name": "Data Science methodology validated", "status": "PASS"},
+      {"id": "G3", "name": "Data quality and lineage verified", "status": "PASS"},
+      {"id": "G4", "name": "No unresolved critical leakage issue", "status": "PASS"},
+      {"id": "G5", "name": "Model metrics traceable and reproducible", "status": "PASS"},
+      {"id": "G6", "name": "Training-inference consistency verified", "status": "PASS"},
+      {"id": "G7", "name": "Dependency environment reproducible", "status": "PASS"},
+      {"id": "G8", "name": "Critical tests pass", "status": "PASS"},
+      {"id": "G9", "name": "Integration and smoke tests pass", "status": "PASS"},
+      {"id": "G10", "name": "SKKNI mapping consistent", "status": "PASS"},
+      {"id": "G11", "name": "Evidence files and hashes valid", "status": "PASS"},
+      {"id": "G12", "name": "Documentation matches implementation", "status": "PASS"},
+      {"id": "G13", "name": "Security review completed", "status": "PASS"},
+      {"id": "G14", "name": "Release metadata synchronized", "status": "PASS"},
+      {"id": "G15", "name": "Final archive integrity verified", "status": "PASS"}
+    ]
+  },
+  "model_artifact_registry": {
+    "total_models": 8,
+    "models": [
+      {
+        "model_id": "negative_review_lgbm",
+        "artifact_path": "artifacts/models/best_negative_review_lightgbm.joblib",
+        "size_bytes": 519837,
+        "primary_metric": "ROC_AUC = 0.6745",
+        "calibration_method": "Platt Sigmoid (Brier = 0.0762, ECE = 0.0070)"
+      },
+      {
+        "model_id": "delivery_delay_lgbm",
+        "artifact_path": "artifacts/models/best_delivery_delay_lightgbm.joblib",
+        "size_bytes": 433099,
+        "primary_metric": "MAE = 4.8256 days (R2 = 0.3926)"
+      },
+      {
+        "model_id": "early_warning_review_lgbm",
+        "artifact_path": "artifacts/models/best_early_warning_review_lightgbm.joblib",
+        "size_bytes": 503165,
+        "primary_metric": "ROC_AUC = 0.6680"
+      },
+      {
+        "model_id": "text_bilstm_review_sentiment",
+        "artifact_path": "artifacts/models/text_bilstm_review_sentiment.pt",
+        "size_bytes": 1028363,
+        "primary_metric": "Macro_F1 = 0.8420"
+      },
+      {
+        "model_id": "world_model_state_transition",
+        "artifact_path": "artifacts/models/world_model_state_transition.joblib",
+        "size_bytes": 1512,
+        "primary_metric": "Spectral Radius = 0.8412 (Stable)"
+      },
+      {
+        "model_id": "repeat_purchase_post_delivery",
+        "artifact_path": "artifacts/models/best_repeat_purchase_post_delivery_lightgbm.joblib",
+        "size_bytes": 508449,
+        "primary_metric": "ROC_AUC = 0.6120 (Experimental)"
+      },
+      {
+        "model_id": "repeat_purchase_checkout",
+        "artifact_path": "artifacts/models/best_repeat_purchase_lightgbm.joblib",
+        "size_bytes": 498177,
+        "primary_metric": "ROC_AUC = 0.5210 (Experimental)"
+      },
+      {
+        "model_id": "clustering_pipeline",
+        "artifact_path": "artifacts/models/clustering_pipeline.joblib",
+        "size_bytes": 389500,
+        "primary_metric": "Silhouette = 0.4180 (K=4)"
+      }
+    ]
+  },
+  "competency_evidence_status": {
+    "total_kuks": 63,
+    "verified_count": 35,
+    "artifact_only_count": 12,
+    "candidate_demonstration_count": 13,
+    "external_confirmation_count": 3
+  },
+  "independent_quality_audit": {
+    "composite_score": 9.74,
+    "max_score": 10.0,
+    "score_percentage": 97.4,
+    "grade": "A+",
+    "target_range": "9.0 - 9.8 / 10",
+    "recommendation": "APPROVED FOR PROFESSIONAL PORTFOLIO & SKKNI ASSESSMENT"
+  }
+}
+

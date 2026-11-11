@@ -46,7 +46,7 @@
 
 1. **Open-Source Dataset Constraints**:
    - Because CSIP utilizes a public historical dataset, direct access to the original e-commerce management team or live end-users was unavailable.
-   - In SKKNI Unit `J.62DMI00.001.1` (Menentukan Objektif Bisnis), KUK 2.2, 3.3, and 4.3 are disclosed as **PARTIALLY_VERIFIED**: business objectives, success criteria, and ROI cost-benefit models are mathematically complete and fully documented in internal specifications, but actual external sign-off signatures were simulated.
+   - In SKKNI Unit `J.62DMI00.001.1` (Menentukan Objektif Bisnis), KUK 2.2, 3.3, and 4.3 are disclosed as **PARTIALLY_VERIFIED**: business objectives, success criteria, and ROI cost-benefit models are mathematically complete and fully documented in internal specifications, but actual external formal approval signatures were simulated.
    - No fake stakeholder identities or fraudulent meeting records have been fabricated.
 
 ---

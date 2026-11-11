@@ -4,7 +4,7 @@
 - **Standar Acuan**: SKKNI No. 299 Tahun 2020
 - **Skema Sertifikasi**: LSP TRI (`SKM/2905/LSP-TRI/VII/2025`)
 - **Ruang Lingkup**: 11 Unit Kompetensi, 27 Elemen, 63 KUK
-- **Distribusi Bukti**: 60 VERIFIED, 3 PARTIALLY_VERIFIED, 0 MISSING
+- **Distribusi Bukti**: 35 VERIFIED, 12 ARTIFACT_ONLY, 13 CANDIDATE_DEMONSTRATION_REQUIRED, 3 EXTERNAL_CONFIRMATION_REQUIRED, 0 MISSING
 - **File Fisik Unik**: 30 file unik terverifikasi pada repositori
 - **Prinsip Utama**: MAXIMUM EVIDENCE ACCURACY, ZERO FABRICATED CLAIMS
 
@@ -19,10 +19,10 @@
 
 ---
 
-## 2. Rincian 3 KUK PARTIALLY_VERIFIED & Strategi Pembelaan di Hadapan Asesor
+## 2. Rincian 3 KUK EXTERNAL_CONFIRMATION_REQUIRED & Strategi Pembelaan di Hadapan Asesor
 
 ### 1. UK-01 KUK 2.2: Persetujuan atas kebutuhan, asumsi dan batasan proyek diperoleh dari pengguna
-- **Status**: `PARTIALLY_VERIFIED`
+- **Status**: `EXTERNAL_CONFIRMATION_REQUIRED`
 - **File Bukti CSIP**: `reports/canonical_skkni_299_2020_mapping.md` (Section 2.1) & `README.md` (Section 1.2)
 - **Aktivitas Peserta**: Menyusun Project Framing Rubric dan menetapkan batasan operasional (misal waktu cut-off dispatch kurir) berbasis parameter bisnis e-commerce Olist.
 - **Kesenjangan Riil**: Tidak ada sponsor korporat eksternal yang menandatangani kontrak fisik karena proyek berbasis dataset publik terbuka Kaggle.
@@ -30,7 +30,7 @@
 - **Panduan Pembelaan Asesmen**: Peserta menjelaskan bahwa dalam riset mandiri / portofolio data science, batasan didefinisikan secara eksplisit mengacu pada domain logistik Olist dan ditinjau menggunakan persona bisnis logistik internal.
 
 ### 2. UK-01 KUK 3.3: Persetujuan atas risiko dan rencana mitigasi risiko diperoleh dari pengguna
-- **Status**: `PARTIALLY_VERIFIED`
+- **Status**: `EXTERNAL_CONFIRMATION_REQUIRED`
 - **File Bukti CSIP**: `reports/research_traceability_matrix.md` (Section 3) & `reports/evidence_and_failure_register.md` (Section 2)
 - **Aktivitas Peserta**: Mengidentifikasi 6 risiko metodologis (F-01 s.d. F-06) dan menyusun mitigasi teknis (temporal split, kalibrasi probabilitas).
 - **Kesenjangan Riil**: Pengesahan risiko dilakukan secara mandiri dan melalui peer review internal, bukan komite risiko korporat.
@@ -38,7 +38,7 @@
 - **Panduan Pembelaan Asesmen**: Peserta menunjukkan matriks risiko kegagalan teknis dan membuktikan bahwa mitigasi telah diuji secara otomatis via test_feature_leakage.py sebelum model di-fit.
 
 ### 3. UK-01 KUK 4.3: Biaya dan keuntungan pelaksanaan proyek dikomunikasikan dan disetujui oleh pengguna
-- **Status**: `PARTIALLY_VERIFIED`
+- **Status**: `EXTERNAL_CONFIRMATION_REQUIRED`
 - **File Bukti CSIP**: `CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md` (Section 7.2) & `notebooks/11_alternative_world_simulation.ipynb` (Section 4)
 - **Aktivitas Peserta**: Menghitung estimasi ROI penyelamatan 1.200 pesanan per kuartal via counterfactual simulation dan mendokumentasikannya dalam laporan eksekutif.
 - **Kesenjangan Riil**: Tidak ada steering committee eksternal yang menandatangani alokasi anggaran komersial riil.

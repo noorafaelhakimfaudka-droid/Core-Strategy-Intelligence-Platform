@@ -26,10 +26,7 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-try:
-    from csip.data.semantic_profiler import fmt_num
-except ImportError:
-    from src.csip.data.semantic_profiler import fmt_num
+from csip.data.semantic_profiler import fmt_num
 
 logger = logging.getLogger(__name__)
 
@@ -89,7 +86,7 @@ def train_fluent_ml_pipeline(
     y_test = test_df[target_col].astype(float).values
     y_full = work_df[target_col].astype(float).values
 
-    # 4. Feature Selection on Training Set Only (Zero Leakage)
+    # 4. Feature Selection on Training Set Only (temporal isolation checks)
     filtered_features = []
     dropped_collinear = []
     for col in candidate_cols:

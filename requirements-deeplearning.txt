@@ -1,0 +1,5 @@
+# CSIP Track C: Deep Learning Workloads
+# Extends Core with PyTorch runtime for BiLSTM and Tabular MLP architectures
+-r requirements-core.txt
+torch>=2.0.0
+

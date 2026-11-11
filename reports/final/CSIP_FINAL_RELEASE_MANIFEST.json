@@ -1,0 +1,144 @@
+{
+  "release_identity": "CSIP FINAL 1.0.0",
+  "release_version": "1.0.0",
+  "release_name": "Core Strategy & Intelligence Platform (CSIP) Final Consolidated Release",
+  "build_timestamp": "2026-11-11T12:42:00Z",
+  "platform_environment": {
+    "reference_os": "Microsoft Windows 11 Pro 64-bit",
+    "reference_python": "3.14.7",
+    "supported_python_range": ">=3.10,<=3.14",
+    "target_hardware": "Commodity Laptop (8-16 GB RAM, CPU-only)",
+    "master_random_seed": 42
+  },
+  "dependencies": {
+    "scikit-learn": "1.9.0",
+    "lightgbm": "4.7.0",
+    "torch": "2.5.1",
+    "pandas": "2.3.2",
+    "numpy": "2.2.6",
+    "statsmodels": "0.14.6",
+    "joblib": "1.5.3",
+    "streamlit": "1.41.0",
+    "pytest": "9.1.1",
+    "pyarrow": "14.0.0"
+  },
+  "certification_alignment": {
+    "body": "Otoritas Standar Profesi Nasional",
+    "lsp": "LSP TRI",
+    "scheme": "Sertifikasi Ilmuwan Data (Data Scientist)",
+    "scheme_code": "SKM/2905/LSP-TRI/VII/2025",
+    "standard": "SKKNI Nomor 299 Tahun 2020",
+    "qualification_level": "KKNI Level 7",
+    "unit_code_prefix": "J.62DMI00",
+    "total_units": 11,
+    "total_elements": 27,
+    "total_kuks": 63,
+    "evidence_distribution": {
+      "VERIFIED": 35,
+      "CANDIDATE_DEMONSTRATION_REQUIRED": 13,
+      "ARTIFACT_ONLY": 12,
+      "EXTERNAL_CONFIRMATION_REQUIRED": 3,
+      "PARTIALLY_VERIFIED": 0,
+      "MISSING": 0
+    },
+    "normative_wording_verifications": [
+      {
+        "unit_code": "J.62DMI00.001.1",
+        "kuk_id": "2.2",
+        "official_normative_text": "Persetujuan atas kebutuhan, asumsi dan batasan proyek diperoleh dari pengguna.",
+        "status": "EXTERNAL_CONFIRMATION_REQUIRED",
+        "defense_template": "Project Requirements, Assumptions & Boundaries User Charter Sign-Off"
+      }
+    ]
+  },
+  "champion_models": {
+    "negative_review_lgbm": {
+      "model_id": "negative_review_lgbm",
+      "model_name": "Negative Review LightGBM Champion",
+      "task": "Binary Classification (Severe Negative Customer Review Probability)",
+      "algorithm": "LightGBM Classifier + Platt Scaling (Logistic Sigmoid on Log-Odds)",
+      "maturity_level": "CONDITIONALLY_ELIGIBLE_FOR_PILOT",
+      "artifact_path": "artifacts/models/best_negative_review_lightgbm.joblib",
+      "artifact_sha256": "6e466afa2d2006349d45fe493f740f157ba9ee93bbfd63f6f172143f86927fdf",
+      "sidecar_path": "artifacts/models/best_negative_review_lightgbm.joblib.json",
+      "metrics_holdout_test": {
+        "roc_auc": 0.6745,
+        "pr_auc": 0.3061,
+        "f1_score": 0.3417,
+        "balanced_accuracy": 0.6439,
+        "uncalibrated_brier_score": 0.1373,
+        "calibrated_brier_score": 0.0762,
+        "expected_calibration_error": 0.0070
+      },
+      "calibration_parameters": {
+        "method": "Platt Scaling",
+        "sigmoid_weight": 0.9020,
+        "sigmoid_intercept": -1.8089,
+        "fitting_split": "validation (N=19,587)"
+      }
+    },
+    "delivery_delay_lgbm": {
+      "model_id": "delivery_delay_lgbm",
+      "model_name": "Delivery Delay Regressor Champion",
+      "task": "Continuous Regression (Logistics Delivery Delay Days past Promise Date)",
+      "algorithm": "LightGBM Regressor (Quantile / L1 Loss)",
+      "maturity_level": "CONDITIONALLY_ELIGIBLE_FOR_PILOT",
+      "artifact_path": "artifacts/models/best_delivery_delay_lightgbm.joblib",
+      "artifact_sha256": "c9f75538bc233411abd80fe3fdef8bd7e038b8a2ae98910c8b35badd601a5e5e",
+      "sidecar_path": "artifacts/models/best_delivery_delay_lightgbm.joblib.json",
+      "metrics_holdout_test": {
+        "mae_days": 4.8256,
+        "rmse_days": 6.2458,
+        "r2_score": 0.3926
+      },
+      "scenario_simulation_note": "A delay buffer of 2.14 days represents conditional dispatch estimates under optimal weather routes."
+    },
+    "text_bilstm_review_sentiment": {
+      "model_id": "text_bilstm_review_sentiment",
+      "model_name": "Portuguese Customer Review Text BiLSTM",
+      "task": "Deep Sequence Classification on Review Comments",
+      "algorithm": "Bidirectional LSTM in PyTorch",
+      "maturity_level": "BENCHMARK_VALIDATED",
+      "artifact_path": "artifacts/models/text_bilstm_review_sentiment.pt",
+      "artifact_sha256": "7ae5bf8fbbc94533326c5d4ae29f1dd29b682cb11a1ced227b7c52ab608a5df7",
+      "metrics_holdout_test": {
+        "macro_f1": 0.8420,
+        "accuracy": 0.8870
+      }
+    },
+    "world_model_state_transition": {
+      "model_id": "world_model_state_transition",
+      "model_name": "Macroeconomic Dynamic World Model",
+      "task": "State-Space Dynamic Econometric Simulation",
+      "algorithm": "Vector Autoregression (VAR, Lag p=2)",
+      "maturity_level": "BENCHMARK_VALIDATED",
+      "artifact_path": "artifacts/models/world_model_state_transition.joblib",
+      "artifact_sha256": "77e63503a0ba98c8a0781704181e94d61d01a2f4c1e0ebfcefbab01965ad5185",
+      "metrics_full_sample": {
+        "aic": -4.8920,
+        "bic": -4.5120
+      }
+    }
+  },
+  "quality_gates_summary": {
+    "total_gates": 19,
+    "passed": 19,
+    "failed": 0,
+    "status": "APPROVED (PASS)",
+    "execution_time_seconds": 16.2
+  },
+  "documentation_consistency_summary": {
+    "total_checks": 11,
+    "passed": 11,
+    "failed": 0,
+    "warnings": 0,
+    "status": "PASS"
+  },
+  "cryptographic_manifest_reference": "SHA256SUMS_FINAL.txt",
+  "known_limitations": [
+    "Observational e-commerce dataset (Olist 2016-2018); prospective shadow-mode testing required before automated production intervention.",
+    "External commercial user sign-offs simulated via enterprise governance packets.",
+    "Models serialized using Scikit-Learn 1.9.0 protocol."
+  ]
+}
+

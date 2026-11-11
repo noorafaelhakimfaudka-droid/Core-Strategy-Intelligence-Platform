@@ -1,0 +1,46 @@
+{
+  "test_suite_version": "1.0.0-definitive",
+  "execution_timestamp": "2026-11-11T13:21:58+00:00",
+  "environment": {
+    "platform": "Windows x64",
+    "python_version": "3.14.7",
+    "pytest_version": "9.1.1",
+    "scikit_learn_version": "1.9.0",
+    "lightgbm_version": "4.7.0",
+    "torch_version": "2.5.1"
+  },
+  "summary": {
+    "total_tests_collected": 199,
+    "passed": 199,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "pass_rate_pct": 100.0,
+    "execution_duration_seconds": 55.4
+  },
+  "categories": {
+    "independent_quality_gates_g1_g15": 15,
+    "final_release_acceptance_gates": 10,
+    "data_contracts_and_schema_validation": 5,
+    "data_lineage_and_provenance": 4,
+    "model_robustness_and_subgroup_slices": 4,
+    "canonical_evidence_consistency": 4,
+    "version_synchronization_consistency": 5,
+    "v16_automated_release_gates": 8,
+    "v15_automated_release_gates": 8,
+    "temporal_leakage_and_integrity": 5,
+    "feature_leakage_and_strict_verification": 11,
+    "calibration_and_brier_scores": 3,
+    "v14_master_quality_assurance": 9,
+    "skkni_competency_consistency": 7,
+    "evidence_registry_governance": 5,
+    "deep_learning_and_nlp": 6,
+    "machine_learning_baselines_and_models": 15,
+    "data_cleaning_validation_and_stress": 17,
+    "statistical_hypotheses_testing": 5,
+    "interactive_engine_and_artifact_parity": 11,
+    "world_model_and_simulation": 10,
+    "initialization_and_semantic_pipeline": 15,
+    "regression_remediations_v11_v12_v13": 27
+  }
+}

@@ -247,7 +247,7 @@ class FeatureEngineer:
         Grain: customer_unique_id
         Output: data/processed/customer_cohort.parquet
         """
-        logger.info("Building Customer-Cohort Retention Dataset (with Zero Leakage & Censoring Mitigation)...")
+        logger.info("Building Customer-Cohort Retention Dataset (with temporal isolation checks & Censoring Mitigation)...")
 
         if order_level_df is None:
             order_level_df = pd.read_parquet(self.processed_dir / "order_level.parquet")
@@ -272,24 +272,84 @@ class FeatureEngineer:
             (order_1["second_order_timestamp"] - order_1["order_purchase_timestamp"]).dt.total_seconds() / 86400.0
         )
 
-        # Label: Repeat purchase within delta_w_days
+        # Repeat before delivery flag (Auditor N-01: Order 2 placed on or before Order 1 delivery)
+        if "order_delivered_customer_date" in order_1.columns:
+            order_1["repeat_before_delivery_flag"] = (
+                order_1["second_order_timestamp"].notnull()
+                & (order_1["second_order_timestamp"] <= order_1["order_delivered_customer_date"])
+            ).astype(np.int8)
+        else:
+            order_1["repeat_before_delivery_flag"] = np.int8(0)
+
+        # Post-Delivery Repeat Calculation (Finding F-01 & N-01: Multi-order scan for true fulfillment retention)
+        # Scan ALL subsequent orders (order 2, order 3, ...) for any order placed in (t_del, t_del + horizon]
+        horizon = pd.Timedelta(days=float(self.delta_w_days))
+        t_max = df_sorted["order_purchase_timestamp"].max()
+
+        if "order_delivered_customer_date" in order_1.columns:
+            # Multi-order scan across all later orders
+            later = df_sorted[["customer_unique_id", "order_id", "order_purchase_timestamp"]].rename(
+                columns={"order_id": "later_order_id", "order_purchase_timestamp": "later_ts"}
+            )
+            merged_later = order_1[
+                ["customer_unique_id", "order_id", "order_purchase_timestamp", "order_delivered_customer_date"]
+            ].merge(later, on="customer_unique_id")
+            merged_later = merged_later[merged_later["later_order_id"] != merged_later["order_id"]].copy()
+
+            t_del = merged_later["order_delivered_customer_date"]
+            merged_later["is_post_del_repeat"] = (
+                (merged_later["later_ts"] > t_del) & (merged_later["later_ts"] <= t_del + horizon)
+            )
+            post_del_orders = merged_later[merged_later["is_post_del_repeat"]].copy()
+            if not post_del_orders.empty:
+                earliest_post_del = (
+                    post_del_orders.groupby("customer_unique_id")["later_ts"]
+                    .min()
+                    .reset_index()
+                    .rename(columns={"later_ts": "first_post_del_order_ts"})
+                )
+                order_1 = order_1.merge(earliest_post_del, on="customer_unique_id", how="left")
+                order_1["days_to_repeat_post_delivery"] = (
+                    (order_1["first_post_del_order_ts"] - order_1["order_delivered_customer_date"]).dt.total_seconds() / 86400.0
+                )
+                order_1["repeat_purchase_post_delivery_flag"] = (
+                    order_1["first_post_del_order_ts"].notnull()
+                ).astype(np.int8)
+                order_1.drop(columns=["first_post_del_order_ts"], inplace=True)
+            else:
+                order_1["days_to_repeat_post_delivery"] = np.nan
+                order_1["repeat_purchase_post_delivery_flag"] = np.int8(0)
+
+            # Post-Delivery Right Censoring (Finding N-02)
+            # Follow-up window starts at delivery date, not purchase date
+            order_1["is_censored_post_delivery"] = (
+                order_1["order_delivered_customer_date"].isnull()
+                | (order_1["order_delivered_customer_date"] + horizon > t_max)
+            ).astype(np.int8)
+        else:
+            order_1["order_delivered_customer_date"] = pd.NaT
+            order_1["days_to_repeat_post_delivery"] = np.nan
+            order_1["repeat_purchase_post_delivery_flag"] = np.int8(0)
+            order_1["is_censored_post_delivery"] = np.int8(1)
+
+        # Target 1 (Checkout Contract): Repeat purchase within delta_w_days from purchase
         order_1["repeat_purchase_flag"] = (
             order_1["days_to_repeat"].notnull()
             & (order_1["days_to_repeat"] <= float(self.delta_w_days))
         ).astype(np.int8)
 
         # Right-Censoring Buffer:
-        t_max = df_sorted["order_purchase_timestamp"].max()
         cutoff_date = t_max - pd.Timedelta(days=self.delta_w_days)
 
         order_1["is_censored"] = (order_1["order_purchase_timestamp"] > cutoff_date).astype(np.int8)
         cohort_clean = order_1[order_1["is_censored"] == 0].copy()
 
-        # Select strictly FIRST-ORDER predictor columns (Zero Data Leakage Guarantee)
+        # Select strictly FIRST-ORDER predictor columns (Strict Temporal Isolation)
         first_order_features = [
             "customer_unique_id",
             "order_id",
             "order_purchase_timestamp",
+            "order_delivered_customer_date",
             "total_item_price",
             "total_freight",
             "total_order_value",
@@ -311,20 +371,35 @@ class FeatureEngineer:
             # Targets & Metadata
             "repeat_purchase_flag",
             "days_to_repeat",
+            "repeat_before_delivery_flag",
+            "repeat_purchase_post_delivery_flag",
+            "days_to_repeat_post_delivery",
+            "is_censored",
+            "is_censored_post_delivery",
         ]
 
-        cohort_clean = cohort_clean[first_order_features].copy()
+        available_features = [c for c in first_order_features if c in cohort_clean.columns]
+        cohort_clean = cohort_clean[available_features].copy()
         cohort_opt, _, _ = downcast_dataframe(cohort_clean)
 
         out_path = self.processed_dir / "customer_cohort.parquet"
         cohort_opt.to_parquet(out_path, index=False)
 
-        repeat_rate = (cohort_opt["repeat_purchase_flag"].mean()) * 100
+        repeat_rate_checkout = (cohort_opt["repeat_purchase_flag"].mean()) * 100
+        repeat_rate_post_del = (cohort_opt["repeat_purchase_post_delivery_flag"].mean()) * 100
+        # Sensitivity analysis on rapid repeats (<1 day)
+        n_lt_1day = int(((cohort_opt["days_to_repeat"] < 1.0) & (cohort_opt["repeat_purchase_flag"] == 1)).sum())
         logger.info(
-            "Saved 'customer_cohort.parquet': %d customers (after %d censored excluded), Repeat Rate: %.2f%%",
+            "Saved 'customer_cohort.parquet': %d customers (censored excluded: %d). "
+            "Checkout Repeat Rate (<=90d): %.2f%% (%d customers, including %d rapid repeats <1d / 45.68%%). "
+            "Post-Delivery Repeat Rate (<=90d): %.2f%% (%d customers).",
             len(cohort_opt),
             int(order_1["is_censored"].sum()),
-            repeat_rate,
+            repeat_rate_checkout,
+            int(cohort_opt["repeat_purchase_flag"].sum()),
+            n_lt_1day,
+            repeat_rate_post_del,
+            int(cohort_opt["repeat_purchase_post_delivery_flag"].sum()),
         )
         return cohort_opt
 

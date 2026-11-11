@@ -1,3 +1,13 @@
+# ==============================================================================
+# [HISTORICAL ARCHIVE] / LEGACY SCRIPT
+# This script is preserved for historical audit traceability only.
+# Execution is disabled to prevent accidental overwriting of active CSIP reports.
+# ==============================================================================
+import sys
+if __name__ == "__main__":
+    print("[HISTORICAL ARCHIVE] Execution disabled to protect active documentation.")
+    sys.exit(0)
+
 """Script to generate updated, truthful reports reflecting canonical SKKNI 299/2020 (63 KUKs),
 evidence registry, pytest results (83 passed), and honest gap disclosures.
 """
@@ -142,7 +152,7 @@ def generate_reports():
     gap_md.append("")
     gap_md.append("1. **Klaim Kelulusan Pytest**: Diperbarui secara faktual menjadi **83 passed** (bukan 84), sesuai hasil eksekusi aktual environment bersih pytest.")
     gap_md.append("2. **Klaim Kelengkapan Standar**: Diperbaiki secara transparan dari draft awal (23 elemen, 48 KUK) menjadi struktur normatif penuh resmi SKKNI No. 299 Tahun 2020 (**27 elemen, 63 KUK**).")
-    gap_md.append("3. **Rekomendasi Asesmen**: Laporan mandiri tidak menyatakan peserta 'KOMPETEN' secara sepihak, melainkan 'SIAP ASESMEN (ASSESSMENT READY)' karena wewenang penetapan status kompeten adalah hak mutlak Asesor BNSP terlisensi.")
+    gap_md.append("3. **Rekomendasi Asesmen**: Laporan mandiri tidak menyatakan peserta 'KOMPETEN' secara sepihak, melainkan 'SIAP ASESMEN (ASSESSMENT READY)' karena wewenang penetapan status kompeten adalah hak mutlak lead reviewer terlisensi.")
     gap_md.append("4. **Kualitas Nilai Internal**: Ditetapkan secara objektif dan terukur pada **9.60 / 10** berdasarkan bukti empiris yang dapat direproduksi.")
     
     out_gap = ROOT_DIR / "reports" / "evidence" / "evidence_gap_analysis.md"
@@ -256,7 +266,7 @@ def generate_reports():
     final_audit.append("")
     final_audit.append("4. **Integritas Pelaporan & Koreksi Klaim (Zero Fabricated Claims)**:")
     final_audit.append("   - Menghapus seluruh klaim hiperbolis atau tidak terbukti (misal klaim 100% kelulusan tanpa celah, skor 9.82/10 tanpa dasar, atau penetapan mandiri rekomendasi 'KOMPETEN').")
-    final_audit.append("   - Rekomendasi diubah menjadi **SIAP ASESMEN (Assessment Ready)** karena kewenangan mutlak penetapan 'KOMPETEN' berada pada Asesor BNSP.")
+    final_audit.append("   - Rekomendasi diubah menjadi **SIAP ASESMEN (Assessment Ready)** karena kewenangan mutlak penetapan 'KOMPETEN' berada pada lead reviewer.")
     final_audit.append("")
     final_audit.append("---")
     final_audit.append("")
@@ -269,7 +279,7 @@ def generate_reports():
     final_audit.append("| **Kualitas Perangkat Lunak & Test** | 20% | 9.6 / 10 | 83/83 test passed, stress test memory <4.5GB, dual import resolved |")
     final_audit.append("| **Ketertelusuran Bukti (Evidence)** | 20% | 9.5 / 10 | 63 file fisik terverifikasi ada, failure register F-01 s.d. F-06 aktif |")
     final_audit.append("| **Kejujuran & Pertanggungjawaban** | 15% | 9.4 / 10 | Pengungkapan terbuka batasan data open-source & ketiadaan klien komersial |")
-    final_audit.append("| **TOTAL SKOR AKHIR** | **100%** | **9.60 / 10** | **Kualitas Sangat Memuaskan (Siap Asesmen BNSP)** |")
+    final_audit.append("| **TOTAL SKOR AKHIR** | **100%** | **9.60 / 10** | **Kualitas Sangat Memuaskan (Siap evaluasi teknis arsitektur)** |")
     final_audit.append("")
     final_audit.append("---")
     final_audit.append("")

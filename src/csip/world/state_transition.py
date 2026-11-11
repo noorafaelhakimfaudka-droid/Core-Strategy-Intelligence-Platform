@@ -313,6 +313,21 @@ class WorldStateTransitionModel:
             "state_stds_": self.state_stds_,
             "is_fitted": self.is_fitted,
         }, p)
+
+        import sklearn, sys
+        from datetime import datetime, timezone
+        sidecar_data = {
+            "model_name": "world_model_state_transition",
+            "state_cols": self.state_cols,
+            "alpha": self.alpha,
+            "sklearn_version": sklearn.__version__,
+            "python_version": sys.version.split()[0],
+            "trained_at": datetime.now(timezone.utc).isoformat(),
+            "git_or_release_version": "v13.0.0",
+        }
+        with open(f"{p}.json", "w", encoding="utf-8") as f:
+            json.dump(sidecar_data, f, indent=2)
+
         logger.info(f"Saved WorldStateTransitionModel to {p}")
 
     @classmethod

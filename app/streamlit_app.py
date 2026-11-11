@@ -21,10 +21,7 @@ SRC_DIR = ROOT_DIR / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-import importlib
-import src.csip.data.semantic_profiler
-importlib.reload(src.csip.data.semantic_profiler)
-from src.csip.data.semantic_profiler import build_fluent_schema, fmt_num, get_builtin_dataset
+from csip.data.semantic_profiler import build_fluent_schema, fmt_num, get_builtin_dataset
 
 st.set_page_config(
     page_title="CSIP Studio — Ilmuwan Data Otomatis & Simulator Keputusan",
@@ -74,7 +71,7 @@ def run_studio_ml_engine(
     schema_info: dict,
     audit_info: dict,
 ) -> dict:
-    from src.csip.models.ml_engine import train_fluent_ml_pipeline
+    from csip.models.ml_engine import train_fluent_ml_pipeline
     return train_fluent_ml_pipeline(
         df_sample=df_sample,
         target_col=target_col,
@@ -433,7 +430,7 @@ PROTOTYPE_CSS = """
   --font-ui:       "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-#MainMenu, header, footer, [data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stSidebar"] {
+#MainMenu, header, footer, [data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stSidebar"], section[data-testid="stSidebar"], div[data-testid="collapsedControl"] {
   display: none !important;
 }
 
@@ -858,6 +855,8 @@ with top_l:
     )
 
 st.markdown('<div style="height:1px; background:linear-gradient(90deg, transparent, rgba(23,163,148,.55) 30%, rgba(232,162,59,.55) 70%, transparent); margin: 8px 0 14px 0;"></div>', unsafe_allow_html=True)
+
+
 
 col_deck, col_stage = st.columns([1.05, 2.22], gap="medium")
 

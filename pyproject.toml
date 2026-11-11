@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "csip"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI) Module"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -54,6 +54,9 @@ ml_advanced = [
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.dynamic]
+version = {attr = "csip._version.__version__"}
+
 [tool.pytest.ini_options]
 minversion = "7.0"
 addopts = "-ra -q --import-mode=importlib"
@@ -63,4 +66,35 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     "ignore::FutureWarning"
 ]
+
+[tool.coverage.run]
+source = ["src/csip"]
+omit = [
+    "src/csip/experimental/*",
+    "src/csip/_version.py",
+]
+
+[tool.coverage.report]
+fail_under = 60
+show_missing = true
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+select = ["E", "F", "W", "I", "N"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
 

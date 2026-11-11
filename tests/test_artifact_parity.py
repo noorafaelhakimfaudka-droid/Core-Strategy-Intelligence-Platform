@@ -30,8 +30,10 @@ def test_trained_models_parity():
     """Verify all trained classical, deep learning, and world model checkpoints exist."""
     expected_models = [
         "artifacts/models/clustering_pipeline.joblib",
+        "artifacts/models/best_early_warning_review_lightgbm.joblib",
         "artifacts/models/best_negative_review_lightgbm.joblib",
         "artifacts/models/best_repeat_purchase_lightgbm.joblib",
+        "artifacts/models/best_repeat_purchase_post_delivery_lightgbm.joblib",
         "artifacts/models/best_delivery_delay_lightgbm.joblib",
         "artifacts/models/tabular_mlp_negative_review.pt",
         "artifacts/models/text_bilstm_review_sentiment.pt",

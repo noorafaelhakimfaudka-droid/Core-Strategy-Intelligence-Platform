@@ -1,0 +1,159 @@
+{
+  "protocol": "Rolling-Origin Temporal Cross-Validation (Expanding Window)",
+  "embargo_days": 90,
+  "n_folds": 4,
+  "models_evaluated": {
+    "LogisticRegression": {
+      "mean_pr_auc": 0.3554,
+      "pr_auc_95_ci": [
+        0.2922,
+        0.4597
+      ],
+      "mean_roc_auc": 0.7198,
+      "roc_auc_95_ci": [
+        0.6874,
+        0.7664
+      ],
+      "mean_brier": 0.094,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 3683,
+          "n_val": 5115,
+          "base_rate": 0.1003,
+          "pr_auc": 0.2502,
+          "roc_auc": 0.6622,
+          "brier_score": 0.0833
+        },
+        {
+          "fold": 2,
+          "n_train": 14498,
+          "n_val": 6707,
+          "base_rate": 0.1148,
+          "pr_auc": 0.3342,
+          "roc_auc": 0.7126,
+          "brier_score": 0.0906
+        },
+        {
+          "fold": 3,
+          "n_train": 29787,
+          "n_val": 10349,
+          "base_rate": 0.1998,
+          "pr_auc": 0.5852,
+          "roc_auc": 0.8201,
+          "brier_score": 0.1175
+        },
+        {
+          "fold": 4,
+          "n_train": 53437,
+          "n_val": 8316,
+          "base_rate": 0.1004,
+          "pr_auc": 0.2522,
+          "roc_auc": 0.6843,
+          "brier_score": 0.0846
+        }
+      ]
+    },
+    "LightGBM": {
+      "mean_pr_auc": 0.3825,
+      "pr_auc_95_ci": [
+        0.3019,
+        0.5073
+      ],
+      "mean_roc_auc": 0.713,
+      "roc_auc_95_ci": [
+        0.6686,
+        0.7702
+      ],
+      "mean_brier": 0.0902,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 3683,
+          "n_val": 5115,
+          "base_rate": 0.1003,
+          "pr_auc": 0.2308,
+          "roc_auc": 0.6248,
+          "brier_score": 0.0859
+        },
+        {
+          "fold": 2,
+          "n_train": 14498,
+          "n_val": 6707,
+          "base_rate": 0.1148,
+          "pr_auc": 0.3729,
+          "roc_auc": 0.7124,
+          "brier_score": 0.0867
+        },
+        {
+          "fold": 3,
+          "n_train": 29787,
+          "n_val": 10349,
+          "base_rate": 0.1998,
+          "pr_auc": 0.6417,
+          "roc_auc": 0.8279,
+          "brier_score": 0.106
+        },
+        {
+          "fold": 4,
+          "n_train": 53437,
+          "n_val": 8316,
+          "base_rate": 0.1004,
+          "pr_auc": 0.2846,
+          "roc_auc": 0.687,
+          "brier_score": 0.0821
+        }
+      ]
+    }
+  },
+  "locked_test_evaluation": {
+    "evaluated_at": "2026-11-11T14:36:01.208343+00:00",
+    "n_test": 12448,
+    "test_period": "2018-07-01 to 2018-08-29",
+    "base_rate": 0.0961,
+    "pr_auc": 0.3151,
+    "roc_auc": 0.6975,
+    "brier_score_uncalibrated": 0.0762,
+    "brier_score_calibrated": 0.0763,
+    "ece_uncalibrated": 0.0054,
+    "ece_calibrated": 0.0098,
+    "brier_skill_score": 0.1215,
+    "top_k_lift": {
+      "lift_top_5pct": 5.154,
+      "lift_top_10pct": 3.556,
+      "lift_top_20pct": 2.346
+    },
+    "dca_sample": [
+      {
+        "threshold": 0.02,
+        "net_benefit_model": 0.077718,
+        "net_benefit_treat_all": 0.077632,
+        "net_benefit_treat_none": 0.0
+      },
+      {
+        "threshold": 0.04,
+        "net_benefit_model": 0.058359,
+        "net_benefit_treat_all": 0.058416,
+        "net_benefit_treat_none": 0.0
+      },
+      {
+        "threshold": 0.06,
+        "net_benefit_model": 0.041856,
+        "net_benefit_treat_all": 0.038383,
+        "net_benefit_treat_none": 0.0
+      },
+      {
+        "threshold": 0.08,
+        "net_benefit_model": 0.032085,
+        "net_benefit_treat_all": 0.017478,
+        "net_benefit_treat_none": 0.0
+      },
+      {
+        "threshold": 0.1,
+        "net_benefit_model": 0.028412,
+        "net_benefit_treat_all": -0.004356,
+        "net_benefit_treat_none": 0.0
+      }
+    ]
+  }
+}

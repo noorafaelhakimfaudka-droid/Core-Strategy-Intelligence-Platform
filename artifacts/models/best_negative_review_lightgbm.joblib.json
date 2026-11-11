@@ -1,0 +1,32 @@
+{
+  "target_name": "negative_review_flag",
+  "feature_set_name": "E3_combined_interactions",
+  "feature_list": [
+    "total_item_price",
+    "total_freight",
+    "total_order_value",
+    "freight_ratio",
+    "item_count",
+    "payment_installments_max",
+    "delivery_lead_time_days",
+    "estimated_lead_time_days",
+    "delivery_delay_days",
+    "is_late",
+    "approval_lag_hours",
+    "seller_buyer_distance_km",
+    "delay_x_freight_ratio",
+    "distance_x_weight",
+    "high_value_late_flag"
+  ],
+  "train_rows": 63666,
+  "split_bounds": {
+    "train_end": "2018-03-31",
+    "val_end": "2018-06-30",
+    "test_start": "2018-07-01"
+  },
+  "sklearn_version": "1.9.0",
+  "lightgbm_version": "4.7.0",
+  "python_version": "3.14.7",
+  "trained_at": "2026-11-11T10:20:33.235867+00:00",
+  "git_or_release_version": "1.0.0"
+}

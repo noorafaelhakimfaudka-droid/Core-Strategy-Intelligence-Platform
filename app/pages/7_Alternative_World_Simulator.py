@@ -35,6 +35,9 @@ render_hero(
     tag="BAB 7: UJI COBA KEBIJAKAN TANPA RISIKO",
 )
 
+st.info("ℹ️ **Status Modul**: Modul ini merupakan **Ekstensi Riset Lanjutan (Advanced R&D Extension)** untuk simulasi kebijakan kontrafaktual. Modul ini bersifat pelengkap/opsional di luar 11 Unit Kompetensi Inti SKKNI 299/2020.")
+
+
 st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
 # Load precomputed simulation results

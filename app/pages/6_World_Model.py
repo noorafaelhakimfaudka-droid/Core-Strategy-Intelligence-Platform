@@ -35,6 +35,9 @@ render_hero(
     tag="BAB 6: SIMULASI DINAMIKA & DENYUT SISTEM",
 )
 
+st.info("ℹ️ **Status Modul**: Modul ini merupakan **Ekstensi Riset Lanjutan (Advanced R&D Extension)** untuk pemodelan dinamika makro sistemik (State-Space VAR). Modul ini bersifat pelengkap/opsional di luar 11 Unit Kompetensi Inti SKKNI 299/2020.")
+
+
 st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
 # Load World Model Evaluation Report if exists

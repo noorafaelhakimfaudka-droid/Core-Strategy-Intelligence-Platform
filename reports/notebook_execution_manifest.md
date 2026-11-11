@@ -2,9 +2,9 @@
 ## End-to-End Scientific Workflow for E-Commerce Decision Intelligence
 
 **Document ID**: `CSIP-MANIFEST-NOTEBOOKS-2026`  
-**Target Certification**: BNSP Data Scientist KKNI Level 7  
+**Target Certification**: SKKNI Data Scientist KKNI Level 7  
 **Standard**: SKKNI No. 299 Tahun 2020  
-**Status**: AUDITED & 100% REPRODUCIBLE  
+**Status**: VERIFIED DETERMINISTIC WORKFLOW  
 **Date**: November 2026  
 
 ---
@@ -80,8 +80,8 @@ Setiap notebook mengadopsi struktur kanonikal:
   - H3 (Premi rating penjual terhadap GMV): DITOLAK ($p_{\text{adj}} = 0.859$, effect size $d = 0.012$, dicatat di Failure Register).
 
 ### Notebook 07: `07_supervised_ml_and_competency_lab.ipynb`
-- **Objective**: Pelatihan bertingkat *Baseline Ladder* B0 s.d. B3 pada out-of-time test set.
-- **Key Results**: LightGBM meraih Champion Tabular dengan **PR-AUC = 0.3004** (melampaui Naive 0.0814 sebesar +269% dan Random Forest 0.2842).
+- **Objective**: Pelatihan bertingkat *Baseline Ladder* B0 s.d. B3 pada out-of-time test set dan temporal cohort split dengan embargo 90 hari.
+- **Key Results**: LightGBM meraih Champion Tabular ulasan negatif dengan **PR-AUC = 0.3061** (melampaui Naive 0.1096 dan Random Forest 0.3016). Evaluasi repeat purchase mengungkapkan 95% Bootstrap CI ROC-AUC mencakup 0.50 ([0.4874, 0.5880] untuk checkout, [0.4035, 0.5354] untuk post-delivery), membuktikan secara jujur bahwa model repeat tabular tidak berbeda signifikan dari baseline.
 
 ### Notebook 08: `08_neural_network_and_deep_learning.ipynb`
 - **Objective**: Arsitektur deep learning Tabular MLP (Entity Embeddings) dan Text Bi-LSTM untuk klasifikasi keluhan pelanggan.
@@ -89,7 +89,7 @@ Setiap notebook mengadopsi struktur kanonikal:
 
 ### Notebook 09: `09_model_evaluation_and_explainability.ipynb`
 - **Objective**: Interpretasi model menggunakan SHAP TreeExplainer dan kalibrasi probabilitas Platt Scaling.
-- **Key Results**: Platt scaling memangkas Brier Score sebesar **44.59%** (0.1375 ke 0.0762) dan ECE dari 0.2355 ke 0.0070. SHAP membuktikan keterlambatan menyumbang 31.2% massa atribusi.
+- **Key Results**: Platt scaling memangkas Brier Score sebesar **44.59%** (0.1375 ke 0.0762) dan ECE dari 0.2355 ke 0.0070. SHAP membuktikan keterlambatan menyumbang 31.2% massa atribusi. Estimand risiko bersyarat retrospektif E1 dikonfirmasi.
 
 ### Notebook 10: `10_system_and_world_modeling.ipynb`
 - **Objective**: Pemodelan dinamika sistem makro ekosistem mingguan menggunakan Vector AutoRegressive State-Space.
@@ -104,10 +104,10 @@ Setiap notebook mengadopsi struktur kanonikal:
 - **Key Results**: Penaksiran 95% Confidence Interval untuk setiap proyeksi skenario kebijakan; margin ketidakpastian dicatat secara jujur.
 
 ### Notebook 13: `13_model_review_and_failure_analysis.ipynb`
-- **Objective**: Review kritis seluruh model, pengelolaan Failure Register, dan penegakan hierarki klaim ilmiah L0-L3.
-- **Key Results**: Pendokumentasian 3 kegagalan eksplisit (`FAIL-HYP-H3`, `FAIL-MOD-RIDGE`, `LIMIT-CAUSAL`) dan rekomendasi operasional mitigasi risiko.
+- **Objective**: Review kritis seluruh model, pengelolaan Failure Register, dan penegakan batasan operasional (operational boundaries).
+- **Key Results**: Pendokumentasian kegagalan eksplisit (`FAIL-HYP-H3`, `FAIL-MOD-REPEAT`, `LIMIT-CAUSAL`), kuantifikasi penyensoran post-delivery (962 repeaters sebelum delivery dieksklusi, 2,275 right-censored dieksklusi; 847 positif post-delivery), dan rekomendasi operasional mitigasi risiko.
 
 ### Notebook 14: `14_final_research_report.ipynb`
-- **Objective**: Sintesis komprehensif temuan riset, dokumentasi arsitektur, dan laporan pertanggungjawaban kompetensi BNSP KKNI Level 7.
+- **Objective**: Sintesis komprehensif temuan riset, dokumentasi arsitektur, dan laporan pertanggungjawaban kompetensi SKKNI KKNI Level 7.
 - **Key Results**: Laporan teknis lengkap siap audit dengan penelusuran 100% terhadap 11 unit SKKNI 299/2020.
 

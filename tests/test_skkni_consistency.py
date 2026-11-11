@@ -117,8 +117,15 @@ def test_evidence_registry_alignment_and_verbatim_text(canonical_skkni, evidence
         assert r["unit_code"] == ref["unit_code"], f"Unit code mismatch in {key}"
         assert r["unit_title"] == ref["unit_title"], f"Unit title mismatch in {key}"
         
-        # Verification status check
-        assert r["evidence_status"] in ("VERIFIED", "PARTIALLY_VERIFIED"), f"Invalid status: {r['evidence_status']} for {key}"
+        # Verification status check (Finding F-06: 4 Granular Evidence Levels)
+        valid_statuses = {
+            "IMPLEMENTED_AND_TESTED",
+            "ARTIFACT_EXISTS",
+            "CANDIDATE_DEMONSTRATION_REQUIRED",
+            "EXTERNAL_APPROVAL_UNAVAILABLE",
+        }
+        assert r["evidence_status"] in valid_statuses, f"Invalid status: {r['evidence_status']} for {key}"
+        assert r.get("evidence_level") in valid_statuses, f"Invalid level: {r.get('evidence_level')} for {key}"
         assert r["csip_activity"], f"Missing activity description in {key}"
         assert r["csip_evidence"], f"Missing evidence file in {key}"
         assert r["verification_method"], f"Missing verification method in {key}"
@@ -152,32 +159,34 @@ def test_evidence_files_physical_existence_on_disk(evidence_registry_data):
 
 
 def test_honest_verification_status_and_gaps(evidence_registry_data):
-    """Verify honest status labeling: simulated stakeholder signoffs are marked PARTIALLY_VERIFIED."""
+    """Verify honest status labeling: simulated stakeholder signoffs are marked EXTERNAL_APPROVAL_UNAVAILABLE."""
     records = evidence_registry_data.get("records", [])
     status_map = {r["kuk_id"]: r["evidence_status"] for r in records}
     
-    # KUK 2.2, 3.3, 4.3 of UK-01 rely on simulated client approval in an open-source setting
-    assert status_map["UK-01-KUK-2.2"] == "PARTIALLY_VERIFIED", "UK-01-KUK-2.2 must be PARTIALLY_VERIFIED (simulated stakeholder signoff)"
-    assert status_map["UK-01-KUK-3.3"] == "PARTIALLY_VERIFIED", "UK-01-KUK-3.3 must be PARTIALLY_VERIFIED (simulated risk acceptance)"
-    assert status_map["UK-01-KUK-4.3"] == "PARTIALLY_VERIFIED", "UK-01-KUK-4.3 must be PARTIALLY_VERIFIED (simulated cost-benefit approval)"
+    # Finding F-06: KUK 2.2, 3.3, 4.3 of UK-01 rely on simulated client approval in an open-source setting
+    assert status_map["UK-01-KUK-2.2"] == "EXTERNAL_APPROVAL_UNAVAILABLE", "UK-01-KUK-2.2 must be EXTERNAL_APPROVAL_UNAVAILABLE (simulated stakeholder signoff)"
+    assert status_map["UK-01-KUK-3.3"] == "EXTERNAL_APPROVAL_UNAVAILABLE", "UK-01-KUK-3.3 must be EXTERNAL_APPROVAL_UNAVAILABLE (simulated risk acceptance)"
+    assert status_map["UK-01-KUK-4.3"] == "EXTERNAL_APPROVAL_UNAVAILABLE", "UK-01-KUK-4.3 must be EXTERNAL_APPROVAL_UNAVAILABLE (simulated cost-benefit approval)"
     
-    # 60 out of 63 are VERIFIED with empirical artifacts
-    verified_count = sum(1 for r in records if r["evidence_status"] == "VERIFIED")
-    partial_count = sum(1 for r in records if r["evidence_status"] == "PARTIALLY_VERIFIED")
-    assert verified_count == 60, f"Expected 60 VERIFIED records, got {verified_count}"
-    assert partial_count == 3, f"Expected 3 PARTIALLY_VERIFIED records, got {partial_count}"
+    # Granular 4-tier distribution across 63 official KUKs
+    tested_count = sum(1 for r in records if r["evidence_status"] == "IMPLEMENTED_AND_TESTED")
+    artifact_count = sum(1 for r in records if r["evidence_status"] == "ARTIFACT_EXISTS")
+    demo_count = sum(1 for r in records if r["evidence_status"] == "CANDIDATE_DEMONSTRATION_REQUIRED")
+    unavail_count = sum(1 for r in records if r["evidence_status"] == "EXTERNAL_APPROVAL_UNAVAILABLE")
+
+    assert tested_count == 35, f"Expected 35 IMPLEMENTED_AND_TESTED records, got {tested_count}"
+    assert artifact_count == 12, f"Expected 12 ARTIFACT_EXISTS records, got {artifact_count}"
+    assert demo_count == 13, f"Expected 13 CANDIDATE_DEMONSTRATION_REQUIRED records, got {demo_count}"
+    assert unavail_count == 3, f"Expected 3 EXTERNAL_APPROVAL_UNAVAILABLE records, got {unavail_count}"
+    assert tested_count + artifact_count + demo_count + unavail_count == 63
 
 
-def test_dual_import_compatibility():
-    """Verify that importing csip and src.csip work identically and without error."""
+def test_single_import_path():
+    """Verify that importing csip works canonically via the installed package."""
     import csip
-    import src.csip
     assert csip is not None
-    assert src.csip is not None
     assert hasattr(csip, "SKKNI_UNITS")
-    assert hasattr(src.csip, "SKKNI_UNITS")
     assert len(csip.SKKNI_UNITS) == 11
-    assert len(src.csip.SKKNI_UNITS) == 11
 
 
 def test_report_metrics_and_claims_consistency():
@@ -194,7 +203,7 @@ def test_report_metrics_and_claims_consistency():
         ROOT_DIR / "reports" / "evidence" / "evidence_traceability_matrix.md",
         ROOT_DIR / "reports" / "evidence" / "evidence_gap_analysis.md",
         ROOT_DIR / "reports" / "competency" / "canonical_mapping_validation.md",
-        ROOT_DIR / "reports" / "bnsp_assessment_readiness_report.md",
+        ROOT_DIR / "reports" / "competency" / "architecture_readiness_report.md",
         ROOT_DIR / "reports" / "testing" / "coverage_report.md",
         ROOT_DIR / "reports" / "testing" / "test_execution_report.md",
         ROOT_DIR / "reports" / "test_execution_report.md",
@@ -206,7 +215,7 @@ def test_report_metrics_and_claims_consistency():
         
         # Check that no report makes premature competency recommendations
         assert "rekomendasi: kompeten" not in text.lower(), f"{rpt.name} still contains 'Rekomendasi: KOMPETEN'"
-        assert "status: 100% ready for bnsp assessment defense (rekomendasi: kompeten" not in text.lower()
+        assert "status: 100% ready for assessment defense (rekomendasi: kompeten" not in text.lower()
         
         # Check that report has no hardcoded local user absolute paths
         assert "c:/users/" not in text.lower(), f"{rpt.name} contains hardcoded local path 'c:/users/'"

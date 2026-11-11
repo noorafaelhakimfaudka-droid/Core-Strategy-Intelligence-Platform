@@ -15,14 +15,25 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
-import torch
-import torch.nn as nn
-from torch.utils.data import DataLoader, TensorDataset
+
+try:
+    import torch
+    import torch.nn as nn
+    from torch.utils.data import DataLoader, TensorDataset
+    HAS_TORCH = True
+    _BaseModule = nn.Module
+except ImportError:
+    torch = None
+    nn = None
+    DataLoader = None
+    TensorDataset = None
+    HAS_TORCH = False
+    _BaseModule = object
 
 logger = logging.getLogger(__name__)
 
 
-class TabularEmbeddingMLP(nn.Module):
+class TabularEmbeddingMLP(_BaseModule):
     """PyTorch MLP with Categorical Entity Embedding layers for tabular e-commerce data."""
 
     def __init__(
@@ -32,6 +43,8 @@ class TabularEmbeddingMLP(nn.Module):
         hidden_dims: List[int] = [128, 64],
         dropout_rate: float = 0.2,
     ) -> None:
+        if not HAS_TORCH:
+            raise ImportError("PyTorch is required for TabularEmbeddingMLP. Install torch to use deep learning models.")
         super().__init__()
         self.embeddings = nn.ModuleList([
             nn.Embedding(num_classes, emb_dim)
@@ -93,6 +106,8 @@ class TabularMLPClassifier:
         epochs: int = 10,
         random_state: int = 42,
     ) -> None:
+        if not HAS_TORCH:
+            raise ImportError("PyTorch is required for TabularMLPClassifier. Install torch to use deep learning models.")
         self.embedding_sizes = embedding_sizes
         self.num_continuous_features = num_continuous_features
         self.hidden_dims = hidden_dims

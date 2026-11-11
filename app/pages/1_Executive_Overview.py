@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import pandas as pd
 
-from ui_components import (
+from app.ui_components import (
     PALETTE,
     apply_editorial_theme,
     editorial_plotly_theme,
@@ -21,8 +21,16 @@ render_hero(
         "Sebuah telaah mendalam tentang apa yang sebenarnya terjadi saat seseorang menekan tombol 'Beli', "
         "menunggu paket di rumah, dan memutuskan apakah mereka akan kembali lagi ke toko kita atau pergi selamanya."
     ),
-    tag="Bab 1: Kisah Utama",
+    tag="SKKNI Subbidang Data Science: J.62DMI00.001.1 & J.62DMI00.002.1 (Business & Technical Objectives)",
 )
+
+st.markdown("""
+<div style="background: rgba(245, 176, 65, 0.12); border-left: 4px solid #F5B041; padding: 0.5rem 1rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.86rem; color: #F4F1EA;">
+    <b>FASE I BISNIS & TEKNIS:</b> Memenuhi <code>J.62DMI00.001.1</code> (Menentukan Objektif Bisnis) & <code>J.62DMI00.002.1</code> (Menentukan Tujuan Teknis Data Science) 
+    melalui penetapan kriteria keberhasilan bisnis (ROI, retensi) dan formulasi metrik teknis (PR-AUC, MAE, Silhouette).
+</div>
+""", unsafe_allow_html=True)
+
 
 st.markdown("""
 <div class="editorial-serif" style="font-size: 1.5rem; font-weight: 600; color: #1C1917; margin-bottom: 0.5rem;">

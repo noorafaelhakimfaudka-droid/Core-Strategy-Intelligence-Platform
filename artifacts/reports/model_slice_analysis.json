@@ -1,0 +1,110 @@
+{
+  "evaluation_partition": "Holdout Test (Orders >= 2018-03-01)",
+  "total_holdout_orders": 39153,
+  "negative_review_model": {
+    "overall": {
+      "sample_size": 38942,
+      "roc_auc": 0.7517,
+      "brier_score": 0.1491
+    },
+    "geographic_slices": {
+      "SP": {
+        "sample_size": 17649,
+        "positive_prevalence": 0.1024,
+        "roc_auc": 0.7013,
+        "brier_score": 0.1424
+      },
+      "RJ": {
+        "sample_size": 4570,
+        "positive_prevalence": 0.1689,
+        "roc_auc": 0.8031,
+        "brier_score": 0.161
+      },
+      "MG": {
+        "sample_size": 4416,
+        "positive_prevalence": 0.1268,
+        "roc_auc": 0.74,
+        "brier_score": 0.1433
+      },
+      "RS": {
+        "sample_size": 2002,
+        "positive_prevalence": 0.1164,
+        "roc_auc": 0.7749,
+        "brier_score": 0.155
+      },
+      "PR": {
+        "sample_size": 1997,
+        "positive_prevalence": 0.1072,
+        "roc_auc": 0.6977,
+        "brier_score": 0.1492
+      }
+    },
+    "order_value_slices": {
+      "Low (<BRL 60)": {
+        "sample_size": 12987,
+        "positive_prevalence": 0.1028,
+        "roc_auc": 0.7234,
+        "brier_score": 0.1269
+      },
+      "Medium (BRL 60-150)": {
+        "sample_size": 12977,
+        "positive_prevalence": 0.1172,
+        "roc_auc": 0.7408,
+        "brier_score": 0.1472
+      },
+      "High (>BRL 150)": {
+        "sample_size": 12978,
+        "positive_prevalence": 0.1493,
+        "roc_auc": 0.77,
+        "brier_score": 0.1734
+      }
+    },
+    "delivery_slices": {
+      "On-Time Delivery": {
+        "sample_size": 35578,
+        "positive_prevalence": 0.0884,
+        "roc_auc": 0.6522,
+        "brier_score": 0.1407
+      },
+      "Delayed Delivery": {
+        "sample_size": 3364,
+        "positive_prevalence": 0.4896,
+        "roc_auc": 0.8383,
+        "brier_score": 0.2383
+      }
+    }
+  },
+  "delivery_delay_model": {
+    "overall": {
+      "sample_size": 39153,
+      "mae_days": 5.6011
+    },
+    "geographic_slices": {
+      "SP": {
+        "sample_size": 17722,
+        "mae_days": 4.2532,
+        "mean_bias": 1.635
+      },
+      "RJ": {
+        "sample_size": 4613,
+        "mae_days": 7.724,
+        "mean_bias": 1.3338
+      },
+      "MG": {
+        "sample_size": 4443,
+        "mae_days": 5.9479,
+        "mean_bias": 2.7313
+      },
+      "RS": {
+        "sample_size": 2007,
+        "mae_days": 6.3755,
+        "mean_bias": 2.4751
+      },
+      "PR": {
+        "sample_size": 2005,
+        "mae_days": 5.5806,
+        "mean_bias": 2.9466
+      }
+    }
+  }
+}

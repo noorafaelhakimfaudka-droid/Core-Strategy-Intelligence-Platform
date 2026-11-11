@@ -1,0 +1,47 @@
+name: CSIP V17 CI Pipeline
+
+on:
+  push:
+    branches: [ "v17-excellence", "main" ]
+  pull_request:
+    branches: [ "v17-excellence", "main" ]
+
+jobs:
+  test:
+    name: Test & Release Gate Verification
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev,ml_advanced]
+
+      - name: Run Secret Scan
+        run: |
+          python tools/scan_secrets.py
+
+      - name: Check Claims & Anti-Overclaim Integrity
+        run: |
+          python tools/check_claims.py
+
+      - name: Run Test Suite
+        run: |
+          python -m pytest -v --tb=short
+
+      - name: Verify Release Gates
+        run: |
+          python tools/verify_release.py
+

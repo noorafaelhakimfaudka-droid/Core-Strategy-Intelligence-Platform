@@ -23,7 +23,7 @@
     "limitations": [
       "Secondary observational data without direct price elasticity experiment"
     ],
-    "updated_at": "2026-11-11T14:51:29.443879"
+    "updated_at": "2026-11-11T21:36:02.992376"
   },
   "H2": {
     "hypothesis_id": "H2",
@@ -49,7 +49,7 @@
     "limitations": [
       "Estimated delivery date is promised SLA by marketplace, not buyer private expectation"
     ],
-    "updated_at": "2026-11-11T14:51:29.485576"
+    "updated_at": "2026-11-11T21:36:03.050745"
   },
   "H3": {
     "hypothesis_id": "H3",
@@ -75,7 +75,7 @@
     "limitations": [
       "Right-censoring mitigation fixed at 90 days; long-tail repeat buyers after 180 days excluded"
     ],
-    "updated_at": "2026-11-11T14:51:29.564366"
+    "updated_at": "2026-11-11T21:36:03.151260"
   },
   "H4": {
     "hypothesis_id": "H4",
@@ -101,7 +101,7 @@
     "limitations": [
       "Clusters are data-driven approximations rather than immutable demographic attributes"
     ],
-    "updated_at": "2026-11-11T14:51:29.828749"
+    "updated_at": "2026-11-11T21:36:03.465443"
   },
   "H5": {
     "hypothesis_id": "H5",
@@ -127,7 +127,7 @@
     "limitations": [
       "Logistic regression linear baseline; deeper non-linear lift evaluated in E3/E7"
     ],
-    "updated_at": "2026-11-11T14:51:30.095248"
+    "updated_at": "2026-11-11T21:36:03.635123"
   },
   "H6": {
     "hypothesis_id": "H6",
@@ -153,6 +153,6 @@
     "limitations": [
       "Unobserved confounders like household income or marketing email exposure remain unmeasured"
     ],
-    "updated_at": "2026-11-11T14:51:30.531962"
+    "updated_at": "2026-11-11T21:36:04.225796"
   }
 }

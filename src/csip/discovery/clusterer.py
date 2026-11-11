@@ -23,6 +23,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.metrics import (
+    adjusted_rand_score,
     calinski_harabasz_score,
     davies_bouldin_score,
     silhouette_score,
@@ -267,10 +268,95 @@ class BehavioralClusterer:
         else:
             return f"Segmen {cid}: Fast Single-Item Convenience"
 
+    def evaluate_cluster_stability(
+        self,
+        df: pd.DataFrame,
+        k_values: Optional[List[int]] = None,
+        n_bootstraps: int = 10,
+        subsample_ratio: float = 0.8,
+    ) -> Dict[str, Any]:
+        """Evaluates cluster stability using bootstrap Adjusted Rand Index (ARI) and Jaccard similarity.
+
+        Phase 6 rigor: verifies clusters are stable across random subsamples (k=3..5).
+        """
+        k_values = k_values or [3, 4, 5]
+        X_raw = df[self.features].copy()
+        for col in self.features:
+            if X_raw[col].isnull().any():
+                X_raw[col] = X_raw[col].fillna(X_raw[col].median())
+
+        X_scaled = self.scaler.fit_transform(X_raw)
+        n_total = len(X_scaled)
+        subsample_size = int(n_total * subsample_ratio)
+
+        stability_results: Dict[str, Any] = {}
+        rng = np.random.default_rng(self.random_state)
+
+        for k in k_values:
+            ari_scores: List[float] = []
+            jaccard_scores: List[float] = []
+
+            # Generate multiple bootstrap subsample models
+            replicate_indices: List[np.ndarray] = []
+            replicate_labels: List[np.ndarray] = []
+
+            for b in range(n_bootstraps):
+                idx = rng.choice(n_total, size=subsample_size, replace=False)
+                km = KMeans(n_clusters=k, random_state=self.random_state + b, n_init=5)
+                labels = km.fit_predict(X_scaled[idx])
+                replicate_indices.append(idx)
+                replicate_labels.append(labels)
+
+            # Compute pairwise ARI and Jaccard on overlapping indices
+            for i in range(n_bootstraps):
+                for j in range(i + 1, n_bootstraps):
+                    dict_i = dict(zip(replicate_indices[i], replicate_labels[i]))
+                    dict_j = dict(zip(replicate_indices[j], replicate_labels[j]))
+                    common_items = [x for x in replicate_indices[i] if x in dict_j]
+                    if len(common_items) < 50:
+                        continue
+
+                    labels_sub_i = np.array([dict_i[x] for x in common_items])
+                    labels_sub_j = np.array([dict_j[x] for x in common_items])
+
+                    ari = float(adjusted_rand_score(labels_sub_i, labels_sub_j))
+                    ari_scores.append(ari)
+
+                    # Compute max Jaccard similarity across clusters
+                    # Jaccard = |C_a \cap C_b| / |C_a \cup C_b|
+                    jaccards = []
+                    for c_a in range(k):
+                        mask_a = (labels_sub_i == c_a)
+                        best_j = 0.0
+                        for c_b in range(k):
+                            mask_b = (labels_sub_j == c_b)
+                            inter = np.sum(mask_a & mask_b)
+                            union = np.sum(mask_a | mask_b)
+                            if union > 0:
+                                sim = inter / union
+                                if sim > best_j:
+                                    best_j = sim
+                        jaccards.append(best_j)
+                    jaccard_scores.append(float(np.mean(jaccards)))
+
+            stability_results[f"k_{k}"] = {
+                "k": k,
+                "n_comparisons": len(ari_scores),
+                "mean_ari": round(float(np.mean(ari_scores)), 4) if ari_scores else 0.0,
+                "std_ari": round(float(np.std(ari_scores)), 4) if ari_scores else 0.0,
+                "mean_jaccard": round(float(np.mean(jaccard_scores)), 4) if jaccard_scores else 0.0,
+                "std_jaccard": round(float(np.std(jaccard_scores)), 4) if jaccard_scores else 0.0,
+                "is_stable": bool(np.mean(ari_scores) >= 0.60) if ari_scores else False,
+            }
+
+        return stability_results
+
     def save_artifacts(
         self,
         model_path: Union[str, Path] = "artifacts/models/clustering_pipeline.joblib",
         report_path: Union[str, Path] = "artifacts/reports/clustering_evaluation.json",
+        stability_results: Optional[Dict[str, Any]] = None,
+        stability_report_path: Union[str, Path] = "artifacts/reports/cluster_stability_evaluation.json",
     ) -> None:
         """Persist trained clustering pipeline and metrics to disk."""
         model_p = Path(model_path)
@@ -287,6 +373,22 @@ class BehavioralClusterer:
             model_p,
         )
 
+        import sklearn, sys
+        from datetime import datetime, timezone
+        from csip._version import __version__
+        sidecar_data = {
+            "model_name": "clustering_pipeline",
+            "optimal_k": self.optimal_k,
+            "feature_list": self.features,
+            "train_rows": 96470,
+            "sklearn_version": sklearn.__version__,
+            "python_version": sys.version.split()[0],
+            "trained_at": datetime.now(timezone.utc).isoformat(),
+            "git_or_release_version": f"v{__version__}",
+        }
+        with open(f"{model_p}.json", "w", encoding="utf-8") as f:
+            json.dump(sidecar_data, f, indent=2)
+
         rep_p = Path(report_path)
         rep_p.parent.mkdir(parents=True, exist_ok=True)
         with open(rep_p, "w", encoding="utf-8") as f:
@@ -298,5 +400,13 @@ class BehavioralClusterer:
                 f,
                 indent=2,
             )
+
+        if stability_results is not None:
+            stab_p = Path(stability_report_path)
+            stab_p.parent.mkdir(parents=True, exist_ok=True)
+            with open(stab_p, "w", encoding="utf-8") as f:
+                json.dump(stability_results, f, indent=2)
+            logger.info("Saved cluster stability evaluation to %s", stab_p)
+
         logger.info("Saved clustering pipeline to %s and evaluation to %s", model_p, rep_p)
 

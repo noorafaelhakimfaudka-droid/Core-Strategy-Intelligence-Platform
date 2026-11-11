@@ -1,0 +1,164 @@
+{
+  "audited_at": "2026-11-11T14:36:06.495422+00:00",
+  "total_notebooks": 14,
+  "total_cells": 111,
+  "total_code_cells": 51,
+  "total_executed_cells": 51,
+  "overall_execution_coverage": 1.0,
+  "notebooks": [
+    {
+      "notebook_name": "01_business_and_data_understanding.ipynb",
+      "path": "notebooks/01_business_and_data_understanding.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "059ba393ba32f0a5edd2bdd0657d385f39f0a65af20b69d9fbf4f4b1f4f7f916",
+      "audit_runtime_sec": 0.003,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "02_data_validation_and_cleaning.ipynb",
+      "path": "notebooks/02_data_validation_and_cleaning.ipynb",
+      "total_cells": 9,
+      "code_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "ce26a4f9b6cdd6fa238e638f83271dbb18b6722f6f9d0ae0da71f789173b3acd",
+      "audit_runtime_sec": 0.002,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "03_exploratory_data_analysis.ipynb",
+      "path": "notebooks/03_exploratory_data_analysis.ipynb",
+      "total_cells": 11,
+      "code_cells": 5,
+      "executed_cells": 5,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "93688cd67ef363d495d9e3ad8ab4cd15983f65a4eb0a51acd729648be65cf006",
+      "audit_runtime_sec": 0.004,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "04_feature_engineering_and_construction.ipynb",
+      "path": "notebooks/04_feature_engineering_and_construction.ipynb",
+      "total_cells": 9,
+      "code_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "817fac82516e2aa8bdf85243c2ae5eb98cc605f759d9482565703eb6a48bd895",
+      "audit_runtime_sec": 0.001,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "05_behavioral_discovery_unsupervised.ipynb",
+      "path": "notebooks/05_behavioral_discovery_unsupervised.ipynb",
+      "total_cells": 9,
+      "code_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "2abbb159f6b3654fffb0638ce46e66e58a98c7e4a6fbb2da7a75f6275f1fc566",
+      "audit_runtime_sec": 0.003,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "06_hypothesis_investigation.ipynb",
+      "path": "notebooks/06_hypothesis_investigation.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "aa2629fdcfb7901b782d12676dbcfa2e5cca3cf873074f91120566acec1ef684",
+      "audit_runtime_sec": 0.003,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "07_supervised_ml_and_competency_lab.ipynb",
+      "path": "notebooks/07_supervised_ml_and_competency_lab.ipynb",
+      "total_cells": 11,
+      "code_cells": 5,
+      "executed_cells": 5,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "db9c9fb93f347d5d57c2dbd23d290190c9e8bc4e5e323c2f30040ed784ff71ae",
+      "audit_runtime_sec": 0.003,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "08_neural_network_and_deep_learning.ipynb",
+      "path": "notebooks/08_neural_network_and_deep_learning.ipynb",
+      "total_cells": 8,
+      "code_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "13ef0b2dbd0454dc227ace0128b9618c25a050d8b3b899b2915bc1f39ce67ef4",
+      "audit_runtime_sec": 0.004,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "09_model_evaluation_and_explainability.ipynb",
+      "path": "notebooks/09_model_evaluation_and_explainability.ipynb",
+      "total_cells": 6,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "123c52157b5cafd6e83b2b7a050b5225b035dedf40729d9eea66b339f9c6c7d1",
+      "audit_runtime_sec": 0.004,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "10_system_and_world_modeling.ipynb",
+      "path": "notebooks/10_system_and_world_modeling.ipynb",
+      "total_cells": 8,
+      "code_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "5441bd23254aef8de808278e0e8d98e1f0bb465edd6eeef9b908266f074608da",
+      "audit_runtime_sec": 0.002,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "11_alternative_world_simulation.ipynb",
+      "path": "notebooks/11_alternative_world_simulation.ipynb",
+      "total_cells": 6,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "4306931ab9a4a4b9f5c77be2cf99fc7856d9ea33c734569e79ef408929ed6677",
+      "audit_runtime_sec": 0.001,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "12_uncertainty_quantification.ipynb",
+      "path": "notebooks/12_uncertainty_quantification.ipynb",
+      "total_cells": 6,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "7748a662f12522981d1e4155493167922a494b4c73a5e24d92f6b1ce5ee07722",
+      "audit_runtime_sec": 0.001,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "13_model_review_and_failure_analysis.ipynb",
+      "path": "notebooks/13_model_review_and_failure_analysis.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "852f54b343376902611a04d2be296b619f1dcee05d409b775d5f8026c8bbc12a",
+      "audit_runtime_sec": 0.002,
+      "status": "VALID_AND_EXECUTED"
+    },
+    {
+      "notebook_name": "14_final_research_report.ipynb",
+      "path": "notebooks/14_final_research_report.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "output_cells_sha256": "9f1e2a489e4ce609dd7c31bd2c9c10591a153616e58e3934923ecc884039f96c",
+      "audit_runtime_sec": 0.002,
+      "status": "VALID_AND_EXECUTED"
+    }
+  ]
+}

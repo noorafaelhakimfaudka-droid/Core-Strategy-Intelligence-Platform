@@ -1,0 +1,298 @@
+{
+  "schema_version": "1.0.0",
+  "platform": "Core Strategy & Intelligence Platform (CSIP)",
+  "generated_at": "2026-11-11T15:53:30.152148+00:00",
+  "pipeline_stages": [
+    "raw_ingestion",
+    "interim_cleaning",
+    "feature_engineering",
+    "model_training",
+    "model_evaluation"
+  ],
+  "nodes": {
+    "raw_datasets": {
+      "olist_customers_dataset.csv": {
+        "file_path": "data\\raw\\olist_customers_dataset.csv",
+        "size_bytes": 9033957,
+        "sha256": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2",
+        "stage": "raw_ingestion"
+      },
+      "olist_geolocation_dataset.csv": {
+        "file_path": "data\\raw\\olist_geolocation_dataset.csv",
+        "size_bytes": 61273883,
+        "sha256": "b514f6fc991b9566aeba02aa5d67e2c3630f034b60a0e05aa0d082a3b66d88d6",
+        "stage": "raw_ingestion"
+      },
+      "olist_order_items_dataset.csv": {
+        "file_path": "data\\raw\\olist_order_items_dataset.csv",
+        "size_bytes": 15438671,
+        "sha256": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+        "stage": "raw_ingestion"
+      },
+      "olist_order_payments_dataset.csv": {
+        "file_path": "data\\raw\\olist_order_payments_dataset.csv",
+        "size_bytes": 5777138,
+        "sha256": "4f713964f2815dbbaa40b9488268c55aac3627bfce5aa96cf58d1f3616de3cc0",
+        "stage": "raw_ingestion"
+      },
+      "olist_order_reviews_dataset.csv": {
+        "file_path": "data\\raw\\olist_order_reviews_dataset.csv",
+        "size_bytes": 14451670,
+        "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+        "stage": "raw_ingestion"
+      },
+      "olist_orders_dataset.csv": {
+        "file_path": "data\\raw\\olist_orders_dataset.csv",
+        "size_bytes": 17654914,
+        "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+        "stage": "raw_ingestion"
+      },
+      "olist_products_dataset.csv": {
+        "file_path": "data\\raw\\olist_products_dataset.csv",
+        "size_bytes": 2379446,
+        "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+        "stage": "raw_ingestion"
+      },
+      "olist_sellers_dataset.csv": {
+        "file_path": "data\\raw\\olist_sellers_dataset.csv",
+        "size_bytes": 174703,
+        "sha256": "1f643d2b950373b85735e7794b20986f528d7a000432e7c6f9bcbb44d0846a0e",
+        "stage": "raw_ingestion"
+      },
+      "product_category_name_translation.csv": {
+        "file_path": "data\\raw\\product_category_name_translation.csv",
+        "size_bytes": 2613,
+        "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+        "stage": "raw_ingestion"
+      }
+    },
+    "interim_datasets": {
+      "clean_customers.parquet": {
+        "file_path": "data\\interim\\clean_customers.parquet",
+        "size_bytes": 6997309,
+        "sha256": "24224c2d0cdd19fb8351a6bbbe48f44c0c873b7ee69306f20b750f362d54b62a",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_customers_dataset.csv"
+        ]
+      },
+      "clean_geolocation_dedup.parquet": {
+        "file_path": "data\\interim\\clean_geolocation_dedup.parquet",
+        "size_bytes": 337728,
+        "sha256": "683d331b421d82ddf92c66de16bae1c364f8257bcc833b379ca28085627e3c96",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_customers_dataset.csv"
+        ]
+      },
+      "clean_order_items.parquet": {
+        "file_path": "data\\interim\\clean_order_items.parquet",
+        "size_bytes": 6188570,
+        "sha256": "26a35b424fd7606084c8cb8111ad968cbbd0db1a92ab9d3b3c75ffb99e23a596",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_orders_dataset.csv"
+        ]
+      },
+      "clean_order_payments.parquet": {
+        "file_path": "data\\interim\\clean_order_payments.parquet",
+        "size_bytes": 3696918,
+        "sha256": "15348c81194da69cf6d9d42c057db4ad7284d5fba38d627d2a395732a0a1b6ba",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_orders_dataset.csv"
+        ]
+      },
+      "clean_order_reviews.parquet": {
+        "file_path": "data\\interim\\clean_order_reviews.parquet",
+        "size_bytes": 8998348,
+        "sha256": "b457dc7484356d65f7a66d61660630091ba526a2fd8d2bab3b1c2d8333de8301",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_orders_dataset.csv"
+        ]
+      },
+      "clean_orders.parquet": {
+        "file_path": "data\\interim\\clean_orders.parquet",
+        "size_bytes": 9937268,
+        "sha256": "2db2e4344c226d05d4934d8f3134365295e1b131c06b87534d3ff759ad389fb9",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_orders_dataset.csv"
+        ]
+      },
+      "clean_products.parquet": {
+        "file_path": "data\\interim\\clean_products.parquet",
+        "size_bytes": 1437880,
+        "sha256": "cf26b90dd6d7081348c4a10a24a9eaa2f88e9ad95bc7676837e5d76d9f833f57",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_customers_dataset.csv"
+        ]
+      },
+      "clean_sellers.parquet": {
+        "file_path": "data\\interim\\clean_sellers.parquet",
+        "size_bytes": 133380,
+        "sha256": "4dd85f6d6f04625cad36d05f500e70e079dfc3e0716477ff512e35f2a4c8bc94",
+        "stage": "interim_cleaning",
+        "derived_from": [
+          "olist_customers_dataset.csv"
+        ]
+      }
+    },
+    "processed_datasets": {
+      "customer_cohort.parquet": {
+        "file_path": "data\\processed\\customer_cohort.parquet",
+        "size_bytes": 9227118,
+        "sha256": "13a761705889bf7f9664953dfb95d9f6927195f2896b636f7ef8bd89d6f56333",
+        "stage": "feature_engineering",
+        "derived_from": [
+          "clean_customers.parquet",
+          "clean_geolocation_dedup.parquet",
+          "clean_order_items.parquet",
+          "clean_order_payments.parquet",
+          "clean_order_reviews.parquet",
+          "clean_orders.parquet",
+          "clean_products.parquet",
+          "clean_sellers.parquet"
+        ]
+      },
+      "order_level.parquet": {
+        "file_path": "data\\processed\\order_level.parquet",
+        "size_bytes": 19325998,
+        "sha256": "d9a8a0ef5ed1bb1677360b70adf85d887da2a388aa644cf5ca40cc54c40b44ff",
+        "stage": "feature_engineering",
+        "derived_from": [
+          "clean_customers.parquet",
+          "clean_geolocation_dedup.parquet",
+          "clean_order_items.parquet",
+          "clean_order_payments.parquet",
+          "clean_order_reviews.parquet",
+          "clean_orders.parquet",
+          "clean_products.parquet",
+          "clean_sellers.parquet"
+        ]
+      },
+      "order_level_clustered.parquet": {
+        "file_path": "data\\processed\\order_level_clustered.parquet",
+        "size_bytes": 21104868,
+        "sha256": "a9be0386fa6119e7ad15c383b9e1c86f1272870547282350f347b4fc15fef0bc",
+        "stage": "feature_engineering",
+        "derived_from": [
+          "clean_customers.parquet",
+          "clean_geolocation_dedup.parquet",
+          "clean_order_items.parquet",
+          "clean_order_payments.parquet",
+          "clean_order_reviews.parquet",
+          "clean_orders.parquet",
+          "clean_products.parquet",
+          "clean_sellers.parquet"
+        ]
+      },
+      "review_corpus.parquet": {
+        "file_path": "data\\processed\\review_corpus.parquet",
+        "size_bytes": 8149649,
+        "sha256": "12f6ab29086be0d8a1dd697b6ba6e975b5357f6b25684d7e3fb5fed96ec64162",
+        "stage": "feature_engineering",
+        "derived_from": [
+          "clean_customers.parquet",
+          "clean_geolocation_dedup.parquet",
+          "clean_order_items.parquet",
+          "clean_order_payments.parquet",
+          "clean_order_reviews.parquet",
+          "clean_orders.parquet",
+          "clean_products.parquet",
+          "clean_sellers.parquet"
+        ]
+      },
+      "weekly_system_state.parquet": {
+        "file_path": "data\\processed\\weekly_system_state.parquet",
+        "size_bytes": 11517,
+        "sha256": "9bccaafd64eaadc5cde930bab1dd5fbb8d31d9c52e71b235f051d60d8f28a1c6",
+        "stage": "feature_engineering",
+        "derived_from": [
+          "clean_customers.parquet",
+          "clean_geolocation_dedup.parquet",
+          "clean_order_items.parquet",
+          "clean_order_payments.parquet",
+          "clean_order_reviews.parquet",
+          "clean_orders.parquet",
+          "clean_products.parquet",
+          "clean_sellers.parquet"
+        ]
+      }
+    },
+    "model_artifacts": {
+      "best_delivery_delay_lightgbm.joblib": {
+        "file_path": "artifacts\\models\\best_delivery_delay_lightgbm.joblib",
+        "size_bytes": 433099,
+        "sha256": "c9f75538bc233411abd80fe3fdef8bd7e038b8a2ae98910c8b35badd601a5e5e",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      },
+      "best_early_warning_review_lightgbm.joblib": {
+        "file_path": "artifacts\\models\\best_early_warning_review_lightgbm.joblib",
+        "size_bytes": 503165,
+        "sha256": "7d6b4e615c1cb1febaa7145d40d6f1ec33cce374528a2cdfe6597ce83e6a324f",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      },
+      "best_negative_review_lightgbm.joblib": {
+        "file_path": "artifacts\\models\\best_negative_review_lightgbm.joblib",
+        "size_bytes": 519837,
+        "sha256": "6e466afa2d2006349d45fe493f740f157ba9ee93bbfd63f6f172143f86927fdf",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      },
+      "best_repeat_purchase_lightgbm.joblib": {
+        "file_path": "artifacts\\models\\best_repeat_purchase_lightgbm.joblib",
+        "size_bytes": 498177,
+        "sha256": "a356c041e3fe584075a8f4568123086cd28a55f68e79e6023e28a60fe03d7110",
+        "stage": "model_artifact",
+        "trained_on": "customer_cohort.parquet"
+      },
+      "best_repeat_purchase_post_delivery_lightgbm.joblib": {
+        "file_path": "artifacts\\models\\best_repeat_purchase_post_delivery_lightgbm.joblib",
+        "size_bytes": 508449,
+        "sha256": "7b5fbc2beb96a4e2b6e70ff4933016c0f9793eb25e36e800f7ed4923839edbab",
+        "stage": "model_artifact",
+        "trained_on": "customer_cohort.parquet"
+      },
+      "clustering_pipeline.joblib": {
+        "file_path": "artifacts\\models\\clustering_pipeline.joblib",
+        "size_bytes": 389500,
+        "sha256": "6817bcee9d32476e620fff0efe46cd3f20e7bdf13c9f806f3a9c781b9d27745f",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      },
+      "tabular_mlp_negative_review.pt": {
+        "file_path": "artifacts\\models\\tabular_mlp_negative_review.pt",
+        "size_bytes": 64290,
+        "sha256": "bace4dbe39fcd6f706f9dbd290821c0e97735c6bfaa7669edcba7496cb9c6d14",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      },
+      "text_bilstm_review_sentiment.pt": {
+        "file_path": "artifacts\\models\\text_bilstm_review_sentiment.pt",
+        "size_bytes": 1028363,
+        "sha256": "7ae5bf8fbbc94533326c5d4ae29f1dd29b682cb11a1ced227b7c52ab608a5df7",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      },
+      "world_model_state_transition.joblib": {
+        "file_path": "artifacts\\models\\world_model_state_transition.joblib",
+        "size_bytes": 1512,
+        "sha256": "77e63503a0ba98c8a0781704181e94d61d01a2f4c1e0ebfcefbab01965ad5185",
+        "stage": "model_artifact",
+        "trained_on": "order_level.parquet"
+      }
+    }
+  },
+  "lineage_integrity": {
+    "raw_count": 9,
+    "interim_count": 8,
+    "processed_count": 5,
+    "models_count": 9,
+    "unbroken_chain": true
+  }
+}

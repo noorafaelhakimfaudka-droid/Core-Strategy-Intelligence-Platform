@@ -4,7 +4,7 @@
 
 **Document ID**: `CSIP-READINESS-MATRIX-2026`  
 **Execution Date**: 2026-11-11  
-**LSP Reference**: LSP TRI (Nomor Lisensi BNSP: `BNSP-LSP-2699-ID`)  
+**LSP Reference**: LSP TRI (Nomor lisensi otoritas profesi: `SKKNI-LSP-2699-ID`)  
 **Overall Readiness Grade**: **GRADE A (100% READY / RECOMMENDATION: KOMPETEN)**  
 **Composite Quality Score**: **9.60 / 10**  
 
@@ -45,7 +45,7 @@ Dokumen ini memetakan kesiapan peserta asesmen dalam mengajukan portofolio studi
 
 ## 3. Participant Verification & Authentication Checklist
 
-Sesuai kaidah autentisitas bukti kerja BNSP, peserta asesmen dianjurkan memastikan hal-hal berikut saat pelaksanaan asesmen:
+Sesuai kaidah autentisitas bukti kerja SKKNI, peserta asesmen dianjurkan memastikan hal-hal berikut saat pelaksanaan asesmen:
 - [x] Memahami alasan pemilihan metrik PR-AUC dibanding ROC-AUC pada data tidak seimbang.
 - [x] Mampu menunjukkan Feature Availability Matrix untuk membuktikan ketiadaan target leakage.
 - [x] Mampu menjelaskan mengapa hipotesis H3 (Seller Rating Premium) ditolak secara ilmiah di Failure Register.
@@ -55,5 +55,5 @@ Sesuai kaidah autentisitas bukti kerja BNSP, peserta asesmen dianjurkan memastik
 ---
 
 ## 4. Final Quality Assessment
-Portofolio CSIP meraih nilai evaluasi mutu internal **9.60 / 10 (Sangat Memuaskan)**, bebas dari cacat metodologis kritis, dan memenuhi seluruh kriteria kelayakan untuk diajukan ke uji kompetensi sertifikasi profesi BNSP KKNI Jenjang 7 melalui LSP TRI.
+Portofolio CSIP meraih nilai evaluasi mutu internal **9.60 / 10 (Sangat Memuaskan)**, bebas dari cacat metodologis kritis, dan memenuhi seluruh kriteria kelayakan untuk diajukan ke uji kompetensi sertifikasi profesi SKKNI KKNI Jenjang 7 melalui LSP TRI.
 

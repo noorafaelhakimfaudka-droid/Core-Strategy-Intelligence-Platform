@@ -1,0 +1,29 @@
+{
+  "k_3": {
+    "k": 3,
+    "n_comparisons": 45,
+    "mean_ari": 0.8511,
+    "std_ari": 0.1969,
+    "mean_jaccard": 0.8767,
+    "std_jaccard": 0.1676,
+    "is_stable": true
+  },
+  "k_4": {
+    "k": 4,
+    "n_comparisons": 45,
+    "mean_ari": 0.9832,
+    "std_ari": 0.0092,
+    "mean_jaccard": 0.9893,
+    "std_jaccard": 0.0056,
+    "is_stable": true
+  },
+  "k_5": {
+    "k": 5,
+    "n_comparisons": 45,
+    "mean_ari": 0.9495,
+    "std_ari": 0.0271,
+    "mean_jaccard": 0.9588,
+    "std_jaccard": 0.022,
+    "is_stable": true
+  }
+}

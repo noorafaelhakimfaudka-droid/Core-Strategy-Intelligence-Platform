@@ -1,4 +1,4 @@
-# CSIP Test Failure Analysis & Root Cause Remediation Report
+# CSIP Test Failure Analysis & Root Cause Hardening Report
 ## Quality Engineering & Continuous Verification Audit
 
 **Document ID**: `CSIP-FAIL-ANALYSIS-2026`  
@@ -52,5 +52,5 @@ Laporan ini mendokumentasikan analisis akar masalah (*Root Cause Analysis / RCA*
 - **Skipped**: 0
 - **Blocked**: 0
 - **Execution Time**: 22.02 detik
-- **Kesimpulan**: Seluruh pipeline dan logika model terbukti kokoh, bebas bug, dan siap diaudit oleh asesor BNSP.
+- **Kesimpulan**: Seluruh pipeline dan logika model terbukti kokoh, bebas bug, dan siap diaudit oleh lead reviewer.
 

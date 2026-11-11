@@ -5,7 +5,7 @@
 - **Skema Sertifikasi**: Sertifikasi Ilmuwan Data (Data Scientist) — LSP TRI (`SKM/2905/LSP-TRI/VII/2025`)
 - **Dasar Hukum**: Keputusan Menteri Ketenagakerjaan RI No. 299 Tahun 2020
 - **Ruang Lingkup**: Tepat 11 Unit Kompetensi, 27 Elemen Kompetensi, 63 Kriteria Unjuk Kerja (KUK)
-- **Status Verifikasi Bukti**: 60 VERIFIED, 3 PARTIALLY_VERIFIED, 0 MISSING
+- **Status Verifikasi Bukti**: 35 VERIFIED, 12 ARTIFACT_ONLY, 13 CANDIDATE_DEMONSTRATION_REQUIRED, 3 EXTERNAL_CONFIRMATION_REQUIRED, 0 MISSING
 - **Tanggal Pembaruan**: 11 November 2026
 
 ---
@@ -14,20 +14,20 @@
 
 Pemetaan ini disusun secara normatif mengacu pada teks resmi SKKNI No. 299 Tahun 2020 tanpa parafrase atau pengubahan standar resmi. Seluruh 11 unit kompetensi yang disyaratkan oleh LSP TRI untuk skema Sertifikasi Ilmuwan Data (Data Scientist) KKNI Level 7 dipetakan secara satu-kesatuan terhadap studi kasus end-to-end e-commerce logistik Olist (~100.000 transaksi).
 
-| Unit ID | Kode Unit | Judul Unit Kompetensi Resmi | Elemen | KUK | Status Bukti |
+| Unit ID | Kode Unit | Judul Unit Kompetensi Resmi | Elemen | KUK | Breakdown Status Kanonikal V15 |
 |:---|:---|:---|:---:|:---:|:---|
-| UK-01 | `J.62DMI00.001.1` | **Menentukan Objektif Bisnis** | 4 | 12 | 9 Verified, 3 Partial |
-| UK-02 | `J.62DMI00.002.1` | **Menentukan Tujuan Teknis Data Science** | 2 | 4 | 4 Verified |
-| UK-03 | `J.62DMI00.005.1` | **Menelaah Data** | 3 | 8 | 8 Verified |
-| UK-04 | `J.62DMI00.006.1` | **Memvalidasi Data** | 2 | 4 | 4 Verified |
-| UK-05 | `J.62DMI00.007.1` | **Menentukan Objek Data** | 2 | 4 | 4 Verified |
-| UK-06 | `J.62DMI00.008.1` | **Membersihkan Data** | 2 | 4 | 4 Verified |
-| UK-07 | `J.62DMI00.009.1` | **Mengkonstruksi Data** | 3 | 6 | 6 Verified |
-| UK-08 | `J.62DMI00.012.1` | **Membangun Skenario Model** | 3 | 7 | 7 Verified |
-| UK-09 | `J.62DMI00.013.1` | **Membangun Model** | 2 | 6 | 6 Verified |
-| UK-10 | `J.62DMI00.014.1` | **Mengevaluasi Hasil Pemodelan** | 2 | 4 | 4 Verified |
-| UK-11 | `J.62DMI00.015.1` | **Melakukan Proses Review Pemodelan** | 2 | 4 | 4 Verified |
-| **TOTAL** | **11 UNIT** | **SKKNI NO. 299 TAHUN 2020** | **27** | **63** | **60 Verified, 3 Partial** |
+| UK-01 | `J.62DMI00.001.1` | **Menentukan Objektif Bisnis** | 4 | 12 | 9 DEMO_REQUIRED, 3 EXTERNAL_CONFIRM |
+| UK-02 | `J.62DMI00.002.1` | **Menentukan Tujuan Teknis Data Science** | 2 | 4 | 2 ARTIFACT_ONLY, 2 DEMO_REQUIRED |
+| UK-03 | `J.62DMI00.005.1` | **Menelaah Data** | 3 | 8 | 2 VERIFIED, 6 ARTIFACT_ONLY |
+| UK-04 | `J.62DMI00.006.1` | **Memvalidasi Data** | 2 | 4 | 3 VERIFIED, 1 ARTIFACT_ONLY |
+| UK-05 | `J.62DMI00.007.1` | **Menentukan Objek Data** | 2 | 4 | 4 VERIFIED |
+| UK-06 | `J.62DMI00.008.1` | **Membersihkan Data** | 2 | 4 | 4 VERIFIED |
+| UK-07 | `J.62DMI00.009.1` | **Mengkonstruksi Data** | 3 | 6 | 6 VERIFIED |
+| UK-08 | `J.62DMI00.012.1` | **Membangun Skenario Model** | 3 | 7 | 7 VERIFIED |
+| UK-09 | `J.62DMI00.013.1` | **Membangun Model** | 2 | 6 | 6 VERIFIED |
+| UK-10 | `J.62DMI00.014.1` | **Mengevaluasi Hasil Pemodelan** | 2 | 4 | 3 VERIFIED, 1 ARTIFACT_ONLY |
+| UK-11 | `J.62DMI00.015.1` | **Melakukan Proses Review Pemodelan** | 2 | 4 | 2 ARTIFACT_ONLY, 2 DEMO_REQUIRED |
+| **TOTAL** | **11 UNIT** | **SKKNI NO. 299 TAHUN 2020** | **27** | **63** | **35 VERIFIED, 12 ARTIFACT, 13 DEMO, 3 EXT** |
 
 ---
 

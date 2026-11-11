@@ -1,0 +1,66 @@
+{
+  "release_name": "CSIP_V15_MASTER_RELEASE",
+  "release_version": "15.0.0",
+  "release_date": "2026-11-11T11:53:30+00:00",
+  "certification_scheme": {
+    "lsp_name": "Lembaga Sertifikasi Profesi Teknologi Rekayasa Informatika (LSP TRI)",
+    "scheme_code": "SKM/2905/LSP-TRI/VII/2025",
+    "scheme_title": "Sertifikasi Ilmuwan Data (Data Scientist)",
+    "standard": "SKKNI Nomor 299 Tahun 2020",
+    "kkni_level": 7,
+    "canonical_units": 11,
+    "canonical_elements": 27,
+    "canonical_kuks": 63
+  },
+  "evidence_summary": {
+    "total_kuks": 63,
+    "verified": 35,
+    "artifact_only": 12,
+    "candidate_demonstration_required": 13,
+    "external_confirmation_required": 3,
+    "partially_verified": 0,
+    "missing": 0
+  },
+  "testing_summary": {
+    "total_tests_passed": 153,
+    "total_tests_failed": 0,
+    "pass_rate_pct": 100.0,
+    "execution_time_seconds": 32.89
+  },
+  "champion_models": {
+    "negative_review_champion": {
+      "artifact": "artifacts/models/best_negative_review_lightgbm.joblib",
+      "test_pr_auc": 0.3061,
+      "test_roc_auc": 0.6745,
+      "uncalibrated_brier": 0.1373,
+      "platt_calibrated_brier": 0.0762,
+      "calibrated_ece": 0.007,
+      "governance_status": "APPROVED_FOR_DEPLOYMENT"
+    },
+    "delivery_delay_champion": {
+      "artifact": "artifacts/models/best_delivery_delay_lightgbm.joblib",
+      "test_mae_days": 4.8256,
+      "test_rmse_days": 6.2458,
+      "test_r2": 0.3926,
+      "governance_status": "APPROVED_FOR_DEPLOYMENT"
+    },
+    "text_bilstm_sentiment": {
+      "artifact": "artifacts/models/text_bilstm_review_sentiment.pt",
+      "test_pr_auc": 0.312,
+      "test_roc_auc": 0.724,
+      "governance_status": "APPROVED_FOR_DEPLOYMENT"
+    },
+    "repeat_purchase_post_delivery": {
+      "artifact": "artifacts/models/best_repeat_purchase_post_delivery_lightgbm.joblib",
+      "test_pr_auc": 0.0245,
+      "test_roc_auc": 0.5284,
+      "governance_status": "QUALIFIED_BENCHMARK"
+    },
+    "repeat_purchase_checkout": {
+      "artifact": "artifacts/models/best_repeat_purchase_lightgbm.joblib",
+      "test_pr_auc": 0.0202,
+      "test_roc_auc": 0.5021,
+      "governance_status": "REJECTED_HONEST_NEGATIVE_FINDING"
+    }
+  }
+}
