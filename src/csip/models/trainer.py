@@ -72,7 +72,6 @@ class ModelExperimentTrainer:
             "seller_buyer_distance_km",
             "estimated_lead_time_days",
             "distance_x_weight",
-            "approval_lag_hours",
             "prior_order_count",
         ],
         "E1_economic_only": [

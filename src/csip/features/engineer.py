@@ -257,8 +257,9 @@ class FeatureEngineer:
             by=["customer_unique_id", "order_purchase_timestamp"]
         ).reset_index(drop=True)
 
-        # Identify Order 1 (first transaction)
-        order_1 = df_sorted.groupby("customer_unique_id").first().reset_index()
+        # Identify Order 1 (first transaction) via deterministic row selection
+        # (avoiding groupby.first() which pulls non-null values across subsequent rows)
+        order_1 = df_sorted.drop_duplicates(subset=["customer_unique_id"], keep="first").copy().reset_index(drop=True)
 
         # Compute transaction counts and repeat status within delta_w_days
         # Order 2 timestamp calculation

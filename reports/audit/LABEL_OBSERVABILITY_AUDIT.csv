@@ -1,0 +1,8 @@
+subpopulation,filter_criteria,order_count,population_pct,observed_reviews,missing_reviews,observability_rate_pct,negative_reviews_count,negative_prevalence_pct,survivor_bias_risk,modeling_usage
+All Raw Ingested Orders,None (all raw records),99441,100.0,98634,807,99.19,14575,14.78,None (Full intake),Intake pipeline baseline
+Delivered Orders (Cleaned),order_status == delivered & valid chrono,96470,97.01,95824,646,99.33,12272,12.81,Moderate: excludes canceled (625) & unavailable (609) orders,Supervised ML modeling population
+Canceled Orders,order_status == canceled,625,0.63,609,16,97.44,531,87.19,Critical: extreme negative rate (87.2%) dropped from training,Excluded from delivered satisfaction model
+Unavailable Orders,order_status == unavailable,609,0.61,597,12,98.03,523,87.6,Critical: stockout failures (87.6% negative) dropped from training,Excluded from delivered satisfaction model
+Shipped / In-Transit Orders,order_status == shipped,1107,1.11,1043,64,94.22,658,63.09,High: late/stuck shipments with active complaints dropped,Excluded from delivered satisfaction model
+Delivered Orders - Observed Reviews,status == delivered & has_observed_review == 1,95824,96.36,95824,0,100.0,12272,12.81,Controlled: 646 unobserved reviews preserved as NaN,Ground truth supervised training set
+Delivered Orders - Missing Reviews,status == delivered & has_observed_review == 0,646,0.65,0,646,0.0,0,0.0,Low prevalence (0.67% of delivered). Kept as NaN (no imputation).,Preserved in dataset; masked during supervised loss computation

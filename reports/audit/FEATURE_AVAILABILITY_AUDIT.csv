@@ -1,0 +1,30 @@
+feature_name,source_table,availability_event,prediction_timestamp,temporal_status,leakage_risk_at_checkout,audit_decision,rationale
+order_id,orders,Order Placement,t0 (Checkout),METADATA_IDENTIFIER,None,METADATA_ONLY,Primary key for relational joining. Never used as input feature.
+customer_id,orders,Order Placement,t0 (Checkout),METADATA_IDENTIFIER,None,METADATA_ONLY,Foreign key linking order to customer. Excluded from feature vector.
+customer_unique_id,customers,Order Placement,t0 (Checkout),METADATA_IDENTIFIER,None,METADATA_ONLY,Entity identifier for customer grouping and chronological sorting.
+order_purchase_timestamp,orders,Order Placement,t0 (Checkout),METADATA_TIMESTAMP,None,SPLIT_BOUNDARY_ONLY,Defines the exact checkout timestamp t0. Used for temporal train/val/test splitting.
+total_item_price,order_items,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Sum of item basket price established and agreed upon at checkout.
+total_freight,order_items,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Shipping freight quoted and charged at transaction checkout.
+total_order_value,order_items,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Total basket expenditure (price + freight) known at checkout.
+freight_ratio,order_items,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Relative shipping burden computed purely from checkout price and freight.
+item_count,order_items,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Count of distinct items purchased in the checkout session.
+payment_installments_max,order_payments,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Financing installment plan selected by customer during checkout payment.
+seller_buyer_distance_km,geolocation,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Spatial Haversine distance between known seller and buyer zip centroids.
+estimated_lead_time_days,orders,Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Promised SLA delivery duration displayed to customer at checkout.
+distance_x_weight,"products, geolocation",Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Interaction between spatial distance and catalog product weight. Available at checkout.
+prior_order_count,orders (historical),Order Placement,t0 (Checkout),ALLOWED_AT_CHECKOUT,None,PERMITTED_IN_E1,Cumulative completed order count prior to t0. Point-in-time historical feature.
+order_approved_at,orders,Payment Processing,t0 + Delta (Post-Checkout),RESTRICTED_POST_CHECKOUT,High,EXCLUDED_FROM_E1,Payment authorization occurs asynchronously after purchase (mean 10.2h lag).
+approval_lag_hours,orders,Payment Processing,t0 + Delta (Post-Checkout),RESTRICTED_POST_CHECKOUT,High,EXCLUDED_FROM_E1,REMEDIATED IN V7: Removed from E1 checkout early warning. Permitted only in E2 post-delivery diagnostic.
+order_delivered_carrier_date,orders,Carrier Dispatch,t0 + Delta (Post-Checkout),RESTRICTED_POST_CHECKOUT,Critical,EXCLUDED_FROM_E1,Fulfillment carrier pickup occurs days after order checkout.
+order_delivered_customer_date,orders,Fulfillment Delivery,t1 (Delivery),RESTRICTED_POST_CHECKOUT,Critical,EXCLUDED_FROM_E1,Actual delivery completion. Completely unobserved at checkout.
+delivery_lead_time_days,orders,Fulfillment Delivery,t1 (Delivery),ALLOWED_POST_DELIVERY,Critical,PERMITTED_IN_E2_DIAGNOSTIC,Actual elapsed delivery days. Prohibited at checkout; permitted for post-delivery diagnostics.
+delivery_delay_days,orders,Fulfillment Delivery,t1 (Delivery),ALLOWED_POST_DELIVERY,Critical,PERMITTED_IN_E2_DIAGNOSTIC,Actual delivery minus promised SLA. Realized only after delivery.
+is_late,orders,Fulfillment Delivery,t1 (Delivery),ALLOWED_POST_DELIVERY,Critical,PERMITTED_IN_E2_DIAGNOSTIC,Binary indicator of delivery delay. Realized only after delivery.
+delay_x_freight_ratio,"orders, items",Fulfillment Delivery,t1 (Delivery),ALLOWED_POST_DELIVERY,Critical,PERMITTED_IN_E2_DIAGNOSTIC,Compound delay and freight friction. Requires realized delivery delay.
+high_value_late_flag,"orders, items",Fulfillment Delivery,t1 (Delivery),ALLOWED_POST_DELIVERY,Critical,PERMITTED_IN_E2_DIAGNOSTIC,Compound high ticket late arrival. Requires realized delivery delay.
+review_score,order_reviews,Review Submission,t2 (Post-Delivery Feedback),TARGET_VARIABLE,Fatal Leakage,RETAINED_AS_TARGET,Ground truth target origin (1-5 scale). Must never enter feature vector.
+negative_review_flag,order_reviews,Review Submission,t2 (Post-Delivery Feedback),TARGET_VARIABLE,Fatal Leakage,RETAINED_AS_TARGET,"Binarized target label (1: score in {1,2}, 0: score in {4,5}, NaN: missing/neutral)."
+review_comment_message,order_reviews,Review Submission,t2 (Post-Delivery Feedback),RESTRICTED_POST_CHECKOUT,Fatal Leakage,EXCLUDED_FROM_E1,Review text submitted post-delivery. Used only in NLP sentiment submodule.
+has_review_comment,order_reviews,Review Submission,t2 (Post-Delivery Feedback),RESTRICTED_POST_CHECKOUT,Fatal Leakage,EXCLUDED_FROM_E1,Binary indicator of text submission. Strictly post-outcome.
+lifetime_order_count,orders (future aggregate),Dataset Cutoff,t_future,PROHIBITED_FUTURE_AGGREGATE,Fatal Leakage,EXCLUDED_FROM_ALL,Leaks customer repeat transaction behavior into first-order cohort. Strictly forbidden.
+lifetime_total_spend,orders (future aggregate),Dataset Cutoff,t_future,PROHIBITED_FUTURE_AGGREGATE,Fatal Leakage,EXCLUDED_FROM_ALL,Leaks future cumulative customer spending into first-order cohort. Strictly forbidden.

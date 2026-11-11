@@ -26,6 +26,8 @@ def test_checkout_stage_restricted_features():
     )
 
     # Required restricted features
+    assert "approval_lag_hours" in restricted_cols
+    assert "order_approved_at" in restricted_cols
     assert "order_delivered_customer_date" in restricted_cols
     assert "delivery_delay_days" in restricted_cols
     assert "review_score" in restricted_cols
@@ -37,6 +39,7 @@ def test_checkout_stage_restricted_features():
     # Verify zero intersection with post-delivery restricted features
     leakage_cols = set(actual_early_warning_features).intersection(restricted_cols)
     assert len(leakage_cols) == 0, f"REAL Early-Warning feature set has data leakage: {leakage_cols}"
+    assert "approval_lag_hours" not in actual_early_warning_features
 
 
 def test_target_label_integrity_and_zero_contamination():
@@ -175,5 +178,196 @@ def test_processed_order_level_engineered_features():
     assert (order_df["total_order_value"] > 0).all()
     assert (order_df["freight_ratio"] >= 0).all()
     assert (order_df["seller_buyer_distance_km"] >= 0).all()
+
+
+def test_first_order_cohort_null_bleeding_regression(tmp_path):
+    """Verify that build_customer_cohort does NOT bleed non-null values from Order 2 into Order 1 (P0-3 bug)."""
+    import numpy as np
+    import pandas as pd
+    from csip.features.engineer import FeatureEngineer
+
+    # Create synthetic dataset with a customer having 2 orders plus an anchor order to satisfy 90d censoring buffer:
+    # Order 1 has review_score = NaN (unobserved)
+    # Order 2 has review_score = 5.0 (at Day 31)
+    # Anchor order at Day 150 ensures dataset span > 90 days so Order 1 is not right-censored
+    synth_data = pd.DataFrame([
+        {
+            "customer_unique_id": "cust_bleed_test",
+            "order_id": "order_1_first",
+            "order_purchase_timestamp": pd.Timestamp("2017-01-01 10:00:00"),
+            "total_item_price": 50.0,
+            "total_freight": 15.0,
+            "total_order_value": 65.0,
+            "freight_ratio": 0.30,
+            "item_count": 1,
+            "product_category": "telefonia",
+            "payment_installments_max": 1,
+            "payment_type_primary": "credit_card",
+            "customer_state": "SP",
+            "seller_buyer_distance_km": 25.0,
+            "delivery_lead_time_days": 5.0,
+            "estimated_lead_time_days": 10.0,
+            "delivery_delay_days": -5.0,
+            "is_late": 0,
+            "review_score": np.nan,  # Order 1 had missing review
+            "has_review_comment": 0,
+            "delay_x_freight_ratio": 0.0,
+            "high_value_late_flag": 0,
+        },
+        {
+            "customer_unique_id": "cust_bleed_test",
+            "order_id": "order_2_second",
+            "order_purchase_timestamp": pd.Timestamp("2017-02-01 10:00:00"),
+            "total_item_price": 200.0,
+            "total_freight": 40.0,
+            "total_order_value": 240.0,
+            "freight_ratio": 0.20,
+            "item_count": 2,
+            "product_category": "beleza_saude",
+            "payment_installments_max": 3,
+            "payment_type_primary": "credit_card",
+            "customer_state": "SP",
+            "seller_buyer_distance_km": 150.0,
+            "delivery_lead_time_days": 12.0,
+            "estimated_lead_time_days": 15.0,
+            "delivery_delay_days": -3.0,
+            "is_late": 0,
+            "review_score": 5.0,  # Order 2 had 5-star review
+            "has_review_comment": 1,
+            "delay_x_freight_ratio": 0.0,
+            "high_value_late_flag": 0,
+        },
+        {
+            "customer_unique_id": "anchor_cust",
+            "order_id": "order_anchor",
+            "order_purchase_timestamp": pd.Timestamp("2017-06-01 10:00:00"),
+            "total_item_price": 100.0,
+            "total_freight": 20.0,
+            "total_order_value": 120.0,
+            "freight_ratio": 0.20,
+            "item_count": 1,
+            "product_category": "telefonia",
+            "payment_installments_max": 1,
+            "payment_type_primary": "credit_card",
+            "customer_state": "SP",
+            "seller_buyer_distance_km": 50.0,
+            "delivery_lead_time_days": 5.0,
+            "estimated_lead_time_days": 10.0,
+            "delivery_delay_days": -5.0,
+            "is_late": 0,
+            "review_score": 4.0,
+            "has_review_comment": 0,
+            "delay_x_freight_ratio": 0.0,
+            "high_value_late_flag": 0,
+        },
+    ])
+
+    fe = FeatureEngineer(processed_dir=tmp_path, delta_w_days=90)
+    cohort = fe.build_customer_cohort(synth_data)
+
+    target_rows = cohort[cohort["customer_unique_id"] == "cust_bleed_test"]
+    assert len(target_rows) == 1
+    row = target_rows.iloc[0]
+    assert row["order_id"] == "order_1_first"
+    assert row["total_item_price"] == 50.0
+    # CRITICAL: review_score of Order 1 MUST remain NaN, NOT bled from Order 2 (5.0)!
+    assert pd.isna(row["review_score"]), "REGRESSION DETECTED: Order 2 review_score bled into Order 1!"
+    assert row["repeat_purchase_flag"] == 1
+    assert row["days_to_repeat"] == 31.0
+
+
+def test_future_perturbation_invariance(tmp_path):
+    """Verify that perturbing future order data leaves first-order cohort features invariant."""
+    import pandas as pd
+    from csip.features.engineer import FeatureEngineer
+
+    def make_orders(order_2_price, order_2_delay):
+        return pd.DataFrame([
+            {
+                "customer_unique_id": "cust_invar_test",
+                "order_id": "order_1",
+                "order_purchase_timestamp": pd.Timestamp("2017-01-01 10:00:00"),
+                "total_item_price": 80.0,
+                "total_freight": 20.0,
+                "total_order_value": 100.0,
+                "freight_ratio": 0.25,
+                "item_count": 1,
+                "product_category": "informatica",
+                "payment_installments_max": 2,
+                "payment_type_primary": "credit_card",
+                "customer_state": "RJ",
+                "seller_buyer_distance_km": 80.0,
+                "delivery_lead_time_days": 6.0,
+                "estimated_lead_time_days": 12.0,
+                "delivery_delay_days": -6.0,
+                "is_late": 0,
+                "review_score": 4.0,
+                "has_review_comment": 0,
+                "delay_x_freight_ratio": 0.0,
+                "high_value_late_flag": 0,
+            },
+            {
+                "customer_unique_id": "cust_invar_test",
+                "order_id": "order_2",
+                "order_purchase_timestamp": pd.Timestamp("2017-02-15 10:00:00"),
+                "total_item_price": order_2_price,
+                "total_freight": 50.0,
+                "total_order_value": order_2_price + 50.0,
+                "freight_ratio": 0.10,
+                "item_count": 5,
+                "product_category": "eletronicos",
+                "payment_installments_max": 10,
+                "payment_type_primary": "boleto",
+                "customer_state": "RJ",
+                "seller_buyer_distance_km": 500.0,
+                "delivery_lead_time_days": 25.0,
+                "estimated_lead_time_days": 10.0,
+                "delivery_delay_days": order_2_delay,
+                "is_late": 1 if order_2_delay > 0 else 0,
+                "review_score": 1.0,
+                "has_review_comment": 1,
+                "delay_x_freight_ratio": 1.5,
+                "high_value_late_flag": 1,
+            },
+            {
+                "customer_unique_id": "anchor_cust",
+                "order_id": "order_anchor",
+                "order_purchase_timestamp": pd.Timestamp("2017-06-01 10:00:00"),
+                "total_item_price": 100.0,
+                "total_freight": 20.0,
+                "total_order_value": 120.0,
+                "freight_ratio": 0.20,
+                "item_count": 1,
+                "product_category": "telefonia",
+                "payment_installments_max": 1,
+                "payment_type_primary": "credit_card",
+                "customer_state": "SP",
+                "seller_buyer_distance_km": 50.0,
+                "delivery_lead_time_days": 5.0,
+                "estimated_lead_time_days": 10.0,
+                "delivery_delay_days": -5.0,
+                "is_late": 0,
+                "review_score": 4.0,
+                "has_review_comment": 0,
+                "delay_x_freight_ratio": 0.0,
+                "high_value_late_flag": 0,
+            },
+        ])
+
+    fe = FeatureEngineer(processed_dir=tmp_path, delta_w_days=90)
+    cohort_normal = fe.build_customer_cohort(make_orders(150.0, -2.0))
+    cohort_perturbed = fe.build_customer_cohort(make_orders(99999.0, 45.0))
+
+    row_norm = cohort_normal[cohort_normal["customer_unique_id"] == "cust_invar_test"].iloc[0]
+    row_pert = cohort_perturbed[cohort_perturbed["customer_unique_id"] == "cust_invar_test"].iloc[0]
+
+    # All Order 1 predictor features must be bitwise identical despite massive future Order 2 changes
+    feature_cols = [
+        "total_item_price", "total_freight", "total_order_value", "freight_ratio",
+        "item_count", "seller_buyer_distance_km", "delivery_lead_time_days", "review_score"
+    ]
+    for col in feature_cols:
+        assert row_norm[col] == row_pert[col], f"Feature {col} leaked future data!"
+
 
 

@@ -121,6 +121,8 @@ feature_groups:
 # Anti-Leakage Governance Rules (System Specification Section 6.3)
 anti_leakage_rules:
   checkout_stage_restricted_features:
+    - "approval_lag_hours"
+    - "order_approved_at"
     - "order_delivered_customer_date"
     - "order_delivered_carrier_date"
     - "delivery_lead_time_days"

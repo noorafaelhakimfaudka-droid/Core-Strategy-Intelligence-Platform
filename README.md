@@ -1,47 +1,30 @@
 # CSIP — Core Strategy & Intelligence Platform
-### *Universal Data Scientist & Decision Simulator*
-**Enterprise Observational Data Science & Decision Intelligence Platform**
+### *Enterprise Observational Data Science & Decision Intelligence Platform*
+#### Skema Sertifikasi: Ilmuwan Data (Data Scientist) — LSP TRI (SKM/2905/LSP-TRI/VII/2025)
+#### Standar Acuan: SKKNI No. 299 Tahun 2020 (11 Unit, 27 Elemen, 63 KUK)
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![PyTest Status](https://img.shields.io/badge/pytest-87%20passed%20%28100%25%29-brightgreen.svg?style=flat&logo=pytest&logoColor=white)](tests/)
-[![Methodology](https://img.shields.io/badge/Methodology-End--to--End%20CRISP--DM-blue.svg?style=flat)]()
+[![PyTest Status](https://img.shields.io/badge/pytest-89%20passed%20%28100%25%29-brightgreen.svg?style=flat&logo=pytest&logoColor=white)](tests/)
+[![Methodology](https://img.shields.io/badge/Methodology-End--to--End%20CRISP--DM-blue.svg?style=flat)](docs/methodology/DATA_METHODOLOGY.md)
 [![Streamlit App](https://img.shields.io/badge/Streamlit%20UI-Interactive%20Studio-FF4B4B.svg?style=flat&logo=streamlit&logoColor=white)](app/streamlit_app.py)
 [![ML Frameworks](https://img.shields.io/badge/ML-LightGBM%20%7C%20PyTorch%20%7C%20Scikit--Learn-orange.svg?style=flat)](artifacts/models/)
 [![SKKNI 299/2020](https://img.shields.io/badge/SKKNI%20299%2F2020-11%20Units%20%7C%2063%20KUK-success.svg?style=flat)](standards/canonical_skkni_299_2020.json)
-[![Hardware Constraints](https://img.shields.io/badge/Hardware-8%20GB%20RAM%20Optimized-success.svg?style=flat)]()
+[![Hardware Constraints](https://img.shields.io/badge/Hardware-8%20GB%20RAM%20Optimized-success.svg?style=flat)](docs/architecture/SYSTEM_ARCHITECTURE.md)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat)](LICENSE)
 
 ---
 
 ## 🌟 Executive Overview
 
-**CSIP (Core Strategy & Intelligence Platform) Version 6.0.0** is a production-grade observational data science and automated decision intelligence platform. It operates in two unified operational modes:
+**CSIP (Core Strategy & Intelligence Platform) Version 7.0.0** is an enterprise-grade observational Data Science and Decision Intelligence platform developed as a comprehensive project-based competency evidence system for the **BNSP Data Scientist Certification (KKNI Level 7)** at **LSP TRI**.
 
-1. **CSIP Studio (Universal Adaptive Decision Simulator)**: A drag-and-drop web studio that accepts **any tabular dataset** (e.g., e-commerce, sports facility reservations, logistics, healthcare, HR). It autonomously profiles semantic roles, trains machine learning models on the fly, computes continuous response curves, identifies mathematical **critical tipping points**, and generates deterministic strategic recommendations from **"Nara"** (Strategic AI Advisor) with **zero hallucination** and **zero hardcoded templates**.
-2. **Deep Behavioral & Macroeconomic Research Hub**: A comprehensive, publication-grade investigation into macroeconomic and behavioral dynamics across **~100,000 real-world customer transactions** in the Brazilian E-Commerce Ecosystem (**Olist**). It validates 6 econometric hypotheses, features a state-space macroeconomic world model, and implements a full baseline ladder from naive heuristics to Tabular MLPs and Bi-LSTM neural networks.
+### Core Platform Capabilities:
+1. **Deep Behavioral & Macroeconomic Hub**: A publication-grade investigation into macroeconomic, logistics friction, and customer sentiment dynamics across **~100,000 real-world transactions** from the Brazilian E-Commerce Ecosystem (**Olist**). Features an econometric hypothesis battery (H1–H6 with Benjamini-Hochberg FDR control), a Vector AutoRegressive (VAR) state-space World Model, and a full machine learning baseline ladder (B0 to B3: Naive, Ridge, Decision Trees, Random Forest, LightGBM, and Deep Learning).
+2. **Interactive Decision & Simulation Studio**: A multi-page Streamlit application enabling scenario analysis, What-If policy interventions (S0–S5), probability calibration inspection, and tipping-point sensitivity analysis.
+3. **Rigorous Scientific Integrity & Point-in-Time Governance**: Zero forward-looking leakage, strict prediction contracts at checkout ($t_0$) and delivery ($t_1$), deterministic first-order cohort construction, and transparent survivor bias disclosures.
+4. **100% Local Execution**: Built to run entirely within an 8 GB RAM laptop footprint without external cloud transmission, closed-source APIs, or third-party tracking.
 
-CSIP follows a strict **end-to-end CRISP-DM observational data science lifecycle** (aligned with **11 canonical SKKNI 299/2020 unit competencies**, 27 elements, and 63 KUKs) and is thoroughly verified by **87 automated test cases** (100% pass rate in clean environment).
-
----
-
-## 🚀 Key Highlights & Capabilities
-
-### 1. Universal Semantic Profiler & Zero-Hardcode Architecture
-- **Dynamic Variable Ingestion**: Ingests arbitrary CSV files and dynamically classifies columns into intuitive roles: *Primary Target*, *Numerical Levers*, *Categorical Levers*, and *Informational Context*.
-- **Scale-Aware Preprocessing**: Automatically formats currency, ratios, and discrete groups into human-readable units (e.g., $0-1$ binary active/inactive flags, multi-class discrete groups, and thousand/million abbreviations) without modifying underlying mathematical values.
-- **Cross-Device Robustness**: Pure CSS grid and container-query layouts designed to maintain proportional fidelity and responsive typography across phones, laptops, and ultra-wide external monitors.
-
-### 2. Live Machine Learning & Tipping Point Engine
-- **Instantaneous On-the-Fly Modeling**: Trains high-speed tabular regressors (`LightGBM` / `Ridge` / `RandomForest`) dynamically on user-provided data.
-- **Continuous Marginal Simulation Curves**: Evaluates 50 uniform marginal points across the slider domain with Gaussian filter smoothing to reveal true non-linear relationships.
-- **Mathematical Inflection Points**: Pinpoints the exact tipping point ($x_{\text{critical}} = \arg\max |\Delta y / \Delta x|$) where a metric shifts rapidly, providing data-backed thresholds for policy intervention.
-- **Zero-Hallucination Explanations**: Recommendations from the strategic persona ("Nara") are strictly bound to statistical outputs: normalized feature importance, Pearson correlation $r$, $p$-values, and empirical validation errors ($\pm\text{MAE}$).
-
-### 3. Rigorous Macroeconomic Research (Olist 100k Dataset)
-- **7 Master Discoveries (DISC-01 to DISC-07)**: Quantifies the asymmetric impact of delivery delays, freight elasticity, and customer cohort retention dynamics.
-- **Benjamini-Hochberg FDR Controlled Hypotheses**: Tests 6 formal hypotheses (H1–H6) with false discovery rate corrections ($q = 0.05$).
-- **Transparent Failure Protocol**: Hypothesis H3 was empirically rejected (Odds Ratio = 0.9964, $p$-adj = 0.859) and formally documented in the **Failure Register** (`FAIL-HYP-H3`) rather than concealed.
-- **Macro State-Space World Model**: Linear state-transition matrix recovering system dynamics with $0.33\%$ parameter error and $15.83\%$ volume WAPE over 87 consecutive weeks.
+CSIP is verified by **89 automated unit and integration tests** (100% pass rate in 23.29 seconds) and mapped 1:1 against all **63 KUKs of SKKNI No. 299/2020**.
 
 ---
 
@@ -50,109 +33,99 @@ CSIP follows a strict **end-to-end CRISP-DM observational data science lifecycle
 ```text
                                ┌──────────────────────────────────────────────────────────┐
                                │           CSIP STUDIO (Streamlit Web App)                │
-                               │  - Universal CSV Ingestion & Semantic X-Ray             │
-                               │  - Interactive Simulation Sliders & Decision Levers      │
-                               │  - Continuous Marginal Prediction Curves                 │
-                               │  - Tipping Point Detection & Grounded Strategic Advisor  │
+                               │  - Data Observatory & Relational Schema Ingestion        │
+                               │  - Behavioral Persona Discovery & Cluster Profiling      │
+                               │  - Hypothesis Laboratory (Forest Plots & p-values)       │
+                               │  - Predictive Intelligence & Model Calibration Curves    │
+                               │  - World Model & What-If Policy Simulation Studio        │
                                └────────────────────────────┬─────────────────────────────┘
                                                             │
                                 ┌───────────────────────────┴─────────────────────────────┐
                                 │                                                         │
                                 ▼                                                         ▼
             ┌────────────────────────────────────────┐        ┌────────────────────────────────────────┐
-            │       Universal Auto-Engine            │        │     Olist Macroeconomic Hub            │
-            │  (src/csip/data/semantic_profiler.py)  │        │  (14 Pre-Rendered Research Notebooks)  │
-            │  - Dynamic schema role inference       │        │  - 01 Business Understanding           │
-            │  - Live Ridge/LGBM model training      │        │  - 02 Data Validation & Cleaning       │
-            │  - Inflection point derivative search  │        │  - 03 Exploratory Data Analysis (EDA)  │
-            │  - Grounded deterministic narrative    │        │  - 04 Feature Engineering (Anti-Leak)  │
-            └────────────────────────────────────────┘        │  - 05 Behavioral Clustering (K-Means)  │
-                                                              │  - 06 Hypothesis Testing (H1 - H6)     │
-                                                              │  - 07 Supervised ML (B0 - B3 Models)   │
-                                                              │  - 08 Deep Learning (MLP & Bi-LSTM)    │
-                                                              │  - 09 SHAP Explainability & Calib      │
-                                                              │  - 10 State-Space World Model          │
-                                                              │  - 11 Alternative World Simulator      │
-                                                              │  - 12 Uncertainty Quantification       │
-                                                              │  - 13 Model Review & Failure Audit     │
-                                                              │  - 14 Final Research & Executive Report│
-                                                              └────────────────────────────────────────┘
+            │       Data Engineering Pipeline        │        │        Model & Intelligence Engine     │
+            │  (src/csip/data/ & cleaning/)          │        │  (src/csip/models/ & world/)           │
+            │  - Foreign Key relational verification │        │  - Baseline Ladder B0 to B3 (LightGBM) │
+            │  - Geo-deduplication (-98.1% rows)     │        │  - Categorical Embedding MLP & Bi-LSTM │
+            │  - Chronological anomaly filtering     │        │  - TreeSHAP feature attribution        │
+            │  - 4 Cleaned Parquet Analytical Grains │        │  - Vector AutoRegressive State-Space   │
+            └────────────────────────────────────────┘        └────────────────────────────────────────┘
 ```
 
 ---
 
-## 📓 14 Research Notebooks (Pre-Rendered & Executed)
+## 🏆 Supervised Machine Learning Benchmark (Test Split Verification)
 
-All 14 notebooks in `notebooks/` are **fully executed with complete pre-rendered visual outputs, charts, and tables**:
+Evaluated chronologically on an unseen out-of-time Test Split ($N_{\text{test}} = 12,630$ orders, July–August 2018):
 
-| # | Notebook | Analytical Lifecycle Phase | Key Algorithms / Techniques | Status |
-| :-: | :--- | :--- | :--- | :-: |
-| **01** | [`01_business_and_data_understanding.ipynb`](notebooks/01_business_and_data_understanding.ipynb) | Phase 1: Business Understanding | Business framing, CRISP-DM, data profiling (9 tables, 100k rows) | ✅ Executed |
-| **02** | [`02_data_validation_and_cleaning.ipynb`](notebooks/02_data_validation_and_cleaning.ipynb) | Phase 2: Data Validation & Cleaning | Temporal sanity, schema integrity, deduplication, cohort definition | ✅ Executed |
-| **03** | [`03_exploratory_data_analysis.ipynb`](notebooks/03_exploratory_data_analysis.ipynb) | Phase 3: Exploratory Analysis | Bivariate distributions, log transforms, weekly order trend analysis | ✅ Executed |
-| **04** | [`04_feature_engineering_and_construction.ipynb`](notebooks/04_feature_engineering_and_construction.ipynb) | Phase 4: Feature Construction | Anti-leakage temporal splitting, interaction ratios, log scaling | ✅ Executed |
-| **05** | [`05_behavioral_discovery_unsupervised.ipynb`](notebooks/05_behavioral_discovery_unsupervised.ipynb) | Phase 5: Unsupervised Discovery | $K$-Means clustering ($k=4$), PCA projection, silhouette evaluation | ✅ Executed |
-| **06** | [`06_hypothesis_investigation.ipynb`](notebooks/06_hypothesis_investigation.ipynb) | Phase 6: Hypothesis Testing | ANOVA, OLS regression, Forest Plot, Benjamini-Hochberg FDR | ✅ Executed |
-| **07** | [`07_supervised_ml_and_competency_lab.ipynb`](notebooks/07_supervised_ml_and_competency_lab.ipynb) | Phase 7: Supervised Machine Learning | LogReg, Decision Trees, Random Forest, LightGBM, Naive Bayes, KNN | ✅ Executed |
-| **08** | [`08_neural_network_and_deep_learning.ipynb`](notebooks/08_neural_network_and_deep_learning.ipynb) | Phase 8: Deep Neural Networks | PyTorch Tabular MLP (Entity Embeddings) & Text Bi-LSTM | ✅ Executed |
-| **09** | [`09_model_evaluation_and_explainability.ipynb`](notebooks/09_model_evaluation_and_explainability.ipynb) | Phase 9: Model Explainability | Platt Scaling (Brier calibration), TreeSHAP feature importance | ✅ Executed |
-| **10** | [`10_system_and_world_modeling.ipynb`](notebooks/10_system_and_world_modeling.ipynb) | Phase 10: System & World Modeling | State-transition matrix $\Phi$, backtesting replay, parameter recovery | ✅ Executed |
-| **11** | [`11_alternative_world_simulation.ipynb`](notebooks/11_alternative_world_simulation.ipynb) | Phase 11: Counterfactual Simulation | Counterfactual interventions (S0–S5), carrier SLA optimization | ✅ Executed |
-| **12** | [`12_uncertainty_quantification.ipynb`](notebooks/12_uncertainty_quantification.ipynb) | Phase 12: Uncertainty Quantification | Residual bootstrapping (95% PI), Mahalanobis OOD guardrails | ✅ Executed |
-| **13** | [`13_model_review_and_failure_analysis.ipynb`](notebooks/13_model_review_and_failure_analysis.ipynb) | Phase 13: Failure & Ablation Audit | Feature ablation studies, Evidence Registry, Failure Analysis (H3) | ✅ Executed |
-| **14** | [`14_final_research_report.ipynb`](notebooks/14_final_research_report.ipynb) | Phase 14: Executive Research Synthesis | Executive summary, full lifecycle matrix, scientific audit trail | ✅ Executed |
-
----
-
-## 🏆 Machine Learning Baseline Ladder (B0 to B4)
-
-Evaluated on a strictly locked, temporal out-of-time test set ($N_{\text{test}} = 12,630$ orders, July–August 2018):
-
-| Baseline Tier | Model Architecture | Feature Set | Test PR-AUC | Test ROC-AUC | Test F1-Score | Calibrated Brier | Role |
+| Model Ladder | Algorithm | Feature Set | Test PR-AUC | Test ROC-AUC | Test F1-Score | Calibrated Brier | Status / Role |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **B0** | Majority Class Predictor | None | 0.2215 | 0.5000 | 0.0000 | 0.2215 | Naive Floor |
-| **B0** | Delay Heuristic (>0 days) | Delay | 0.2312 | 0.5942 | 0.2450 | 0.1982 | Rule-of-Thumb |
-| **B1** | Logistic Regression | E3 Full | 0.2385 | 0.6793 | 0.3053 | 0.1547 | Linear Baseline |
-| **B2** | Gaussian Naive Bayes | E3 Full | 0.2351 | 0.6515 | 0.2785 | 0.1366 | Generative |
-| **B2** | $k$-Nearest Neighbors ($k=15$) | E3 Full | 0.2534 | 0.6372 | 0.2164 | 0.0837 | Non-parametric |
-| **B2** | Decision Tree (CART depth=6) | E3 Full | 0.2811 | 0.6613 | 0.2625 | 0.0787 | Non-linear Tree |
-| **B3** | Random Forest (200 trees) | E3 Full | 0.2945 | 0.6682 | 0.3278 | 0.1573 | Bagging Ensemble |
-| **B3** | **LightGBM Gradient Boosting** | **E3 Full** | **0.3004** | **0.6756** | **0.3357** | **0.0762** | **CHAMPION TABULAR** |
-| **B4** | Tabular MLP (Entity Embeddings) | Cat + Cont | 0.2875 | 0.6548 | 0.3268 | 0.1561 | Deep Neural Net |
-| **B4** | **Text Bi-LSTM (Word Embeddings)**| Review Text | **0.8076** | **0.8842** | **0.7412** | **0.1024** | **CHAMPION NLP (TEXT)**|
+| **B3 (Champion)** | **LightGBM Gradient Boosting** | `E2_post_delivery_diagnostic` | **0.3061** | **0.6745** | **0.3417** | **0.1373** | **CHAMPION TABULAR (+179% lift)** |
+| **B3** | Random Forest (200 trees) | `E2_post_delivery_diagnostic` | 0.3016 | 0.6727 | 0.3345 | 0.1555 | Bagging Ensemble |
+| **B2** | Decision Tree (CART depth=6) | `E2_post_delivery_diagnostic` | 0.2704 | 0.6642 | 0.2804 | 0.0790 | Non-linear Tree |
+| **B2** | K-Nearest Neighbors ($k=15$) | `E2_post_delivery_diagnostic` | 0.2532 | 0.6383 | 0.2212 | 0.0839 | Non-parametric Baseline |
+| **B1** | Logistic Regression / Ridge | `E2_post_delivery_diagnostic` | 0.2436 | 0.6803 | 0.3084 | 0.1533 | Linear Baseline |
+| **B2** | Gaussian Naive Bayes | `E2_post_delivery_diagnostic` | 0.1996 | 0.6523 | 0.2805 | 0.1378 | Generative Baseline |
+| **B3** | LightGBM (Zero Leakage) | `E1_early_warning_checkout` | 0.1335 | 0.5468 | 0.1766 | 0.2370 | Checkout Early Warning |
+| **B0** | Naive Majority Floor | All Sets | 0.1096 | 0.5000 | 0.0000 | 0.0975 | Naive Prevalence Floor |
 
 ---
 
-## ⚡ Quick Start & Installation
+## 📜 BNSP Competency Evidence Package (SKKNI 299/2020 | LSP TRI)
 
-### 1. Clone & Setup Environment
-```bash
+The repository provides a complete, auditable evidence trail for all 11 required competency units:
+
+| Unit Code | Official SKKNI Unit Title | Elemen | KUK | Evidence Status | Key Evidence Location |
+| :--- | :--- | :---: | :---: | :---: | :--- |
+| `J.62DMI00.001.1` | Menentukan Objektif Bisnis | 4 | 12 | 9 VERIFIED / 3 PARTIAL | `notebooks/01_business_and_data_understanding.ipynb`, `config/business.yaml` |
+| `J.62DMI00.002.1` | Menentukan Tujuan Teknis Data Science | 2 | 5 | 5 VERIFIED | `docs/methodology/PREDICTION_CONTRACT.md`, `config/features.yaml` |
+| `J.62DMI00.005.1` | Menelaah Data | 3 | 6 | 6 VERIFIED | `src/csip/data/loader.py`, `src/csip/data/semantic_profiler.py` |
+| `J.62DMI00.006.1` | Memvalidasi Data | 3 | 6 | 6 VERIFIED | `reports/data_quality_report.md`, `reports/audit/LABEL_OBSERVABILITY_AUDIT.csv` |
+| `J.62DMI00.007.1` | Menentukan Objek Data | 2 | 4 | 4 VERIFIED | `src/csip/features/engineer.py`, `data/processed/*.parquet` |
+| `J.62DMI00.008.1` | Membersihkan Data | 3 | 6 | 6 VERIFIED | `src/csip/cleaning/cleaner.py`, `src/csip/cleaning/auto_cleaner.py` |
+| `J.62DMI00.009.1` | Mengkonstruksi Data | 2 | 4 | 4 VERIFIED | `reports/audit/FEATURE_AVAILABILITY_AUDIT.csv`, `src/csip/discovery/clusterer.py` |
+| `J.62DMI00.012.1` | Membangun Skenario Model | 2 | 6 | 6 VERIFIED | `src/csip/models/classic.py`, `docs/methodology/WORLD_MODEL_SPECIFICATION.md` |
+| `J.62DMI00.013.1` | Membangun Model | 2 | 4 | 4 VERIFIED | `src/csip/models/trainer.py`, `artifacts/models/*.joblib` |
+| `J.62DMI00.014.1` | Mengevaluasi Hasil Pemodelan | 2 | 5 | 5 VERIFIED | `artifacts/reports/ml_leaderboard.json`, `reports/audit/WORLD_MODEL_AUDIT.md` |
+| `J.62DMI00.015.1` | Melakukan Proses Review Pemodelan | 2 | 5 | 5 VERIFIED | `reports/model_evaluation_and_review_report.md`, `docs/limitations/KNOWN_LIMITATIONS.md` |
+| **TOTAL** | **11 UNIT KOMPETENSI** | **27** | **63** | **60 VERIFIED, 3 PARTIAL** | **100% Traceability across Repository** |
+
+---
+
+## ⚡ Quick Start & Verification
+
+### 1. Environment Setup
+```powershell
 # Clone the repository
 git clone https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform.git
 cd csip
 
 # Create and activate virtual environment
 python -m venv .venv
-# On Windows:
 .venv\Scripts\activate
-# On Linux/macOS:
-source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Launch CSIP Studio (Streamlit Dashboard)
-```bash
-streamlit run app/streamlit_app.py
-```
-*Open your browser at `http://localhost:8501`. Upload your own CSV dataset (e.g., sales, operations, customer feedback) or explore the pre-loaded Olist Macroeconomic Showcase!*
-
-### 3. Run Automated PyTest Verification (72 Tests)
-```bash
+### 2. Execute Full Automated Test Suite (89 Tests)
+```powershell
 python -m pytest tests/ -v
 ```
-*All 72 tests verify artifact parity, data validation, leak-free feature pipelines, statistical hypotheses, and interactive engine stability in under 25 seconds.*
+*All 89 tests verify schema consistency, zero data leakage, cohort isolation, hypothesis validity, and model evaluation in ~23 seconds.*
+
+### 3. Launch Interactive Decision Studio (Streamlit)
+```powershell
+streamlit run app/streamlit_app.py
+```
+*Access in browser at `http://localhost:8501`.*
+
+### 4. Build BNSP Competency Matrices
+```powershell
+python scripts/build_bnsp_matrix.py
+```
+*Generates `competency/BNSP_MASTER_COMPETENCY_MATRIX.xlsx` and `competency/EVIDENCE_REGISTRY.csv`.*
 
 ---
 
@@ -160,79 +133,58 @@ python -m pytest tests/ -v
 
 ```text
 csip/
-├── app/
-│   ├── streamlit_app.py          # Unified CSIP Studio Dashboard
-│   ├── style.css                 # Cross-device responsive design & modern theme
-│   ├── ui_components.py          # Grounded KPI cards, sliders, and Nara recommendations
-│   ├── components/
-│   │   └── charts.py             # Plotly interactive charting engine
-│   └── pages/                    # 9 Multi-Page Observatories
-│       ├── 1_Executive_Overview.py
-│       ├── 2_Data_Observatory.py
-│       ├── 3_Behavioral_Discovery_Lab.py
-│       ├── 4_Hypothesis_Laboratory.py
-│       ├── 5_Predictive_Intelligence.py
-│       ├── 6_World_Model.py
-│       ├── 7_Alternative_World_Simulator.py
-│       ├── 8_Decision_Studio.py
-│       └── 9_Evidence_Registry_Review.py
-├── src/csip/                     # Core Production Package Engine
-│   ├── cleaning/                 # Automated data cleaning & grain consistency
-│   ├── data/                     # Semantic Profiler & data loader
-│   ├── discovery/                # Behavioral clustering (K-Means & PCA)
-│   ├── engine/                   # Decision engine & text constellation
-│   ├── evaluation/               # TreeSHAP explainer & Platt calibration
-│   ├── evidence/                 # EvidenceRegistry & Failure logging
-│   ├── features/                 # Anti-leakage feature engineering
-│   ├── hypotheses/               # Econometric hypothesis testing runner
-│   ├── models/                   # Classical ML, Tabular MLP, & Bi-LSTM
-│   ├── scenarios/                # Counterfactual what-if simulator
-│   ├── uncertainty/              # Residual bootstrap & prediction intervals
-│   └── world/                    # Macro state-space transition world model
-├── notebooks/                    # 14 Pre-Rendered Research Notebooks (Modules 01 - 14)
-├── reports/                      # 7 Comprehensive Written Research Reports
-│   ├── data_quality_report.md
-│   ├── discovery_report.md
-│   ├── evidence_and_failure_register.md
-│   ├── hypothesis_report.md
-│   ├── model_evaluation_and_review_report.md
-│   ├── scenario_simulation_report.md
-│   └── research_traceability_matrix.md
-├── artifacts/                    # Precomputed model checkpoints, JSONs, & figures
-│   ├── models/                   # Trained .joblib & .pt model checkpoints
-│   ├── reports/                  # Precomputed evaluation JSONs
-│   └── reports/figures/          # 9 High-resolution diagnostic figures
+├── app/                          # Streamlit Multi-Page Web Interface (6 pages)
+├── artifacts/                    # Serialized model checkpoints (.joblib, .pt) & JSON reports
+├── competency/                   # Official BNSP Competency Matrices & Assessor Guides
+│   ├── BNSP_MASTER_COMPETENCY_MATRIX.xlsx  # 15-Column Styled Excel Matrix
+│   ├── BNSP_MASTER_COMPETENCY_MATRIX.csv   # Machine-readable CSV Matrix
+│   ├── EVIDENCE_REGISTRY.csv               # 63 Registered Competency Evidence Items
+│   ├── ASSESSOR_EVIDENCE_GUIDE.md          # Assessor Verification Guide (Indonesian)
+│   ├── CANDIDATE_DEMONSTRATION_GUIDE.md    # Candidate Live Demonstration Guide
+│   └── ASSESSMENT_READINESS_REPORT.md      # Readiness Audit per Competency Unit
+├── config/                       # Declarative YAML configurations (business.yaml, features.yaml)
 ├── data/
-│   ├── raw/                      # Original 9 Olist CSV tables
-│   ├── interim/                  # Cleaned & deduplicated Parquet tables
-│   └── processed/                # 4 Core Analytical Grains (order, cohort, review, weekly)
-├── config/                       # Declarative YAML configurations
-├── tests/                        # 72 Automated PyTest Unit & Integration Tests
-└── requirements.txt              # Pinned production dependencies
+│   ├── raw/                      # 9 Olist Relational CSV Tables
+│   └── processed/                # 4 Cleaned Parquet Tables (order, cohort, corpus, weekly)
+├── docs/                         # Scientific, Architectural, and Quality Specifications
+│   ├── architecture/SYSTEM_ARCHITECTURE.md
+│   ├── methodology/PREDICTION_CONTRACT.md
+│   ├── methodology/DATA_METHODOLOGY.md
+│   ├── methodology/MODEL_EVALUATION.md
+│   ├── methodology/WORLD_MODEL_SPECIFICATION.md
+│   ├── quality/REPRODUCIBILITY.md
+│   └── limitations/KNOWN_LIMITATIONS.md
+├── notebooks/                    # 14 Research & Demonstration Jupyter Notebooks
+├── reports/                      # Forensic Audits, Quality Reports, & Methodology Disclosures
+│   ├── audit/V6_BASELINE_AUDIT.md
+│   ├── audit/V7_FINAL_AUDIT.md
+│   ├── audit/V6_TO_V7_CHANGELOG.md
+│   ├── audit/FEATURE_AVAILABILITY_AUDIT.csv
+│   ├── audit/LABEL_OBSERVABILITY_AUDIT.csv
+│   ├── audit/NOTEBOOK_EXECUTION_AUDIT.csv
+│   ├── audit/WORLD_MODEL_AUDIT.md
+│   ├── methodology/POPULATION_AND_SELECTION_BIAS.md
+│   └── quality/TEST_EXECUTION_REPORT.md
+├── scripts/                      # Automated Pipeline Execution & Matrix Generators
+├── src/csip/                     # Core Production Package (11 domain subpackages)
+├── standards/                    # Canonical Standard: canonical_skkni_299_2020.json
+└── tests/                        # 16 Pytest Test Modules (89 Automated Tests, 100% Passed)
 ```
 
 ---
 
-## 📜 Scientific Governance & Honest Failure Protocol
+## 📜 Scientific Governance & Transparent Disclosures
 
-CSIP strictly follows the **Governing Scientific Principle**:
-> *Build what the system architecture specifies. Test what is built. Verify what is claimed. Report what the evidence supports. Never trade scientific integrity for appearance, speed, or a higher score.*
+CSIP adheres to the governing principle:
+> *Build what the specification defines. Test what is built. Verify what is claimed. Report what the evidence supports. Never trade scientific integrity for appearance, speed, or a higher score.*
 
-- **Transparent Negative Findings**: When hypothesis H3 failed to demonstrate statistical significance (Odds Ratio = 0.9964, $p\text{-adj} = 0.859$), the system did not manipulate features or p-hack the result. Instead, it was formally registered in the **Failure Register** (`FAIL-HYP-H3`) and highlighted as an empirical discovery.
-- **Extrapolation Guardrails**: When counterfactual scenarios generate out-of-distribution states exceeding $3.5\sigma$, the system automatically flags the simulation as extrapolated and downgrades claim certainty.
-- **Strict Anti-Leakage Separation**: Customer lifetime aggregates and post-delivery survey contents are strictly isolated from first-order transaction decision points.
+- **Transparent Negative Result**: Hypothesis H3 was empirically rejected (Odds Ratio = 0.9964, $p\text{-adj} = 0.861$) and formally recorded in the **Failure Register** (`FAIL-HYP-H3`) rather than concealed.
+- **Population & Survivor Bias**: Documented in `reports/methodology/POPULATION_AND_SELECTION_BIAS.md`. Models trained on delivered orders estimate $\mathbb{P}(\text{Negative Review} \mid X, \text{Delivered}=1)$, recognizing the exclusion of 1,234 canceled/unavailable orders (87.4% negative rate).
+- **Non-Causal Simulation Boundary**: Policy simulations in the World Model represent structural sensitivity projections, not randomized causal treatment effects.
+- **Zero Label Contamination**: 646 unobserved reviews are preserved as NaN, avoiding synthetic label imputation.
 
 ---
 
-## 📄 License & Citation
+## 📄 License & Attribution
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
-```bibtex
-@software{csip2026,
-  author = {CSIP Development Team},
-  title = {CSIP: Core Strategy & Intelligence Platform & Universal Decision Simulator},
-  year = {2026},
-  url = {https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform}
-}
-```

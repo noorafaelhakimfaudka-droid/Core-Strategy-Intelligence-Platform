@@ -4,13 +4,13 @@
     "statement": "Rasio ongkos kirim terhadap harga produk (Freight Ratio) memiliki asosiasi negatif terhadap nilai kepuasan transaksi.",
     "analysis_type": "OLS Multiple Regression (Controlled)",
     "test_statistic_name": "t-statistic",
-    "test_statistic_value": -11.973,
-    "p_value": 5.1975307124677726e-33,
-    "p_value_adjusted": 1.5592592137403318e-32,
-    "effect_size": -0.2081,
+    "test_statistic_value": -11.858,
+    "p_value": 2.0571861519894456e-32,
+    "p_value_adjusted": 6.171558455968337e-32,
+    "effect_size": -0.2068,
     "confidence_interval_95": [
-      -0.2422,
-      -0.174
+      -0.241,
+      -0.1726
     ],
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
@@ -23,20 +23,20 @@
     "limitations": [
       "Secondary observational data without direct price elasticity experiment"
     ],
-    "updated_at": "2026-11-10T21:05:56.449630"
+    "updated_at": "2026-11-11T14:51:29.443879"
   },
   "H2": {
     "hypothesis_id": "H2",
     "statement": "Keterlambatan pengiriman melewati tanggal estimasi memberikan dampak penurunan kepuasan yang asimetris (non-linear) lebih tajam dibanding pengiriman awal.",
     "analysis_type": "Piecewise Spline Regression & Wald Test",
     "test_statistic_name": "F-statistic (Wald Test)",
-    "test_statistic_value": 1529.452,
+    "test_statistic_value": 1657.035,
     "p_value": 0.0,
     "p_value_adjusted": 0.0,
-    "effect_size": -0.0638,
+    "effect_size": -0.0661,
     "confidence_interval_95": [
-      -0.0655,
-      -0.0621
+      -0.0679,
+      -0.0644
     ],
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
@@ -49,20 +49,20 @@
     "limitations": [
       "Estimated delivery date is promised SLA by marketplace, not buyer private expectation"
     ],
-    "updated_at": "2026-11-10T21:05:56.485398"
+    "updated_at": "2026-11-11T14:51:29.485576"
   },
   "H3": {
     "hypothesis_id": "H3",
     "statement": "Pengalaman pengiriman dan skor ulasan pada transaksi pertama berasosiasi secara signifikan dengan probabilitas pelanggan melakukan pembelian ulang.",
     "analysis_type": "Logistic Regression Odds Ratio",
     "test_statistic_name": "z-statistic",
-    "test_statistic_value": -0.178,
-    "p_value": 0.8587426698724053,
-    "p_value_adjusted": 0.8587426698724053,
+    "test_statistic_value": -0.175,
+    "p_value": 0.8608797703575959,
+    "p_value_adjusted": 0.8608797703575959,
     "effect_size": 0.9964,
     "confidence_interval_95": [
-      0.9572,
-      1.0371
+      0.9571,
+      1.0374
     ],
     "status": "REJECTED",
     "claim_level": "L2 (Associational)",
@@ -75,20 +75,20 @@
     "limitations": [
       "Right-censoring mitigation fixed at 90 days; long-tail repeat buyers after 180 days excluded"
     ],
-    "updated_at": "2026-11-10T21:05:56.551329"
+    "updated_at": "2026-11-11T14:51:29.564366"
   },
   "H4": {
     "hypothesis_id": "H4",
     "statement": "Sensitivitas pelanggan terhadap ongkos kirim dan keterlambatan bersifat heterogen antarsegmen perilaku.",
     "analysis_type": "Moderated Interaction Regression (ANOVA)",
     "test_statistic_name": "F-statistic (Interaction Terms)",
-    "test_statistic_value": 29.511,
-    "p_value": 1.5393497121629561e-13,
-    "p_value_adjusted": 3.0786994243259123e-13,
-    "effect_size": 29.5113,
+    "test_statistic_value": 29.381,
+    "p_value": 1.7532176434344004e-13,
+    "p_value_adjusted": 3.506435286868801e-13,
+    "effect_size": 29.3812,
     "confidence_interval_95": [
-      23.609,
-      35.414
+      23.505,
+      35.257
     ],
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
@@ -101,20 +101,20 @@
     "limitations": [
       "Clusters are data-driven approximations rather than immutable demographic attributes"
     ],
-    "updated_at": "2026-11-10T21:05:56.795192"
+    "updated_at": "2026-11-11T14:51:29.828749"
   },
   "H5": {
     "hypothesis_id": "H5",
     "statement": "Penggabungan fitur ekonomi, pengalaman pengiriman, dan interaksi meningkatkan daya prediksi model dibandingkan hanya fitur ekonomi.",
     "analysis_type": "Out-of-Time Predictive Ablation (PR-AUC Delta)",
     "test_statistic_name": "Delta PR-AUC",
-    "test_statistic_value": 0.1351,
+    "test_statistic_value": 0.1401,
     "p_value": 0.0001,
     "p_value_adjusted": 0.00012,
-    "effect_size": 0.1351,
+    "effect_size": 0.1401,
     "confidence_interval_95": [
-      0.1149,
-      0.1554
+      0.1191,
+      0.1612
     ],
     "status": "SUPPORTED",
     "claim_level": "L1 (Predictive)",
@@ -127,7 +127,7 @@
     "limitations": [
       "Logistic regression linear baseline; deeper non-linear lift evaluated in E3/E7"
     ],
-    "updated_at": "2026-11-10T21:05:56.886724"
+    "updated_at": "2026-11-11T14:51:30.095248"
   },
   "H6": {
     "hypothesis_id": "H6",
@@ -153,6 +153,6 @@
     "limitations": [
       "Unobserved confounders like household income or marketing email exposure remain unmeasured"
     ],
-    "updated_at": "2026-11-10T21:05:57.186067"
+    "updated_at": "2026-11-11T14:51:30.531962"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-11T14:18:05.669677",
+  "saved_at": "2026-11-11T14:51:45.788108",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -127,13 +127,13 @@
       "statement": "Rasio ongkos kirim terhadap harga produk (Freight Ratio) memiliki asosiasi negatif terhadap nilai kepuasan transaksi.",
       "analysis_type": "OLS Multiple Regression (Controlled)",
       "test_statistic_name": "t-statistic",
-      "test_statistic_value": -11.973,
-      "p_value": 5.1975307124677726e-33,
-      "p_value_adjusted": 1.5592592137403318e-32,
-      "effect_size": -0.2081,
+      "test_statistic_value": -11.858,
+      "p_value": 2.0571861519894456e-32,
+      "p_value_adjusted": 6.171558455968337e-32,
+      "effect_size": -0.2068,
       "confidence_interval_95": [
-        -0.2422,
-        -0.174
+        -0.241,
+        -0.1726
       ],
       "status": "SUPPORTED",
       "claim_level": "L2 (Associational)",
@@ -146,20 +146,20 @@
       "limitations": [
         "Secondary observational data without direct price elasticity experiment"
       ],
-      "updated_at": "2026-11-10T21:05:56.449630"
+      "updated_at": "2026-11-11T14:51:29.443879"
     },
     "H2": {
       "hypothesis_id": "H2",
       "statement": "Keterlambatan pengiriman melewati tanggal estimasi memberikan dampak penurunan kepuasan yang asimetris (non-linear) lebih tajam dibanding pengiriman awal.",
       "analysis_type": "Piecewise Spline Regression & Wald Test",
       "test_statistic_name": "F-statistic (Wald Test)",
-      "test_statistic_value": 1529.452,
+      "test_statistic_value": 1657.035,
       "p_value": 0.0,
       "p_value_adjusted": 0.0,
-      "effect_size": -0.0638,
+      "effect_size": -0.0661,
       "confidence_interval_95": [
-        -0.0655,
-        -0.0621
+        -0.0679,
+        -0.0644
       ],
       "status": "SUPPORTED",
       "claim_level": "L2 (Associational)",
@@ -172,20 +172,20 @@
       "limitations": [
         "Estimated delivery date is promised SLA by marketplace, not buyer private expectation"
       ],
-      "updated_at": "2026-11-10T21:05:56.485398"
+      "updated_at": "2026-11-11T14:51:29.485576"
     },
     "H3": {
       "hypothesis_id": "H3",
       "statement": "Pengalaman pengiriman dan skor ulasan pada transaksi pertama berasosiasi secara signifikan dengan probabilitas pelanggan melakukan pembelian ulang.",
       "analysis_type": "Logistic Regression Odds Ratio",
       "test_statistic_name": "z-statistic",
-      "test_statistic_value": -0.178,
-      "p_value": 0.8587426698724053,
-      "p_value_adjusted": 0.8587426698724053,
+      "test_statistic_value": -0.175,
+      "p_value": 0.8608797703575959,
+      "p_value_adjusted": 0.8608797703575959,
       "effect_size": 0.9964,
       "confidence_interval_95": [
-        0.9572,
-        1.0371
+        0.9571,
+        1.0374
       ],
       "status": "REJECTED",
       "claim_level": "L2 (Associational)",
@@ -198,20 +198,20 @@
       "limitations": [
         "Right-censoring mitigation fixed at 90 days; long-tail repeat buyers after 180 days excluded"
       ],
-      "updated_at": "2026-11-10T21:05:56.551329"
+      "updated_at": "2026-11-11T14:51:29.564366"
     },
     "H4": {
       "hypothesis_id": "H4",
       "statement": "Sensitivitas pelanggan terhadap ongkos kirim dan keterlambatan bersifat heterogen antarsegmen perilaku.",
       "analysis_type": "Moderated Interaction Regression (ANOVA)",
       "test_statistic_name": "F-statistic (Interaction Terms)",
-      "test_statistic_value": 29.511,
-      "p_value": 1.5393497121629561e-13,
-      "p_value_adjusted": 3.0786994243259123e-13,
-      "effect_size": 29.5113,
+      "test_statistic_value": 29.381,
+      "p_value": 1.7532176434344004e-13,
+      "p_value_adjusted": 3.506435286868801e-13,
+      "effect_size": 29.3812,
       "confidence_interval_95": [
-        23.609,
-        35.414
+        23.505,
+        35.257
       ],
       "status": "SUPPORTED",
       "claim_level": "L2 (Associational)",
@@ -224,20 +224,20 @@
       "limitations": [
         "Clusters are data-driven approximations rather than immutable demographic attributes"
       ],
-      "updated_at": "2026-11-10T21:05:56.795192"
+      "updated_at": "2026-11-11T14:51:29.828749"
     },
     "H5": {
       "hypothesis_id": "H5",
       "statement": "Penggabungan fitur ekonomi, pengalaman pengiriman, dan interaksi meningkatkan daya prediksi model dibandingkan hanya fitur ekonomi.",
       "analysis_type": "Out-of-Time Predictive Ablation (PR-AUC Delta)",
       "test_statistic_name": "Delta PR-AUC",
-      "test_statistic_value": 0.1351,
+      "test_statistic_value": 0.1401,
       "p_value": 0.0001,
       "p_value_adjusted": 0.00012,
-      "effect_size": 0.1351,
+      "effect_size": 0.1401,
       "confidence_interval_95": [
-        0.1149,
-        0.1554
+        0.1191,
+        0.1612
       ],
       "status": "SUPPORTED",
       "claim_level": "L1 (Predictive)",
@@ -250,7 +250,7 @@
       "limitations": [
         "Logistic regression linear baseline; deeper non-linear lift evaluated in E3/E7"
       ],
-      "updated_at": "2026-11-10T21:05:56.886724"
+      "updated_at": "2026-11-11T14:51:30.095248"
     },
     "H6": {
       "hypothesis_id": "H6",
@@ -276,18 +276,18 @@
       "limitations": [
         "Unobserved confounders like household income or marketing email exposure remain unmeasured"
       ],
-      "updated_at": "2026-11-10T21:05:57.186067"
+      "updated_at": "2026-11-11T14:51:30.531962"
     }
   },
   "failures": [
     {
       "failure_id": "FAIL-HYP-H3",
       "component_type": "hypothesis",
-      "description": "Hipotesis H3 ditolak secara empiris (Odds Ratio = 0.9964, p-adj = 0.859).",
+      "description": "Hipotesis H3 ditolak secara empiris (Odds Ratio = 0.9964, p-adj = 0.861).",
       "root_cause": "Pada Olist, ulasan pesanan pertama tidak berkorelasi dengan repeat purchase; keputusan beli ulang lebih ditentukan oleh kategori produk berulang.",
       "impact_assessment": "Skor ulasan transaksi pertama tidak dapat dijadikan prediktor tunggal untuk memprediksi retensi pelanggan.",
       "mitigation_action": "Gunakan model gabungan multi-faktor (E3/LightGBM) dengan variabel kategori produk dan lead time pengiriman.",
-      "recorded_at": "2026-11-10T21:05:57.192078",
+      "recorded_at": "2026-11-11T14:51:30.562785",
       "skkni_unit": "UK-11 Melakukan Proses Review Pemodelan"
     }
   ],
@@ -474,7 +474,7 @@
         "reports/hypothesis_report.md",
         "reports/scenario_simulation_report.md"
       ],
-      "status": "VERIFIED",
+      "status": "TESTED",
       "official_code": "J.62DMI00.012.1",
       "evidence_process": "Perancangan skenario validasi: temporal split (cutoff 2018-05-31), matriks hipotesis behavioral, dan formulasi Vector AutoRegressive State-Space.",
       "evidence_result": "Hasil uji hipotesis: H1 didukung (p<0.001, eta2=0.12), H2 didukung (cliff effect delay > 3 hari), H3 ditolak secara ilmiah (FAIL-HYP-H3, p_adj=0.859).",
@@ -525,7 +525,7 @@
       "report_artifacts": [
         "reports/model_evaluation_and_review_report.md"
       ],
-      "status": "VERIFIED",
+      "status": "TESTED",
       "official_code": "J.62DMI00.014.1",
       "evidence_process": "Kalkulasi metrik evaluasi lengkap: PR-AUC, ROC-AUC, Brier score, ECE, residual RMSE/MAE, dan SHAP TreeExplainer feature importance.",
       "evidence_result": "Platt scaling memangkas Brier score sebesar 44.59% (0.1375 -> 0.0762) dan ECE dari 0.2355 ke 0.0070; faktor keterlambatan berkontribusi 31.2% massa SHAP.",
@@ -550,7 +550,7 @@
         "reports/evidence_and_failure_register.md",
         "reports/csip_data_scientist_technical_report.md"
       ],
-      "status": "VERIFIED",
+      "status": "TESTED",
       "official_code": "J.62DMI00.015.1",
       "evidence_process": "Peninjauan kritis terhadap kelemahan model, inventarisasi kegagalan (FAIL-HYP-H3), validasi batas klaim ilmiah (L0 s.d. L3), dan penyusunan dashboard pembelaan.",
       "evidence_result": "Tercatat 3 kegagalan eksplisit dalam Failure Register dengan mitigasi nyata; rekomendasi keputusan bisnis didasarkan pada asosiasi terkontrol.",
