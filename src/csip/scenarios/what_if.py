@@ -70,3 +70,4 @@ def predict_what_if(pipeline: Dict[str, Any], custom_inputs: Dict[str, float]) -
         "base_grid_preds": base_grid_preds,
         "current_x": current_x,
     }
+

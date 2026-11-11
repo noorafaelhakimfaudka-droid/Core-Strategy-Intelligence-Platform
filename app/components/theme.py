@@ -318,3 +318,4 @@ def render_diagnosis_box(
         """,
         unsafe_allow_html=True,
     )
+

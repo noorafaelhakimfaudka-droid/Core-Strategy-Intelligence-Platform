@@ -83,3 +83,4 @@ def auto_clean_dataframe(
     """Functional interface for automated data cleaning [UK-06]."""
     cleaner = AutoDataCleaner(drop_duplicates=drop_duplicates)
     return cleaner.clean(df)
+

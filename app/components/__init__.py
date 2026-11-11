@@ -11,8 +11,11 @@ Provides UI modules for the Universal Interactive Decision Lab:
 from __future__ import annotations
 
 from app.components.charts import (
+    build_cluster_map_chart,
     build_feature_importance_chart,
+    build_impact_curve_chart,
     build_pdp_response_chart,
+    build_ranking_chart,
     build_real_scatter_chart,
 )
 from app.components.theme import (
@@ -29,6 +32,9 @@ __all__ = [
     "apply_theme",
     "render_bento_cards",
     "render_diagnosis_box",
+    "build_cluster_map_chart",
+    "build_impact_curve_chart",
+    "build_ranking_chart",
     "build_real_scatter_chart",
     "build_pdp_response_chart",
     "build_feature_importance_chart",
