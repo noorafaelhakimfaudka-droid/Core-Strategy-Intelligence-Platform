@@ -139,3 +139,28 @@ def test_simulate_and_narrate():
     assert "full_narrative" in sim
     assert len(sim["headline"]) > 0
     assert len(sim["grid_x"]) == 70
+
+
+def test_zero_shot_dynamic_semantics_on_novel_domains():
+    """Verify that unknown CSV datasets from completely novel domains automatically adapt."""
+    hr_df = pd.DataFrame({
+        "monthly_hours_worked": [160, 220, 180, 240, 150],
+        "tenure_years": [1, 4, 2, 5, 0],
+        "equipment_cost_usd": [200.0, 800.0, 350.0, 950.0, 100.0],
+        "churn_risk_pct": [5.2, 45.0, 12.5, 68.0, 4.0],
+    })
+
+    clean_df, schema_info, auto_target, audit_info = build_fluent_schema(hr_df)
+    assert len(clean_df) == 5
+    assert auto_target != ""
+
+    for col, meta in schema_info.items():
+        assert meta["description"] != ""
+        assert len(meta["verb_up"]) > 0
+        assert len(meta["verb_down"]) > 0
+
+    assert schema_info["Equipment Cost Usd"]["unit"] == "$"
+    assert schema_info["Churn Risk Pct"]["unit"] == "%"
+    assert schema_info["Monthly Hours Worked"]["unit"] == "jam"
+    assert schema_info["Masa Kerja"]["unit"] == "tahun"
+
