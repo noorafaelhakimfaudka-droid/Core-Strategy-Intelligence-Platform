@@ -54,3 +54,11 @@ __all__ = [
     "__version__",
 ]
 
+# Ensure dual compatibility between `import csip` and `import src.csip`
+import sys
+if "src.csip" not in sys.modules:
+    sys.modules["src.csip"] = sys.modules[__name__]
+if "csip" not in sys.modules:
+    sys.modules["csip"] = sys.modules[__name__]
+
+

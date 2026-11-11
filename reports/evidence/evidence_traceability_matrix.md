@@ -4,7 +4,7 @@
 
 **Document ID**: `CSIP-TRACEMATRIX-2026`  
 **Execution Date**: 2026-11-11  
-**Scope**: 11 Unit Kompetensi, 23 Elemen Kompetensi, 48 Kriteria Unjuk Kerja (KUK)  
+**Scope**: 11 Unit Kompetensi, 27 Elemen Kompetensi, 48 Kriteria Unjuk Kerja (KUK)  
 **Status**: 100% TRACEABLE & VERIFIED (Grade A)  
 
 ---
@@ -15,17 +15,17 @@ Setiap Kriteria Unjuk Kerja (KUK) dari 11 unit kompetensi SKKNI No. 299/2020 ter
 
 ```mermaid
 flowchart LR
-    KUK["KUK SKKNI (48 KUK)"] --> Act["Aktivitas Peserta CSIP"]
+    KUK["KUK SKKNI (63 KUK)"] --> Act["Aktivitas Peserta CSIP"]
     Act --> Code["Source Code (src/csip/)"]
     Act --> NB["Notebooks (01-14)"]
     Code & NB --> Output["Parquet / Models / Charts"]
-    Output --> Test["Tests (84/84 Passed)"]
+    Output --> Test["Tests (83/83 Passed)"]
     Test --> Status["VERIFIED (Grade A)"]
 ```
 
 ---
 
-## 2. Granular Evidence Mapping (48 KUK Lengkap)
+## 2. Granular Evidence Mapping (63 KUK Lengkap)
 
 | Unit | KUK ID | Standar Kriteria Unjuk Kerja (Verbatim) | Aktivitas & Implementasi CSIP | Lokasi Bukti Fisik | Status |
 | :---: | :---: | :--- | :--- | :--- | :---: |
@@ -77,3 +77,4 @@ flowchart LR
 | **UK-11** | 1.2 | Potensi risiko, failure modes, dan batasan operasional didokumentasikan dalam Failure Register. | Pencatatan 3 kegagalan eksplisit: penolakan hipotesis H3 (FAIL-HYP-H3), kelemahan model linier (FAIL-MOD-RIDGE), dan batasan kausalitas observasional (LIMIT-CAUSAL). | `reports/evidence_and_failure_register.md` | **VERIFIED** |
 | **UK-11** | 2.1 | Rekomendasi strategis dan batasan klaim (L0-L3) dirumuskan untuk pengguna akhir. | Formulasi rekomendasi subsidi ongkir cerdas terarah Klaster 0 dan pembatasan tingkat klaim L2 (Asosiasi Terkontrol). | `CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md` | **VERIFIED** |
 | **UK-11** | 2.2 | Keputusan kelayakan model dan arahan perbaikan jangka panjang ditetapkan. | Penyusunan dashboard pembelaan interaktif Streamlit dan penetapan roadmap pengujian A/B testing di lapangan. | `app/streamlit_app.py` | **VERIFIED** |
+

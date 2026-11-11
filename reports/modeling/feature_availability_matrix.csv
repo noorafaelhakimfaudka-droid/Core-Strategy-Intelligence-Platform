@@ -27,3 +27,4 @@ order_delivered_customer_date,T3 (Customer Arrival),T0/T1 (Order Creation/Approv
 review_score,T4 (Review Created),T0/T1 (Order Creation/Approval),Critical (Target Leakage),FORBIDDEN in X (Target only)
 negative_review_flag,T4 (Review Created),T0/T1 (Order Creation/Approval),Critical (Target Leakage),FORBIDDEN in X (Target only)
 review_comment_message,T4 (Review Created),T0/T1 (Order Creation/Approval),Critical (Target Leakage),ALLOWED ONLY in Bi-LSTM Post-Delivery Triage
+

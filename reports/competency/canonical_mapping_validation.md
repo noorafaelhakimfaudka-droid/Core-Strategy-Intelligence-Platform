@@ -51,3 +51,4 @@ flowchart TD
 1. **Verbatim Fidelity**: Tidak ada KUK yang diparafrasekan, digabungkan, atau dihilangkan pada naskah standar resmi. Interpretasi implementasi CSIP dicatat pada atribut terpisah (`csip_activity` dan `csip_evidence`).
 2. **Fixed Scope**: Tidak ada penambahan unit kompetensi ke-12 atau pengurangan dari 11 unit yang diujikan oleh LSP TRI.
 3. **Automated Cross-Validation**: Suite pengujian otomatis `tests/test_skkni_consistency.py` secara aktif memvalidasi kesamaan nama, kode unit, dan keberadaan artefak di repositori fisik.
+

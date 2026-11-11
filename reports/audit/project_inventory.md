@@ -70,19 +70,19 @@ Hasil audit inventarisasi:
 
 | File Path | Test Count | Domain Pengujian | Status Eksekusi |
 | :--- | :---: | :--- | :---: |
-| `tests/test_initialization.py` | 5 | Integritas konfigurasi YAML & parameter bisnis | **84/84 PASSED** |
-| `tests/test_data_validation.py` | 8 | Pengecekan 9 tabel Olist, missing values, FK | **84/84 PASSED** |
-| `tests/test_cleaning_and_grain.py` | 9 | Deduplikasi spasial median & ortogonalitas grain | **84/84 PASSED** |
-| `tests/test_feature_leakage.py` | 6 | Audit anti-kebocoran temporal target | **84/84 PASSED** |
-| `tests/test_discovery.py` | 6 | K-Means clustering persona ($k=3$, Silhouette $\ge 0.35$) | **84/84 PASSED** |
-| `tests/test_hypotheses.py` | 12 | Pengujian H1-H6 FDR & verifikasi FAIL-HYP-H3 | **84/84 PASSED** |
-| `tests/test_models.py` | 10 | Baseline ladder B0-B3 & kalibrasi Platt scaling | **84/84 PASSED** |
-| `tests/test_deep_learning.py` | 6 | Tabular MLP & Text Bi-LSTM NLP | **84/84 PASSED** |
-| `tests/test_world_model.py` | 5 | Vector AutoRegressive State-Space, WAPE $\le 18\%$ | **84/84 PASSED** |
-| `tests/test_simulation_sanity.py` | 5 | Batasan non-negatif & stabilitas skenario | **84/84 PASSED** |
-| `tests/test_evidence_registry.py` | 5 | Integritas registry, klaim L0-L3, Failure Register | **84/84 PASSED** |
-| `tests/test_data_pipeline_stress.py` | 6 | Stress testing transformer, missing 100%, small $N$ | **84/84 PASSED** |
-| `tests/test_skkni_consistency.py` | 6 | Konsistensi kanonikal 11 unit SKKNI 299/2020 | **84/84 PASSED** |
+| `tests/test_initialization.py` | 5 | Integritas konfigurasi YAML & parameter bisnis | **83/83 PASSED** |
+| `tests/test_data_validation.py` | 8 | Pengecekan 9 tabel Olist, missing values, FK | **83/83 PASSED** |
+| `tests/test_cleaning_and_grain.py` | 9 | Deduplikasi spasial median & ortogonalitas grain | **83/83 PASSED** |
+| `tests/test_feature_leakage.py` | 6 | Audit anti-kebocoran temporal target | **83/83 PASSED** |
+| `tests/test_discovery.py` | 6 | K-Means clustering persona ($k=3$, Silhouette $\ge 0.35$) | **83/83 PASSED** |
+| `tests/test_hypotheses.py` | 12 | Pengujian H1-H6 FDR & verifikasi FAIL-HYP-H3 | **83/83 PASSED** |
+| `tests/test_models.py` | 10 | Baseline ladder B0-B3 & kalibrasi Platt scaling | **83/83 PASSED** |
+| `tests/test_deep_learning.py` | 6 | Tabular MLP & Text Bi-LSTM NLP | **83/83 PASSED** |
+| `tests/test_world_model.py` | 5 | Vector AutoRegressive State-Space, WAPE $\le 18\%$ | **83/83 PASSED** |
+| `tests/test_simulation_sanity.py` | 5 | Batasan non-negatif & stabilitas skenario | **83/83 PASSED** |
+| `tests/test_evidence_registry.py` | 5 | Integritas registry, klaim L0-L3, Failure Register | **83/83 PASSED** |
+| `tests/test_data_pipeline_stress.py` | 6 | Stress testing transformer, missing 100%, small $N$ | **83/83 PASSED** |
+| `tests/test_skkni_consistency.py` | 6 | Konsistensi kanonikal 11 unit SKKNI 299/2020 | **83/83 PASSED** |
 
 ---
 
@@ -124,3 +124,4 @@ Hasil audit inventarisasi:
 | `data/interim/clean_products.parquet` | Interim Parquet | 32,951 | 9 | 1.10 | **VERIFIED** |
 | `data/interim/clean_sellers.parquet` | Interim Parquet | 3,095 | 4 | 0.08 | **VERIFIED** |
 | `data/interim/clean_geolocation_dedup.parquet`| Interim Parquet | 19,010 | 5 | 0.54 | **VERIFIED** |
+

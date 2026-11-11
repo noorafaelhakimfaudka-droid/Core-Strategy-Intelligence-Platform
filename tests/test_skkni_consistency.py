@@ -1,100 +1,173 @@
 """Automated SKKNI 299/2020 Competency Mapping Consistency & Artifact Validator.
 
-Verifies:
+Rigorously verifies:
 1. Exact presence of all 11 canonical SKKNI units (UK-01 through UK-11).
-2. Exact match of official Kemnaker codes (J.62DMI00.xxx.1) and titles.
-3. Every referenced source code file, notebook, and report exists on disk.
-4. Completeness of 4-dimensional evidence (Process, Result, Validation, Explanation).
-5. Cross-document consistency between EvidenceRegistry and markdown matrices.
+2. Exact presence of all 27 competency elements across all 11 units.
+3. Exact presence of all 63 official KUKs (Kriteria Unjuk Kerja).
+4. Exact verbatim text consistency between canonical standard and evidence registry.
+5. Physical existence on disk of every single referenced evidence file (63/63).
+6. Evidence traceability and honest verification status (VERIFIED / PARTIALLY_VERIFIED).
+7. Dual import path resolution (csip and src.csip).
 """
 
 from pathlib import Path
+import json
 import pytest
-from src.csip.evidence.registry import EvidenceRegistry
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-CANONICAL_UNITS = {
-    "UK-01": {"official_code": "J.62DMI00.001.1", "title": "Menentukan Objektif Bisnis"},
-    "UK-02": {"official_code": "J.62DMI00.002.1", "title": "Menentukan Tujuan Teknis Data Science"},
-    "UK-03": {"official_code": "J.62DMI00.005.1", "title": "Menelaah Data"},
-    "UK-04": {"official_code": "J.62DMI00.006.1", "title": "Memvalidasi Data"},
-    "UK-05": {"official_code": "J.62DMI00.007.1", "title": "Menentukan Objek Data"},
-    "UK-06": {"official_code": "J.62DMI00.008.1", "title": "Membersihkan Data"},
-    "UK-07": {"official_code": "J.62DMI00.009.1", "title": "Mengkonstruksi Data"},
-    "UK-08": {"official_code": "J.62DMI00.012.1", "title": "Membangun Skenario Model"},
-    "UK-09": {"official_code": "J.62DMI00.013.1", "title": "Membangun Model"},
-    "UK-10": {"official_code": "J.62DMI00.014.1", "title": "Mengevaluasi Hasil Pemodelan"},
-    "UK-11": {"official_code": "J.62DMI00.015.1", "title": "Melakukan Proses Review Pemodelan"},
+# Normative reference breakdown according to SKKNI 299/2020
+EXPECTED_UNITS_METRIC = {
+    "UK-01": {"official_code": "J.62DMI00.001.1", "title": "Menentukan Objektif Bisnis", "elements": 4, "kuks": 12},
+    "UK-02": {"official_code": "J.62DMI00.002.1", "title": "Menentukan Tujuan Teknis Data Science", "elements": 2, "kuks": 4},
+    "UK-03": {"official_code": "J.62DMI00.005.1", "title": "Menelaah Data", "elements": 3, "kuks": 8},
+    "UK-04": {"official_code": "J.62DMI00.006.1", "title": "Memvalidasi Data", "elements": 2, "kuks": 4},
+    "UK-05": {"official_code": "J.62DMI00.007.1", "title": "Menentukan Objek Data", "elements": 2, "kuks": 4},
+    "UK-06": {"official_code": "J.62DMI00.008.1", "title": "Membersihkan Data", "elements": 2, "kuks": 4},
+    "UK-07": {"official_code": "J.62DMI00.009.1", "title": "Mengkonstruksi Data", "elements": 3, "kuks": 6},
+    "UK-08": {"official_code": "J.62DMI00.012.1", "title": "Membangun Skenario Model", "elements": 3, "kuks": 7},
+    "UK-09": {"official_code": "J.62DMI00.013.1", "title": "Membangun Model", "elements": 2, "kuks": 6},
+    "UK-10": {"official_code": "J.62DMI00.014.1", "title": "Mengevaluasi Hasil Pemodelan", "elements": 2, "kuks": 4},
+    "UK-11": {"official_code": "J.62DMI00.015.1", "title": "Melakukan Proses Review Pemodelan", "elements": 2, "kuks": 4},
 }
 
 
-@pytest.fixture
-def registry():
-    return EvidenceRegistry()
+@pytest.fixture(scope="module")
+def canonical_skkni():
+    path = ROOT_DIR / "standards" / "canonical_skkni_299_2020.json"
+    assert path.exists(), f"Missing canonical file: {path}"
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
-def test_skkni_unit_count_and_codes(registry):
-    """Verify exactly 11 canonical SKKNI units exist with correct official codes."""
-    assert len(registry.skkni_matrix) == 11, f"Expected exactly 11 units, got {len(registry.skkni_matrix)}"
-    for unit_id, expected in CANONICAL_UNITS.items():
-        assert unit_id in registry.skkni_matrix, f"Missing unit: {unit_id}"
-        item = registry.skkni_matrix[unit_id]
-        assert item.unit_title == expected["title"], f"Title mismatch for {unit_id}: {item.unit_title} vs {expected['title']}"
-        assert item.official_code == expected["official_code"], f"Official code mismatch for {unit_id}"
-        assert item.status in ("VERIFIED", "IMPLEMENTED", "TESTED")
+@pytest.fixture(scope="module")
+def evidence_registry_data():
+    path = ROOT_DIR / "reports" / "evidence" / "evidence_registry.json"
+    assert path.exists(), f"Missing evidence registry file: {path}"
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
-def test_skkni_four_dimensional_evidence_populated(registry):
-    """Verify each unit has complete Process, Result, Validation, and Explanation evidence."""
-    for unit_id, item in registry.skkni_matrix.items():
-        assert item.evidence_process, f"{unit_id} missing evidence_process"
-        assert item.evidence_result, f"{unit_id} missing evidence_result"
-        assert item.evidence_validation, f"{unit_id} missing evidence_validation"
-        assert item.evidence_explanation, f"{unit_id} missing evidence_explanation"
-        assert item.verification_method, f"{unit_id} missing verification_method"
+def test_canonical_skkni_structure_completeness(canonical_skkni):
+    """Verify exact count of units (11), elements (27), and KUKs (63) in canonical standard."""
+    units = canonical_skkni.get("units", [])
+    assert len(units) == 11, f"Expected 11 units, got {len(units)}"
+    
+    total_elements = 0
+    total_kuks = 0
+    
+    for u in units:
+        u_id = u["internal_id"]
+        assert u_id in EXPECTED_UNITS_METRIC, f"Unexpected unit ID: {u_id}"
+        expected = EXPECTED_UNITS_METRIC[u_id]
+        
+        assert u["unit_code"] == expected["official_code"], f"Code mismatch for {u_id}"
+        assert u["official_unit_title"] == expected["title"], f"Title mismatch for {u_id}"
+        
+        elems = u.get("competency_elements", [])
+        assert len(elems) == expected["elements"], f"{u_id} expected {expected['elements']} elements, got {len(elems)}"
+        total_elements += len(elems)
+        
+        u_kuks = sum(len(e.get("performance_criteria", [])) for e in elems)
+        assert u_kuks == expected["kuks"], f"{u_id} expected {expected['kuks']} KUKs, got {u_kuks}"
+        total_kuks += u_kuks
+        
+        # Verify metadata fields
+        assert u.get("unit_description"), f"{u_id} missing unit_description"
+        assert u.get("variable_limitations"), f"{u_id} missing variable_limitations"
+        assert u.get("critical_aspects"), f"{u_id} missing critical_aspects"
+        assert len(u.get("required_knowledge", [])) >= 2, f"{u_id} required_knowledge incomplete"
+        assert len(u.get("required_skills", [])) >= 2, f"{u_id} required_skills incomplete"
+
+    assert total_elements == 27, f"Expected exactly 27 total competency elements, got {total_elements}"
+    assert total_kuks == 63, f"Expected exactly 63 total KUKs, got {total_kuks}"
+    assert canonical_skkni.get("total_units") == 11
+    assert canonical_skkni.get("total_elements") == 27
+    assert canonical_skkni.get("total_kuks") == 63
 
 
-def test_skkni_code_locations_exist_on_disk(registry):
-    """Verify all referenced code files or directories exist on disk."""
-    for unit_id, item in registry.skkni_matrix.items():
-        for loc in item.code_locations:
-            path = ROOT_DIR / loc
-            assert path.exists(), f"For {unit_id}, referenced code path does not exist: {loc}"
+def test_evidence_registry_alignment_and_verbatim_text(canonical_skkni, evidence_registry_data):
+    """Verify evidence registry has exactly 63 records matching canonical KUK texts verbatim."""
+    records = evidence_registry_data.get("records", [])
+    assert len(records) == 63, f"Expected 63 evidence records, got {len(records)}"
+    
+    # Build lookup from canonical
+    canonical_lookup = {}
+    for u in canonical_skkni["units"]:
+        u_id = u["internal_id"]
+        for e in u["competency_elements"]:
+            for k in e["performance_criteria"]:
+                canonical_lookup[(u_id, k["kuk_id"])] = {
+                    "kuk_text": k["kuk_text"],
+                    "element_title": e["element_title"],
+                    "unit_code": u["unit_code"],
+                    "unit_title": u["official_unit_title"]
+                }
+                
+    assert len(canonical_lookup) == 63, "Canonical lookup must contain 63 items"
+    
+    for r in records:
+        key = (r["internal_unit_id"], r["kuk_number"])
+        assert key in canonical_lookup, f"Evidence record {key} not found in canonical standard"
+        ref = canonical_lookup[key]
+        
+        # Exact text consistency check
+        assert r["kuk_text"].strip() == ref["kuk_text"].strip(), f"KUK text discrepancy in {key}: {r['kuk_text']!r} != {ref['kuk_text']!r}"
+        assert r["element_title"].strip() == ref["element_title"].strip(), f"Element title mismatch in {key}"
+        assert r["unit_code"] == ref["unit_code"], f"Unit code mismatch in {key}"
+        assert r["unit_title"] == ref["unit_title"], f"Unit title mismatch in {key}"
+        
+        # Verification status check
+        assert r["evidence_status"] in ("VERIFIED", "PARTIALLY_VERIFIED"), f"Invalid status: {r['evidence_status']} for {key}"
+        assert r["csip_activity"], f"Missing activity description in {key}"
+        assert r["csip_evidence"], f"Missing evidence file in {key}"
+        assert r["verification_method"], f"Missing verification method in {key}"
 
 
-def test_skkni_notebook_locations_exist_on_disk(registry):
-    """Verify all referenced notebooks exist on disk."""
-    for unit_id, item in registry.skkni_matrix.items():
-        for nb in item.notebook_locations:
-            path = ROOT_DIR / nb
-            assert path.exists(), f"For {unit_id}, referenced notebook does not exist: {nb}"
+def test_evidence_files_physical_existence_on_disk(evidence_registry_data):
+    """Verify that every single evidence file referenced in the registry physically exists on disk."""
+    records = evidence_registry_data.get("records", [])
+    assert len(records) == 63
+    
+    missing_files = []
+    empty_files = []
+    
+    for r in records:
+        rel_path = r["csip_evidence"]
+        full_path = ROOT_DIR / rel_path
+        if not full_path.exists():
+            missing_files.append((r["kuk_id"], rel_path))
+        elif full_path.is_file() and full_path.stat().st_size == 0:
+            empty_files.append((r["kuk_id"], rel_path))
+            
+    assert not missing_files, f"The following referenced evidence files are missing on disk: {missing_files}"
+    assert not empty_files, f"The following referenced evidence files are empty: {empty_files}"
 
 
-def test_skkni_report_artifacts_exist_on_disk(registry):
-    """Verify all referenced report artifacts exist on disk."""
-    for unit_id, item in registry.skkni_matrix.items():
-        for rpt in item.report_artifacts:
-            path = ROOT_DIR / rpt
-            assert path.exists(), f"For {unit_id}, referenced report does not exist: {rpt}"
+def test_honest_verification_status_and_gaps(evidence_registry_data):
+    """Verify honest status labeling: simulated stakeholder signoffs are marked PARTIALLY_VERIFIED."""
+    records = evidence_registry_data.get("records", [])
+    status_map = {r["kuk_id"]: r["evidence_status"] for r in records}
+    
+    # KUK 2.2, 3.3, 4.3 of UK-01 rely on simulated client approval in an open-source setting
+    assert status_map["UK-01-KUK-2.2"] == "PARTIALLY_VERIFIED", "UK-01-KUK-2.2 must be PARTIALLY_VERIFIED (simulated stakeholder signoff)"
+    assert status_map["UK-01-KUK-3.3"] == "PARTIALLY_VERIFIED", "UK-01-KUK-3.3 must be PARTIALLY_VERIFIED (simulated risk acceptance)"
+    assert status_map["UK-01-KUK-4.3"] == "PARTIALLY_VERIFIED", "UK-01-KUK-4.3 must be PARTIALLY_VERIFIED (simulated cost-benefit approval)"
+    
+    # 60 out of 63 are VERIFIED with empirical artifacts
+    verified_count = sum(1 for r in records if r["evidence_status"] == "VERIFIED")
+    partial_count = sum(1 for r in records if r["evidence_status"] == "PARTIALLY_VERIFIED")
+    assert verified_count == 60, f"Expected 60 VERIFIED records, got {verified_count}"
+    assert partial_count == 3, f"Expected 3 PARTIALLY_VERIFIED records, got {partial_count}"
 
 
-def test_skkni_cross_markdown_consistency():
-    """Verify markdown matrix and canonical mapping contain all 11 unit codes and titles."""
-    canonical_file = ROOT_DIR / "reports" / "canonical_skkni_299_2020_mapping.md"
-    matrix_file = ROOT_DIR / "reports" / "research_traceability_matrix.md"
-
-    assert canonical_file.exists(), "Canonical mapping markdown does not exist"
-    assert matrix_file.exists(), "Traceability matrix markdown does not exist"
-
-    canonical_text = canonical_file.read_text(encoding="utf-8")
-    matrix_text = matrix_file.read_text(encoding="utf-8")
-
-    for unit_id, expected in CANONICAL_UNITS.items():
-        assert unit_id in canonical_text, f"{unit_id} missing in canonical mapping"
-        assert expected["official_code"] in canonical_text, f"{expected['official_code']} missing in canonical mapping"
-        assert expected["title"] in canonical_text, f"{expected['title']} missing in canonical mapping"
-
-        assert unit_id in matrix_text, f"{unit_id} missing in traceability matrix"
-        assert expected["official_code"] in matrix_text, f"{expected['official_code']} missing in traceability matrix"
-        assert expected["title"] in matrix_text, f"{expected['title']} missing in traceability matrix"
+def test_dual_import_compatibility():
+    """Verify that importing csip and src.csip work identically and without error."""
+    import csip
+    import src.csip
+    assert csip is not None
+    assert src.csip is not None
+    assert hasattr(csip, "SKKNI_UNITS")
+    assert hasattr(src.csip, "SKKNI_UNITS")
+    assert len(csip.SKKNI_UNITS) == 11
+    assert len(src.csip.SKKNI_UNITS) == 11

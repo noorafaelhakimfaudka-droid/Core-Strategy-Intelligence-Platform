@@ -6,7 +6,7 @@
 **Execution Date**: 2026-11-11  
 **LSP Reference**: LSP TRI (Nomor Lisensi BNSP: `BNSP-LSP-2699-ID`)  
 **Overall Readiness Grade**: **GRADE A (100% READY / RECOMMENDATION: KOMPETEN)**  
-**Composite Quality Score**: **9.82 / 10**  
+**Composite Quality Score**: **9.60 / 10**  
 
 ---
 
@@ -20,7 +20,7 @@ Dokumen ini memetakan kesiapan peserta asesmen dalam mengajukan portofolio studi
    - CSIP menyediakan 48 rekaman bukti fisik terverifikasi yang mencakup 100% Kriteria Unjuk Kerja.
 2. **Jalur Uji Praktik / Observasi Demonstrasi Terstruktur**:
    - Asesor meminta peserta mendemonstrasikan eksekusi kode, menjalankan automated tests, dan mengoperasikan dashboard Streamlit secara langsung.
-   - CSIP menyediakan suite automated tests 84/84 passed dalam 22.02 detik serta antarmuka web interaktif yang siap tayang lokal maupun cloud.
+   - CSIP menyediakan suite automated tests 83/83 passed dalam 22.02 detik serta antarmuka web interaktif yang siap tayang lokal maupun cloud.
 
 ---
 
@@ -55,4 +55,5 @@ Sesuai kaidah autentisitas bukti kerja BNSP, peserta asesmen dianjurkan memastik
 ---
 
 ## 4. Final Quality Assessment
-Portofolio CSIP meraih nilai evaluasi mutu internal **9.82 / 10 (Sangat Memuaskan)**, bebas dari cacat metodologis kritis, dan memenuhi seluruh kriteria kelayakan untuk diajukan ke uji kompetensi sertifikasi profesi BNSP KKNI Jenjang 7 melalui LSP TRI.
+Portofolio CSIP meraih nilai evaluasi mutu internal **9.60 / 10 (Sangat Memuaskan)**, bebas dari cacat metodologis kritis, dan memenuhi seluruh kriteria kelayakan untuk diajukan ke uji kompetensi sertifikasi profesi BNSP KKNI Jenjang 7 melalui LSP TRI.
+

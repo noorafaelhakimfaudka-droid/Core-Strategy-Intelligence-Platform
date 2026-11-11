@@ -148,3 +148,4 @@ Setiap unit memuat:
 - **Jawaban**: *"Menetapkan batas kritis SLA logistik maksimal 3 hari sebelum rating anjlok, serta mentransformasikan diskon ongkir universal menjadi subsidi cerdas terfokus hanya pada barang murah rute antar-wilayah (Klaster 0), yang diproyeksikan menghemat 14.2% churn dengan anggaran 3.1x lebih efisien."*
 - **Jebakan Konseptual**: Mengklaim bahwa korelasi statistik adalah bukti kausalitas sebab-akibat tanpa eksperimen acak.
 - **Demonstrasi**: Buka `reports/evidence_and_failure_register.md` dan tampilkan halaman 8 Streamlit (Model Governance).
+

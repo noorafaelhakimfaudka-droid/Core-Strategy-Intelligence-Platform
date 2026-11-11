@@ -1,14 +1,16 @@
 {
   "standard_identifier": "SKKNI No. 299 Tahun 2020",
-  "standard_title": "Standar Kompetensi Kerja Nasional Indonesia Kategori Informasi dan Komunikasi Golongan Pokok Aktivitas Pemrograman, Konsultasi Komputer dan Kegiatan yang Berhubungan dengan Itu (YBDI) Bidang Keahlian Artificial Intelligence Subbidang Data Science",
+  "standard_title": "Standar Kompetensi Kerja Nasional Indonesia Kategori Informasi dan Komunikasi Golongan Pokok Aktivitas Pemrograman, Konsultasi Komputer dan Kegiatan YBDI Bidang Data Science",
   "certification_scheme": {
-    "scheme_number": "SKM/2905/LSP-TRI/VII/2025",
-    "scheme_title": "Skema Sertifikasi Ilmuwan Data (Data Scientist)",
-    "level": "KKNI Level 7",
-    "issuing_body": "LSP TRI (Lembaga Sertifikasi Profesi Teknologi Rekayasa dan Informatika)",
-    "bnsp_license": "BNSP-LSP-2699-ID",
+    "scheme_name": "Sertifikasi Ilmuwan Data (Data Scientist)",
+    "lsp_name": "Lembaga Sertifikasi Profesi Teknologi Resiliensi Indonesia (LSP TRI)",
+    "scheme_code": "SKM/2905/LSP-TRI/VII/2025",
+    "kkni_level": 7,
     "total_units": 11
   },
+  "total_units": 11,
+  "total_elements": 27,
+  "total_kuks": 63,
   "units": [
     {
       "internal_id": "UK-01",
@@ -22,45 +24,90 @@
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Latar belakang dan permasalahan bisnis untuk proyek data science diidentifikasi sesuai dengan prosedur bisnis yang berlaku.",
-              "csip_activity": "Identifikasi friksi churn 97% dan tingginya rasio ongkir 21.4% pada marketplace Olist Brasil.",
-              "csip_evidence": "config/business_objectives.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Latar belakang dan permasalahan bisnis untuk proyek data science diidentifikasi sesuai dengan prosedur bisnis yang berlaku."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Poin-poin objektif bisnis diidentifikasi sesuai dengan permasalahan yang telah dipilih dan sesuai dengan kebutuhan organisasi.",
-              "csip_activity": "Perumusan 3 pilar objektif: mitigasi churn, efisiensi subsidi ongkir, penurunan komplain ulasan.",
-              "csip_evidence": "config/business_objectives.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Poin-poin objektif bisnis diidentifikasi sesuai dengan permasalahan yang telah dipilih dan sesuai dengan kebutuhan organisasi."
             },
             {
               "kuk_id": "1.3",
-              "kuk_text": "Poin-poin metrik kesuksesan dibuat sesuai objektif bisnis.",
-              "csip_activity": "Penetapan KPI terukur: Reduksi keterlambatan >3 hari sebesar 25%, mitigasi komplain ulasan bintang 1 sebesar 15%.",
-              "csip_evidence": "config/business_objectives.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Poin-poin metrik kesuksesan dibuat sesuai objektif bisnis."
             },
             {
               "kuk_id": "1.4",
-              "kuk_text": "Permasalahan bisnis, poin-poin objektif bisnis dan metrik kesuksesan proyek data science ditetapkan sesuai kebutuhan pengguna.",
-              "csip_activity": "Penyelarasan parameter operasional dan simulasi dampak laba rugi di simulator bisnis.",
-              "csip_evidence": "src/csip/scenarios/simulator.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Permasalahan bisnis, poin-poin objektif bisnis dan metrik kesuksesan proyek data science ditetapkan sesuai kebutuhan pengguna."
+            }
+          ]
+        },
+        {
+          "element_id": "E2",
+          "element_title": "Membuat daftar terminologi, sumber daya, kebutuhan, asumsi dan batasan",
+          "performance_criteria": [
+            {
+              "kuk_id": "2.1",
+              "kuk_text": "Daftar terminologi, sumber daya, kebutuhan, asumsi dan batasan proyek diidentifikasi."
+            },
+            {
+              "kuk_id": "2.2",
+              "kuk_text": "Persetujuan atas kebutuhan, asumsi dan batasan proyek diperoleh dari pengguna."
+            }
+          ]
+        },
+        {
+          "element_id": "E3",
+          "element_title": "Mengidentifikasi risiko dan alternatif pelaksanaan",
+          "performance_criteria": [
+            {
+              "kuk_id": "3.1",
+              "kuk_text": "Daftar risiko dalam pelaksanaan proyek diidentifikasi."
+            },
+            {
+              "kuk_id": "3.2",
+              "kuk_text": "Beberapa rencana mitigasi risiko diidentifikasi sesuai dengan daftar risiko."
+            },
+            {
+              "kuk_id": "3.3",
+              "kuk_text": "Persetujuan atas risiko dan rencana mitigasi risiko diperoleh dari pengguna."
+            }
+          ]
+        },
+        {
+          "element_id": "E4",
+          "element_title": "Menentukan biaya dan keuntungan",
+          "performance_criteria": [
+            {
+              "kuk_id": "4.1",
+              "kuk_text": "Komponen biaya dan besaran biaya pelaksanaan proyek diidentifikasi sesuai dengan objektif bisnis."
+            },
+            {
+              "kuk_id": "4.2",
+              "kuk_text": "Keuntungan pelaksanaan proyek diidentifikasi sesuai dengan objektif bisnis."
+            },
+            {
+              "kuk_id": "4.3",
+              "kuk_text": "Biaya dan keuntungan pelaksanaan proyek dikomunikasikan dan disetujui oleh pengguna."
             }
           ]
         }
       ],
-      "variable_limitations": "Konteks variabel mencakup analisis ekosistem e-commerce ritel multinasional dengan jaringan kurir pihak ketiga.",
-      "critical_aspects": "Ketepatan dalam merumuskan permasalahan bisnis dan menetapkan metrik kesuksesan yang terukur.",
-      "required_knowledge": ["Analisis proses bisnis", "Pengukuran kinerja organisasi", "Domain e-commerce"],
-      "required_skills": ["Wawancara pemangku kepentingan", "Formulasi indikator kinerja utama (KPI)"]
+      "variable_limitations": "Meliputi penentuan ruang lingkup bisnis, ekspektasi pengguna akhir, matriks risiko, dan kelayakan biaya-manfaat.",
+      "critical_aspects": "Ketepatan dalam mengidentifikasi permasalahan bisnis dan menetapkan metrik kesuksesan yang terukur serta realistis.",
+      "required_knowledge": [
+        "Metodologi siklus hidup proyek data science (CRISP-DM)",
+        "Konsep metrik bisnis vs metrik teknis",
+        "Analisis biaya-manfaat (Cost-Benefit Analysis)"
+      ],
+      "required_skills": [
+        "Identifikasi kebutuhan pemangku kepentingan",
+        "Penyusunan problem statement dan success criteria"
+      ]
     },
     {
       "internal_id": "UK-02",
       "unit_code": "J.62DMI00.002.1",
       "official_unit_title": "Menentukan Tujuan Teknis Data Science",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam menentukan tujuan teknis dari proyek data science.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam menentukan tujuan teknis data science.",
       "competency_elements": [
         {
           "element_id": "E1",
@@ -68,17 +115,11 @@
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Task data science ditentukan sesuai dengan objektif bisnis.",
-              "csip_activity": "Penetapan 4 task teknis: Imbalanced binary classification, continuous lead time regression, unsupervised clustering, dan Vector AutoRegressive state-space.",
-              "csip_evidence": "config/models.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Task data science ditentukan sesuai dengan objektif bisnis."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Tujuan teknis pelaksanaan proyek data science diidentifikasi sesuai objektif bisnis.",
-              "csip_activity": "Penerjemahan target reduksi churn menjadi deteksi dini risiko komplain dan peramalan waktu tiba.",
-              "csip_evidence": "config/analysis_plan.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Tujuan teknis pelaksanaan proyek data science diidentifikasi sesuai objektif bisnis."
             }
           ]
         },
@@ -88,31 +129,32 @@
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Daftar dan parameter kriteria kesuksesan proyek diidentifikasi sesuai dengan tujuan teknis.",
-              "csip_activity": "Penetapan ambang batas kuantitatif: PR-AUC Tabular >= 0.28, Text PR-AUC >= 0.75, Silhouette >= 0.35, WAPE <= 18%.",
-              "csip_evidence": "config/models.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Daftar dan parameter kriteria kesuksesan proyek diidentifikasi sesuai dengan tujuan teknis."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Kriteria yang teridentifikasi disetujui oleh pengguna sesuai dengan objektif bisnis.",
-              "csip_activity": "Pemilihan PR-AUC dibanding ROC-AUC disahkan secara metodologis karena ketimpangan kelas ulasan negatif (~8%).",
-              "csip_evidence": "reports/model_evaluation_and_review_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Kriteria yang teridentifikasi disetujui oleh pengguna sesuai dengan objektif bisnis."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi pemilihan pendekatan machine learning supervised, unsupervised, dan deret waktu dinamis.",
-      "critical_aspects": "Kesesuaian antara task data science yang dipilih dengan objektif bisnis serta ketepatan kriteria evaluasi teknis.",
-      "required_knowledge": ["Taksonomi algoritma machine learning", "Metrik evaluasi klasifikasi dan regresi", "Penanganan ketimpangan kelas"],
-      "required_skills": ["Perumusan rumusan matematis masalah", "Penetapan ambang batas kinerja teknis"]
+      "variable_limitations": "Meliputi pemilihan task (klasifikasi, regresi, clustering, estimasi survival) dan penetapan metrik teknis.",
+      "critical_aspects": "Kesesuaian task data science dengan objektif bisnis dan penetapan threshold metrik teknis yang terjustifikasi.",
+      "required_knowledge": [
+        "Taksonomi task machine learning",
+        "Metrik evaluasi teknis (PR-AUC, ROC-AUC, Brier score, ECE)",
+        "Kriteria kesuksesan performa komputasi"
+      ],
+      "required_skills": [
+        "Pemetaan objektif bisnis ke task teknis",
+        "Perumusan batas toleransi metrik evaluasi"
+      ]
     },
     {
       "internal_id": "UK-03",
       "unit_code": "J.62DMI00.005.1",
       "official_unit_title": "Menelaah Data",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam mengeksplorasi serta menelaah data yang telah dikumpulkan.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam menelaah data untuk data science.",
       "competency_elements": [
         {
           "element_id": "E1",
@@ -120,24 +162,15 @@
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Tipe data yang terkumpul diidentifikasi sesuai tujuan teknis.",
-              "csip_activity": "Pemeriksaan tipe data 9 tabel Olist (timestamp, float32, int16, string kategori).",
-              "csip_evidence": "data/data_dictionary.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Tipe data yang terkumpul diidentifikasi sesuai tujuan teknis."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Nilai atribut data yang terkumpul diuraikan sesuai dengan batasan konteks bisnisnya.",
-              "csip_activity": "Penguraian atribut harga, ongkir, skor ulasan 1-5 bintang, dan kategori produk.",
-              "csip_evidence": "reports/data_quality_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Nilai atribut data yang terkumpul diuraikan sesuai dengan batasan konteks bisnisnya."
             },
             {
               "kuk_id": "1.3",
-              "kuk_text": "Relasi antar data yang terkumpul diidentifikasi sesuai dengan tujuan teknis.",
-              "csip_activity": "Audit relasional Foreign Key 9 tabel: integritas FK 100% tanpa record yatim piatu (0 orphan records).",
-              "csip_evidence": "src/csip/data/loader.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Relasi antar data yang terkumpul diidentifikasi sesuai dengan tujuan teknis."
             }
           ]
         },
@@ -147,24 +180,15 @@
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Karakteristik data yang terkumpul disajikan dengan deskripsi statistik dasar.",
-              "csip_activity": "Kalkulasi mean, median, IQR, skewness, min, max pada harga dan durasi pengiriman.",
-              "csip_evidence": "reports/data_quality_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Karakteristik data yang terkumpul disajikan dengan deskripsi statistik dasar."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Karakteristik data yang terkumpul disajikan dengan visualisasi grafik.",
-              "csip_activity": "Pembuatan histogram heavy-tailed harga, boxplot keterlambatan per wilayah, dan korelasi bivariat.",
-              "csip_evidence": "notebooks/03_exploratory_data_analysis.ipynb",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Karakteristik data yang terkumpul disajikan dengan visualisasi grafik."
             },
             {
               "kuk_id": "2.3",
-              "kuk_text": "Hasil penyajian data dianalisis karakteristiknya untuk telaah data.",
-              "csip_activity": "Penemuan pola asimetri keterlambatan (DISC-02): ulasan bintang 1 melonjak saat keterlambatan > 3 hari.",
-              "csip_evidence": "reports/data_quality_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Hasil penyajian data dianalisis karakteristiknya untuk telaah data."
             }
           ]
         },
@@ -174,31 +198,32 @@
           "performance_criteria": [
             {
               "kuk_id": "3.1",
-              "kuk_text": "Hasil analisis didokumentasikan dalam bentuk laporan sesuai dengan tujuan teknis.",
-              "csip_activity": "Penyusunan Data Quality Report dan kamus data terstruktur.",
-              "csip_evidence": "reports/data_quality_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Hasil analisis didokumentasikan dalam bentuk laporan sesuai dengan tujuan teknis."
             },
             {
               "kuk_id": "3.2",
-              "kuk_text": "Hipotesis disusun berdasar hasil analisis sesuai tujuan teknis data science.",
-              "csip_activity": "Perumusan formal hipotesis H1 (elastisitas ongkir), H2 (asimetri keterlambatan), dan H3 (reputasi seller).",
-              "csip_evidence": "reports/hypothesis_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Hipotesis disusun berdasar hasil analisis sesuai tujuan teknis data science."
             }
           ]
         }
       ],
-      "variable_limitations": "Mencakup eksplorasi data univariat, bivariat, dan relasional multi-tabel.",
-      "critical_aspects": "Ketepatan identifikasi tipe data, relasi referensial, karakteristik distribusi, dan perumusan hipotesis awal.",
-      "required_knowledge": ["Statistika deskriptif", "Visualisasi data", "Pemodelan data relasional"],
-      "required_skills": ["Penggunaan Pandas dan Seaborn/Plotly", "Analisis asosiasi bivariat"]
+      "variable_limitations": "Meliputi analisis tipe atribut, statistik deskriptif, visualisasi distribusi, dan formulasi hipotesis.",
+      "critical_aspects": "Kecermatan analisis distribusi statistik dan kebenaran perumusan hipotesis alternatif.",
+      "required_knowledge": [
+        "Statistika deskriptif dan inferensial",
+        "Teknik visualisasi data",
+        "Relational schema & grain analysis"
+      ],
+      "required_skills": [
+        "Exploratory Data Analysis (EDA)",
+        "Formulasi hipotesis teruji"
+      ]
     },
     {
       "internal_id": "UK-04",
       "unit_code": "J.62DMI00.006.1",
       "official_unit_title": "Memvalidasi Data",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam memeriksa kualitas serta kecukupan data sebelum tahap pembersihan atau pemodelan.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam memvalidasi data untuk data science.",
       "competency_elements": [
         {
           "element_id": "E1",
@@ -206,17 +231,11 @@
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Penilaian kualitas data dari hasil telaah disajikan sesuai tujuan teknis data science.",
-              "csip_activity": "Audit integritas data otomatis: kelengkapan kolom, rasio null, integritas primary key, dan kronologi waktu.",
-              "csip_evidence": "artifacts/reports/raw_data_profile.json",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Penilaian kualitas data dari hasil telaah disajikan sesuai tujuan teknis data science."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Penilaian tingkat kecukupan data dari hasil telaah disajikan sesuai tujuan teknis data science.",
-              "csip_activity": "Identifikasi 23 baris anomali kronologi (order_delivered < order_purchase) dan 11,000+ baris pesanan non-delivered.",
-              "csip_evidence": "reports/data_quality_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Penilaian tingkat kecukupan data dari hasil telaah disajikan sesuai tujuan teknis data science."
             }
           ]
         },
@@ -226,135 +245,124 @@
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Rekomendasi hasil penilaian kualitas disusun sesuai tujuan teknis data science.",
-              "csip_activity": "Rekomendasi pembuangan 23 baris anomali tanggal terbalik agar tidak merusak perhitungan durasi kirim.",
-              "csip_evidence": "reports/data_quality_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Rekomendasi hasil penilaian kualitas disusun sesuai tujuan teknis data science."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Rekomendasi hasil penilaian kecukupan data disusun sesuai tujuan teknis data science.",
-              "csip_activity": "Rekomendasi pemfilteran hanya pesanan berstatus 'delivered' untuk mitigasi right-censoring bias.",
-              "csip_evidence": "tests/test_data_validation.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Rekomendasi hasil penilaian kecukupan data disusun sesuai tujuan teknis data science."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi aturan validasi bisnis, kelengkapan skema, dan konsistensi urutan kronologis peristiwa.",
-      "critical_aspects": "Ketepatan identifikasi anomali data dan perumusan rekomendasi perbaikan kualitas data.",
-      "required_knowledge": ["Prinsip data quality assurance", "Teknik deteksi anomali kronologi waktu"],
-      "required_skills": ["Pembuatan aturan validasi otomatis", "Pengujian asersi integritas data"]
+      "variable_limitations": "Meliputi validasi kelengkapan, validasi tipe, integritas referensial, dan kecukupan observasi.",
+      "critical_aspects": "Validasi integritas data primer/asing dan formulasi rekomendasi tindakan data engineering.",
+      "required_knowledge": [
+        "Dimensi kualitas data (completeness, consistency, validity)",
+        "Statistika kecukupan sampel"
+      ],
+      "required_skills": [
+        "Pengecekan kualitas data terprogram",
+        "Penyusunan laporan audit validasi data"
+      ]
     },
     {
       "internal_id": "UK-05",
       "unit_code": "J.62DMI00.007.1",
       "official_unit_title": "Menentukan Objek Data",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam menentukan objek data, unit analisis (grain), kriteria inklusi/eksklusi, serta batasan observasi.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam memilah dan memilih data yang sesuai permintaan atau kebutuhan.",
       "competency_elements": [
         {
           "element_id": "E1",
-          "element_title": "Menentukan kriteria pemilihan objek data",
+          "element_title": "Memutuskan kriteria dan teknik pemilihan data",
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Objek data yang relevan dengan tujuan teknis data science diidentifikasi.",
-              "csip_activity": "Identifikasi objek transaksi individual, entitas pelanggan unik, deret waktu mingguan, dan teks ulasan.",
-              "csip_evidence": "config/data.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Kriteria pemilihan data diidentifikasi sesuai dengan tujuan teknis dan aturan yang berlaku."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Batasan atau kriteria seleksi data (filtering/sampling/grain definition) ditetapkan.",
-              "csip_activity": "Penetapan 4 grain ortogonal terpisah dan jendela observasi delta_w = 90 hari untuk mitigasi censoring.",
-              "csip_evidence": "config/analysis_plan.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Teknik pemilihan data ditetapkan sesuai dengan kriteria pemilihan data."
             }
           ]
         },
         {
           "element_id": "E2",
-          "element_title": "Melakukan pemilihan objek data",
+          "element_title": "Menentukan attributes (kolom) dan records (baris) data",
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Data dipilih berdasarkan kriteria inklusi dan eksklusi yang telah ditetapkan.",
-              "csip_activity": "Ekstraksi 4 grain analitis: order_level (N=96,470), customer_cohort (N=93,358), weekly_system_state (N=86), review_corpus (N=95,831).",
-              "csip_evidence": "data/dataset_manifest.json",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Attributes (kolom) data diidentifikasi sesuai dengan kriteria pemilihan data."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Hasil pemilihan objek data didokumentasikan.",
-              "csip_evidence": "Dokumentasi spesifikasi objek data dalam data lineage dan manifest SHA-256.",
-              "csip_activity": "Pencatatan schema dan record count pada dataset manifest.",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Records (baris) data diidentifikasi sesuai dengan kriteria pemilihan data."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi penentuan unit observasi analitis dan mitigasi bias sensor temporal.",
-      "critical_aspects": "Ketepatan pemilihan unit analisis dan independensi skema antar-grain data.",
-      "required_knowledge": ["Desain skema data warehouse dan data mart", "Teori kelangsungan hidup (survival analysis) dan censoring"],
-      "required_skills": ["Partisi dan agregasi data tingkat lanjut", "Pengelolaan format Parquet"]
+      "variable_limitations": "Meliputi penentuan kriteria inklusi/eksklusi baris, pemilahan atribut prediktor, dan penentuan grain entitas.",
+      "critical_aspects": "Ketepatan kriteria inklusi/eksklusi agar tidak menimbulkan selection bias atau survivorship bias.",
+      "required_knowledge": [
+        "Prinsip cohort definition",
+        "Sampling techniques & bias reduction"
+      ],
+      "required_skills": [
+        "Filtering data berbasis aturan bisnis",
+        "Penentuan atribut target dan prediktor"
+      ]
     },
     {
       "internal_id": "UK-06",
       "unit_code": "J.62DMI00.008.1",
       "official_unit_title": "Membersihkan Data",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam membersihkan data dari nilai hilang, anomali, dan duplikasi secara terprogram.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam membersihkan data yang sesuai permintaan atau kebutuhan.",
       "competency_elements": [
         {
           "element_id": "E1",
-          "element_title": "Merencanakan pembersihan data",
+          "element_title": "Melakukan pembersihan data yang kotor",
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Anomali, missing values, duplikasi, dan inkonsistensi data diidentifikasi.",
-              "csip_activity": "Identifikasi duplikasi 1.0M baris koordinat geolokasi, multi-item review, dan missing value pada berat produk.",
-              "csip_evidence": "src/csip/cleaning/cleaner.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Strategi pembersihan data ditentukan berdasarkan hasil telaah data."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Strategi dan metode pembersihan data (imputasi, deduplikasi, penanganan outlier) dirancang.",
-              "csip_activity": "Rancangan kompresi median koordinat per prefix kode pos dan protokol transformer Scikit-Learn.",
-              "csip_evidence": "src/csip/cleaning/auto_cleaner.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Data yang kotor dikoreksi berdasarkan strategi pembersihan data."
             }
           ]
         },
         {
           "element_id": "E2",
-          "element_title": "Melakukan pembersihan data",
+          "element_title": "Membuat laporan dan rekomendasi hasil membersihkan data",
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Prosedur pembersihan data dieksekusi secara terprogram.",
-              "csip_activity": "Eksekusi deduplikasi geolokasi (1.0M -> 19k baris, -98.1%) dan pembersihan status non-delivered.",
-              "csip_evidence": "data/interim/",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Masalah dan teknis koreksi data dideskripsikan sesuai dengan kondisi data dan strategi pembersihan data."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Data bersih hasil pembersihan diverifikasi integritasnya dan disimpan dalam format terstandar.",
-              "csip_activity": "Penyimpanan 8 tabel interim Parquet bebas missing values pada primary key dan verifikasi stress pipeline.",
-              "csip_evidence": "tests/test_cleaning_and_grain.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Evaluasi dihasilkan berdasarkan analisis data yang telah dibersihkan."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi deduplikasi spasial, imputasi median, dan standardisasi format kolom.",
+      "variable_limitations": "Meliputi penanganan missing values, koreksi inkonsistensi tipe, deduplikasi baris, dan penanganan anomali.",
       "critical_aspects": "Kerapian eksekusi pembersihan terprogram dan ketiadaan data leakage saat imputasi train-test.",
-      "required_knowledge": ["Metode penanganan missing data", "Teknik deduplikasi geospasial", "Protokol Scikit-Learn Transformer"],
-      "required_skills": ["Pemrograman pembersihan data terotomasi", "Pengujian regresi integritas data"]
+      "required_knowledge": [
+        "Metode imputasi nilai hilang",
+        "Teknik deduplikasi spasial dan relasional",
+        "Protokol Scikit-Learn Transformer"
+      ],
+      "required_skills": [
+        "Pemrograman pembersihan data terotomasi",
+        "Pengujian integritas data pasca-pembersihan"
+      ]
     },
     {
       "internal_id": "UK-07",
       "unit_code": "J.62DMI00.009.1",
       "official_unit_title": "Mengkonstruksi Data",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam menyiapkan serta merekayasa fitur data (feature engineering) yang siap pakai.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam mengkonstruksi data untuk proyek data science.",
       "competency_elements": [
         {
           "element_id": "E1",
@@ -362,17 +370,11 @@
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Representasi fitur data awal dianalisis.",
-              "csip_activity": "Analisis kebutuhan fitur rasio ekonomi, kedekatan spasial pembeli-penjual, dan interaksi keterlambatan.",
-              "csip_evidence": "config/features.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Analisis data untuk menentukan representasi fitur data awal dilakukan."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Teknik rekayasa fitur (feature engineering) yang diperlukan ditentukan sesuai tujuan pemodelan.",
-              "csip_activity": "Penentuan rumus Haversine vectorized, rasio freight/price, jeda approval, dan isolasi temporal anti-leakage.",
-              "csip_evidence": "src/csip/features/engineer.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Analisis representasi fitur data awal untuk menentukan teknik rekayasa fitur yang diperlukan untuk pembangunan model data science dilakukan."
             }
           ]
         },
@@ -382,17 +384,11 @@
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Fitur turunan, interaksi, agregasi as-of, dan encoding variabel dibentuk tanpa data leakage.",
-              "csip_activity": "Konstruksi 41 fitur domain pada order_level.parquet dengan penegakan feature availability matrix.",
-              "csip_evidence": "src/csip/features/engineer.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Transformasi dilakukan untuk mendapatkan fitur data awal."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Dataset hasil konstruksi siap pakai divalidasi spesifikasi teknisnya.",
-              "csip_activity": "Uji otomatis anti-kebocoran membuktikan korelasi 0.00 fitur masukan terhadap kejadian masa depan.",
-              "csip_evidence": "tests/test_feature_leakage.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Rekayasa fitur data dilakukan untuk mendapatkan fitur baru yang diperlukan untuk pembangunan model data science."
             }
           ]
         },
@@ -402,24 +398,32 @@
           "performance_criteria": [
             {
               "kuk_id": "3.1",
-              "kuk_text": "Setiap langkah transformasi dan rancangan fitur didokumentasikan secara rinci.",
-              "csip_activity": "Penyusunan Feature Availability Matrix dan kamus definisi fitur.",
-              "csip_evidence": "reports/modeling/feature_availability_matrix.csv",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Teknis transformasi data dijabarkan dalam bentuk tertulis."
+            },
+            {
+              "kuk_id": "3.2",
+              "kuk_text": "Hasil transformasi data dan rekomendasi hasil transformasi dituangkan dalam bentuk tertulis."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi pembentukan variabel turunan ekonomi, geospasial, temporal, dan rasio interaksi.",
+      "variable_limitations": "Meliputi feature engineering, transformasi variabel, perhitungan jarak spasial, agregasi temporal, dan pendokumentasian fitur.",
       "critical_aspects": "Kreativitas rekayasa fitur domain dan penegakan isolasi temporal bebas target leakage.",
-      "required_knowledge": ["Feature engineering principles", "Vectorized computing", "Temporal data leakage prevention"],
-      "required_skills": ["Pemrograman NumPy/Pandas tingkat lanjut", "Pengujian korelasi masa depan"]
+      "required_knowledge": [
+        "Prinsip feature engineering",
+        "Komputasi vektorisasi (vectorized mathematical transformations)",
+        "Pencegahan temporal data leakage"
+      ],
+      "required_skills": [
+        "Pemrograman NumPy/Pandas tingkat lanjut",
+        "Penyusunan Feature Availability Matrix dan kamus fitur"
+      ]
     },
     {
       "internal_id": "UK-08",
       "unit_code": "J.62DMI00.012.1",
       "official_unit_title": "Membangun Skenario Model",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam merancang skenario pemodelan, partisi validasi temporal, dan pengujian hipotesis.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam membangun skenario model.",
       "competency_elements": [
         {
           "element_id": "E1",
@@ -427,194 +431,207 @@
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Karakteristik data dan asumsi teknis model diselaraskan.",
-              "csip_activity": "Penyelarasan asumsi ketimpangan kelas, non-linearitas keterlambatan, dan stasioneritas deret waktu.",
-              "csip_evidence": "config/models.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Asumsi-asumsi spesifik mengenai data diidentifikasi sesuai karakteristik data."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Algoritma dan paradigma pemodelan (supervised, unsupervised, deep learning, state-space) dipilih sesuai KPI.",
-              "csip_activity": "Pemilihan LightGBM untuk tabular, Bi-LSTM untuk teks ulasan, K-Means untuk persona, dan VAR untuk makro.",
-              "csip_evidence": "config/scenarios.yaml",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Teknik-teknik pemodelan data diidentifikasi sesuai karakteristik data dan tujuan teknis data science."
             }
           ]
         },
         {
           "element_id": "E2",
-          "element_title": "Menyiapkan skenario pengujian dan validasi model",
+          "element_title": "Menentukan teknik pemodelan yang sesuai dengan karakteristik data dan tujuan teknis data science",
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Skema partisi data (train/validation/test temporal holdout) dirancang untuk mencegah leakage.",
-              "csip_activity": "Partisi temporal out-of-time (cutoff 2018-06-01): Train N=76,462 pesanan, Test N=20,008 pesanan.",
-              "csip_evidence": "src/csip/models/trainer.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Teknik pemodelan yang sesuai dengan karakteristik data ditentukan."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Matriks eksperimen, skenario intervensi/kebijakan, dan protokol pengujian hipotesis ditetapkan.",
-              "csip_activity": "Perancangan matriks hipotesis H1-H6 dengan Benjamini-Hochberg FDR dan 6 skenario kebijakan S0-S5.",
-              "csip_evidence": "reports/hypothesis_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Deskripsi teknik pemodelan yang dipilih didokumentasikan sesuai SOP yang berlaku."
+            }
+          ]
+        },
+        {
+          "element_id": "E3",
+          "element_title": "Menyiapkan skenario pengujian",
+          "performance_criteria": [
+            {
+              "kuk_id": "3.1",
+              "kuk_text": "Skenario uji yang mungkin diterapkan ditentukan sesuai tujuan teknis."
+            },
+            {
+              "kuk_id": "3.2",
+              "kuk_text": "Metrik evaluasi pengujian diidentifikasi sesuai skenario uji."
+            },
+            {
+              "kuk_id": "3.3",
+              "kuk_text": "Skenario uji yang dipilih didokumentasikan sesuai standar yang berlaku."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi partisi data berbasis waktu kronologis dan perancangan skenario intervensi kebijakan.",
-      "critical_aspects": "Penetapan skema validasi temporal out-of-time tanpa lookahead contamination.",
-      "required_knowledge": ["Desain eksperimen Data Science", "Prosedur multiple hypothesis testing (FDR)", "Simulasi kebijakan"],
-      "required_skills": ["Partisi dataset berbasis timestamp", "Perhitungan statistik inferensial"]
+      "variable_limitations": "Meliputi seleksi algoritma (baseline, linier, tree-based, neural), perumusan skenario partisi data temporal, dan pemilihan metrik uji.",
+      "critical_aspects": "Ketepatan penyusunan skenario pengujian out-of-time (purged temporal split) yang mencegah lookahead bias.",
+      "required_knowledge": [
+        "Asumsi algoritma machine learning (linearitas, independensi, non-parametrik)",
+        "Skema cross-validation dan temporal split",
+        "Metrik performa model untuk data tidak seimbang"
+      ],
+      "required_skills": [
+        "Penyusunan matriks eksperimen pemodelan",
+        "Perancangan protokol validasi out-of-time"
+      ]
     },
     {
       "internal_id": "UK-09",
       "unit_code": "J.62DMI00.013.1",
       "official_unit_title": "Membangun Model",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam melatih model machine learning secara sistematis (baseline ladder) dan dapat direproduksi.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam membangun model.",
       "competency_elements": [
         {
           "element_id": "E1",
-          "element_title": "Mempersiapkan data untuk pemodelan",
+          "element_title": "Menyiapkan parameter model",
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Pipeline pelatihan dan preprocessing di-fit hanya pada data training.",
-              "csip_activity": "Penegakan split-before-fit di ml_engine.py dan auto_cleaner.py; scaling & imputasi strictly on X_train.",
-              "csip_evidence": "src/csip/models/ml_engine.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Parameter-parameter yang sesuai dengan model diidentifikasi."
+            },
+            {
+              "kuk_id": "1.2",
+              "kuk_text": "Nilai toleransi parameter evaluasi pengujian ditetapkan sesuai dengan tujuan teknis."
             }
           ]
         },
         {
           "element_id": "E2",
-          "element_title": "Melakukan pelatihan model",
+          "element_title": "Menggunakan tools pemodelan",
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Model baseline (B0-B1), model klasik (B2-B3), dan model tingkat lanjut (B4 deep learning) dilatih.",
-              "csip_activity": "Pelatihan sistematis B0 Naive, B1 Logistic/Ridge, B2 Decision Tree/KNN/NB, B3 Random Forest & LightGBM, B4 Tabular MLP & Bi-LSTM.",
-              "csip_evidence": "src/csip/models/classic.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Tools untuk membuat model diidentifikasi sesuai dengan tujuan teknis data science."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Hyperparameter dioptimalkan dan proses pelatihan dicatat secara reproducible.",
-              "csip_activity": "Optimasi hyperparameter LightGBM (learning_rate=0.05, num_leaves=31) dengan seed tetap random_state=42.",
-              "csip_evidence": "artifacts/models/",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Algoritma untuk teknik pemodelan yang ditentukan dibangun menggunakan tools yang dipilih."
+            },
+            {
+              "kuk_id": "2.3",
+              "kuk_text": "Algoritma pemodelan dieksekusi sesuai dengan skenario pengujian dan tools untuk membuat model yang telah ditetapkan."
+            },
+            {
+              "kuk_id": "2.4",
+              "kuk_text": "Parameter model algoritma dioptimasi untuk menghasilkan nilai parameter evaluasi yang sesuai dengan skenario pengujian."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi model linier, pohon keputusan, gradient boosting, dan recurrent neural networks.",
-      "critical_aspects": "Penerapan baseline ladder yang adil dan reproduksibilitas proses fitting model.",
-      "required_knowledge": ["Teori algoritma ensemble gradient boosting", "Arsitektur deep learning NLP", "Optimasi hyperparameter"],
-      "required_skills": ["Penerapan Scikit-Learn, LightGBM, dan PyTorch", "Manajemen seed dan serialisasi model"]
+      "variable_limitations": "Meliputi konfigurasi hyperparameter, pemilihan pustaka komputasi (Scikit-Learn, LightGBM, PyTorch), eksekusi pelatihan, dan optimasi parameter.",
+      "critical_aspects": "Eksekusi pelatihan model yang ketat, pencegahan overfitting, dan pencatatan parameter eksperimen.",
+      "required_knowledge": [
+        "Arsitektur algoritma (Gradient Boosting, Logistic Regression, Deep Learning)",
+        "Strategi optimasi hyperparameter (Grid, Random, Bayesian)",
+        "Pustaka machine learning Python"
+      ],
+      "required_skills": [
+        "Pemrograman pelatihan model end-to-end",
+        "Penyetelan hyperparameter dan kalibrasi probabilitas"
+      ]
     },
     {
       "internal_id": "UK-10",
       "unit_code": "J.62DMI00.014.1",
       "official_unit_title": "Mengevaluasi Hasil Pemodelan",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam mengevaluasi kinerja model pada data out-of-sample, kalibrasi probabilitas, dan interpretasi fitur.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam mengevaluasi hasil pemodelan.",
       "competency_elements": [
         {
           "element_id": "E1",
-          "element_title": "Menganalisis performa model",
+          "element_title": "Menggunakan model dengan data riil",
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Metrik teknis (PR-AUC, ROC-AUC, Brier Score, ECE, MAE, R2, WAPE) dihitung pada test set holdout.",
-              "csip_activity": "Kalkulasi lengkap metrik out-of-time: LightGBM champion PR-AUC = 0.3004, Bi-LSTM PR-AUC = 0.8076, VAR WAPE = 15.83%.",
-              "csip_evidence": "reports/model_evaluation_and_review_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Data baru untuk evaluasi pemodelan dikumpulkan sesuai kebutuhan yang mengacu kepada parameter evaluasi."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Baseline comparison dilakukan untuk membuktikan keunggulan model terpilih.",
-              "csip_activity": "Pembuktian LightGBM melampaui Naive Classifier sebesar +269% (0.3004 vs 0.0814) dan Ridge Regression (+83%).",
-              "csip_evidence": "reports/model_evaluation_and_review_report.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Model diuji dengan menggunakan data riil yang telah dikumpulkan."
             }
           ]
         },
         {
           "element_id": "E2",
-          "element_title": "Melakukan interpretasi model",
+          "element_title": "Menilai hasil pemodelan",
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Kontribusi fitur diinterpretasikan menggunakan metode explainable AI (SHAP TreeExplainer).",
-              "csip_activity": "Analisis atribusi SHAP: faktor keterlambatan (delivery_delay_days) mendominasi 31.2% massa kepentingan model.",
-              "csip_evidence": "src/csip/evaluation/explainer.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Keluaran pengujian model dinilai berdasarkan metrik kesuksesan."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Keterbatasan dan ketidakpastian prediksi diukur (bootstrap confidence interval).",
-              "csip_activity": "Kalkulasi interval ketidakpastian bootstrap 95% CI (B=1,000) dan kalibrasi Platt scaling (-44.59% Brier Score).",
-              "csip_evidence": "src/csip/uncertainty/bootstrap.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Hasil penilaian didokumentasikan sesuai standar yang berlaku."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi metrik evaluasi ketimpangan kelas, kurva kalibrasi probabilitas, dan metode atribusi nilai Shapley.",
-      "critical_aspects": "Ketepatan pemilihan metrik PR-AUC pada kelas minoritas dan kejujuran pelaporan ketidakpastian estimasi.",
-      "required_knowledge": ["Teori kalibrasi probabilitas (Platt scaling & Brier score)", "Metode Explainable AI (SHAP)", "Bootstrap resampling"],
-      "required_skills": ["Visualisasi kurva Precision-Recall dan Calibration", "Interpretasi plot SHAP"]
+      "variable_limitations": "Meliputi evaluasi pada out-of-time test set, komparasi terhadap baseline B0-B1, kalibrasi probabilitas, dan analisis SHAP.",
+      "critical_aspects": "Validitas empiris evaluasi tanpa kebocoran data uji dan interpretasi berbasis explainability.",
+      "required_knowledge": [
+        "Metrik klasifikasi komprehensif (PR-AUC, ROC-AUC, Brier score, ECE)",
+        "Metode explainability (SHAP, feature importance)",
+        "Uji bootstrap ketidakpastian"
+      ],
+      "required_skills": [
+        "Komparasi model terhadap baseline",
+        "Interpretasi atribusi fitur dan analisis kalibrasi"
+      ]
     },
     {
       "internal_id": "UK-11",
       "unit_code": "J.62DMI00.015.1",
       "official_unit_title": "Melakukan Proses Review Pemodelan",
-      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam meninjau ulang kesesuaian model terhadap tujuan bisnis, mendokumentasikan kegagalan, dan merumuskan rekomendasi.",
+      "unit_description": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam melakukan proses review pemodelan.",
       "competency_elements": [
         {
           "element_id": "E1",
-          "element_title": "Meninjau kesesuaian model terhadap tujuan bisnis",
+          "element_title": "Menilai kesesuaian proses pemodelan",
           "performance_criteria": [
             {
               "kuk_id": "1.1",
-              "kuk_text": "Hasil pemodelan ditinjau ulang terhadap objektif bisnis dan kriteria kesuksesan awal.",
-              "csip_activity": "Peninjauan ketercapaian 3 pilar bisnis: ambang batas aman SLA logistik 3 hari sebelum rating anjlok teridentifikasi.",
-              "csip_evidence": "reports/evidence_and_failure_register.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Proses pemodelan diperiksa kesesuaiannya berdasarkan tahapan yang ditentukan."
             },
             {
               "kuk_id": "1.2",
-              "kuk_text": "Potensi risiko, failure modes, dan batasan operasional didokumentasikan dalam Failure Register.",
-              "csip_activity": "Pencatatan 3 kegagalan eksplisit: penolakan hipotesis H3 (FAIL-HYP-H3), kelemahan model linier (FAIL-MOD-RIDGE), dan batasan kausalitas observasional (LIMIT-CAUSAL).",
-              "csip_evidence": "reports/evidence_and_failure_register.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Tindak lanjut yang perlu diambil ditentukan berdasarkan hasil pengujian model hasil pemeriksaan kesesuaian."
             }
           ]
         },
         {
           "element_id": "E2",
-          "element_title": "Menentukan tindak lanjut dan rekomendasi",
+          "element_title": "Menilai kualitas proses pemodelan",
           "performance_criteria": [
             {
               "kuk_id": "2.1",
-              "kuk_text": "Rekomendasi strategis dan batasan klaim (L0-L3) dirumuskan untuk pengguna akhir.",
-              "csip_activity": "Formulasi rekomendasi subsidi ongkir cerdas terarah Klaster 0 dan pembatasan tingkat klaim L2 (Asosiasi Terkontrol).",
-              "csip_evidence": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Proses pemodelan dinilai berdasarkan rencana pelaksanaan proyek."
             },
             {
               "kuk_id": "2.2",
-              "kuk_text": "Keputusan kelayakan model dan arahan perbaikan jangka panjang ditetapkan.",
-              "csip_activity": "Penyusunan dashboard pembelaan interaktif Streamlit dan penetapan roadmap pengujian A/B testing di lapangan.",
-              "csip_evidence": "app/streamlit_app.py",
-              "evidence_status": "VERIFIED"
+              "kuk_text": "Hasil penilaian didokumentasikan sesuai standard yang berlaku."
             }
           ]
         }
       ],
-      "variable_limitations": "Meliputi tata kelola model (model governance), pemisahan korelasi vs kausalitas, dan manajemen Failure Register.",
-      "critical_aspects": "Kejujuran ilmiah dalam mendokumentasikan kegagalan dan penegakan hierarki klaim keputusan.",
-      "required_knowledge": ["Etika profesi Data Science", "Tata kelola dan risiko model (Model Risk Management)", "Desain intervensi kebijakan"],
-      "required_skills": ["Penyusunan Failure Register", "Penerjemahan insight teknis ke rekomendasi bisnis"]
+      "variable_limitations": "Meliputi audit seluruh tahapan siklus hidup CRISP-DM, penetapan claim level (L0-L3), dokumentasi failure mode, dan rekomendasi tindak lanjut.",
+      "critical_aspects": "Kejujuran ilmiah dalam mendokumentasikan kegagalan/keterbatasan model dan penentuan kelayakan deploy.",
+      "required_knowledge": [
+        "Framework audit kualitas machine learning",
+        "Hierarki klaim ilmiah (L0-L3) dan evidence grading",
+        "Risk & failure governance"
+      ],
+      "required_skills": [
+        "Audit kesesuaian tahapan pemodelan terhadap standar",
+        "Perumusan rekomendasi mitigasi dan failure register"
+      ]
     }
   ]
 }

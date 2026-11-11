@@ -69,3 +69,4 @@ Untuk menjamin hasil pengujian dan pelatihan model identik di setiap eksekusi:
 - PyTorch seed: `torch.manual_seed(42)`
 
 Semua metrik model (PR-AUC 0.3004, Brier Score 0.0762, World Model WAPE 15.83%) terbukti stabil dan identik pada setiap eksekusi ulang.
+
