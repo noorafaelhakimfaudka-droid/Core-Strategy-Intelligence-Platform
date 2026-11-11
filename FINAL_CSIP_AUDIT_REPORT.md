@@ -21,12 +21,12 @@ Audit menyeluruh, rekayasa korektif, dan sinkronisasi akhir (**Version 4 Final C
 Berikut adalah hasil verifikasi berbasis bukti empiris (*empirical evidence*):
 
 1. **Kelengkapan Kanonikal SKKNI (UK-01 s.d. UK-11)**:
-   - File kanonikal [`standards/canonical_skkni_299_2020.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/standards/canonical_skkni_299_2020.json) memuat tepat **11 Unit Kompetensi, 27 Elemen Kompetensi, dan 63 Kriteria Unjuk Kerja (KUK)**.
+   - File kanonikal [`standards/canonical_skkni_299_2020.json`](standards/canonical_skkni_299_2020.json) memuat tepat **11 Unit Kompetensi, 27 Elemen Kompetensi, dan 63 Kriteria Unjuk Kerja (KUK)**.
    - UK-01 memuat penuh **4 Elemen Kompetensi dan 12 KUK**.
    - Seluruh teks standar disalin secara verbatim dari dokumen resmi tanpa parafrase atau pengubahan.
 
 2. **Audit Rekonstruksi Bukti Kerja (Evidence Registry)**:
-   - File registry [`reports/evidence/evidence_registry.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/evidence/evidence_registry.json) memuat tepat **63 record bukti kerja**, mencakup 100% KUK kanonikal.
+   - File registry [`reports/evidence/evidence_registry.json`](reports/evidence/evidence_registry.json) memuat tepat **63 record bukti kerja**, mencakup 100% KUK kanonikal.
    - Seluruh **63 file bukti fisik terbukti ada di disk dan tidak kosong** (diverifikasi otomatis oleh suite pengujian).
    - Klasifikasi status bukti dilakukan secara jujur dan transparan:
      - **60 KUK VERIFIED**: Memiliki kode sumber, model, notebook, dataset olahan, dan hasil uji otomatis yang dapat direproduksi.
@@ -35,7 +35,7 @@ Berikut adalah hasil verifikasi berbasis bukti empiris (*empirical evidence*):
 
 3. **Perbaikan Total Arsitektur Import & Pengujian Otomatis**:
    - Error `ModuleNotFoundError: No module named 'src.csip'` tereliminasi tuntas melalui pengenalan `conftest.py`, `tests/conftest.py`, `setup.py`, `pytest.ini`, dan meta-path hook `CSIPAliasFinder` pada `src/__init__.py`.
-   - Pengujian konsistensi [`tests/test_skkni_consistency.py`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/tests/test_skkni_consistency.py) memvalidasi 6 aspek integritas: struktur 11 unit/27 elemen/63 KUK, teks verbatim, keberadaan fisik 63 file, status jujur, kompatibilitas dual import, dan konsistensi laporan.
+   - Pengujian konsistensi [`tests/test_skkni_consistency.py`](tests/test_skkni_consistency.py) memvalidasi 6 aspek integritas: struktur 11 unit/27 elemen/63 KUK, teks verbatim, keberadaan fisik 63 file, status jujur, kompatibilitas dual import, dan konsistensi laporan.
    - Eksekusi pytest bersih menghasilkan **84 passed dari 84 test** (0 failed, 0 skipped) dalam 30.02 detik.
 
 4. **Penegakan Prinsip Nol Klaim Palsu (Zero Fabricated Claims)**:
@@ -59,11 +59,11 @@ Berikut adalah hasil verifikasi berbasis bukti empiris (*empirical evidence*):
 
 ## 3. Dokumen Serah Terima (Deliverables)
 
-1. **Source Code ZIP**: `C:\Users\asus\Downloads\CSIP_Source_Code.zip` (Arsip bersih seluruh repositori Version 4).
-2. **Canonical SKKNI JSON**: [`standards/canonical_skkni_299_2020.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/standards/canonical_skkni_299_2020.json) (11 unit, 27 elemen, 63 KUK).
-3. **Evidence Registry Final**: [`reports/evidence/evidence_registry.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/evidence/evidence_registry.json) (63 record tervalidasi).
-4. **Evidence Gap Analysis & Defense Strategy**: [`reports/evidence/evidence_gap_analysis.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/evidence/evidence_gap_analysis.md).
-5. **Test Execution Report**: [`reports/testing/test_execution_report.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/testing/test_execution_report.md) (84 passed in 30.02s).
-6. **Canonical Mapping Validation Report**: [`reports/competency/canonical_mapping_validation.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/competency/canonical_mapping_validation.md).
-7. **Traceability Matrix**: [`reports/evidence/evidence_traceability_matrix.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/evidence/evidence_traceability_matrix.md).
-8. **Changelog Version 4**: [`reports/changelog_v4.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/reports/changelog_v4.md).
+1. **Source Code ZIP**: `CSIP_Source_Code_V5.zip` (Arsip bersih seluruh repositori Version 4).
+2. **Canonical SKKNI JSON**: [`standards/canonical_skkni_299_2020.json`](standards/canonical_skkni_299_2020.json) (11 unit, 27 elemen, 63 KUK).
+3. **Evidence Registry Final**: [`reports/evidence/evidence_registry.json`](reports/evidence/evidence_registry.json) (63 record tervalidasi).
+4. **Evidence Gap Analysis & Defense Strategy**: [`reports/evidence/evidence_gap_analysis.md`](reports/evidence/evidence_gap_analysis.md).
+5. **Test Execution Report**: [`reports/testing/test_execution_report.md`](reports/testing/test_execution_report.md) (84 passed in 30.02s).
+6. **Canonical Mapping Validation Report**: [`reports/competency/canonical_mapping_validation.md`](reports/competency/canonical_mapping_validation.md).
+7. **Traceability Matrix**: [`reports/evidence/evidence_traceability_matrix.md`](reports/evidence/evidence_traceability_matrix.md).
+8. **Changelog Version 4**: [`reports/changelog_v4.md`](reports/changelog_v4.md).

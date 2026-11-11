@@ -1,10 +1,44 @@
 {
-  "registry_title": "CSIP SKKNI 299/2020 Reconstructed Evidence Registry",
+  "registry_title": "CSIP SKKNI 299/2020 Reconstructed Evidence Registry (Version 5)",
   "certification_scheme": "LSP TRI SKM/2905/LSP-TRI/VII/2025 (Ilmuwan Data / Data Scientist - KKNI Level 7)",
+  "standard_reference": "Kepmenaker RI No. 299 Tahun 2020",
   "total_records": 63,
+  "unique_evidence_files_count": 30,
   "verified_count": 60,
   "partially_verified_count": 3,
   "missing_count": 0,
+  "unique_evidence_files": [
+    "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
+    "FINAL_CSIP_AUDIT_REPORT.md",
+    "README.md",
+    "app/components/charts.py",
+    "config/features.yaml",
+    "config/models.yaml",
+    "data/data_dictionary.md",
+    "data/processed/order_level.parquet",
+    "notebooks/01_business_and_data_understanding.ipynb",
+    "notebooks/03_exploratory_data_analysis.ipynb",
+    "notebooks/11_alternative_world_simulation.ipynb",
+    "pyproject.toml",
+    "reports/canonical_skkni_299_2020_mapping.md",
+    "reports/evidence_and_failure_register.md",
+    "reports/model_evaluation_and_review_report.md",
+    "reports/modeling/feature_availability_matrix.csv",
+    "reports/research_traceability_matrix.md",
+    "scripts/run_ml_experiments.py",
+    "src/csip/cleaning/auto_cleaner.py",
+    "src/csip/cleaning/cleaner.py",
+    "src/csip/data/loader.py",
+    "src/csip/features/builder.py",
+    "src/csip/features/engineer.py",
+    "src/csip/hypotheses/runner.py",
+    "src/csip/models/classic.py",
+    "src/csip/models/trainer.py",
+    "tests/test_cleaning_and_grain.py",
+    "tests/test_data_pipeline_stress.py",
+    "tests/test_data_validation.py",
+    "tests/test_models.py"
+  ],
   "records": [
     {
       "internal_unit_id": "UK-01",
@@ -17,9 +51,10 @@
       "kuk_text": "Latar belakang dan permasalahan bisnis untuk proyek data science diidentifikasi sesuai dengan prosedur bisnis yang berlaku.",
       "csip_activity": "Identifikasi latar belakang dan masalah bisnis keterlambatan pengiriman e-commerce Olist (8.0% pesanan terlambat, menurunkan rating dari 4.14 menjadi 2.15).",
       "csip_evidence": "notebooks/01_business_and_data_understanding.ipynb",
+      "specific_scope": "Section 1.1: Business Problem Definition & Customer Review Impact Analysis",
       "evidence_status": "VERIFIED",
-      "verification_method": "Artifact & Code Inspection",
-      "notes": "Latar belakang bisnis diuraikan lengkap dengan kalkulasi dampak terhadap review pelanggan."
+      "verification_method": "Notebook Artifact Review",
+      "notes": "Latar belakang bisnis diuraikan lengkap dengan kalkulasi dampak kuantitatif terhadap kepuasan pelanggan."
     },
     {
       "internal_unit_id": "UK-01",
@@ -32,6 +67,7 @@
       "kuk_text": "Poin-poin objektif bisnis diidentifikasi sesuai dengan permasalahan yang telah dipilih dan sesuai dengan kebutuhan organisasi.",
       "csip_activity": "Identifikasi poin objektif bisnis: menurunkan churn pelanggan dan mitigasi reputasi merchant melalui peringatan dini risiko keterlambatan pengiriman.",
       "csip_evidence": "README.md",
+      "specific_scope": "Section 1.2: Core Problem Statement & Operational Objectives",
       "evidence_status": "VERIFIED",
       "verification_method": "Documentation Inspection",
       "notes": "Objektif bisnis dipetakan secara terukur terhadap KPI operasional logistik."
@@ -47,6 +83,7 @@
       "kuk_text": "Poin-poin metrik kesuksesan dibuat sesuai objektif bisnis.",
       "csip_activity": "Penyusunan poin metrik kesuksesan bisnis: reduksi pesanan terlambat tanpa mitigasi sebesar min 15% dan precision intervensi > 70%.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 1.3: Business Success Metrics Definition vs Technical Metrics",
       "evidence_status": "VERIFIED",
       "verification_method": "Technical Specification Audit",
       "notes": "Metrik kesuksesan bisnis dipisahkan secara eksplisit dari metrik teknis."
@@ -62,9 +99,10 @@
       "kuk_text": "Permasalahan bisnis, poin-poin objektif bisnis dan metrik kesuksesan proyek data science ditetapkan sesuai kebutuhan pengguna.",
       "csip_activity": "Penetapan formal permasalahan bisnis, objektif bisnis, dan metrik kesuksesan proyek dalam dokumen spesifikasi sistem.",
       "csip_evidence": "reports/research_traceability_matrix.md",
+      "specific_scope": "Table 1: Strategic Objectives and Boundary Conditions Alignment",
       "evidence_status": "VERIFIED",
       "verification_method": "Traceability Audit",
-      "notes": "Diselaraskan antara requirement bisnis dan modul implementasi."
+      "notes": "Diselaraskan antara requirement bisnis dan modul implementasi teknis."
     },
     {
       "internal_unit_id": "UK-01",
@@ -77,9 +115,10 @@
       "kuk_text": "Daftar terminologi, sumber daya, kebutuhan, asumsi dan batasan proyek diidentifikasi.",
       "csip_activity": "Identifikasi daftar terminologi (estimated delivery date, carrier dispatch, freight ratio), sumber daya komputasi laptop 8GB RAM, kebutuhan, asumsi, dan batasan operasional.",
       "csip_evidence": "data/data_dictionary.md",
+      "specific_scope": "Section 1: Logistics Terminology & Table Schemas (olist_orders, olist_order_items)",
       "evidence_status": "VERIFIED",
       "verification_method": "Configuration Audit",
-      "notes": "Kamus data komprehensif 9 tabel Olist mencakup definisi, tipe data, dan batasan nilai."
+      "notes": "Kamus data komprehensif mencakup definisi, tipe data, dan batasan nilai domain e-commerce."
     },
     {
       "internal_unit_id": "UK-01",
@@ -92,9 +131,11 @@
       "kuk_text": "Persetujuan atas kebutuhan, asumsi dan batasan proyek diperoleh dari pengguna.",
       "csip_activity": "Persetujuan formal kebutuhan, asumsi, dan batasan proyek disimulasikan melalui Project Framing Rubric dan User Persona Sign-off Protocol.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 2.1: Project Framing Rubric & Proxy Scope Agreement",
       "evidence_status": "PARTIALLY_VERIFIED",
       "verification_method": "Simulated Stakeholder Protocol",
-      "notes": "Karena menggunakan data publik open-source, sign-off disimulasikan via evaluasi persona bisnis internal, bukan tanda tangan klien komersial riil."
+      "notes": "Konteks dataset publik sekunder: disimulasikan via evaluasi persona bisnis logistik internal; pada implementasi industri membutuhkan Statement of Work (SOW) bertandatangan klien.",
+      "additional_evidence_needed": "Dokumen Statement of Work (SOW) atau Project Charter resmi bertandatangan sponsor bisnis korporat."
     },
     {
       "internal_unit_id": "UK-01",
@@ -107,6 +148,7 @@
       "kuk_text": "Daftar risiko dalam pelaksanaan proyek diidentifikasi.",
       "csip_activity": "Identifikasi daftar risiko proyek: risiko ketidakseimbangan kelas (imbalance 8%), kebocoran target masa depan (data leakage), dan pergeseran distribusi waktu (temporal drift).",
       "csip_evidence": "reports/evidence_and_failure_register.md",
+      "specific_scope": "Section 2: Technical & Methodological Risk Catalog (R-01 through R-06)",
       "evidence_status": "VERIFIED",
       "verification_method": "Risk Registry Inspection",
       "notes": "Tercatat 6 risiko teknis dan metodologis utama dalam failure & risk registry."
@@ -122,6 +164,7 @@
       "kuk_text": "Beberapa rencana mitigasi risiko diidentifikasi sesuai dengan daftar risiko.",
       "csip_activity": "Penyusunan rencana mitigasi: isolasi temporal split, stratified sampling, kalibrasi probabilitas, dan uji zero correlation terhadap kejadian masa depan.",
       "csip_evidence": "src/csip/cleaning/cleaner.py",
+      "specific_scope": "Class OlistDataCleaner: Methods clean_orders() and remove_temporal_inconsistencies()",
       "evidence_status": "VERIFIED",
       "verification_method": "Automated Implementation Inspection",
       "notes": "Rencana mitigasi diimplementasikan langsung dalam pipeline data dan pemodelan."
@@ -137,9 +180,11 @@
       "kuk_text": "Persetujuan atas risiko dan rencana mitigasi risiko diperoleh dari pengguna.",
       "csip_activity": "Persetujuan risiko dan mitigasi dicatat dalam matriks tata kelola risiko dengan persetujuan proxy lead data scientist.",
       "csip_evidence": "reports/research_traceability_matrix.md",
+      "specific_scope": "Section 3: Risk Governance & Mitigation Protocol Review",
       "evidence_status": "PARTIALLY_VERIFIED",
       "verification_method": "Governance Review",
-      "notes": "Terdokumentasi dalam traceability matrix sebagai bagian dari boundary conditions proyek portfolio."
+      "notes": "Konteks riset sekunder: disahkan via protokol peer review internal; pada industri membutuhkan persetujuan formal komite risiko / Risk Officer.",
+      "additional_evidence_needed": "Berita Acara Rapat Evaluasi Risiko Korporat bertandatangan Risk/Compliance Officer."
     },
     {
       "internal_unit_id": "UK-01",
@@ -152,6 +197,7 @@
       "kuk_text": "Komponen biaya dan besaran biaya pelaksanaan proyek diidentifikasi sesuai dengan objektif bisnis.",
       "csip_activity": "Identifikasi komponen biaya pelaksanaan: konsumsi RAM laptop (<= 4.5GB), CPU execution time (<= 60s per training), dan storage footprint (< 100MB Parquet).",
       "csip_evidence": "tests/test_data_pipeline_stress.py",
+      "specific_scope": "Function test_ml_pipeline_stress_small_dataset() & Memory Budget Assertion",
       "evidence_status": "VERIFIED",
       "verification_method": "Stress & Resource Benchmark",
       "notes": "Beban komputasi diukur secara empiris dalam automated test suite."
@@ -167,6 +213,7 @@
       "kuk_text": "Keuntungan pelaksanaan proyek diidentifikasi sesuai dengan objektif bisnis.",
       "csip_activity": "Identifikasi keuntungan bisnis pelaksanaan proyek: estimasi penyelamatan 1.200 pesanan per kuartal dan penghematan biaya kompensasi logistik via counterfactual simulation.",
       "csip_evidence": "notebooks/11_alternative_world_simulation.ipynb",
+      "specific_scope": "Section 4: Counterfactual Intervention Economics & Net Cost Reduction Calculation",
       "evidence_status": "VERIFIED",
       "verification_method": "Simulation Output Audit",
       "notes": "Keuntungan bisnis dihitung berdasarkan model skenario intervensi dispatch ekspres."
@@ -182,9 +229,11 @@
       "kuk_text": "Biaya dan keuntungan pelaksanaan proyek dikomunikasikan dan disetujui oleh pengguna.",
       "csip_activity": "Komunikasi komponen biaya dan keuntungan proyek dituangkan dalam laporan eksekutif dan slide presentasi teknis.",
       "csip_evidence": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
+      "specific_scope": "Section 7.2: Executive Cost-Benefit Analysis & ROI Presentation for Stakeholders",
       "evidence_status": "PARTIALLY_VERIFIED",
       "verification_method": "Executive Report Inspection",
-      "notes": "Laporan eksekutif menyajikan analisis cost-benefit lengkap untuk pengambil keputusan bisnis."
+      "notes": "Laporan eksekutif menyajikan analisis cost-benefit lengkap untuk pengambil keputusan; pada industri memerlukan tanda tangan persetujuan anggaran dewan direksi.",
+      "additional_evidence_needed": "Notula persetujuan anggaran dan investasi proyek dari Steering Committee / Board of Directors."
     },
     {
       "internal_unit_id": "UK-02",
@@ -197,6 +246,7 @@
       "kuk_text": "Task data science ditentukan sesuai dengan objektif bisnis.",
       "csip_activity": "Penentuan task data science: Supervised Binary Classification (memprediksi is_delayed_carrier pada saat dispatch) dan Survival Time Analysis.",
       "csip_evidence": "notebooks/01_business_and_data_understanding.ipynb",
+      "specific_scope": "Section 2.2: Data Science Task Formulation (Supervised Classification vs Survival Analysis)",
       "evidence_status": "VERIFIED",
       "verification_method": "Code & Notebook Audit",
       "notes": "Task klasifikasi biner dipilih karena tindakan preventif bergantung pada status keterlambatan."
@@ -212,6 +262,7 @@
       "kuk_text": "Tujuan teknis pelaksanaan proyek data science diidentifikasi sesuai objektif bisnis.",
       "csip_activity": "Identifikasi tujuan teknis: menghasilkan estimasi probabilitas keterlambatan terkalibrasi dengan threshold toleransi false positive terkendali.",
       "csip_evidence": "config/models.yaml",
+      "specific_scope": "Key `problem_formulation`: target `is_delayed_carrier`, objective `calibrated_probability`",
       "evidence_status": "VERIFIED",
       "verification_method": "Configuration Inspection",
       "notes": "Tujuan teknis mencakup evaluasi probabilitas terkalibrasi bukan sekadar hard label."
@@ -227,6 +278,7 @@
       "kuk_text": "Daftar dan parameter kriteria kesuksesan proyek diidentifikasi sesuai dengan tujuan teknis.",
       "csip_activity": "Identifikasi parameter kriteria kesuksesan teknis: PR-AUC >= 0.70, ROC-AUC >= 0.80, Brier Score <= 0.08, Expected Calibration Error (ECE) <= 0.05, latensi inferensi <= 20ms.",
       "csip_evidence": "config/models.yaml",
+      "specific_scope": "Key `evaluation_gates`: pr_auc min 0.70, ece max 0.05, latency max 20ms",
       "evidence_status": "VERIFIED",
       "verification_method": "Configuration & Metric Audit",
       "notes": "Kriteria kesuksesan teknis terdefinisi secara numerik dan terukur."
@@ -242,6 +294,7 @@
       "kuk_text": "Kriteria yang teridentifikasi disetujui oleh pengguna sesuai dengan objektif bisnis.",
       "csip_activity": "Persetujuan kriteria kesuksesan teknis disahkan dalam dokumen spesifikasi model dan diverifikasi terhadap baseline pembanding.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 2.2: Technical Acceptance Criteria Sign-off against Baseline B0",
       "evidence_status": "VERIFIED",
       "verification_method": "Benchmark Matrix Inspection",
       "notes": "Kriteria kesuksesan disetujui sebagai acceptance gate model deployment."
@@ -257,6 +310,7 @@
       "kuk_text": "Tipe data yang terkumpul diidentifikasi sesuai tujuan teknis.",
       "csip_activity": "Identifikasi tipe data (numerik kontinu, diskrit, kategorikal, temporal datetime, geospasial koordinat) dari 9 tabel Olist terhimpun.",
       "csip_evidence": "src/csip/data/loader.py",
+      "specific_scope": "Function downcast_dataframe() and OlistDataLoader._parse_dates()",
       "evidence_status": "VERIFIED",
       "verification_method": "Automated Profiler Execution",
       "notes": "Downcasting otomatis dan verifikasi tipe datetime dilakukan pada 13 relasi Parquet."
@@ -272,6 +326,7 @@
       "kuk_text": "Nilai atribut data yang terkumpul diuraikan sesuai dengan batasan konteks bisnisnya.",
       "csip_activity": "Uraian nilai atribut data (status pesanan, dimensi produk, durasi pengiriman) berdasarkan batasan konteks bisnis e-commerce Brasil.",
       "csip_evidence": "data/data_dictionary.md",
+      "specific_scope": "Section 2: Attribute Value Domains, Valid Ranges, and Logistics Constraints",
       "evidence_status": "VERIFIED",
       "verification_method": "Metadata Inspection",
       "notes": "Setiap kolom dijelaskan rentang nilai valid dan batasan domain logistiknya."
@@ -287,6 +342,7 @@
       "kuk_text": "Relasi antar data yang terkumpul diidentifikasi sesuai dengan tujuan teknis.",
       "csip_activity": "Identifikasi relasi antar tabel (customer-order-items-payments-reviews-geolocation) dan penentuan grain entitas pesanan (order_id).",
       "csip_evidence": "src/csip/data/loader.py",
+      "specific_scope": "Method OlistDataLoader.load_clean_order_level() Schema Merge & PK-FK Checks",
       "evidence_status": "VERIFIED",
       "verification_method": "Schema & Join Integrity Audit",
       "notes": "Relasi primary key ke foreign key diverifikasi integritasnya tanpa multi-row duplication."
@@ -302,6 +358,7 @@
       "kuk_text": "Karakteristik data yang terkumpul disajikan dengan deskripsi statistik dasar.",
       "csip_activity": "Penyajian karakteristik data dengan deskripsi statistik dasar (mean, std, median, skewness, missing rate, zero count).",
       "csip_evidence": "notebooks/03_exploratory_data_analysis.ipynb",
+      "specific_scope": "Section 2: Univariate Summary Statistics, Percentiles, and Skewness Audit",
       "evidence_status": "VERIFIED",
       "verification_method": "Exploratory Notebook Audit",
       "notes": "Distribusi seluruh fitur prediktor dihitung dan dianalisis secara statistik."
@@ -317,6 +374,7 @@
       "kuk_text": "Karakteristik data yang terkumpul disajikan dengan visualisasi grafik.",
       "csip_activity": "Visualisasi karakteristik data menggunakan grafik (histogram keterlambatan, scatter geospasial rute pengiriman, matriks korelasi).",
       "csip_evidence": "app/components/charts.py",
+      "specific_scope": "Functions plot_delay_distribution(), plot_correlation_heatmap(), plot_geospatial_routes()",
       "evidence_status": "VERIFIED",
       "verification_method": "UI & Visualization Inspection",
       "notes": "Visualisasi interaktif Plotly tersedia di UI Streamlit dan notebook penelitian."
@@ -332,6 +390,7 @@
       "kuk_text": "Hasil penyajian data dianalisis karakteristiknya untuk telaah data.",
       "csip_activity": "Analisis karakteristik data untuk telaah: deteksi heavy-tail keterlambatan ekstrem dan multikolinearitas antar dimensi produk.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 3.2: Exploratory Data Findings on Delay Tail Distribution and Spatial Density",
       "evidence_status": "VERIFIED",
       "verification_method": "Analytical Report Review",
       "notes": "Karakteristik skewness dan outlier dipertimbangkan dalam strategi rekayasa fitur."
@@ -347,6 +406,7 @@
       "kuk_text": "Hasil analisis didokumentasikan dalam bentuk laporan sesuai dengan tujuan teknis.",
       "csip_activity": "Dokumentasi hasil analisis telaah data ke dalam laporan teknis telaah data komprehensif.",
       "csip_evidence": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
+      "specific_scope": "Chapter 3: Comprehensive Exploratory Data Analysis & Empirical Data Understanding",
       "evidence_status": "VERIFIED",
       "verification_method": "Comprehensive Report Review",
       "notes": "Terdokumentasi pada Bab 3 (Data Understanding & Exploratory Audit)."
@@ -362,6 +422,7 @@
       "kuk_text": "Hipotesis disusun berdasar hasil analisis sesuai tujuan teknis data science.",
       "csip_activity": "Penyusunan 5 hipotesis empiris (H1-H5) berdasarkan telaah data (korelasi jarak spasial, rasio ongkir, waktu approval, volume rute).",
       "csip_evidence": "src/csip/hypotheses/runner.py",
+      "specific_scope": "Class HypothesisTestRunner: Methods test_h1_distance() through test_h5_route_density()",
       "evidence_status": "VERIFIED",
       "verification_method": "Automated Hypothesis Test Suite",
       "notes": "Hipotesis disusun formal dengan null hypothesis, uji statistik (Welch t-test, Mann-Whitney U), dan effect size."
@@ -377,6 +438,7 @@
       "kuk_text": "Penilaian kualitas data dari hasil telaah disajikan sesuai tujuan teknis data science.",
       "csip_activity": "Penilaian kualitas data dari hasil telaah: missingness pattern, duplikasi geolokasi, dan validitas rentang tanggal pesanan.",
       "csip_evidence": "tests/test_data_validation.py",
+      "specific_scope": "Function test_schema_integrity() & test_date_sequence_validity()",
       "evidence_status": "VERIFIED",
       "verification_method": "Pytest Validation Suite",
       "notes": "Semua pengujian kualitas data dieksekusi secara otomatis via pytest."
@@ -392,6 +454,7 @@
       "kuk_text": "Penilaian tingkat kecukupan data dari hasil telaah disajikan sesuai tujuan teknis data science.",
       "csip_activity": "Penilaian tingkat kecukupan data: verifikasi jumlah sampel (96.478 pesanan delivered, >99.000 order items) cukup untuk estimasi parameter ML stabil.",
       "csip_evidence": "src/csip/data/loader.py",
+      "specific_scope": "Method OlistDataLoader.validate_cohort_adequacy() Sample Power Verification",
       "evidence_status": "VERIFIED",
       "verification_method": "Sample Size Power Verification",
       "notes": "Jumlah observasi melebihi batas minimum power statistik untuk deteksi efek kecil (Cohen d > 0.1)."
@@ -407,6 +470,7 @@
       "kuk_text": "Rekomendasi hasil penilaian kualitas disusun sesuai tujuan teknis data science.",
       "csip_activity": "Penyusunan rekomendasi perbaikan kualitas data: deduplikasi koordinat geolokasi per ZIP code prefix dan penanganan nilai null berat produk.",
       "csip_evidence": "src/csip/cleaning/cleaner.py",
+      "specific_scope": "Class OlistDataCleaner: Method clean_geolocations() and clean_products()",
       "evidence_status": "VERIFIED",
       "verification_method": "Data Cleaning Implementation",
       "notes": "Rekomendasi diwujudkan dalam implementasi OlistDataCleaner."
@@ -422,6 +486,7 @@
       "kuk_text": "Rekomendasi hasil penilaian kecukupan data disusun sesuai tujuan teknis data science.",
       "csip_activity": "Penyusunan rekomendasi kecukupan data: isolasi cohort pesanan delivered 2017-2018 untuk menjamin konsistensi siklus pengiriman penuh.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 4.2: Data Sufficiency Recommendation on Delivered Order Cohort Selection",
       "evidence_status": "VERIFIED",
       "verification_method": "Cohort Analysis Audit",
       "notes": "Menyingkirkan pesanan canceled/unavailable yang memiliki mekanisme pelabelan tidak lengkap."
@@ -437,6 +502,7 @@
       "kuk_text": "Kriteria pemilihan data diidentifikasi sesuai dengan tujuan teknis dan aturan yang berlaku.",
       "csip_activity": "Identifikasi kriteria pemilihan data: hanya pesanan dengan status 'delivered' dan memiliki tanggal dispatch valid (shipped to carrier).",
       "csip_evidence": "notebooks/01_business_and_data_understanding.ipynb",
+      "specific_scope": "Section 2.3: Cohort Selection Criteria & Filtering Business Rules",
       "evidence_status": "VERIFIED",
       "verification_method": "Inclusion Criteria Review",
       "notes": "Aturan bisnis formal melarang inklusi pesanan yang belum pernah diserahkan ke kurir."
@@ -452,6 +518,7 @@
       "kuk_text": "Teknik pemilihan data ditetapkan sesuai dengan kriteria pemilihan data.",
       "csip_activity": "Penetapan teknik pemilihan data: SQL/Pandas filtering berbasis masker logika konsisten pada grain pesanan tingkat satu baris.",
       "csip_evidence": "src/csip/cleaning/cleaner.py",
+      "specific_scope": "Method OlistDataCleaner.clean_orders() Deterministic Filter Query",
       "evidence_status": "VERIFIED",
       "verification_method": "Code Audit",
       "notes": "Menggunakan filter deterministik teruji tanpa mutasi referensial tidak terkontrol."
@@ -467,6 +534,7 @@
       "kuk_text": "Attributes (kolom) data diidentifikasi sesuai dengan kriteria pemilihan data.",
       "csip_activity": "Identifikasi attributes (kolom) prediktor yang diizinkan tersedia pada saat dispatch untuk mencegah lookahead leakage.",
       "csip_evidence": "config/features.yaml",
+      "specific_scope": "Section `feature_availability_rules`: Attributes Allowed at Carrier Dispatch",
       "evidence_status": "VERIFIED",
       "verification_method": "Feature Availability Matrix Audit",
       "notes": "Setiap kolom dikategorikan berdasarkan timestamp ketersediaan informasinya."
@@ -482,6 +550,7 @@
       "kuk_text": "Records (baris) data diidentifikasi sesuai dengan kriteria pemilihan data.",
       "csip_activity": "Identifikasi records (baris) data: 96.478 baris pesanan terpilih yang memenuhi kriteria kelengkapan data primer.",
       "csip_evidence": "tests/test_cleaning_and_grain.py",
+      "specific_scope": "Function test_order_level_grain_unique() and Exact Row Count Assertion",
       "evidence_status": "VERIFIED",
       "verification_method": "Automated Grain Test",
       "notes": "Test memastikan jumlah baris tepat dan tidak ada duplikasi order_id."
@@ -497,6 +566,7 @@
       "kuk_text": "Strategi pembersihan data ditentukan berdasarkan hasil telaah data.",
       "csip_activity": "Penentuan strategi pembersihan data: median spatial aggregation untuk tabel geolokasi dan median imputation untuk dimensi barang.",
       "csip_evidence": "src/csip/cleaning/auto_cleaner.py",
+      "specific_scope": "Class AutoDataCleaner: Strategy Pipeline for Missing Values & Outliers",
       "evidence_status": "VERIFIED",
       "verification_method": "Cleaning Strategy Review",
       "notes": "Strategi pembersihan dirancang modular dan bebas dari data leakage train-test."
@@ -512,6 +582,7 @@
       "kuk_text": "Data yang kotor dikoreksi berdasarkan strategi pembersihan data.",
       "csip_activity": "Koreksi data kotor: kompresi 1.000.163 baris koordinat kotor menjadi 19.015 prefix unik (-98.1%) dan imputasi dimensi produk.",
       "csip_evidence": "src/csip/cleaning/cleaner.py",
+      "specific_scope": "Method OlistDataCleaner.clean_geolocations() Spatial Aggregation Pipeline",
       "evidence_status": "VERIFIED",
       "verification_method": "Execution & File Verification",
       "notes": "Tersimpan pada data/interim/ dalam format Parquet terkompresi."
@@ -527,6 +598,7 @@
       "kuk_text": "Masalah dan teknis koreksi data dideskripsikan sesuai dengan kondisi data dan strategi pembersihan data.",
       "csip_activity": "Deskripsi masalah data kotor dan teknis koreksinya dituangkan dalam CleaningStepReport terstruktur.",
       "csip_evidence": "src/csip/cleaning/cleaner.py",
+      "specific_scope": "Dataclass CleaningStepReport: Fields step_name, rows_before, rows_after, action_taken",
       "evidence_status": "VERIFIED",
       "verification_method": "Code & Report Data Structure Audit",
       "notes": "Kelas CleaningStepReport mencatat baris sebelum, baris sesudah, dan aksi transformasi."
@@ -542,6 +614,7 @@
       "kuk_text": "Evaluasi dihasilkan berdasarkan analisis data yang telah dibersihkan.",
       "csip_activity": "Evaluasi hasil pembersihan data: verifikasi integritas referensial 100% lolos, null rate 0.00% pada primary key.",
       "csip_evidence": "tests/test_cleaning_and_grain.py",
+      "specific_scope": "Function test_clean_orders_integrity() & Null Rate Check on Primary Keys",
       "evidence_status": "VERIFIED",
       "verification_method": "Integrity Regression Test",
       "notes": "Pengujian otomatis menjamin data bersih siap ditransformasikan ke tahap rekayasa fitur."
@@ -557,6 +630,7 @@
       "kuk_text": "Analisis data untuk menentukan representasi fitur data awal dilakukan.",
       "csip_activity": "Analisis data untuk representasi fitur awal: identifikasi fitur mentah tanggal pembelian, koordinat lintang/bujur, harga, dan ongkir.",
       "csip_evidence": "config/features.yaml",
+      "specific_scope": "Section `raw_features_mapping`: Identification of Raw Features & Data Types",
       "evidence_status": "VERIFIED",
       "verification_method": "Feature Configuration Inspection",
       "notes": "Katalog fitur awal memetakan nama kolom mentah ke bentuk representasi dasarnya."
@@ -572,6 +646,7 @@
       "kuk_text": "Analisis representasi fitur data awal untuk menentukan teknik rekayasa fitur yang diperlukan untuk pembangunan model data science dilakukan.",
       "csip_activity": "Analisis representasi fitur awal untuk menentukan teknik rekayasa fitur: rumus Haversine, rasio freight/price, dan jeda approval.",
       "csip_evidence": "src/csip/features/engineer.py",
+      "specific_scope": "Function haversine_np() & Vectorized Math Implementation",
       "evidence_status": "VERIFIED",
       "verification_method": "Feature Engineering Code Review",
       "notes": "Ditetapkan teknik transformasi vektorisasi NumPy untuk efisiensi komputasi."
@@ -587,6 +662,7 @@
       "kuk_text": "Transformasi dilakukan untuk mendapatkan fitur data awal.",
       "csip_activity": "Eksekusi transformasi fitur data awal: konversi datetime string menjadi timestamp dan ekstrasi komponen waktu.",
       "csip_evidence": "src/csip/features/builder.py",
+      "specific_scope": "Method AutoFeatureBuilder._extract_temporal_components()",
       "evidence_status": "VERIFIED",
       "verification_method": "Automated Feature Builder Execution",
       "notes": "Fitur waktu awal terbentuk konsisten tanpa NaN tersembunyi."
@@ -602,6 +678,7 @@
       "kuk_text": "Rekayasa fitur data dilakukan untuk mendapatkan fitur baru yang diperlukan untuk pembangunan model data science.",
       "csip_activity": "Rekayasa fitur baru: pembentukan 41 fitur analitik domain (distance_seller_customer_km, freight_ratio, approval_delay_hours, route_traffic_density).",
       "csip_evidence": "src/csip/features/engineer.py",
+      "specific_scope": "Method FeatureEngineer.engineer_order_features() Constructing 41 Domain Features",
       "evidence_status": "VERIFIED",
       "verification_method": "Mathematical Implementation Audit",
       "notes": "Semua fitur baru diuji secara ketat bebas dari kebocoran target (target leakage correlation = 0.00)."
@@ -617,6 +694,7 @@
       "kuk_text": "Teknis transformasi data dijabarkan dalam bentuk tertulis.",
       "csip_activity": "Dokumentasi tertulis langkah teknis transformasi data dan kamus rumus rekayasa fitur.",
       "csip_evidence": "reports/modeling/feature_availability_matrix.csv",
+      "specific_scope": "Columns `feature_name`, `formula`, `available_at`, `leakage_risk_category`",
       "evidence_status": "VERIFIED",
       "verification_method": "Artifact CSV Verification",
       "notes": "Tabel ketersediaan fitur mendokumentasikan asal-usul, formula, dan status availability."
@@ -632,6 +710,7 @@
       "kuk_text": "Hasil transformasi data dan rekomendasi hasil transformasi dituangkan dalam bentuk tertulis.",
       "csip_activity": "Penuangan hasil transformasi data dan rekomendasi teknis penggunaan fitur ke dalam laporan pemodelan.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 7.2: Feature Construction Documentation & Scaling Recommendations",
       "evidence_status": "VERIFIED",
       "verification_method": "Report Audit",
       "notes": "Rekomendasi spesifik mencakup penskalaan RobustScaler untuk fitur jarak yang skew."
@@ -647,6 +726,7 @@
       "kuk_text": "Asumsi-asumsi spesifik mengenai data diidentifikasi sesuai karakteristik data.",
       "csip_activity": "Identifikasi asumsi spesifik data: imbalansi kelas (8% delay), non-linearitas hubungan jarak-ongkir, dan non-stasioneritas musiman.",
       "csip_evidence": "reports/research_traceability_matrix.md",
+      "specific_scope": "Section 4.1: Data Distribution Assumptions (Imbalance, Non-linearity, Drift)",
       "evidence_status": "VERIFIED",
       "verification_method": "Statistical Assumption Review",
       "notes": "Asumsi data mendasari pemilihan model ensemble tree yang tahan terhadap fitur skala beragam."
@@ -662,6 +742,7 @@
       "kuk_text": "Teknik-teknik pemodelan data diidentifikasi sesuai karakteristik data dan tujuan teknis data science.",
       "csip_activity": "Identifikasi teknik pemodelan: Baseline Heuristik (B0), Logistic Regression teratur (B1), Random Forest (B2), LightGBM (B3), dan Deep MLP / BiLSTM.",
       "csip_evidence": "src/csip/models/trainer.py",
+      "specific_scope": "Method ModelExperimentTrainer.get_model_catalog() Baseline to Complex Hierarchy",
       "evidence_status": "VERIFIED",
       "verification_method": "Model Taxonomy Inspection",
       "notes": "Hierarki pemodelan terstruktur dari yang paling sederhana hingga kompleks."
@@ -677,6 +758,7 @@
       "kuk_text": "Teknik pemodelan yang sesuai dengan karakteristik data ditentukan.",
       "csip_activity": "Penentuan teknik pemodelan: pemilihan LightGBM dengan CalibratedClassifierCV (Isotonic) sebagai kandidat utama berdasarkan karakteristik tabular berdimensi sedang.",
       "csip_evidence": "src/csip/models/classic.py",
+      "specific_scope": "Function get_model_pipeline() Candidate Selection & Pipeline Composition",
       "evidence_status": "VERIFIED",
       "verification_method": "Architecture Design Review",
       "notes": "LightGBM dipilih karena cepat, menangani missing value bawaan, dan unggul pada tabular data."
@@ -692,6 +774,7 @@
       "kuk_text": "Deskripsi teknik pemodelan yang dipilih didokumentasikan sesuai SOP yang berlaku.",
       "csip_activity": "Dokumentasi deskripsi teknik pemodelan yang dipilih dalam spesifikasi arsitektur model sesuai SOP.",
       "csip_evidence": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
+      "specific_scope": "Chapter 5: Machine Learning & Deep Learning Architectures Specification",
       "evidence_status": "VERIFIED",
       "verification_method": "Technical Report Inspection",
       "notes": "Dituangkan lengkap pada Bab 5 (Machine Learning & Deep Learning Architectures)."
@@ -707,6 +790,7 @@
       "kuk_text": "Skenario uji yang mungkin diterapkan ditentukan sesuai tujuan teknis.",
       "csip_activity": "Penentuan skenario pengujian: partisi data temporal terpurifikasi (Purged Temporal Holdout) dengan cutoff April 2018 untuk mensimulasikan penerapan masa depan riil.",
       "csip_evidence": "src/csip/models/trainer.py",
+      "specific_scope": "Method ModelExperimentTrainer.purged_temporal_split() Cutoff 2018-04-01",
       "evidence_status": "VERIFIED",
       "verification_method": "Validation Split Audit",
       "notes": "Menolak K-Fold acak standar untuk menghindari lookahead leakage antar waktu."
@@ -722,6 +806,7 @@
       "kuk_text": "Metrik evaluasi pengujian diidentifikasi sesuai skenario uji.",
       "csip_activity": "Identifikasi metrik evaluasi pengujian: PR-AUC (metrik utama untuk data tidak seimbang), ROC-AUC, Brier Score, ECE, dan latensi inferensi.",
       "csip_evidence": "config/models.yaml",
+      "specific_scope": "Section `evaluation_metrics`: Primary metric PR-AUC and Calibration Gates",
       "evidence_status": "VERIFIED",
       "verification_method": "Evaluation Metric Specification Audit",
       "notes": "Metrik dipilih berdasarkan sensitivitas terhadap probabilitas kelas minoritas."
@@ -737,6 +822,7 @@
       "kuk_text": "Skenario uji yang dipilih didokumentasikan sesuai standar yang berlaku.",
       "csip_activity": "Dokumentasi skenario uji yang dipilih ke dalam matriks perbandingan model terstandar.",
       "csip_evidence": "reports/model_evaluation_and_review_report.md",
+      "specific_scope": "Table 4.1: Model Comparison Matrix (B0 Heuristic to B3 Calibrated)",
       "evidence_status": "VERIFIED",
       "verification_method": "Artifact Verification",
       "notes": "Tabel perbandingan mencatat konfigurasi split, ukuran train/test, dan baseline target."
@@ -752,6 +838,7 @@
       "kuk_text": "Parameter-parameter yang sesuai dengan model diidentifikasi.",
       "csip_activity": "Identifikasi parameter-parameter model: n_estimators, max_depth, learning_rate, colsample_bytree, class_weight, dan regularisasi L1/L2.",
       "csip_evidence": "config/models.yaml",
+      "specific_scope": "Section `hyperparameters`: Search Space for LightGBM & Logistic Regression",
       "evidence_status": "VERIFIED",
       "verification_method": "Hyperparameter Configuration Review",
       "notes": "Parameter tersimpan deklaratif dalam file YAML konfigurasi."
@@ -767,6 +854,7 @@
       "kuk_text": "Nilai toleransi parameter evaluasi pengujian ditetapkan sesuai dengan tujuan teknis.",
       "csip_activity": "Penetapan nilai toleransi parameter evaluasi: PR-AUC min 0.70, drop performa out-of-time max 10%, dan ECE max 0.05.",
       "csip_evidence": "config/models.yaml",
+      "specific_scope": "Section `threshold_tolerances`: Hard Gates for Model Release",
       "evidence_status": "VERIFIED",
       "verification_method": "Tolerance Threshold Audit",
       "notes": "Model yang melanggar toleransi ECE (>0.05) ditolak dan diarahkan ke tahap kalibrasi ulang."
@@ -782,6 +870,7 @@
       "kuk_text": "Tools untuk membuat model diidentifikasi sesuai dengan tujuan teknis data science.",
       "csip_activity": "Identifikasi tools pemodelan: Scikit-Learn 1.3+, LightGBM 4.0+, PyTorch 2.0+, Joblib 1.3+.",
       "csip_evidence": "pyproject.toml",
+      "specific_scope": "Section `[project.dependencies]`: Python ML Ecosystem Specification",
       "evidence_status": "VERIFIED",
       "verification_method": "Dependency Specification Inspection",
       "notes": "Pustaka standar industri terdefinisi dengan rentang versi yang aman dan kompatibel."
@@ -797,6 +886,7 @@
       "kuk_text": "Algoritma untuk teknik pemodelan yang ditentukan dibangun menggunakan tools yang dipilih.",
       "csip_activity": "Pembangunan algoritma pemodelan menggunakan tools terpilih via Scikit-Learn Pipeline terintegrasi.",
       "csip_evidence": "src/csip/models/classic.py",
+      "specific_scope": "Pipeline Construction with ColumnTransformer, RobustScaler, and LightGBMClassifier",
       "evidence_status": "VERIFIED",
       "verification_method": "Pipeline Implementation Review",
       "notes": "Pipeline membungkus preprocessor, estimator, dan post-processing kalibrasi."
@@ -812,6 +902,7 @@
       "kuk_text": "Algoritma pemodelan dieksekusi sesuai dengan skenario pengujian dan tools untuk membuat model yang telah ditetapkan.",
       "csip_activity": "Eksekusi algoritma pemodelan sesuai skenario pengujian temporal split dan tools yang ditetapkan.",
       "csip_evidence": "scripts/run_ml_experiments.py",
+      "specific_scope": "Function run_experiment_pipeline() Automated Execution Script",
       "evidence_status": "VERIFIED",
       "verification_method": "Experiment Execution & Script Audit",
       "notes": "Eksperimen dieksekusi secara terprogram dan mencatat seluruh metrik ke registry."
@@ -827,6 +918,7 @@
       "kuk_text": "Parameter model algoritma dioptimasi untuk menghasilkan nilai parameter evaluasi yang sesuai dengan skenario pengujian.",
       "csip_activity": "Optimasi parameter model algoritma melalui RandomizedSearch cross-validated dan kalibrasi probabilitas Isotonic.",
       "csip_evidence": "src/csip/models/trainer.py",
+      "specific_scope": "Method ModelExperimentTrainer._tune_and_calibrate()",
       "evidence_status": "VERIFIED",
       "verification_method": "Optimization Implementation Review",
       "notes": "Hasil optimasi membuktikan peningkatan PR-AUC dari 0.42 (B0) menjadi 0.74 (B3 Calibrated)."
@@ -842,6 +934,7 @@
       "kuk_text": "Data baru untuk evaluasi pemodelan dikumpulkan sesuai kebutuhan yang mengacu kepada parameter evaluasi.",
       "csip_activity": "Pengumpulan data baru untuk evaluasi: himpunan data uji temporal out-of-time (pesanan setelah 1 April 2018, n=24.120 pesanan).",
       "csip_evidence": "data/processed/order_level.parquet",
+      "specific_scope": "Partition `order_purchase_timestamp >= 2018-04-01` (Unseen Out-of-Time Test Set)",
       "evidence_status": "VERIFIED",
       "verification_method": "Dataset Inspection",
       "notes": "Data uji tidak pernah disentuh saat fitting preprocessing maupun hyperparameter tuning."
@@ -857,6 +950,7 @@
       "kuk_text": "Model diuji dengan menggunakan data riil yang telah dikumpulkan.",
       "csip_activity": "Pengujian model dengan menggunakan data riil out-of-time untuk mengukur generalisasi waktu nyata.",
       "csip_evidence": "tests/test_models.py",
+      "specific_scope": "Function test_out_of_time_holdout_performance() on Test Partition",
       "evidence_status": "VERIFIED",
       "verification_method": "Pytest Model Execution",
       "notes": "Pengujian otomatis mengevaluasi model pada split out-of-time dan memverifikasi batas threshold."
@@ -872,6 +966,7 @@
       "kuk_text": "Keluaran pengujian model dinilai berdasarkan metrik kesuksesan.",
       "csip_activity": "Penilaian keluaran pengujian berdasarkan metrik kesuksesan: PR-AUC 0.74 (memenuhi target >=0.70), ROC-AUC 0.81, Brier Score 0.06, ECE 0.038.",
       "csip_evidence": "reports/model_evaluation_and_review_report.md",
+      "specific_scope": "Section 4.3: Empirical Out-of-Time Performance Assessment Table",
       "evidence_status": "VERIFIED",
       "verification_method": "Empirical Benchmark Verification",
       "notes": "Model lolos seluruh acceptance gates metrik teknis."
@@ -887,6 +982,7 @@
       "kuk_text": "Hasil penilaian didokumentasikan sesuai standar yang berlaku.",
       "csip_activity": "Dokumentasi hasil penilaian pengujian model ke dalam format matriks komparasi dan laporan teknis.",
       "csip_evidence": "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md",
+      "specific_scope": "Chapter 6: Comprehensive Model Evaluation, Calibration Curves, and SHAP Interpretations",
       "evidence_status": "VERIFIED",
       "verification_method": "Report Inspection",
       "notes": "Disajikan perbandingan performa antar 6 arsitektur model secara transparan."
@@ -902,6 +998,7 @@
       "kuk_text": "Proses pemodelan diperiksa kesesuaiannya berdasarkan tahapan yang ditentukan.",
       "csip_activity": "Pemeriksaan kesesuaian seluruh tahapan pemodelan berdasarkan metodologi CRISP-DM dan 11 Unit SKKNI 299/2020.",
       "csip_evidence": "reports/canonical_skkni_299_2020_mapping.md",
+      "specific_scope": "Section 11.1: CRISP-DM 6-Phase Lifecycle Conformance Audit",
       "evidence_status": "VERIFIED",
       "verification_method": "Methodology Lifecycle Audit",
       "notes": "Setiap fase dipetakan dan diperiksa kelengkapan artefaknya secara menyeluruh."
@@ -917,6 +1014,7 @@
       "kuk_text": "Tindak lanjut yang perlu diambil ditentukan berdasarkan hasil pengujian model hasil pemeriksaan kesesuaian.",
       "csip_activity": "Penentuan tindak lanjut berdasarkan hasil pengujian: kewajiban modul kalibrasi probabilitas karena model mentah mengalami overconfidence (F-02).",
       "csip_evidence": "reports/evidence_and_failure_register.md",
+      "specific_scope": "Entry Failure Mode F-02: Probability Overconfidence Remediated via Platt/Isotonic Scaling",
       "evidence_status": "VERIFIED",
       "verification_method": "Failure Register Audit",
       "notes": "Tindak lanjut tercatat di failure register dan ditindaklanjuti dengan CalibratedClassifierCV."
@@ -932,6 +1030,7 @@
       "kuk_text": "Proses pemodelan dinilai berdasarkan rencana pelaksanaan proyek.",
       "csip_activity": "Penilaian proses pemodelan terhadap rencana pelaksanaan proyek: verifikasi kepatuhan batasan memori 8GB RAM, reproduktifitas seed 42, dan isolasi temporal.",
       "csip_evidence": "reports/research_traceability_matrix.md",
+      "specific_scope": "Section 5: Project Plan Execution Review against Hardware & Temporal Constraints",
       "evidence_status": "VERIFIED",
       "verification_method": "Governance & Quality Review",
       "notes": "Proses pemodelan dinilai memenuhi standar tata kelola Data Science profesional."
@@ -947,6 +1046,7 @@
       "kuk_text": "Hasil penilaian didokumentasikan sesuai standard yang berlaku.",
       "csip_activity": "Dokumentasi hasil penilaian proses pemodelan, batasan klaim (Claim Level L0-L1), dan rekomendasi operasional.",
       "csip_evidence": "FINAL_CSIP_AUDIT_REPORT.md",
+      "specific_scope": "Section 1 & 2: Project Quality Dimensions and Operational Recommendation",
       "evidence_status": "VERIFIED",
       "verification_method": "Audit Report Inspection",
       "notes": "Laporan audit akhir merangkum seluruh temuan teknis, gap, dan status kesiapan asesmen BNSP."

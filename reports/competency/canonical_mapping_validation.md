@@ -14,7 +14,7 @@
 
 Laporan ini memverifikasi bahwa proyek **Core Strategy & Intelligence Platform (CSIP)** mengadopsi secara mutlak **tepat 11 Unit Kompetensi resmi** yang ditetapkan dalam Skema Sertifikasi Okupasi Ilmuwan Data (*Data Scientist*) oleh **LSP TRI** (`SKM/2905/LSP-TRI/VII/2025`), berlandaskan **SKKNI No. 299 Tahun 2020**.
 
-Seluruh teks judul unit, deskripsi unit, elemen kompetensi, dan Kriteria Unjuk Kerja (KUK) disalin secara verbatim dari naskah resmi SKKNI No. 299 Tahun 2020 ke dalam file kanonikal [`standards/canonical_skkni_299_2020.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/standards/canonical_skkni_299_2020.json).
+Seluruh teks judul unit, deskripsi unit, elemen kompetensi, dan Kriteria Unjuk Kerja (KUK) disalin secara verbatim dari naskah resmi SKKNI No. 299 Tahun 2020 ke dalam file kanonikal [`standards/canonical_skkni_299_2020.json`](standards/canonical_skkni_299_2020.json).
 
 ## 2. Tabel Verifikasi Kanonikal 11 Unit Kompetensi
 

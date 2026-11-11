@@ -13,7 +13,7 @@
 
 Laporan ini memverifikasi bahwa proyek **Core Strategy & Intelligence Platform (CSIP)** dapat direproduksi secara utuh dan deterministik oleh pihak ketiga pada komputer standar (8 GB RAM) tanpa ketergantungan pada GPU eksternal atau klaster komputasi awan berbayar.
 
-Seluruh 13 dataset Parquet (8 interim dan 5 processed) telah diverifikasi memiliki checksum SHA-256 bitwise yang identik dengan manifest resmi [`data/dataset_manifest.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/data/dataset_manifest.json).
+Seluruh 13 dataset Parquet (8 interim dan 5 processed) telah diverifikasi memiliki checksum SHA-256 bitwise yang identik dengan manifest resmi [`data/dataset_manifest.json`](data/dataset_manifest.json).
 
 ---
 

@@ -125,9 +125,16 @@ def test_evidence_registry_alignment_and_verbatim_text(canonical_skkni, evidence
 
 
 def test_evidence_files_physical_existence_on_disk(evidence_registry_data):
-    """Verify that every single evidence file referenced in the registry physically exists on disk."""
+    """Verify that every single evidence file referenced in the registry physically exists on disk.
+    
+    Also verifies that the 63 records map to exactly 30 unique physical files.
+    """
     records = evidence_registry_data.get("records", [])
     assert len(records) == 63
+    
+    unique_files = set(r["csip_evidence"] for r in records)
+    assert len(unique_files) == 30, f"Expected exactly 30 unique physical evidence files, got {len(unique_files)}"
+    assert evidence_registry_data.get("unique_evidence_files_count") == 30
     
     missing_files = []
     empty_files = []
@@ -200,6 +207,10 @@ def test_report_metrics_and_claims_consistency():
         # Check that no report makes premature competency recommendations
         assert "rekomendasi: kompeten" not in text.lower(), f"{rpt.name} still contains 'Rekomendasi: KOMPETEN'"
         assert "status: 100% ready for bnsp assessment defense (rekomendasi: kompeten" not in text.lower()
+        
+        # Check that report has no hardcoded local user absolute paths
+        assert "c:/users/" not in text.lower(), f"{rpt.name} contains hardcoded local path 'c:/users/'"
+        assert "c:\\users\\" not in text.lower(), f"{rpt.name} contains hardcoded local path 'c:\\users\\'"
         
         # Ensure 63 KUK and 27 elements are represented in canonical / traceability reports
         if rpt.name in ["canonical_skkni_299_2020_mapping.md", "evidence_traceability_matrix.md", "canonical_mapping_validation.md"]:
