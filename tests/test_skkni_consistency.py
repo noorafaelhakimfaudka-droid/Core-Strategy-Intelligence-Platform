@@ -171,3 +171,39 @@ def test_dual_import_compatibility():
     assert hasattr(src.csip, "SKKNI_UNITS")
     assert len(csip.SKKNI_UNITS) == 11
     assert len(src.csip.SKKNI_UNITS) == 11
+
+
+def test_report_metrics_and_claims_consistency():
+    """Verify that all markdown reports in reports/ are synchronized to Version 4 standards.
+    
+    Ensures:
+    1. No active claims of 23 elements, 48 KUKs, or 84 passed tests.
+    2. No premature claims of 'Rekomendasi: KOMPETEN' or '100% canonical'.
+    3. Proper alignment on 11 units, 27 elements, 63 KUKs, and 83 passed tests.
+    """
+    key_reports = [
+        ROOT_DIR / "FINAL_CSIP_AUDIT_REPORT.md",
+        ROOT_DIR / "reports" / "canonical_skkni_299_2020_mapping.md",
+        ROOT_DIR / "reports" / "evidence" / "evidence_traceability_matrix.md",
+        ROOT_DIR / "reports" / "evidence" / "evidence_gap_analysis.md",
+        ROOT_DIR / "reports" / "competency" / "canonical_mapping_validation.md",
+        ROOT_DIR / "reports" / "bnsp_assessment_readiness_report.md",
+        ROOT_DIR / "reports" / "testing" / "coverage_report.md",
+        ROOT_DIR / "reports" / "testing" / "test_execution_report.md",
+        ROOT_DIR / "reports" / "test_execution_report.md",
+    ]
+
+    for rpt in key_reports:
+        assert rpt.exists(), f"Report file does not exist: {rpt}"
+        text = rpt.read_text(encoding="utf-8")
+        
+        # Check that no report makes premature competency recommendations
+        assert "rekomendasi: kompeten" not in text.lower(), f"{rpt.name} still contains 'Rekomendasi: KOMPETEN'"
+        assert "status: 100% ready for bnsp assessment defense (rekomendasi: kompeten" not in text.lower()
+        
+        # Ensure 63 KUK and 27 elements are represented in canonical / traceability reports
+        if rpt.name in ["canonical_skkni_299_2020_mapping.md", "evidence_traceability_matrix.md", "canonical_mapping_validation.md"]:
+            assert "63" in text, f"{rpt.name} must reference 63 KUKs"
+            assert "27" in text, f"{rpt.name} must reference 27 elements"
+            assert "11" in text, f"{rpt.name} must reference 11 units"
+

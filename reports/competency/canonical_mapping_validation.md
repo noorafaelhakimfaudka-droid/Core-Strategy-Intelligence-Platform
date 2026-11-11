@@ -1,54 +1,42 @@
 # CSIP Canonical SKKNI 299/2020 Mapping Validation Report
 ## Verifikasi Kepatuhan Skema Sertifikasi Ilmuwan Data — LSP TRI (SKM/2905/LSP-TRI/VII/2025)
 
-**Document ID**: `CSIP-VAL-SKKNI-2026`  
+**Document ID**: `CSIP-VAL-SKKNI-2026-V4`  
 **Execution Date**: 2026-11-11  
 **Auditor**: SKKNI Competency Mapping Specialist & BNSP Evidence Auditor  
 **Standard Source**: Kepmenaker RI No. 299 Tahun 2020 Subbidang Data Science  
 **LSP TRI Reference**: `https://lsptri.id/skema/sertifikasi-ilmuwan-data-bnsp`  
-**Status**: 100% CANONICAL & VERIFIED (Zero Discrepancy)  
+**Status**: VERIFIED ALIGNMENT (60 VERIFIED, 3 PARTIALLY_VERIFIED, 0 MISSING)  
 
 ---
 
 ## 1. Executive Certification Alignment Summary
 
-Laporan ini memverifikasi bahwa proyek **Core Strategy & Intelligence Platform (CSIP)** mengadopsi secara mutlak **tepat 11 Unit Kompetensi resmi** yang ditetapkan dalam Skema Sertifikasi Okupasi Ilmuwan Data (*Data Scientist*) oleh **LSP TRI** (Nomor Skema: `SKM/2905/LSP-TRI/VII/2025`, Lisensi BNSP: `BNSP-LSP-2699-ID`).
+Laporan ini memverifikasi bahwa proyek **Core Strategy & Intelligence Platform (CSIP)** mengadopsi secara mutlak **tepat 11 Unit Kompetensi resmi** yang ditetapkan dalam Skema Sertifikasi Okupasi Ilmuwan Data (*Data Scientist*) oleh **LSP TRI** (`SKM/2905/LSP-TRI/VII/2025`), berlandaskan **SKKNI No. 299 Tahun 2020**.
 
 Seluruh teks judul unit, deskripsi unit, elemen kompetensi, dan Kriteria Unjuk Kerja (KUK) disalin secara verbatim dari naskah resmi SKKNI No. 299 Tahun 2020 ke dalam file kanonikal [`standards/canonical_skkni_299_2020.json`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip/standards/canonical_skkni_299_2020.json).
 
-```mermaid
-flowchart TD
-    LSP["LSP TRI Skema Sertifikasi<br>SKM/2905/LSP-TRI/VII/2025"] --> SKKNI["SKKNI No. 299 Tahun 2020<br>(11 Unit Resmi)"]
-    SKKNI --> CanonJSON["standards/canonical_skkni_299_2020.json<br>(Single Source of Truth)"]
-    CanonJSON --> Code["src/csip/ (Implementation)"]
-    CanonJSON --> NB["notebooks/ (Process)"]
-    CanonJSON --> Test["tests/test_skkni_consistency.py"]
-    CanonJSON --> Reg["reports/evidence/evidence_registry.json"]
-```
+## 2. Tabel Verifikasi Kanonikal 11 Unit Kompetensi
+
+| No. | Kode Unit Resmi | Judul Resmi SKKNI 299/2020 | Jumlah Elemen | Jumlah KUK | Status KUK Terpetakan | Status Bukti |
+|:---:|:---|:---|:---:|:---:|:---:|:---:|
+| 1 | `J.62DMI00.001.1` | **Menentukan Objektif Bisnis** | 4 | 12 | 12/12 (100%) | 9 Verified, 3 Partial |
+| 2 | `J.62DMI00.002.1` | **Menentukan Tujuan Teknis Data Science** | 2 | 4 | 4/4 (100%) | 4 Verified |
+| 3 | `J.62DMI00.005.1` | **Menelaah Data** | 3 | 8 | 8/8 (100%) | 8 Verified |
+| 4 | `J.62DMI00.006.1` | **Memvalidasi Data** | 2 | 4 | 4/4 (100%) | 4 Verified |
+| 5 | `J.62DMI00.007.1` | **Menentukan Objek Data** | 2 | 4 | 4/4 (100%) | 4 Verified |
+| 6 | `J.62DMI00.008.1` | **Membersihkan Data** | 2 | 4 | 4/4 (100%) | 4 Verified |
+| 7 | `J.62DMI00.009.1` | **Mengkonstruksi Data** | 3 | 6 | 6/6 (100%) | 6 Verified |
+| 8 | `J.62DMI00.012.1` | **Membangun Skenario Model** | 3 | 7 | 7/7 (100%) | 7 Verified |
+| 9 | `J.62DMI00.013.1` | **Membangun Model** | 2 | 6 | 6/6 (100%) | 6 Verified |
+| 10 | `J.62DMI00.014.1` | **Mengevaluasi Hasil Pemodelan** | 2 | 4 | 4/4 (100%) | 4 Verified |
+| 11 | `J.62DMI00.015.1` | **Melakukan Proses Review Pemodelan** | 2 | 4 | 4/4 (100%) | 4 Verified |
+| **TOTAL** | **11 UNIT** | **STANDAR RESMI SKKNI 299/2020** | **27** | **63** | **63/63 (100%)** | **60 Verified, 3 Partial** |
 
 ---
 
-## 2. Unit-by-Unit Canonical Verification Audit
+## 3. Prinsip Kepatuhan dan Kejujuran Ilmiah
 
-| No. | Kode Unit Resmi | Judul Resmi SKKNI 299/2020 | Jumlah Elemen | Jumlah KUK | Status KUK Terpetakan | Status Audit |
-| :---: | :---: | :--- | :---: | :---: | :---: | :---: |
-| 1 | `J.62DMI00.001.1` | Menentukan Objektif Bisnis | 1 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 2 | `J.62DMI00.002.1` | Menentukan Tujuan Teknis Data Science | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 3 | `J.62DMI00.005.1` | Menelaah Data | 3 | 8 | 8 / 8 (100%) | **VERIFIED** |
-| 4 | `J.62DMI00.006.1` | Memvalidasi Data | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 5 | `J.62DMI00.007.1` | Menentukan Objek Data | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 6 | `J.62DMI00.008.1` | Membersihkan Data | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 7 | `J.62DMI00.009.1` | Mengkonstruksi Data | 3 | 5 | 5 / 5 (100%) | **VERIFIED** |
-| 8 | `J.62DMI00.012.1` | Membangun Skenario Model | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 9 | `J.62DMI00.013.1` | Membangun Model | 2 | 3 | 3 / 3 (100%) | **VERIFIED** |
-| 10 | `J.62DMI00.014.1` | Mengevaluasi Hasil Pemodelan | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| 11 | `J.62DMI00.015.1` | Melakukan Proses Review Pemodelan | 2 | 4 | 4 / 4 (100%) | **VERIFIED** |
-| **TOTAL** | **11 UNIT** | **STANDAR KANONIKAL KEMNAKER RI** | **23** | **48** | **48 / 48 (100%)** | **100% CANONICAL** |
-
----
-
-## 3. Strict Compliance Checks
-1. **Verbatim Fidelity**: Tidak ada KUK yang diparafrasekan, digabungkan, atau dihilangkan pada naskah standar resmi. Interpretasi implementasi CSIP dicatat pada atribut terpisah (`csip_activity` dan `csip_evidence`).
-2. **Fixed Scope**: Tidak ada penambahan unit kompetensi ke-12 atau pengurangan dari 11 unit yang diujikan oleh LSP TRI.
-3. **Automated Cross-Validation**: Suite pengujian otomatis `tests/test_skkni_consistency.py` secara aktif memvalidasi kesamaan nama, kode unit, dan keberadaan artefak di repositori fisik.
-
+1. **Verbatim Fidelity**: Tidak ada KUK yang diparafrasekan, digabungkan, atau dihilangkan pada naskah standar resmi.
+2. **Exact Evidence Matching**: Setiap KUK memuat bukti spesifik yang terverifikasi keberadaan fisiknya pada repositori.
+3. **Pengungkapan Terbuka**: Status `PARTIALLY_VERIFIED` diakui secara transparan pada 3 KUK yang melibatkan persetujuan stakeholder eksternal karena menggunakan dataset terbuka tanpa sponsor klien komersial.
