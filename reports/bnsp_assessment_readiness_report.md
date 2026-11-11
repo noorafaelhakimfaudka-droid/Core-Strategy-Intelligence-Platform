@@ -64,3 +64,4 @@ Sesuai prinsip etika ilmiah tertinggi:
 
 ## 5. Final Recommendation for BNSP Assessment
 Berdasarkan seluruh hasil audit, repositori CSIP telah memenuhi kriteria kelayakan portofolio profesional tingkat tinggi (**Skor 9.82 / 10**), memenuhi seluruh Kriteria Unjuk Kerja 11 Unit Kompetensi SKKNI No. 299/2020, dan siap diajukan untuk uji kompetensi tatap muka maupun daring.
+

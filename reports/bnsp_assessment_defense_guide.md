@@ -180,3 +180,4 @@
 - **Kemungkinan Pertanyaan Lanjutan**: *"Apa rekomendasi operasional konkrit yang Anda berikan kepada manajemen Olist?"*
 - **Jawaban Lanjutan**: *"Menetapkan SLA logistik batas aman maksimal 3 hari keterlambatan sebelum rating anjlok, serta mengalihkan anggaran subsidi ongkos kirim universal menjadi subsidi cerdas terfokus hanya pada barang murah rute antarpulau (Klaster 0), yang diproyeksikan menghemat 14.2% churn dengan anggaran 3.1x lebih efisien."*
 - **Kesalahan Konseptual yang Harus Dihindari**: Mengklaim bahwa regresi atau model machine learning membuktikan hubungan sebab-akibat (kausalitas) tanpa pembuktian desain kuasi-eksperimental atau uji acak.
+

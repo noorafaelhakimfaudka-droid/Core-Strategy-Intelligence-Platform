@@ -129,3 +129,4 @@ python -m streamlit run app/streamlit_app.py
 Aplikasi akan terbuka pada peramban web di: `http://localhost:8501`.
 Aplikasi juga dapat diakses secara publik melalui Streamlit Cloud:  
 👉 `https://core-strategy-intelligence-platform.streamlit.app`
+

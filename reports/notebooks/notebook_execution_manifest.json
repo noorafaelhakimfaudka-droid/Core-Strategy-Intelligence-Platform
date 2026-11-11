@@ -1,0 +1,277 @@
+{
+  "title": "CSIP Research Notebook Execution Manifest",
+  "total_notebooks": 14,
+  "generated_at": "2026-11-11T12:30:08.873008",
+  "notebooks": [
+    {
+      "order": 1,
+      "filename": "01_business_and_data_understanding.ipynb",
+      "path": "notebooks/01_business_and_data_understanding.ipynb",
+      "cell_count": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "skkni_units": [
+        "UK-01",
+        "UK-02"
+      ],
+      "inputs": [
+        "data/raw/*.csv"
+      ],
+      "outputs": [
+        "config/business_objectives.yaml"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 2,
+      "filename": "02_data_validation_and_cleaning.ipynb",
+      "path": "notebooks/02_data_validation_and_cleaning.ipynb",
+      "cell_count": 9,
+      "code_cells": 4,
+      "markdown_cells": 5,
+      "skkni_units": [
+        "UK-04",
+        "UK-05",
+        "UK-06"
+      ],
+      "inputs": [
+        "data/raw/*.csv"
+      ],
+      "outputs": [
+        "data/interim/*.parquet"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 3,
+      "filename": "03_exploratory_data_analysis.ipynb",
+      "path": "notebooks/03_exploratory_data_analysis.ipynb",
+      "cell_count": 11,
+      "code_cells": 5,
+      "markdown_cells": 6,
+      "skkni_units": [
+        "UK-03"
+      ],
+      "inputs": [
+        "data/interim/*.parquet"
+      ],
+      "outputs": [
+        "reports/data_quality_report.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 4,
+      "filename": "04_feature_engineering_and_construction.ipynb",
+      "path": "notebooks/04_feature_engineering_and_construction.ipynb",
+      "cell_count": 9,
+      "code_cells": 4,
+      "markdown_cells": 5,
+      "skkni_units": [
+        "UK-07"
+      ],
+      "inputs": [
+        "data/interim/*.parquet"
+      ],
+      "outputs": [
+        "data/processed/order_level.parquet"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 5,
+      "filename": "05_behavioral_discovery_unsupervised.ipynb",
+      "path": "notebooks/05_behavioral_discovery_unsupervised.ipynb",
+      "cell_count": 9,
+      "code_cells": 4,
+      "markdown_cells": 5,
+      "skkni_units": [
+        "UK-07"
+      ],
+      "inputs": [
+        "data/processed/order_level.parquet"
+      ],
+      "outputs": [
+        "artifacts/models/clustering_pipeline.joblib"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 6,
+      "filename": "06_hypothesis_investigation.ipynb",
+      "path": "notebooks/06_hypothesis_investigation.ipynb",
+      "cell_count": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "skkni_units": [
+        "UK-08"
+      ],
+      "inputs": [
+        "data/processed/order_level.parquet"
+      ],
+      "outputs": [
+        "reports/hypothesis_report.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 7,
+      "filename": "07_supervised_ml_and_competency_lab.ipynb",
+      "path": "notebooks/07_supervised_ml_and_competency_lab.ipynb",
+      "cell_count": 11,
+      "code_cells": 5,
+      "markdown_cells": 6,
+      "skkni_units": [
+        "UK-09"
+      ],
+      "inputs": [
+        "data/processed/order_level.parquet"
+      ],
+      "outputs": [
+        "artifacts/models/champion_lightgbm.joblib"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 8,
+      "filename": "08_neural_network_and_deep_learning.ipynb",
+      "path": "notebooks/08_neural_network_and_deep_learning.ipynb",
+      "cell_count": 8,
+      "code_cells": 4,
+      "markdown_cells": 4,
+      "skkni_units": [
+        "UK-09"
+      ],
+      "inputs": [
+        "data/processed/review_corpus.parquet"
+      ],
+      "outputs": [
+        "artifacts/models/deep_bilstm.pt"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 9,
+      "filename": "09_model_evaluation_and_explainability.ipynb",
+      "path": "notebooks/09_model_evaluation_and_explainability.ipynb",
+      "cell_count": 6,
+      "code_cells": 3,
+      "markdown_cells": 3,
+      "skkni_units": [
+        "UK-10"
+      ],
+      "inputs": [
+        "artifacts/models/*"
+      ],
+      "outputs": [
+        "reports/model_evaluation_and_review_report.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 10,
+      "filename": "10_system_and_world_modeling.ipynb",
+      "path": "notebooks/10_system_and_world_modeling.ipynb",
+      "cell_count": 8,
+      "code_cells": 4,
+      "markdown_cells": 4,
+      "skkni_units": [
+        "UK-08"
+      ],
+      "inputs": [
+        "data/processed/weekly_system_state.parquet"
+      ],
+      "outputs": [
+        "artifacts/models/world_model.joblib"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 11,
+      "filename": "11_alternative_world_simulation.ipynb",
+      "path": "notebooks/11_alternative_world_simulation.ipynb",
+      "cell_count": 6,
+      "code_cells": 3,
+      "markdown_cells": 3,
+      "skkni_units": [
+        "UK-08",
+        "UK-10"
+      ],
+      "inputs": [
+        "artifacts/models/world_model.joblib"
+      ],
+      "outputs": [
+        "reports/scenario_simulation_report.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 12,
+      "filename": "12_uncertainty_quantification.ipynb",
+      "path": "notebooks/12_uncertainty_quantification.ipynb",
+      "cell_count": 6,
+      "code_cells": 3,
+      "markdown_cells": 3,
+      "skkni_units": [
+        "UK-10"
+      ],
+      "inputs": [
+        "data/processed/order_level.parquet"
+      ],
+      "outputs": [
+        "reports/model_evaluation_and_review_report.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 13,
+      "filename": "13_model_review_and_failure_analysis.ipynb",
+      "path": "notebooks/13_model_review_and_failure_analysis.ipynb",
+      "cell_count": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "skkni_units": [
+        "UK-11"
+      ],
+      "inputs": [
+        "artifacts/models/*"
+      ],
+      "outputs": [
+        "reports/evidence_and_failure_register.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    },
+    {
+      "order": 14,
+      "filename": "14_final_research_report.ipynb",
+      "path": "notebooks/14_final_research_report.ipynb",
+      "cell_count": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "skkni_units": [
+        "UK-11"
+      ],
+      "inputs": [
+        "reports/*"
+      ],
+      "outputs": [
+        "CSIP_DATA_SCIENTIST_TECHNICAL_REPORT.md"
+      ],
+      "execution_status": "VERIFIED",
+      "verification_timestamp": "2026-11-11T12:00:00"
+    }
+  ]
+}

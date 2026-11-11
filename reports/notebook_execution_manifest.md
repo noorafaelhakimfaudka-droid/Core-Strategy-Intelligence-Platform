@@ -110,3 +110,4 @@ Setiap notebook mengadopsi struktur kanonikal:
 ### Notebook 14: `14_final_research_report.ipynb`
 - **Objective**: Sintesis komprehensif temuan riset, dokumentasi arsitektur, dan laporan pertanggungjawaban kompetensi BNSP KKNI Level 7.
 - **Key Results**: Laporan teknis lengkap siap audit dengan penelusuran 100% terhadap 11 unit SKKNI 299/2020.
+

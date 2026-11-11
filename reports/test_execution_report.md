@@ -63,3 +63,4 @@ tests/test_skkni_consistency.py ......                                   [100%]
 1. **Zero Data Leakage**: Verifikasi korelasi fitur input terhadap target pasca-pengiriman membuktikan nilai 0.00 pada `test_feature_leakage.py`.
 2. **Zero False Claims**: Seluruh metrik model (PR-AUC 0.3004, Brier Score 0.0762, World Model WAPE 15.83%) berasal dari eksekusi nyata pada test set temporal holdout, bukan dari angka dummy.
 3. **SKKNI Mapping Identity**: `test_skkni_consistency.py` menjamin bahwa tidak ada kontradiksi atau perbedaan judul antara dokumen laporan, repositori kode, dan standar Kepmenaker 299/2020.
+

@@ -105,3 +105,4 @@ for rel, meta in manifest['tables'].items():
 print('All 13 Parquet datasets verified bitwise identical with SHA-256 manifest!')
 "
 ```
+

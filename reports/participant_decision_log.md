@@ -92,3 +92,4 @@ Berikut adalah rekaman keputusan-keputusan teknis krusial yang diambil oleh pese
 | **Rekayasa Fitur** | Perhitungan vektorisasi formula matematis | Merancang variabel interaksi domain dan menegakkan isolasi temporal anti-kebocoran. |
 | **Pemilihan Model** | Training otomatis baseline ladder B0-B4 | Memilih LightGBM atas pertimbangan non-linearitas, interpretasi SHAP, dan batas 8GB RAM. |
 | **Evaluasi & Governance** | Kalkulasi matriks metrik dan plot kurva | Menerapkan kalibrasi probabilitas, mencatat kegagalan H3, dan membatasi klaim L0-L3. |
+

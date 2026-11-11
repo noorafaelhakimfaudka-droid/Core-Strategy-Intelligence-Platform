@@ -423,3 +423,4 @@ flowchart TD
 
 ## 5. Automated Consistency Rule
 Setiap artefak, notebook, dan laporan dalam repositori CSIP wajib mematuhi pemetaan kanonikal di atas. Inkonsistensi kode unit, judul unit, atau referensi file akan dideteksi dan digagalkan secara otomatis oleh automated test suite `tests/test_skkni_consistency.py`.
+
