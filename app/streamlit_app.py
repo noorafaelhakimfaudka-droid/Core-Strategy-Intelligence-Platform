@@ -521,7 +521,7 @@ def build_lens3_ridgeline_svg(pipeline: dict, sim: dict, target_col: str) -> str
 
     svg_html = (
         '<div class="view3-wrap">'
-        '<svg viewBox="0 0 860 348" preserveAspectRatio="xMidYMid meet" role="img" style="width:100%; height:345px; display:block;">'
+        '<svg viewBox="0 0 860 348" preserveAspectRatio="xMidYMid meet" role="img" style="width:100%; height:auto; max-height:345px; display:block;">'
         '<defs>'
         '<linearGradient id="gA" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#17A394" stop-opacity=".55"/><stop offset="1" stop-color="#17A394" stop-opacity=".08"/></linearGradient>'
         '<linearGradient id="gB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E8A23B" stop-opacity=".55"/><stop offset="1" stop-color="#E8A23B" stop-opacity=".08"/></linearGradient>'
@@ -927,12 +927,19 @@ div[data-testid="stRadio"] label[data-baseweb="radio"]:has(input:checked) p {
   background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-ring);
 }
 
-/* Media Queries untuk Layar Kecil / Tablet / Proyektor */
-@media (max-width: 1100px) {
-  .bento { grid-template-columns: 1fr; }
-  .narrative-card { grid-template-columns: 1fr; gap: 12px; }
-  .narr-body { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 10px; }
-  .brand-sub { display: none; }
+/* Media Queries Lintas Device (Laptop 13", Tablet, High-DPI Scaling) */
+@media (max-width: 1250px) {
+  .bento { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important; }
+  .narrative-card { grid-template-columns: auto 1fr !important; gap: 14px !important; }
+  .narr-body { grid-column: 1 / -1 !important; border-left: 0 !important; padding-left: 0 !important; border-top: 1px solid var(--line) !important; padding-top: 10px !important; }
+  .brand-sub { display: none !important; }
+}
+@media (max-width: 768px) {
+  .bento { grid-template-columns: 1fr !important; }
+  .narrative-card { grid-template-columns: 1fr !important; text-align: center !important; }
+  .persona { justify-self: center !important; }
+  .act-pills { justify-content: center !important; }
+  .rk { grid-template-columns: 1fr !important; gap: 6px !important; }
 }
 </style>
 <div class="aurora-bg" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -1214,7 +1221,7 @@ with col_stage:
 
         if active_lens == "1. Kurva Simulasi dan Titik Kritis":
             fig = build_lens1_curve(pipeline, sim, target_col, schema_info)
-            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False, "responsive": True})
         elif active_lens == "2. Peringkat Faktor Penentu":
             st.markdown(build_lens2_ranking_html(pipeline, target_col), unsafe_allow_html=True)
         else:
