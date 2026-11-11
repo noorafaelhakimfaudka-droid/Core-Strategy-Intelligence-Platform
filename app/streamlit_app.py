@@ -279,6 +279,10 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
     tipping_idx = int(np.argmax(diffs)) if len(diffs) > 0 else 35
     tipping_x = float(grid_x[tipping_idx])
 
+    is_f1_discrete = (top1_row["Max"] - top1_row["Min"] <= 15) and (int(top1_row["Max"]) == top1_row["Max"]) and (int(top1_row["Min"]) == top1_row["Min"])
+    if is_f1_discrete:
+        tipping_x = float(round(tipping_x))
+
     t_meta = schema_info.get(target_col, {})
     t_phrase = t_meta.get("phrase", target_col.lower())
     t_unit = t_meta.get("unit", "")
@@ -1091,7 +1095,13 @@ with col_deck:
             f_unit = str(row_meta["Unit"])
             if f_max <= f_min:
                 f_max = f_min + 1.0
-            step_val = round((f_max - f_min) / 100.0, 4) or 0.1
+
+            is_discrete = (f_max - f_min <= 15) and (int(f_min) == f_min) and (int(f_max) == f_max)
+            if is_discrete:
+                step_val = 1.0
+                f_med = float(round(f_med))
+            else:
+                step_val = round((f_max - f_min) / 100.0, 4) or 0.1
 
             default_start = f_med
 
@@ -1127,9 +1137,14 @@ with col_deck:
             custom_inputs[f_name] = float(val)
 
             mid_scale = (f_min + f_max) / 2.0
+            if is_discrete and (f_max - f_min == 1.0):
+                scale_labels_html = f'<div class="scale-row"><span>0 (Non-aktif / Tidak Ada)</span><span></span><span>1 (Aktif / Tersedia)</span></div>'
+            else:
+                scale_labels_html = f'<div class="scale-row"><span>{fmt_num(f_min)}</span><span>{fmt_num(mid_scale)}</span><span>{fmt_num(f_max, f_unit)}</span></div>'
+
             st.markdown(
                 f'<div class="ticks-bar" aria-hidden="true"></div>'
-                f'<div class="scale-row"><span>{fmt_num(f_min)}</span><span>{fmt_num(mid_scale)}</span><span>{fmt_num(f_max, f_unit)}</span></div>'
+                f'{scale_labels_html}'
                 f'<div class="lv-note {lv_cls}">{row_meta["Kalimat_Alami"]}</div>',
                 unsafe_allow_html=True,
             )

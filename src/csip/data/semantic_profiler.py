@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import re
 import numpy as np
 import pandas as pd
@@ -209,12 +210,13 @@ def infer_dynamic_semantics(c: str, s: pd.Series) -> tuple[str, str, str, str, s
         verb_down = "bergerak turun"
 
     # 3. Infer Role (Target Utama vs Faktor Penentu)
-    target_keywords = [
-        "target", "label", "outcome", "y", "close", "price", "harga", "profit", "laba",
-        "sales", "penjualan", "omzet", "revenue", "churn", "gaji", "salary", "score",
-        "skor", "rating", "quality", "mutu", "result", "status", "risiko", "biaya", "cost"
+    target_keywords_exact = {"y", "target", "label", "outcome", "result"}
+    target_keywords_contains = [
+        "close", "price", "harga", "profit", "laba", "sales", "penjualan", "omzet",
+        "revenue", "churn", "gaji", "salary", "score", "skor", "rating", "quality",
+        "mutu", "risiko", "biaya", "cost", "jumlah", "count", "total", "capacity", "kapasitas"
     ]
-    if any(k == c_low or k in c_low for k in target_keywords):
+    if c_low in target_keywords_exact or any(k in c_low for k in target_keywords_contains):
         role = "target_utama"
     else:
         role = "faktor"
@@ -235,34 +237,118 @@ def infer_dynamic_semantics(c: str, s: pd.Series) -> tuple[str, str, str, str, s
     return ui_label, phrase, verb_up, verb_down, unit, desc, role
 
 
+def unpack_embedded_serialized_dicts(data: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
+    """
+    [UK-03, UK-04] Mendeteksi dan mengekstrak kolom teks yang berisi kamus bersarang
+    (JSON atau Ruby Hash seperti {'key'=>'val'}) menjadi kolom fitur terstruktur.
+    """
+    work = data.copy()
+    unpacked_notes = []
+
+    for col in work.columns:
+        if not (work[col].dtype == "object" or work[col].dtype == "string"):
+            continue
+
+        sample = work[col].dropna().head(30)
+        if len(sample) < 5:
+            continue
+
+        matches = 0
+        for s in sample:
+            s_str = str(s).strip()
+            if s_str.startswith("{") and s_str.endswith("}") and (":" in s_str or "=>" in s_str):
+                matches += 1
+
+        if matches / len(sample) >= 0.6:
+            def parse_one(val):
+                if not isinstance(val, str):
+                    return {}
+                v = val.strip()
+                if v.startswith("{") and v.endswith("}"):
+                    v = re.sub(r'=>', ':', v)
+                    v = re.sub(r'\bnil\b', 'null', v)
+                    try:
+                        parsed = json.loads(v)
+                        if isinstance(parsed, dict):
+                            return parsed
+                    except Exception:
+                        pass
+                return {}
+
+            parsed_series = work[col].apply(parse_one)
+            dict_df = pd.DataFrame(parsed_series.tolist(), index=work.index)
+            dict_df = dict_df.dropna(how="all", axis=1)
+
+            if not dict_df.empty:
+                unpacked_notes.append(f"{col} ({len(dict_df.columns)} atribut terstruktur diekstrak)")
+                for key in dict_df.columns:
+                    try:
+                        work[key] = pd.to_numeric(dict_df[key], errors="raise")
+                    except (ValueError, TypeError):
+                        work[key] = dict_df[key]
+
+                work = work.drop(columns=[col])
+
+    return work, unpacked_notes
+
+
+def is_spatial_or_identifier(col_name: str, s: pd.Series) -> bool:
+    """
+    [UK-03, UK-05] Menyaring kolom identifier (ID/Index) dan koordinat spasial (Latitude/Longitude/Zip)
+    agar tidak dijadikan variabel regresi numerik atau tuas keputusan bisnis.
+    """
+    c_low = col_name.lower().strip()
+    if c_low in ["index", "id", "uuid", "row_id", "record_id", "pk"]:
+        return True
+    if c_low.startswith("unnamed") or c_low.endswith("_id") or c_low.startswith("id_"):
+        return True
+    if c_low in ["latitude", "longitude", "lat", "lon", "lng", "coord", "coords", "coordinates"]:
+        return True
+    if any(p in c_low for p in ["zip", "postal", "kode_pos", "postcode"]):
+        return True
+    if pd.api.types.is_numeric_dtype(s):
+        s_clean = s.dropna()
+        if len(s_clean) > 50 and s_clean.nunique() == len(s_clean):
+            if (s_clean.diff().dropna() == 1).all():
+                return True
+        if "state" in c_low and len(s_clean) > 0 and s_clean.min() >= 500 and s_clean.max() <= 99999:
+            return True
+    return False
+
+
 # ==============================================================================
 # 3. SMART DATA TRANSFORMATION & SCHEMA PROFILER
 # ==============================================================================
 def smart_transform_uploaded_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, str, dict]:
     """
     [UK-03, UK-04, UK-07] Menelaah, memvalidasi, dan mengkonstruksi fitur cerdas.
-    1. Jika tabel OHLCV (Keuangan/Kripto), ekstrak indikator tren & volatilitas agar tidak kolinear.
-    2. Jika ada kolom kategori/teks penting (2-12 kategori), lakukan frekuensi/ordinal encoding otomatis.
+    1. Jika ada kolom teks berisi kamus bersarang (JSON/Ruby Hash), ekstrak otomatis.
+    2. Jika tabel OHLCV (Keuangan/Kripto), ekstrak indikator tren & volatilitas agar tidak kolinear.
+    3. Konversi kolom boolean menjadi numerik biner (0.0 / 1.0).
+    4. Jika ada kolom kategori/teks penting (2-12 kategori non-spasial/non-ID), lakukan ordinal encoding otomatis.
     """
-    raw_rows, raw_cols = df.shape
-    missing_cells = int(df.isna().sum().sum())
-    dup_rows = int(df.duplicated().sum())
+    # 1. Ekstraksi kamus bersarang jika ada
+    work, unpacked_notes = unpack_embedded_serialized_dicts(df)
 
-    cols_lower = {c.lower().strip(): c for c in df.columns}
-    encoded_categories = []
+    raw_rows, raw_cols = work.shape
+    missing_cells = int(work.isna().sum().sum())
+    dup_rows = int(work.duplicated().sum())
+
+    cols_lower = {c.lower().strip(): c for c in work.columns}
+    encoded_categories = list(unpacked_notes)
 
     if {"open", "high", "low", "close"}.issubset(set(cols_lower.keys())):
-        work = df.copy()
+        work_ohlcv = work.copy()
         for d_col in ["date", "timestamp", "time", "tanggal"]:
             if d_col in cols_lower:
-                work[cols_lower[d_col]] = pd.to_datetime(work[cols_lower[d_col]], errors="coerce")
-                work = work.sort_values(cols_lower[d_col]).reset_index(drop=True)
+                work_ohlcv[cols_lower[d_col]] = pd.to_datetime(work_ohlcv[cols_lower[d_col]], errors="coerce")
+                work_ohlcv = work_ohlcv.sort_values(cols_lower[d_col]).reset_index(drop=True)
                 break
 
-        close_s = pd.to_numeric(work[cols_lower["close"]], errors="coerce")
-        open_s = pd.to_numeric(work[cols_lower["open"]], errors="coerce")
-        high_s = pd.to_numeric(work[cols_lower["high"]], errors="coerce")
-        low_s = pd.to_numeric(work[cols_lower["low"]], errors="coerce")
+        close_s = pd.to_numeric(work_ohlcv[cols_lower["close"]], errors="coerce")
+        open_s = pd.to_numeric(work_ohlcv[cols_lower["open"]], errors="coerce")
+        high_s = pd.to_numeric(work_ohlcv[cols_lower["high"]], errors="coerce")
+        low_s = pd.to_numeric(work_ohlcv[cols_lower["low"]], errors="coerce")
 
         smart_df = pd.DataFrame()
         smart_df["gejolak_harga"] = (high_s - low_s).round(2)
@@ -273,7 +359,7 @@ def smart_transform_uploaded_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, 
         smart_df["momentum_30h"] = (((close_s - ma30) / (ma30 + 1e-9)) * 100.0).round(2)
 
         if "volume" in cols_lower:
-            smart_df["volume"] = pd.to_numeric(work[cols_lower["volume"]], errors="coerce")
+            smart_df["volume"] = pd.to_numeric(work_ohlcv[cols_lower["volume"]], errors="coerce")
 
         smart_df["return_harian"] = (close_s.pct_change() * 100.0).round(2)
         smart_df["close"] = close_s.round(2)
@@ -293,12 +379,21 @@ def smart_transform_uploaded_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, 
             audit_info,
         )
 
-    # Untuk tabel umum/bisnis: konversi juga kolom kategori/teks yang memiliki 2 s/d 12 nilai unik
-    work = df.drop_duplicates().copy()
-    cat_cols = work.select_dtypes(include=["object", "category", "bool"]).columns.tolist()
+    # 2. Tabel umum/bisnis:
+    work = work.drop_duplicates().copy()
+
+    # Konversi boolean menjadi numerik 0.0 / 1.0 secara bersih
+    for c in work.columns:
+        if work[c].dtype == bool:
+            work[c] = work[c].astype(float)
+
+    # Konversi kolom kategori/teks penting (2-12 nilai unik) yang bukan ID/spasial/alamat
+    cat_cols = work.select_dtypes(include=["object", "category"]).columns.tolist()
     for c in cat_cols:
+        if is_spatial_or_identifier(c, work[c]):
+            continue
         c_low = c.lower().strip()
-        if any(skip in c_low for skip in ["id", "uuid", "nama", "name", "date", "tanggal", "time", "alamat"]):
+        if any(skip in c_low for skip in ["nama", "name", "date", "tanggal", "time", "alamat", "address", "desc", "keterangan"]):
             continue
         nunq = work[c].nunique(dropna=True)
         if 2 <= nunq <= 12:
@@ -324,7 +419,7 @@ def build_fluent_schema(df: pd.DataFrame) -> tuple[pd.DataFrame, dict, str, dict
     transformed_df, banner_note, audit_info = smart_transform_uploaded_dataframe(df)
     num_cols = [
         c for c in transformed_df.select_dtypes(include=[np.number]).columns
-        if transformed_df[c].nunique() > 1 and not c.lower().endswith("_id")
+        if transformed_df[c].nunique() > 1 and not is_spatial_or_identifier(c, transformed_df[c]) and transformed_df[c].notna().mean() >= 0.3
     ]
 
     clean_df = pd.DataFrame()
@@ -367,12 +462,16 @@ def build_fluent_schema(df: pd.DataFrame) -> tuple[pd.DataFrame, dict, str, dict
             secondary_candidates.append(ui_label)
 
     all_cols = list(clean_df.columns)
-    if primary_candidates:
+    continuous_primary = [col for col in primary_candidates if clean_df[col].nunique() > 2]
+    if continuous_primary:
+        auto_target = continuous_primary[0]
+    elif primary_candidates:
         auto_target = primary_candidates[0]
     elif secondary_candidates:
         auto_target = secondary_candidates[0]
     else:
-        auto_target = all_cols[-1] if all_cols else ""
+        non_binary = [c for c in all_cols if clean_df[c].nunique() > 2]
+        auto_target = non_binary[-1] if non_binary else (all_cols[-1] if all_cols else "")
 
     return clean_df, schema_info, auto_target, audit_info
 

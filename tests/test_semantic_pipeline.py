@@ -164,3 +164,38 @@ def test_zero_shot_dynamic_semantics_on_novel_domains():
     assert schema_info["Monthly Hours Worked"]["unit"] == "jam"
     assert schema_info["Masa Kerja"]["unit"] == "tahun"
 
+
+def test_unpacker_and_spatial_id_filtering():
+    """Verify generic unpacking of serialized dictionary columns and spatial/ID filtering."""
+    test_messy_df = pd.DataFrame({
+        "index": [0, 1, 2, 3, 4],
+        "facility_name": ["Alpha Park", "Beta Arena", "Gamma Center", "Delta Club", "Echo Field"],
+        "zip_code": ["90210", "90211", "90212", "90213", "90214"],
+        "latitude": [34.0522, 34.0530, 34.0545, 34.0510, 34.0560],
+        "longitude": [
+            '{"capacity"=>"12", "lights"=>"1", "indoor"=>"0"}',
+            '{"capacity"=>"4", "lights"=>"0", "indoor"=>"0"}',
+            '{"capacity"=>"8", "lights"=>"1", "indoor"=>"1"}',
+            '{"capacity"=>"2", "lights"=>"0", "indoor"=>"0"}',
+            '{"capacity"=>"6", "lights"=>"1", "indoor"=>"0"}',
+        ],
+    })
+
+    clean_df, schema_info, auto_target, audit_info = build_fluent_schema(test_messy_df)
+
+    # 1. Unpacker must have extracted capacity, lights, indoor
+    assert "Capacity" in clean_df.columns
+    assert "Lights" in clean_df.columns
+    assert "Indoor" in clean_df.columns
+
+    # 2. Coordinates, IDs, and Zip Codes must be cleanly excluded
+    assert "Index" not in clean_df.columns
+    assert "Latitude" not in clean_df.columns
+    assert "Longitude" not in clean_df.columns
+    assert "Zip Code" not in clean_df.columns
+    assert "Kategori Zip Code" not in clean_df.columns
+
+    # 3. Target should prioritize continuous Capacity over binary flags
+    assert auto_target == "Capacity"
+    assert len(clean_df) == 5
+
