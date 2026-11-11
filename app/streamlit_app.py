@@ -38,18 +38,25 @@ def preprocess_intuitive_scales(df: pd.DataFrame, schema_info: dict) -> tuple[pd
     info = {k: dict(v) for k, v in schema_info.items()}
 
     for col in work.columns:
+        if col not in info:
+            continue
         c_low = col.lower()
-        if "kepuasan" in c_low and work[col].max() <= 5.5 and work[col].min() >= 0.5:
+        if any(w in c_low for w in ["rating", "skor", "score", "star", "kepuasan", "grade"]) and work[col].max() <= 5.2 and work[col].min() >= 0.8:
             work[col] = (work[col] * 20.0).round(1)
-            info[col]["unit"] = "dari 100"
-            info[col]["description"] = (
-                "nilai 0 sampai 100 yang diberikan pembeli setelah barang diterima. "
-                "Makin tinggi, makin besar kemungkinan mereka kembali berbelanja."
-            )
-        elif "keterlambatan" in c_low and work[col].min() < 0:
+            info[col]["unit"] = "skala 100"
+            if not info[col].get("description") or "1 sampai 5" in info[col].get("description", ""):
+                info[col]["description"] = "skor yang distandardisasi ke skala 0-100 agar mudah diperbandingkan secara intuitif."
+        elif work[col].min() < 0 and any(w in c_low for w in ["delay", "telat", "keterlambatan"]):
             work[col] = np.maximum(0.0, work[col]).round(1)
+
+        if not info[col].get("description") or info[col].get("description") == "-":
+            c_min = work[col].min()
+            c_max = work[col].max()
+            c_med = work[col].median()
+            u_str = f" {info[col].get('unit', '')}".rstrip()
             info[col]["description"] = (
-                "berapa hari pengiriman melewati jadwal yang dijanjikan (0 hari berarti tiba tepat waktu)."
+                f"variabel data dengan sebaran nilai dari {fmt_num(c_min)}{u_str} hingga {fmt_num(c_max)}{u_str} "
+                f"(median {fmt_num(c_med)}{u_str})."
             )
 
     return work, info
@@ -177,34 +184,36 @@ def run_studio_ml_engine(
 
     if f1_vals.min() == 0 and (f1_vals == 0).mean() > 0.25:
         pos_vals = f1_vals[f1_vals > 0]
-        cut_mid = float(pos_vals.median()) if len(pos_vals) > 0 else 3.0
-        cut_mid = max(1.0, round(cut_mid, 1))
-        m1 = f1_vals <= 0.05
-        m2 = (f1_vals > 0.05) & (f1_vals <= cut_mid)
+        cut_mid = float(pos_vals.median()) if len(pos_vals) > 0 else float(f1_vals.quantile(0.75))
+        m1 = f1_vals <= 0.001
+        m2 = (f1_vals > 0.001) & (f1_vals <= cut_mid)
         m3 = f1_vals > cut_mid
-        g_titles = [
-            "Tepat waktu",
-            f"Telat 1 sampai {cut_mid:g} {f1_unit}".strip(),
-            f"Telat lebih dari {cut_mid:g} {f1_unit}".strip(),
+        g_meta = [
+            {"tier": "Tingkat Nol / Nihil", "range": f"{top1_col} = 0", "mask": m1},
+            {"tier": "Tingkat Rendah", "range": f"> 0 – {fmt_num(cut_mid, f1_unit)}", "mask": m2},
+            {"tier": "Tingkat Tinggi", "range": f"> {fmt_num(cut_mid, f1_unit)}", "mask": m3},
         ]
     else:
         q33, q66 = float(f1_vals.quantile(0.33)), float(f1_vals.quantile(0.67))
         m1 = f1_vals <= q33
         m2 = (f1_vals > q33) & (f1_vals <= q66)
         m3 = f1_vals > q66
-        g_titles = [
-            f"{top1_col} rendah (≤ {fmt_num(q33, f1_unit)})",
-            f"{top1_col} menengah ({fmt_num(q33)} – {fmt_num(q66, f1_unit)})",
-            f"{top1_col} tinggi (> {fmt_num(q66, f1_unit)})",
+        g_meta = [
+            {"tier": "Kelompok Bawah", "range": f"≤ {fmt_num(q33, f1_unit)}", "mask": m1},
+            {"tier": "Kelompok Menengah", "range": f"{fmt_num(q33)} – {fmt_num(q66, f1_unit)}", "mask": m2},
+            {"tier": "Kelompok Atas", "range": f"> {fmt_num(q66, f1_unit)}", "mask": m3},
         ]
 
     raw_groups = []
-    for title, mask in zip(g_titles, [m1, m2, m3]):
+    for item in g_meta:
+        mask = item["mask"]
         sub_y = y[mask]
         if len(sub_y) < 5:
             sub_y = y
         raw_groups.append({
-            "title": title,
+            "tier": item["tier"],
+            "range": item["range"],
+            "title": f"{top1_col} {item['tier'].lower()} ({item['range']})",
             "count": int(np.sum(mask)) if np.sum(mask) > 0 else len(sub_y),
             "median": float(np.median(sub_y)),
             "mean": float(np.mean(sub_y)),
@@ -282,25 +291,25 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
     f2_share = top2_row["Pengaruh_Persen"]
 
     if top1_row["Pearson_r"] <= -0.05:
-        headline_main = f"Tahan {top1.lower()} di bawah {fmt_num(tipping_x, f1_unit)}, dan"
-        headline_em = f"{t_phrase} tetap aman."
+        headline_main = f"Kendalikan {top1.lower()} di bawah {fmt_num(tipping_x, f1_unit)}, agar"
+        headline_em = f"{t_phrase} tetap stabil."
         act_1 = f"Prioritaskan kendali {top1.lower()}"
         act_2 = f"Cegah lewati batas {fmt_num(tipping_x, f1_unit)}"
     else:
-        headline_main = f"Dorong {top1.lower()} melampaui {fmt_num(tipping_x, f1_unit)}, agar"
-        headline_em = f"{t_phrase} tumbuh optimal."
+        headline_main = f"Dorong {top1.lower()} mendekati {fmt_num(tipping_x, f1_unit)}, untuk"
+        headline_em = f"mengoptimalkan {t_phrase}."
         act_1 = f"Optimalkan {top1.lower()} di atas {fmt_num(tipping_x, f1_unit)}"
         act_2 = f"Perkuat faktor #{2}: {top2_row['Fitur'].lower()}"
 
-    dir_word = "sudah turun" if diff_val < -0.05 else ("sudah naik" if diff_val > 0.05 else "berada tepat")
-    delta_txt = f"{abs(diff_val):.1f} {short_unit}".strip()
+    dir_word = "lebih rendah" if diff_val < -0.05 else ("lebih tinggi" if diff_val > 0.05 else "relatif setara")
+    delta_txt = f"{fmt_num(abs(diff_val))} {short_unit}".strip()
 
     narrative_body = (
-        f"{top1} memegang <b>{f1_share:.0f}%</b> kendali atas {t_phrase}, jauh di atas {f2_phrase} (<b>{f2_share:.0f}%</b>). "
-        f"Kurva mulai berubah tajam di titik kritis <b>{fmt_num(tipping_x, f1_unit)}</b>; pada posisi tuas "
-        f"<b>{fmt_num(cur_f1_val, f1_unit)}</b> saat ini, hasil simulasi Anda {dir_word} "
-        f"<b>{delta_txt}</b> ({diff_pct:+.1f}%) dibandingkan kondisi standar (<b>{base_val:.1f}</b>). "
-        f"Mengatur tuas <b>{top1.lower()}</b> lebih berdampak langsung daripada mengubah variabel urutan bawah."
+        f"{top1} memegang <b>{f1_share:.0f}%</b> pengaruh terhadap {t_phrase}, lebih dominan daripada {f2_phrase} (<b>{f2_share:.0f}%</b>). "
+        f"Pola perubahan data menunjukkan pergeseran nyata di sekitar titik kritis <b>{fmt_num(tipping_x, f1_unit)}</b>; pada posisi tuas "
+        f"<b>{fmt_num(cur_f1_val, f1_unit)}</b> saat ini, estimasi model menghasilkan nilai yang {dir_word} "
+        f"<b>{delta_txt}</b> ({diff_pct:+.1f}%) dibandingkan nilai acuan standar (<b>{fmt_num(base_val, short_unit)}</b>). "
+        f"Menyesuaikan tuas <b>{top1.lower()}</b> memberikan respons terbesar pada {t_phrase}."
     )
 
     return {
@@ -406,9 +415,10 @@ def build_lens1_curve(pipeline: dict, sim: dict, target_col: str, schema_info: d
     return fig
 
 
-def build_lens2_ranking_html(pipeline: dict) -> str:
+def build_lens2_ranking_html(pipeline: dict, target_col: str = "") -> str:
     st_df = pipeline["stats_df"].iloc[:5].copy()
     max_share = max(float(st_df["Pengaruh_Persen"].max()), 1.0)
+    tgt_name = target_col.lower() if target_col else "target"
 
     rows_html = []
     for idx, row in st_df.iterrows():
@@ -418,14 +428,14 @@ def build_lens2_ranking_html(pipeline: dict) -> str:
         r_val = float(row["Pearson_r"])
 
         if r_val <= -0.05:
-            sub_tag = "Menekan skor"
-            dir_note = "makin tinggi, makin turun"
+            sub_tag = f"Menurunkan {tgt_name}"
+            dir_note = "makin tinggi, nilai turun"
         elif r_val >= 0.05:
-            sub_tag = "Menaikkan skor"
-            dir_note = "makin tinggi, makin naik"
+            sub_tag = f"Menaikkan {tgt_name}"
+            dir_note = "makin tinggi, nilai naik"
         else:
-            sub_tag = "Pengaruh kecil"
-            dir_note = "nyaris netral"
+            sub_tag = "Pengaruh seimbang"
+            dir_note = "cenderung netral"
 
         rows_html.append(
             f'<div class="rk {top_cls}" style="--w:{width_pct:.1f}%">'
@@ -446,48 +456,72 @@ def build_lens3_ridgeline_svg(pipeline: dict, sim: dict, target_col: str) -> str
     dom_max = y_max + pad
     dom_span = max(dom_max - dom_min, 1.0)
 
-    def to_svg_x(val: float) -> float:
-        ratio = np.clip((val - dom_min) / dom_span, 0.04, 0.96)
-        return 60.0 + ratio * 700.0
+    # Pemisahan area gambar secara ketat agar label di kiri TIDAK AKAN PERNAH nabrak kurva/garis
+    plot_left = 270.0
+    plot_right = 835.0
+    plot_width = plot_right - plot_left
 
-    ticks = np.linspace(dom_min, dom_max, 6)
+    def to_svg_x(val: float) -> float:
+        ratio = float(np.clip((val - dom_min) / dom_span, 0.0, 1.0))
+        return plot_left + ratio * plot_width
+
+    ticks = np.linspace(dom_min, dom_max, 5)
     grid_lines = "".join(
-        f'<line x1="{60 + i * 140}" x2="{60 + i * 140}" y1="14" y2="296"/>' for i in range(6)
+        f'<line x1="{to_svg_x(t):.1f}" x2="{to_svg_x(t):.1f}" y1="16" y2="295"/>' for t in ticks
     )
     tick_texts = "".join(
-        f'<text x="{60 + i * 140}" y="316">{fmt_num(t)}</text>' for i, t in enumerate(ticks)
+        f'<text x="{to_svg_x(t):.1f}" y="318">{fmt_num(t)}</text>' for t in ticks
     )
 
-    baselines = [100, 200, 300]
+    baselines = [95, 192, 288]
     grad_ids = ["gA", "gB", "gC"]
     strokes = ["#17A394", "#E8A23B", "#B5432F"]
 
+    labels_svg = []
     curves_svg = []
+
     for idx, g in enumerate(groups[:3]):
         by = baselines[idx]
         gid = grad_ids[idx]
         st_col = strokes[idx]
-        cx = to_svg_x(g["median"])
-        half_w = float(np.clip((g["std"] / dom_span) * 700.0 * 1.45, 75.0, 165.0))
-        x0 = max(62.0, cx - half_w)
-        x1 = min(758.0, cx + half_w)
+
+        tier_title = str(g.get("tier", f"Kelompok #{idx+1}"))
+        range_cond = str(g.get("range", ""))
+        count_num = g.get("count", 0)
+        med_num = g.get("median", 0.0)
+
+        # 1. Kolom Label di sisi kiri (X: 18 s.d. 245) - Aman dan tidak terpotong kurva
+        labels_svg.append(
+            f'<g transform="translate(18, {by})">'
+            f'<circle cx="8" cy="-36" r="5" fill="{st_col}"/>'
+            f'<text x="22" y="-32" font-size="13.5" font-weight="700" fill="#1A1814">{tier_title}</text>'
+            f'<text x="22" y="-17" font-size="11.5" fill="#5A554B">{range_cond}</text>'
+            f'<text x="22" y="-3" class="ax" font-size="10.5">{count_num:,} data • med. {fmt_num(med_num)}</text>'
+            f'</g>'
+        )
+
+        # 2. Area Grafik di sisi kanan (X: 270 s.d. 835)
+        cx = to_svg_x(med_num)
+        half_w = float(np.clip((g["std"] / dom_span) * plot_width * 1.35, 55.0, 145.0))
+        x0 = max(plot_left, cx - half_w)
+        x1 = min(plot_right, cx + half_w)
         cx = (x0 + x1) / 2.0
-        peak_y = by - 70.0
+        peak_y = by - 65.0
         c1 = x0 + (cx - x0) * 0.5
         c2 = cx + (x1 - cx) * 0.5
 
         path_d = f"M{x0:.1f},{by} C{c1:.1f},{by} {c1:.1f},{peak_y:.1f} {cx:.1f},{peak_y:.1f} C{c2:.1f},{peak_y:.1f} {c2:.1f},{by} {x1:.1f},{by} Z"
         curves_svg.append(
-            f'<line x1="60" x2="760" y1="{by}" y2="{by}" stroke="rgba(34,30,24,.14)"/>'
+            f'<line x1="{plot_left}" x2="{plot_right}" y1="{by}" y2="{by}" stroke="rgba(34,30,24,.14)"/>'
             f'<path d="{path_d}" fill="url(#{gid})" stroke="{st_col}" stroke-width="1.8"/>'
-            f'<text x="64" y="{by - 38}" font-size="15" font-weight="600" fill="#1A1814">{g["title"]}</text>'
-            f'<text x="64" y="{by - 19}" class="ax">{g["count"]:,} data, median {g["median"]:.1f}</text>'
         )
 
     sim_x = to_svg_x(sim["pred_val"])
+    pill_x = float(np.clip(sim_x, plot_left + 64.0, plot_right - 64.0))
+
     svg_html = (
         '<div class="view3-wrap">'
-        '<svg viewBox="0 0 800 348" preserveAspectRatio="xMidYMid meet" role="img" style="width:100%; height:345px; display:block;">'
+        '<svg viewBox="0 0 860 348" preserveAspectRatio="xMidYMid meet" role="img" style="width:100%; height:345px; display:block;">'
         '<defs>'
         '<linearGradient id="gA" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#17A394" stop-opacity=".55"/><stop offset="1" stop-color="#17A394" stop-opacity=".08"/></linearGradient>'
         '<linearGradient id="gB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E8A23B" stop-opacity=".55"/><stop offset="1" stop-color="#E8A23B" stop-opacity=".08"/></linearGradient>'
@@ -495,14 +529,17 @@ def build_lens3_ridgeline_svg(pipeline: dict, sim: dict, target_col: str) -> str
         '</defs>'
         f'<g stroke="rgba(34,30,24,.07)">{grid_lines}</g>'
         f'<g class="ax ax-mono" text-anchor="middle">{tick_texts}</g>'
-        f'<text class="ax" x="410" y="338" text-anchor="middle">{target_col}</text>'
+        f'<line x1="250" x2="250" y1="16" y2="295" stroke="rgba(34,30,24,.10)" stroke-dasharray="3 3"/>'
+        f'<text class="ax" x="{(plot_left + plot_right) / 2:.1f}" y="338" text-anchor="middle" font-weight="500">{target_col}</text>'
+        + "".join(labels_svg)
         + "".join(curves_svg)
         + f'<g transform="translate({sim_x:.1f},0)">'
-        '<line x1="0" x2="0" y1="18" y2="300" stroke="#1D1B17" stroke-width="1.4" stroke-dasharray="3 4"/>'
-        '<g transform="translate(0,18)">'
-        '<rect x="-68" y="-14" width="136" height="28" rx="14" fill="#1D1B17"/>'
-        f'<text x="0" y="5" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">Simulasi {sim["pred_val"]:.1f}</text>'
-        '</g></g></svg></div>'
+        '<line x1="0" x2="0" y1="18" y2="295" stroke="#1D1B17" stroke-width="1.4" stroke-dasharray="3 4"/>'
+        '</g>'
+        f'<g transform="translate({pill_x:.1f},16)">'
+        '<rect x="-62" y="-12" width="124" height="24" rx="12" fill="#1D1B17"/>'
+        f'<text x="0" y="4" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff">Simulasi {fmt_num(sim["pred_val"])}</text>'
+        '</g></svg></div>'
     )
     return svg_html
 
@@ -1050,8 +1087,6 @@ with col_deck:
             step_val = round((f_max - f_min) / 100.0, 4) or 0.1
 
             default_start = f_med
-            if idx == 0 and "keterlambatan" in f_name.lower() and f_med < 2.0 and f_max >= 5.0:
-                default_start = 3.6
 
             s_key = f"slider_v2_{dataset_title}_{target_col}_{idx}"
             if reset_clicked:
@@ -1117,28 +1152,33 @@ with col_stage:
         delta_cls = "neg" if sim["diff_val"] < -0.1 else "pos"
         tint_rgba = "rgba(232,162,59,.28)"
 
-    dir_short_text = "Makin lama, skor makin turun" if top1_row["Pearson_r"] < -0.05 else (
-        "Makin tinggi, skor ikut naik" if top1_row["Pearson_r"] > 0.05 else "Menentukan titik keseimbangan"
-    )
+    f1_name_low = top1_row["Fitur"].lower()
+    tgt_name_low = target_col.lower()
+    if top1_row["Pearson_r"] < -0.05:
+        dir_short_text = f"Makin tinggi, {tgt_name_low} turun"
+    elif top1_row["Pearson_r"] > 0.05:
+        dir_short_text = f"Makin tinggi, {tgt_name_low} naik"
+    else:
+        dir_short_text = "Pengaruh seimbang"
 
     bento_html = (
         f'<div class="bento">'
         f'<article class="bento-card c1" style="--tint:{tint_rgba};">'
-        f'<div class="card-label">Skor hasil simulasi <span class="pill {tone_cls}"><i></i><span>{pill_label}</span></span></div>'
-        f'<div class="big"><span>{sim["pred_val"]:.1f}</span> <small>{t_unit if t_unit else "poin"}</small></div>'
-        f'<div class="card-foot">Kondisi standar (median) <b>{sim["base_val"]:.1f}</b></div>'
+        f'<div class="card-label">Estimasi {target_col} <span class="pill {tone_cls}"><i></i><span>{pill_label}</span></span></div>'
+        f'<div class="big"><span>{fmt_num(sim["pred_val"])}</span> <small>{short_unit}</small></div>'
+        f'<div class="card-foot">Nilai acuan standar <b>{fmt_num(sim["base_val"], short_unit)}</b></div>'
         f'</article>'
         f'<article class="bento-card c2">'
         f'<div class="card-label">Faktor penentu terkuat</div>'
         f'<div class="big sm" title="{top1_row["Fitur"]}">{top1_row["Fitur"]}</div>'
         f'<div class="meter"><i style="width:{min(100.0, top1_row["Pengaruh_Persen"]):.0f}%"></i></div>'
-        f'<div class="card-foot"><b>{top1_row["Pengaruh_Persen"]:.0f}% kendali</b> <span>{dir_short_text}</span></div>'
+        f'<div class="card-foot"><b>{top1_row["Pengaruh_Persen"]:.0f}% pengaruh</b> <span>{dir_short_text}</span></div>'
         f'</article>'
         f'<article class="bento-card c3" style="--tint:{tint_rgba};">'
         f'<div class="card-label">Selisih dari standar</div>'
         f'<div class="big {delta_cls}"><span>{sim["diff_val"]:+.1f}</span> <small>{short_unit} ({sim["diff_pct"]:+.1f}%)</small></div>'
         f'<div class="tol" aria-hidden="true"><i></i><em></em></div>'
-        f'<div class="card-foot">Model bisa meleset sekitar <b>{pipeline["model_quality_label"]}</b></div>'
+        f'<div class="card-foot">Toleransi estimasi sekitar <b>{pipeline["model_quality_label"]}</b></div>'
         f'</article>'
         f'</div>'
     )
@@ -1160,11 +1200,11 @@ with col_stage:
             )
 
         if active_lens == "1. Kurva Simulasi dan Titik Kritis":
-            dynamic_chart_title = f"{target_col} mulai berubah tajam di sekitar {top1_row['Fitur'].lower()} {fmt_num(sim['tipping_x'], top1_row['Unit'])}"
+            dynamic_chart_title = f"{target_col} mulai bergeser di sekitar {top1_row['Fitur'].lower()} {fmt_num(sim['tipping_x'], top1_row['Unit'])}"
         elif active_lens == "2. Peringkat Faktor Penentu":
-            dynamic_chart_title = f"Satu faktor menentukan {top1_row['Pengaruh_Persen']:.0f}% nasib {target_col.lower()}"
+            dynamic_chart_title = f"{top1_row['Fitur']} menyumbang {top1_row['Pengaruh_Persen']:.0f}% pengaruh terhadap {target_col.lower()}"
         else:
-            dynamic_chart_title = f"Kelompok dengan {top1_row['Fitur'].lower()} berbeda hidup di dunia skor yang berbeda"
+            dynamic_chart_title = f"Perbedaan sebaran {target_col.lower()} pada tiap tingkatan {top1_row['Fitur'].lower()}"
 
         with ch_l:
             st.markdown(
@@ -1176,7 +1216,7 @@ with col_stage:
             fig = build_lens1_curve(pipeline, sim, target_col, schema_info)
             st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
         elif active_lens == "2. Peringkat Faktor Penentu":
-            st.markdown(build_lens2_ranking_html(pipeline), unsafe_allow_html=True)
+            st.markdown(build_lens2_ranking_html(pipeline, target_col), unsafe_allow_html=True)
         else:
             st.markdown(build_lens3_ridgeline_svg(pipeline, sim, target_col), unsafe_allow_html=True)
 
