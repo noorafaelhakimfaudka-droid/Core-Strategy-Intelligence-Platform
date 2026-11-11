@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-11T11:28:14.796866",
+  "saved_at": "2026-11-11T14:18:05.669677",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -89,12 +89,12 @@
     "DISC-06": {
       "discovery_id": "DISC-06",
       "title": "Macro System Transition Identifiability & Historical Replay Fidelity",
-      "description": "State-Space World Model successfully recovers structural transition parameters (mean relative error: 0.33%) and tracks 87 weeks of empirical e-commerce dynamics with volume WAPE of 15.83% and negative review rate WAPE of 14.68%.",
+      "description": "State-Space World Model successfully recovers structural transition parameters (mean relative error: 0.33%) and tracks 87 weeks of empirical e-commerce dynamics with volume WAPE of 16.48% and negative review rate WAPE of 16.14%.",
       "discovered_at": "2026-11-10",
       "grain": "weekly_system_state",
       "key_metrics": {
-        "order_volume_wape": 0.15834572894954985,
-        "negative_review_rate_wape": 0.14676007236809738,
+        "order_volume_wape": 0.1648048911124309,
+        "negative_review_rate_wape": 0.1613538596377333,
         "synth_max_rel_error": 0.016032717706165378,
         "synth_mean_rel_error": 0.0032942805070704365
       },

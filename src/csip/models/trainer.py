@@ -21,6 +21,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import (
     auc,
+    average_precision_score,
     balanced_accuracy_score,
     brier_score_loss,
     f1_score,
@@ -61,6 +62,19 @@ class ModelExperimentTrainer:
     """Orchestrates Supervised ML Experiments across Baseline Ladder B0 - B3."""
 
     FEATURE_SETS = {
+        "E1_early_warning_checkout": [
+            "total_item_price",
+            "total_freight",
+            "total_order_value",
+            "freight_ratio",
+            "item_count",
+            "payment_installments_max",
+            "seller_buyer_distance_km",
+            "estimated_lead_time_days",
+            "distance_x_weight",
+            "approval_lag_hours",
+            "prior_order_count",
+        ],
         "E1_economic_only": [
             "total_item_price",
             "total_freight",
@@ -76,6 +90,24 @@ class ModelExperimentTrainer:
             "is_late",
             "approval_lag_hours",
             "seller_buyer_distance_km",
+        ],
+        "E2_post_delivery_diagnostic": [
+            "total_item_price",
+            "total_freight",
+            "total_order_value",
+            "freight_ratio",
+            "item_count",
+            "payment_installments_max",
+            "seller_buyer_distance_km",
+            "estimated_lead_time_days",
+            "distance_x_weight",
+            "approval_lag_hours",
+            "prior_order_count",
+            "delivery_lead_time_days",
+            "delivery_delay_days",
+            "is_late",
+            "delay_x_freight_ratio",
+            "high_value_late_flag",
         ],
         "E3_combined_interactions": [
             "total_item_price",
@@ -163,10 +195,9 @@ class ModelExperimentTrainer:
         # Clip probabilities for Brier score safety
         probs = np.clip(probs, 0.0, 1.0)
 
-        # Compute Metrics
+        # Compute Metrics (Standard Average Precision & ROC-AUC)
         roc = float(roc_auc_score(y_eval, probs)) if len(np.unique(y_eval)) > 1 else 0.5
-        prec, rec, _ = precision_recall_curve(y_eval, probs)
-        pr_auc = float(auc(rec, prec)) if len(np.unique(y_eval)) > 1 else 0.0
+        pr_auc = float(average_precision_score(y_eval, probs)) if len(np.unique(y_eval)) > 1 else 0.0
         f1 = float(f1_score(y_eval, preds, zero_division=0))
         brier = float(brier_score_loss(y_eval, probs))
         bal_acc = float(balanced_accuracy_score(y_eval, preds))
@@ -271,6 +302,22 @@ class ModelExperimentTrainer:
         # 1. Target: Negative Review Risk (Order-Level)
         # -------------------------------------------------------------
         target_review = "negative_review_flag"
+        
+        # Target Population Clean Filtering (Finding F-02: Zero Target Contamination)
+        # Supervised review learning strictly requires observed review labels
+        if "has_observed_review" in train_ord.columns:
+            train_rev = train_ord[train_ord["has_observed_review"] == 1].copy()
+            val_rev = val_ord[val_ord["has_observed_review"] == 1].copy()
+            test_rev = test_ord[test_ord["has_observed_review"] == 1].copy()
+        else:
+            train_rev = train_ord.dropna(subset=[target_review]).copy()
+            val_rev = val_ord.dropna(subset=[target_review]).copy()
+            test_rev = test_ord.dropna(subset=[target_review]).copy()
+
+        train_rev[target_review] = train_rev[target_review].astype(int)
+        val_rev[target_review] = val_rev[target_review].astype(int)
+        test_rev[target_review] = test_rev[target_review].astype(int)
+
         clf_models = [
             "B0_naive_majority",
             "B0_naive_heuristic",
@@ -282,12 +329,12 @@ class ModelExperimentTrainer:
             "B3_lightgbm",
         ]
 
-        # E0 - Naive
+        # E0 - Naive Baselines
         self.train_evaluate_classifier(
             "B0_naive_majority",
             ["total_order_value"],
-            train_ord,
-            val_ord,
+            train_rev,
+            val_rev,
             target_review,
             "E0",
             "naive",
@@ -295,19 +342,51 @@ class ModelExperimentTrainer:
         self.train_evaluate_classifier(
             "B0_naive_heuristic",
             ["delivery_delay_days"],
-            train_ord,
-            val_ord,
+            train_rev,
+            val_rev,
             target_review,
             "E0",
             "heuristic_delay",
+        )
+
+        # Task A: Early-Warning Pre-Fulfillment Models (Zero Post-Outcome Leakage)
+        self.train_evaluate_classifier(
+            "B1_logistic",
+            self.FEATURE_SETS["E1_early_warning_checkout"],
+            train_rev,
+            val_rev,
+            target_review,
+            "E1_early_warning",
+            "E1_early_warning_checkout",
+            split_name="validation",
+        )
+        self.train_evaluate_classifier(
+            "B3_lightgbm",
+            self.FEATURE_SETS["E1_early_warning_checkout"],
+            train_rev,
+            val_rev,
+            target_review,
+            "E1_early_warning",
+            "E1_early_warning_checkout",
+            split_name="validation",
+        )
+        self.train_evaluate_classifier(
+            "B3_lightgbm",
+            self.FEATURE_SETS["E1_early_warning_checkout"],
+            train_rev,
+            test_rev,
+            target_review,
+            "E1_early_warning",
+            "E1_early_warning_checkout",
+            split_name="test",
         )
 
         # E1 - Economic Only (LogReg & LightGBM)
         self.train_evaluate_classifier(
             "B1_logistic",
             self.FEATURE_SETS["E1_economic_only"],
-            train_ord,
-            val_ord,
+            train_rev,
+            val_rev,
             target_review,
             "E1",
             "E1_economic_only",
@@ -315,8 +394,8 @@ class ModelExperimentTrainer:
         self.train_evaluate_classifier(
             "B3_lightgbm",
             self.FEATURE_SETS["E1_economic_only"],
-            train_ord,
-            val_ord,
+            train_rev,
+            val_rev,
             target_review,
             "E1",
             "E1_economic_only",
@@ -326,8 +405,8 @@ class ModelExperimentTrainer:
         self.train_evaluate_classifier(
             "B1_logistic",
             self.FEATURE_SETS["E2_experience_only"],
-            train_ord,
-            val_ord,
+            train_rev,
+            val_rev,
             target_review,
             "E2",
             "E2_experience_only",
@@ -335,14 +414,15 @@ class ModelExperimentTrainer:
         self.train_evaluate_classifier(
             "B3_lightgbm",
             self.FEATURE_SETS["E2_experience_only"],
-            train_ord,
-            val_ord,
+            train_rev,
+            val_rev,
             target_review,
             "E2",
             "E2_experience_only",
         )
 
-        # E3 & E6 - Combined + Competency Lab (All B1 - B3) on Validation Set
+        # Task B: Post-Delivery Fulfillment & Experience Diagnostic Modeling
+        # Combined + Competency Lab (All B1 - B3) on Validation & Locked Holdout Test Set
         for m_key in [
             "B1_logistic",
             "B2_decision_tree",
@@ -355,8 +435,8 @@ class ModelExperimentTrainer:
             self.train_evaluate_classifier(
                 m_key,
                 self.FEATURE_SETS["E3_combined_interactions"],
-                train_ord,
-                val_ord,
+                train_rev,
+                val_rev,
                 target_review,
                 exp_id,
                 "E3_combined_interactions",
@@ -366,8 +446,8 @@ class ModelExperimentTrainer:
             self.train_evaluate_classifier(
                 m_key,
                 self.FEATURE_SETS["E3_combined_interactions"],
-                train_ord,
-                test_ord,
+                train_rev,
+                test_rev,
                 target_review,
                 exp_id,
                 "E3_combined_interactions",
@@ -493,6 +573,15 @@ class ModelExperimentTrainer:
             json.dump(leaderboard_df.to_dict(orient="records"), f, indent=2)
 
         # Save primary production models (LightGBM champions)
+        best_early_warning = self.trained_models.get(
+            "negative_review_flag_B3_lightgbm_E1_early_warning_checkout"
+        )
+        if best_early_warning:
+            joblib.dump(
+                best_early_warning,
+                self.artifacts_dir / "best_early_warning_review_lightgbm.joblib",
+            )
+
         best_review_model = self.trained_models.get(
             "negative_review_flag_B3_lightgbm_E3_combined_interactions"
         )

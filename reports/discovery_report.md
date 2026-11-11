@@ -1,5 +1,5 @@
 # LAPORAN BEHAVIORAL DISCOVERY ENGINE (LAPORAN SEGMENTASI PERILAKU)
-**Kepatuhan Standar: Metodologi Data Science [UK-03 Menelaah Data], [UK-09 Membangun Model] & Validation Gate G4**
+**Kepatuhan Standar: SKKNI [UK-03 Menelaah Data], [UK-09 Membangun Model] & Validation Gate G4**
 **Tanggal Pembuatan**: 2026-11-10 | **Dataset**: Olist Processed Order-Level (96,470 baris)
 
 ---
@@ -32,17 +32,17 @@
 
 ### Segmen 0: High-Ticket Premium Basket
 - **Ukuran Klaster**: 18,987 pesanan (19.68% dari total transaksi)
-- **Tingkat Ulasan Negatif (<= 2 bintang)**: 15.2%
+- **Tingkat Ulasan Negatif (<= 2 bintang)**: 15.33%
 - **Tingkat Repeat Purchase**: 0.0%
 - **Karakteristik Kunci**:
   - Median Order Value: 211.0 BRL
   - Freight Ratio: 13.0%
   - Delivery Days: 11.5 hari
-  - Negative Review Rate: 15.2%
+  - Negative Review Rate: 15.3%
 
 ### Segmen 1: Fast Single-Item Convenience
 - **Ukuran Klaster**: 75,244 pesanan (78.0% dari total transaksi)
-- **Tingkat Ulasan Negatif (<= 2 bintang)**: 11.56%
+- **Tingkat Ulasan Negatif (<= 2 bintang)**: 11.63%
 - **Tingkat Repeat Purchase**: 0.0%
 - **Karakteristik Kunci**:
   - Median Order Value: 86.9 BRL
@@ -52,13 +52,13 @@
 
 ### Segmen 2: High-Ticket Premium Basket
 - **Ukuran Klaster**: 2,239 pesanan (2.32% dari total transaksi)
-- **Tingkat Ulasan Negatif (<= 2 bintang)**: 30.73%
+- **Tingkat Ulasan Negatif (<= 2 bintang)**: 31.2%
 - **Tingkat Repeat Purchase**: 0.0%
 - **Karakteristik Kunci**:
   - Median Order Value: 242.2 BRL
   - Freight Ratio: 31.0%
   - Delivery Days: 10.0 hari
-  - Negative Review Rate: 30.7%
+  - Negative Review Rate: 31.2%
 
 ---
 

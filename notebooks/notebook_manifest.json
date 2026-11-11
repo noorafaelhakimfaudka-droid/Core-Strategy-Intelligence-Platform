@@ -1,0 +1,146 @@
+{
+  "version": "6.0.0",
+  "total_notebooks": 14,
+  "notebooks": [
+    {
+      "notebook_name": "01_business_and_data_understanding.ipynb",
+      "path": "notebooks/01_business_and_data_understanding.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "02_data_validation_and_cleaning.ipynb",
+      "path": "notebooks/02_data_validation_and_cleaning.ipynb",
+      "total_cells": 9,
+      "code_cells": 4,
+      "markdown_cells": 5,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "03_exploratory_data_analysis.ipynb",
+      "path": "notebooks/03_exploratory_data_analysis.ipynb",
+      "total_cells": 11,
+      "code_cells": 5,
+      "markdown_cells": 6,
+      "executed_cells": 5,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "04_feature_engineering_and_construction.ipynb",
+      "path": "notebooks/04_feature_engineering_and_construction.ipynb",
+      "total_cells": 9,
+      "code_cells": 4,
+      "markdown_cells": 5,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "05_behavioral_discovery_unsupervised.ipynb",
+      "path": "notebooks/05_behavioral_discovery_unsupervised.ipynb",
+      "total_cells": 9,
+      "code_cells": 4,
+      "markdown_cells": 5,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "06_hypothesis_investigation.ipynb",
+      "path": "notebooks/06_hypothesis_investigation.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "07_supervised_ml_and_competency_lab.ipynb",
+      "path": "notebooks/07_supervised_ml_and_competency_lab.ipynb",
+      "total_cells": 11,
+      "code_cells": 5,
+      "markdown_cells": 6,
+      "executed_cells": 5,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "08_neural_network_and_deep_learning.ipynb",
+      "path": "notebooks/08_neural_network_and_deep_learning.ipynb",
+      "total_cells": 8,
+      "code_cells": 4,
+      "markdown_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "09_model_evaluation_and_explainability.ipynb",
+      "path": "notebooks/09_model_evaluation_and_explainability.ipynb",
+      "total_cells": 6,
+      "code_cells": 3,
+      "markdown_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "10_system_and_world_modeling.ipynb",
+      "path": "notebooks/10_system_and_world_modeling.ipynb",
+      "total_cells": 8,
+      "code_cells": 4,
+      "markdown_cells": 4,
+      "executed_cells": 4,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "11_alternative_world_simulation.ipynb",
+      "path": "notebooks/11_alternative_world_simulation.ipynb",
+      "total_cells": 6,
+      "code_cells": 3,
+      "markdown_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "12_uncertainty_quantification.ipynb",
+      "path": "notebooks/12_uncertainty_quantification.ipynb",
+      "total_cells": 6,
+      "code_cells": 3,
+      "markdown_cells": 3,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "13_model_review_and_failure_analysis.ipynb",
+      "path": "notebooks/13_model_review_and_failure_analysis.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    },
+    {
+      "notebook_name": "14_final_research_report.ipynb",
+      "path": "notebooks/14_final_research_report.ipynb",
+      "total_cells": 7,
+      "code_cells": 3,
+      "markdown_cells": 4,
+      "executed_cells": 3,
+      "execution_coverage": 1.0,
+      "status": "VALID"
+    }
+  ]
+}

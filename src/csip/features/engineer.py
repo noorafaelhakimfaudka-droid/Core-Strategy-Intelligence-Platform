@@ -195,16 +195,21 @@ class FeatureEngineer:
             (df["order_approved_at"] - df["order_purchase_timestamp"]).dt.total_seconds() / 3600.0
         ).fillna(0.0).astype(np.float32)
 
-        # 6. Merge Reviews & Satisfaction Target
+        # 6. Merge Reviews & Satisfaction Target (Zero Target Contamination)
         df = df.merge(
             reviews[["order_id", "review_score", "has_review_comment"]],
             on="order_id",
             how="left"
         )
-        # Default neutral review if review is missing
-        df["review_score"] = df["review_score"].fillna(3).astype(np.int8)
+        # Separate unobserved feedback from observed ratings
+        df["has_observed_review"] = df["review_score"].notnull().astype(np.int8)
+        # Ground truth target: 1 if rating <= 2, 0 if rating >= 3, NaN if unobserved
+        df["negative_review_flag"] = np.where(
+            df["review_score"].notnull(),
+            (df["review_score"] <= 2).astype(np.float32),
+            np.nan
+        )
         df["has_review_comment"] = df["has_review_comment"].fillna(0).astype(np.int8)
-        df["negative_review_flag"] = (df["review_score"] <= 2).astype(np.int8)
 
         # 7. Non-linear Interaction Terms
         df["delay_x_freight_ratio"] = (

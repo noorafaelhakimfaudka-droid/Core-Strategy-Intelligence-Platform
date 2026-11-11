@@ -67,12 +67,12 @@
         "payment_installments_max": 8.0
       },
       "repeat_rate": 0.0,
-      "negative_review_rate": 15.2,
+      "negative_review_rate": 15.33,
       "key_characteristics": [
         "Median Order Value: 211.0 BRL",
         "Freight Ratio: 13.0%",
         "Delivery Days: 11.5 hari",
-        "Negative Review Rate: 15.2%"
+        "Negative Review Rate: 15.3%"
       ]
     },
     {
@@ -95,7 +95,7 @@
         "payment_installments_max": 1.0
       },
       "repeat_rate": 0.0,
-      "negative_review_rate": 11.56,
+      "negative_review_rate": 11.63,
       "key_characteristics": [
         "Median Order Value: 86.9 BRL",
         "Freight Ratio: 25.0%",
@@ -123,12 +123,12 @@
         "payment_installments_max": 2.0
       },
       "repeat_rate": 0.0,
-      "negative_review_rate": 30.73,
+      "negative_review_rate": 31.2,
       "key_characteristics": [
         "Median Order Value: 242.2 BRL",
         "Freight Ratio: 31.0%",
         "Delivery Days: 10.0 hari",
-        "Negative Review Rate: 30.7%"
+        "Negative Review Rate: 31.2%"
       ]
     }
   ]

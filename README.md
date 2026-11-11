@@ -3,10 +3,11 @@
 **Enterprise Observational Data Science & Decision Intelligence Platform**
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![PyTest Status](https://img.shields.io/badge/pytest-72%20passed%20%28100%25%29-brightgreen.svg?style=flat&logo=pytest&logoColor=white)](tests/)
+[![PyTest Status](https://img.shields.io/badge/pytest-87%20passed%20%28100%25%29-brightgreen.svg?style=flat&logo=pytest&logoColor=white)](tests/)
 [![Methodology](https://img.shields.io/badge/Methodology-End--to--End%20CRISP--DM-blue.svg?style=flat)]()
 [![Streamlit App](https://img.shields.io/badge/Streamlit%20UI-Interactive%20Studio-FF4B4B.svg?style=flat&logo=streamlit&logoColor=white)](app/streamlit_app.py)
 [![ML Frameworks](https://img.shields.io/badge/ML-LightGBM%20%7C%20PyTorch%20%7C%20Scikit--Learn-orange.svg?style=flat)](artifacts/models/)
+[![SKKNI 299/2020](https://img.shields.io/badge/SKKNI%20299%2F2020-11%20Units%20%7C%2063%20KUK-success.svg?style=flat)](standards/canonical_skkni_299_2020.json)
 [![Hardware Constraints](https://img.shields.io/badge/Hardware-8%20GB%20RAM%20Optimized-success.svg?style=flat)]()
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat)](LICENSE)
 
@@ -14,12 +15,12 @@
 
 ## 🌟 Executive Overview
 
-**CSIP (Core Strategy & Intelligence Platform)** is a production-grade observational data science and automated decision intelligence platform. It operates in two unified operational modes:
+**CSIP (Core Strategy & Intelligence Platform) Version 6.0.0** is a production-grade observational data science and automated decision intelligence platform. It operates in two unified operational modes:
 
 1. **CSIP Studio (Universal Adaptive Decision Simulator)**: A drag-and-drop web studio that accepts **any tabular dataset** (e.g., e-commerce, sports facility reservations, logistics, healthcare, HR). It autonomously profiles semantic roles, trains machine learning models on the fly, computes continuous response curves, identifies mathematical **critical tipping points**, and generates deterministic strategic recommendations from **"Nara"** (Strategic AI Advisor) with **zero hallucination** and **zero hardcoded templates**.
 2. **Deep Behavioral & Macroeconomic Research Hub**: A comprehensive, publication-grade investigation into macroeconomic and behavioral dynamics across **~100,000 real-world customer transactions** in the Brazilian E-Commerce Ecosystem (**Olist**). It validates 6 econometric hypotheses, features a state-space macroeconomic world model, and implements a full baseline ladder from naive heuristics to Tabular MLPs and Bi-LSTM neural networks.
 
-CSIP follows a strict **end-to-end CRISP-DM observational data science lifecycle** (spanning 11 core analytical stages) and is thoroughly verified by **72 automated test suites**.
+CSIP follows a strict **end-to-end CRISP-DM observational data science lifecycle** (aligned with **11 canonical SKKNI 299/2020 unit competencies**, 27 elements, and 63 KUKs) and is thoroughly verified by **87 automated test cases** (100% pass rate in clean environment).
 
 ---
 

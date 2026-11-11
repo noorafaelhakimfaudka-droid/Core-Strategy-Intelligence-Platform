@@ -17,7 +17,9 @@ from csip.data.loader import load_yaml_config
 
 
 def test_checkout_stage_restricted_features():
-    """Verify that checkout-time prediction feature sets contain no fulfillment or review leakage."""
+    """Verify that actual early-warning checkout feature set contains zero fulfillment or review leakage."""
+    from csip.models.trainer import ModelExperimentTrainer
+
     cfg = load_yaml_config(REPO_ROOT / "config" / "features.yaml")
     restricted_cols = set(
         cfg["anti_leakage_rules"]["checkout_stage_restricted_features"]
@@ -29,20 +31,57 @@ def test_checkout_stage_restricted_features():
     assert "review_score" in restricted_cols
     assert "review_comment_message" in restricted_cols
 
-    # Simulated candidate checkout feature list
-    checkout_features = [
-        "total_item_price",
-        "total_freight",
-        "freight_ratio",
-        "item_count",
-        "payment_installments_max",
-        "seller_buyer_distance_km",
-        "approval_lag_hours",
-    ]
+    # Inspect REAL feature set from ModelExperimentTrainer
+    actual_early_warning_features = ModelExperimentTrainer.FEATURE_SETS["E1_early_warning_checkout"]
 
     # Verify zero intersection with post-delivery restricted features
-    leakage_cols = set(checkout_features).intersection(restricted_cols)
-    assert len(leakage_cols) == 0, f"Checkout feature set has data leakage: {leakage_cols}"
+    leakage_cols = set(actual_early_warning_features).intersection(restricted_cols)
+    assert len(leakage_cols) == 0, f"REAL Early-Warning feature set has data leakage: {leakage_cols}"
+
+
+def test_target_label_integrity_and_zero_contamination():
+    """Verify ground truth review target has zero contamination from unobserved reviews."""
+    import pandas as pd
+    order_path = REPO_ROOT / "data" / "processed" / "order_level.parquet"
+    if not order_path.exists():
+        pytest.skip("order_level.parquet not yet generated.")
+
+    df = pd.read_parquet(order_path)
+    assert "has_observed_review" in df.columns, "Missing has_observed_review flag!"
+    
+    # 646 orders have missing reviews (must NOT be imputed as neutral score 3)
+    n_missing = int(df["negative_review_flag"].isnull().sum())
+    assert n_missing == 646, f"Expected 646 missing reviews, got {n_missing}"
+    
+    # 95,824 orders have observed reviews
+    n_observed = int(df["has_observed_review"].sum())
+    assert n_observed == 95824, f"Expected 95,824 observed reviews, got {n_observed}"
+    
+    # Observed negative prevalence must be ~12.81%
+    obs_df = df[df["has_observed_review"] == 1]
+    prevalence = float(obs_df["negative_review_flag"].mean())
+    assert 0.125 <= prevalence <= 0.130, f"Observed prevalence {prevalence:.4f} outside [0.125, 0.130]"
+
+
+def test_model_leaderboard_metric_unbiasedness():
+    """Verify that PR-AUC metric in ml_leaderboard uses unbiased Average Precision."""
+    import json
+    board_path = REPO_ROOT / "artifacts" / "reports" / "ml_leaderboard.json"
+    if not board_path.exists():
+        pytest.skip("ml_leaderboard.json not yet generated.")
+
+    data = json.load(open(board_path, encoding="utf-8"))
+    
+    # Check naive baseline PR-AUC
+    naive_records = [
+        d for d in data 
+        if d.get("model_name") == "B0_naive_majority" and d.get("split_name") == "validation"
+    ]
+    assert len(naive_records) > 0, "Missing B0 naive majority validation record!"
+    naive_pr_auc = naive_records[0]["pr_auc"]
+    
+    # Unbiased AP should equal positive prevalence (~0.109 - 0.128), NOT the flawed trapezoidal 0.5545!
+    assert naive_pr_auc < 0.15, f"Naive PR-AUC {naive_pr_auc} is inflated! Must be < 0.15 (Average Precision)."
 
 
 def test_first_order_repeat_prediction_prohibited_aggregates():

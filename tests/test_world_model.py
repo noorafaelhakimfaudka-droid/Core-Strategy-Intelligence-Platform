@@ -99,3 +99,18 @@ def test_world_model_rollout_and_save_load():
         s1_loaded = loaded.step(s0)
         np.testing.assert_allclose(s1_orig, s1_loaded, atol=1e-5)
 
+
+def test_world_model_out_of_sample_chronological_holdout():
+    """Verify that World Model executes out-of-sample chronological split backtesting."""
+    df = pd.read_parquet("data/processed/weekly_system_state.parquet")
+    model = WorldStateTransitionModel(alpha=0.05)
+    
+    res = model.backtest_historical_replay(df, split_ratio=0.75)
+    assert res["n_train_weeks"] > 0
+    assert res["n_test_weeks"] > 0
+    assert "out_of_sample_metrics" in res
+    oos = res["out_of_sample_metrics"]
+    assert "weekly_order_volume" in oos
+    assert oos["weekly_order_volume"]["wape"] < 0.35
+    assert oos["negative_review_rate"]["wape"] < 0.40
+

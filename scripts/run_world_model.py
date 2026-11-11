@@ -88,15 +88,21 @@ def main():
     model_save_path = Path("artifacts/models/world_model_state_transition.joblib")
     model.save(model_save_path)
 
-    # 3. Historical Replay Backtest
+    # 3. Historical Replay Backtest (with Out-of-Sample Chronological Holdout)
     logger.info("--- Step 3: Historical Replay Backtesting ---")
-    backtest_res = model.backtest_historical_replay(weekly_df)
+    backtest_res = model.backtest_historical_replay(weekly_df, split_ratio=0.75)
     metrics = backtest_res["metrics"]
+    oos_metrics = backtest_res.get("out_of_sample_metrics", {})
     replay_df = backtest_res["replay_df"]
 
-    logger.info("Historical Backtest Results:")
+    logger.info("Historical Backtest Results (Overall / In-Sample):")
     for var_name, errs in metrics.items():
         logger.info(f"  - {var_name:25s} | WAPE: {errs['wape']:.4f} | MAPE: {errs['mape']:.4f} | RMSE: {errs['rmse']:.4f}")
+
+    if oos_metrics:
+        logger.info("Out-of-Sample Holdout Results (Unseen Future Weeks):")
+        for var_name, errs in oos_metrics.items():
+            logger.info(f"  - [OOS] {var_name:20s} | WAPE: {errs['wape']:.4f} | MAPE: {errs['mape']:.4f} | RMSE: {errs['rmse']:.4f}")
 
     # 4. Generate Plot
     fig_path = Path("artifacts/reports/figures/world_model_historical_replay.png")
@@ -107,8 +113,11 @@ def main():
         "milestone": "Milestone 9 - Gate G8 System & World Model",
         "dataset": "weekly_system_state.parquet",
         "num_weeks": len(weekly_df),
+        "n_train_weeks": backtest_res.get("n_train_weeks"),
+        "n_test_weeks": backtest_res.get("n_test_weeks"),
         "synthetic_recovery": synth_res,
         "backtest_metrics": metrics,
+        "out_of_sample_metrics": oos_metrics,
         "artifact_path": str(model_save_path),
         "figure_path": str(fig_path),
         "skkni_compliance": [

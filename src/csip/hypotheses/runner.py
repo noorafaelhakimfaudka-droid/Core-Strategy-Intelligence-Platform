@@ -251,36 +251,38 @@ class HypothesisTestRunner:
 
         Ablation Test: PR-AUC of Economic Model vs Combined Model on holdout temporal split.
         """
+        # Filter strictly to observed review population (Zero Target Contamination)
+        clean_df = df[df["negative_review_flag"].notnull()].copy()
+        
         # Temporal split (Train: <= 2018-03-31, Test: >= 2018-04-01)
-        train_mask = df["order_purchase_timestamp"] <= "2018-03-31"
-        test_mask = df["order_purchase_timestamp"] > "2018-03-31"
+        train_mask = clean_df["order_purchase_timestamp"] <= "2018-03-31"
+        test_mask = clean_df["order_purchase_timestamp"] > "2018-03-31"
 
-        y_train = df.loc[train_mask, "negative_review_flag"].values
-        y_test = df.loc[test_mask, "negative_review_flag"].values
+        y_train = clean_df.loc[train_mask, "negative_review_flag"].values.astype(int)
+        y_test = clean_df.loc[test_mask, "negative_review_flag"].values.astype(int)
 
         # Model 1: Economic features only
-        X1_train = df.loc[train_mask, ["total_order_value", "freight_ratio"]].fillna(0).values
-        X1_test = df.loc[test_mask, ["total_order_value", "freight_ratio"]].fillna(0).values
+        X1_train = clean_df.loc[train_mask, ["total_order_value", "freight_ratio"]].fillna(0).values
+        X1_test = clean_df.loc[test_mask, ["total_order_value", "freight_ratio"]].fillna(0).values
 
         # Model 2: Economic + Fulfillment + Interactions
         feat2 = [
             "total_order_value", "freight_ratio", "delivery_lead_time_days",
             "delivery_delay_days", "is_late", "delay_x_freight_ratio"
         ]
-        X2_train = df.loc[train_mask, feat2].fillna(0).values
-        X2_test = df.loc[test_mask, feat2].fillna(0).values
+        X2_train = clean_df.loc[train_mask, feat2].fillna(0).values
+        X2_test = clean_df.loc[test_mask, feat2].fillna(0).values
 
         scaler1 = StandardScaler().fit(X1_train)
         clf1 = LogisticRegression(max_iter=1000).fit(scaler1.transform(X1_train), y_train)
         p1 = clf1.predict_proba(scaler1.transform(X1_test))[:, 1]
-        prec1, rec1, _ = precision_recall_curve(y_test, p1)
-        pr_auc_1 = float(auc(rec1, prec1))
+        from sklearn.metrics import average_precision_score
+        pr_auc_1 = float(average_precision_score(y_test, p1))
 
         scaler2 = StandardScaler().fit(X2_train)
         clf2 = LogisticRegression(max_iter=1000).fit(scaler2.transform(X2_train), y_train)
         p2 = clf2.predict_proba(scaler2.transform(X2_test))[:, 1]
-        prec2, rec2, _ = precision_recall_curve(y_test, p2)
-        pr_auc_2 = float(auc(rec2, prec2))
+        pr_auc_2 = float(average_precision_score(y_test, p2))
 
         delta_pr_auc = pr_auc_2 - pr_auc_1
 

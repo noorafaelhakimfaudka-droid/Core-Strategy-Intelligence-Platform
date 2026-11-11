@@ -3,15 +3,23 @@
 SKKNI Compliance:
 - [UK-08 Membangun Skenario Model]: Formulasi dynamic state transition untuk simulasi skenario.
 - [UK-09 Membangun Model]: Vector AutoRegressive State-Space dynamics.
-- [UK-10 Mengevaluasi Model]: Backtesting via Historical Replay & Synthetic Parameter Recovery.
+- [UK-10 Mengevaluasi Model]: Backtesting via Historical Replay & Out-of-Sample Chronological Validation.
 
 Mathematical Formulation:
-S_{t+1} = C + Phi * S_t + Gamma * A_t + Psi * E_t + epsilon_t
+S_{t+1} = C + Phi * S_t + epsilon_t
 where:
-- S_t in R^d: State vector (order volume, delivery delay, freight ratio, negative review rate)
-- A_t in R^k: Action/Intervention vector (freight subsidies, carrier logistics SLAs)
-- E_t in R^m: Exogenous shock vector (Black Friday seasonality, structural trend)
-- epsilon_t ~ N(0, Sigma): Innovation noise with empirical covariance
+- S_t in R^d: Standardized macro state vector (order volume, delivery delay, freight ratio, negative review rate).
+- C in R^d: System drift intercept vector.
+- Phi in R^{d x d}: Transition matrix estimated via Ridge regression (L2 regularization) on weekly transitions.
+- epsilon_t ~ N(0, Sigma): Innovation noise with empirical covariance Sigma.
+
+Counterfactual Policy Simulation:
+S_{t+1}^{scenario} = C + Phi * S_t^{scenario} + Delta_action + epsilon_t
+where Delta_action in R^d is a user-specified policy intervention (e.g., carrier SLA enhancement, freight subsidies).
+
+SCIENTIFIC DISCLOSURE (Non-Causal Assumption):
+These scenario simulations represent structural sensitivity projections under empirical transition dynamics,
+NOT causal treatment effects identified from randomized A/B trials or instrumental variable designs.
 """
 
 from __future__ import annotations
@@ -159,13 +167,30 @@ class WorldStateTransitionModel:
 
         return trajectory
 
-    def backtest_historical_replay(self, df: pd.DataFrame) -> Dict[str, Any]:
-        """Perform 1-step ahead and multi-step recursive historical replay backtesting."""
-        if not self.is_fitted:
-            self.fit(df)
-
-        actual_matrix = df[self.state_cols].values
+    def backtest_historical_replay(
+        self,
+        df: pd.DataFrame,
+        split_ratio: Optional[float] = 0.75,
+    ) -> Dict[str, Any]:
+        """Perform 1-step ahead historical replay backtesting with out-of-sample chronological holdout.
+        
+        Args:
+            df: Historical weekly state panel DataFrame.
+            split_ratio: Chronological train split fraction (e.g. 0.75 = first 75% weeks train, last 25% test).
+                         If None, evaluates in-sample across the entire panel.
+        """
         n_weeks = len(df)
+        actual_matrix = df[self.state_cols].values
+
+        if split_ratio is not None and 0.0 < split_ratio < 1.0:
+            n_train = int(n_weeks * split_ratio)
+            train_df = df.iloc[:n_train]
+            self.fit(train_df)
+        elif not self.is_fitted:
+            self.fit(df)
+            n_train = n_weeks
+        else:
+            n_train = n_weeks
 
         # 1-step ahead recursive prediction
         pred_1step = np.zeros((n_weeks, self.d))
@@ -174,24 +199,34 @@ class WorldStateTransitionModel:
         for t in range(n_weeks - 1):
             pred_1step[t + 1] = self.step(actual_matrix[t], add_noise=False)
 
-        # Compute error metrics per state variable (evaluating on t >= 1)
+        # Compute error metrics per state variable
+        # 1. Overall / in-sample metrics (t >= 1)
         metrics = {}
         for idx, col in enumerate(self.state_cols):
             act_series = actual_matrix[1:, idx]
             pred_series = pred_1step[1:, idx]
-            wape = compute_wape(act_series, pred_series)
-            mape = compute_mape(act_series, pred_series)
-            rmse = float(np.sqrt(np.mean((act_series - pred_series) ** 2)))
             metrics[col] = {
-                "wape": wape,
-                "mape": mape,
-                "rmse": rmse,
+                "wape": compute_wape(act_series, pred_series),
+                "mape": compute_mape(act_series, pred_series),
+                "rmse": float(np.sqrt(np.mean((act_series - pred_series) ** 2))),
             }
 
-        logger.info(
-            f"Backtest Replay - Volume WAPE: {metrics['weekly_order_volume']['wape']:.4f}, "
-            f"Review Rate WAPE: {metrics['negative_review_rate']['wape']:.4f}"
-        )
+        # 2. Out-of-sample holdout metrics if split_ratio specified
+        oos_metrics = {}
+        if split_ratio is not None and n_train < n_weeks:
+            for idx, col in enumerate(self.state_cols):
+                act_oos = actual_matrix[n_train:, idx]
+                pred_oos = pred_1step[n_train:, idx]
+                oos_metrics[col] = {
+                    "wape": compute_wape(act_oos, pred_oos),
+                    "mape": compute_mape(act_oos, pred_oos),
+                    "rmse": float(np.sqrt(np.mean((act_oos - pred_oos) ** 2))),
+                }
+            logger.info(
+                f"Out-of-Sample Holdout (Weeks {n_train}-{n_weeks}) - "
+                f"Volume WAPE: {oos_metrics['weekly_order_volume']['wape']:.4f}, "
+                f"Review Rate WAPE: {oos_metrics['negative_review_rate']['wape']:.4f}"
+            )
 
         replay_df = pd.DataFrame({
             "year_week": df["year_week"].values,
@@ -207,7 +242,10 @@ class WorldStateTransitionModel:
 
         return {
             "num_weeks_evaluated": n_weeks - 1,
+            "n_train_weeks": n_train,
+            "n_test_weeks": n_weeks - n_train if split_ratio is not None else 0,
             "metrics": metrics,
+            "out_of_sample_metrics": oos_metrics,
             "replay_df": replay_df,
         }
 

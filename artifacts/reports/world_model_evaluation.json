@@ -2,6 +2,8 @@
   "milestone": "Milestone 9 - Gate G8 System & World Model",
   "dataset": "weekly_system_state.parquet",
   "num_weeks": 87,
+  "n_train_weeks": 65,
+  "n_test_weeks": 22,
   "synthetic_recovery": {
     "recovered": true,
     "max_rel_error": 0.016032717706165378,
@@ -62,24 +64,46 @@
   },
   "backtest_metrics": {
     "weekly_order_volume": {
-      "wape": 0.15834572894954985,
-      "mape": 0.25318146754607496,
-      "rmse": 293.8098324102772
+      "wape": 0.1648048911124309,
+      "mape": 0.26833111283582545,
+      "rmse": 299.43848469065034
     },
     "mean_delivery_delay": {
-      "wape": 0.12737118297302585,
-      "mape": 0.14804142954305655,
-      "rmse": 2.3084188692454397
+      "wape": 0.12999447190351884,
+      "mape": 0.1495493827123022,
+      "rmse": 2.327811513317877
     },
     "mean_freight_ratio": {
-      "wape": 0.041771543964093064,
-      "mape": 0.04202653332114642,
-      "rmse": 0.016467238706890003
+      "wape": 0.04526169115610392,
+      "mape": 0.04506950999626546,
+      "rmse": 0.018244283014727792
     },
     "negative_review_rate": {
-      "wape": 0.14676007236809738,
-      "mape": 0.1531632034100401,
-      "rmse": 0.023024608113829614
+      "wape": 0.1613538596377333,
+      "mape": 0.17573981364623747,
+      "rmse": 0.02505946897967935
+    }
+  },
+  "out_of_sample_metrics": {
+    "weekly_order_volume": {
+      "wape": 0.19850221084145417,
+      "mape": 0.5744892805186317,
+      "rmse": 390.99660565050016
+    },
+    "mean_delivery_delay": {
+      "wape": 0.1979911085784792,
+      "mape": 0.21366011679031385,
+      "rmse": 3.594311080205626
+    },
+    "mean_freight_ratio": {
+      "wape": 0.07545340801963664,
+      "mape": 0.07525090204453273,
+      "rmse": 0.027510386361803568
+    },
+    "negative_review_rate": {
+      "wape": 0.27165867015636475,
+      "mape": 0.29621608047898257,
+      "rmse": 0.031140463765875905
     }
   },
   "artifact_path": "artifacts\\models\\world_model_state_transition.joblib",
