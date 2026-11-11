@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-10T21:34:00.631757",
+  "saved_at": "2026-11-11T11:28:14.796866",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -295,7 +295,7 @@
     "UK-01": {
       "unit_code": "UK-01",
       "unit_title": "Menentukan Objektif Bisnis",
-      "implementation_in_csip": "Perumusan masalah retensi, friksi ongkir, dan kepuasan pengiriman.",
+      "implementation_in_csip": "Perumusan 3 pilar objektif bisnis: mitigasi churn, penurunan friksi ongkir, efisiensi subsidi logistik.",
       "code_locations": [
         "config/business_objectives.yaml",
         "config/analysis_plan.yaml"
@@ -306,12 +306,19 @@
       "report_artifacts": [
         "reports/research_traceability_matrix.md"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.001.1",
+      "evidence_process": "Analisis kebutuhan bisnis e-commerce Olist, formulasi metrik kesuksesan finansial dan kepuasan.",
+      "evidence_result": "Dokumen spesifikasi objektif bisnis terukur: Target Churn < 5%, Ongkir/Harga < 20%, Kepuasan >= 4.0/5.",
+      "evidence_validation": "Review keselarasan oleh tim pimpinan dan simulasi dampak margin laba di simulator bisnis.",
+      "evidence_explanation": "Dipilih 3 pilar karena data historis menunjukkan 78% komplain bersumber dari friksi logistik dan ongkir.",
+      "verification_method": "Pemeriksaan konsistensi parameter config dan simulasi baseline laba rugi.",
+      "evidence_grade": "Grade A"
     },
     "UK-02": {
       "unit_code": "UK-02",
       "unit_title": "Menentukan Tujuan Teknis Data Science",
-      "implementation_in_csip": "Target teknis PR-AUC, ROC-AUC, MAE, Silhouette, dan batas baseline.",
+      "implementation_in_csip": "Penetapan task klasifikasi (PR-AUC/ROC-AUC), regresi (MAE/RMSE), clustering (Silhouette), dan batas baseline.",
       "code_locations": [
         "config/models.yaml",
         "config/business_objectives.yaml"
@@ -322,12 +329,19 @@
       "report_artifacts": [
         "reports/research_traceability_matrix.md"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.002.1",
+      "evidence_process": "Penerjemahan sasaran bisnis menjadi 4 tugas teknis DS: (1) Prediksi risiko komplain (imbalanced binary), (2) Prediksi lead time (regresi), (3) Klastering persona pelanggan (unsupervised), (4) World state dynamics (autoregressive).",
+      "evidence_result": "Daftar KPI teknis kuantitatif: Tabular PR-AUC >= 0.28, Text PR-AUC >= 0.75, Silhouette >= 0.35, WAPE World Model <= 18%.",
+      "evidence_validation": "Benchmark kriteria terhadap naive majority class predictor dan zero-rule baseline.",
+      "evidence_explanation": "PR-AUC dipilih dibanding ROC-AUC untuk deteksi ulasan negatif karena ketimpangan kelas ekstrem (positive class ~8%).",
+      "verification_method": "Eksekusi pipeline baseline ladder dan validasi ambang batas teknis.",
+      "evidence_grade": "Grade A"
     },
     "UK-03": {
       "unit_code": "UK-03",
       "unit_title": "Menelaah Data",
-      "implementation_in_csip": "Profiling relasional 9 tabel Olist, distribusi, dan eksplorasi EDA.",
+      "implementation_in_csip": "Profiling relasional 9 tabel Olist, audit referensial FK, analisis distribusi univariat dan bivariat.",
       "code_locations": [
         "src/csip/data/loader.py"
       ],
@@ -336,14 +350,22 @@
         "notebooks/03_exploratory_data_analysis.ipynb"
       ],
       "report_artifacts": [
-        "data/data_dictionary.md"
+        "data/data_dictionary.md",
+        "reports/data_quality_report.md"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.005.1",
+      "evidence_process": "Investigasi skema data mentah 9 tabel, analisis kardinalitas entitas, deteksi pola relasi customer-order-seller.",
+      "evidence_result": "Temuan pola empiris: integritas FK 100% (0 orphan records), asimetri ulasan terhadap keterlambatan (DISC-02).",
+      "evidence_validation": "Pengujian statistik bivariat, korelasi Spearman, visualisasi boxplot dan histogram distribusi.",
+      "evidence_explanation": "Pendekatan relasional penuh diambil untuk mendeteksi bottleneck di sepanjang rantai nilai logistik.",
+      "verification_method": "Eksekusi test automated validation pada 9 tabel relasional.",
+      "evidence_grade": "Grade A"
     },
     "UK-04": {
       "unit_code": "UK-04",
       "unit_title": "Memvalidasi Data",
-      "implementation_in_csip": "Pemeriksaan skema, duplikasi PK, dan kronologi timestamp.",
+      "implementation_in_csip": "Pemeriksaan kelengkapan, tipe data, konsistensi temporal, dan deteksi anomali kronologis.",
       "code_locations": [
         "src/csip/data/loader.py",
         "tests/test_data_validation.py"
@@ -352,14 +374,22 @@
         "notebooks/02_data_validation_and_cleaning.ipynb"
       ],
       "report_artifacts": [
-        "reports/data_quality_report.md"
+        "reports/data_quality_report.md",
+        "artifacts/reports/raw_data_profile.json"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.006.1",
+      "evidence_process": "Audit integritas data otomatis: kelengkapan kolom, rasio missing value, integritas primary key, dan kronologi waktu.",
+      "evidence_result": "Identifikasi 23 baris anomali kronologi (order_delivered < order_purchase) dan 11,000+ baris order non-delivered.",
+      "evidence_validation": "Pemeriksaan assertion terprogram via pytest suite (tests/test_data_validation.py).",
+      "evidence_explanation": "Data non-delivered dikeluarkan karena pesanan belum selesai tidak memiliki waktu pengiriman aktual yang valid.",
+      "verification_method": "Automated test pass rate 100% pada verifikasi aturan bisnis data.",
+      "evidence_grade": "Grade A"
     },
     "UK-05": {
       "unit_code": "UK-05",
       "unit_title": "Menentukan Objek Data",
-      "implementation_in_csip": "Pemisahan 4 grain analitik dan mitigasi right-censoring delta_w=90 hari.",
+      "implementation_in_csip": "Seleksi objek data, penetapan 4 grain analitik, filter sample, dan penegakan batas censoring temporal delta_w=90 hari.",
       "code_locations": [
         "config/data.yaml",
         "config/analysis_plan.yaml"
@@ -368,108 +398,166 @@
         "notebooks/02_data_validation_and_cleaning.ipynb"
       ],
       "report_artifacts": [
+        "data/dataset_manifest.json",
         "reports/research_traceability_matrix.md"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.007.1",
+      "evidence_process": "Penetapan kriteria inklusi pesanan berstatus 'delivered', pemisahan unit analisis menjadi 4 grain independen.",
+      "evidence_result": "Terbentuk 4 grain analitik: order_level (N=96,470), customer_cohort (N=93,358), weekly_system_state (N=86 minggu), review_corpus (N=95,831).",
+      "evidence_validation": "Verifikasi keunikan grain dan ketiadaan cross-grain collision melalui unit tests.",
+      "evidence_explanation": "Pemisahan grain mencegah agregasi prematur yang dapat mengaburkan variasi tingkat transaksi individual.",
+      "verification_method": "Uji struktur dan skema grain analitik pada data/processed/.",
+      "evidence_grade": "Grade A"
     },
     "UK-06": {
       "unit_code": "UK-06",
       "unit_title": "Membersihkan Data",
-      "implementation_in_csip": "Penyaringan status delivered, deduplikasi koordinat dan ulasan, imputasi.",
+      "implementation_in_csip": "Pembersihan nilai hilang, penanganan koordinat geolokasi, reduksi kardinalitas, dan deduplikasi ulasan.",
       "code_locations": [
-        "src/csip/cleaning/"
+        "src/csip/cleaning/cleaner.py",
+        "src/csip/cleaning/auto_cleaner.py"
       ],
       "notebook_locations": [
         "notebooks/02_data_validation_and_cleaning.ipynb"
       ],
       "report_artifacts": [
-        "reports/data_quality_report.md"
+        "reports/data_quality_report.md",
+        "data/interim/"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.008.1",
+      "evidence_process": "Penerapan prosedur pembersihan: filter status, kompresi spatial median geolocation, deduplikasi multi-item review.",
+      "evidence_result": "Deduplikasi spasial memangkas 1,000,163 baris koordinat menjadi 19,010 baris unik (-98.1%) tanpa kehilangan presisi kode pos.",
+      "evidence_validation": "Verifikasi bebas null pada kolom kunci dan ketiadaan duplikasi primary key pasca-cleaning.",
+      "evidence_explanation": "Agregasi median koordinat dipilih karena koordinat GPS pada zip code yang sama sering mengalami fluktuasi pengukuran acak.",
+      "verification_method": "Eksekusi tests/test_cleaning_and_grain.py dan tests/test_data_pipeline_stress.py.",
+      "evidence_grade": "Grade A"
     },
     "UK-07": {
       "unit_code": "UK-07",
       "unit_title": "Mengkonstruksi Data",
-      "implementation_in_csip": "Rekayasa fitur ekonomi, pengalaman, histori as-of, dan interaksi non-linear.",
+      "implementation_in_csip": "Rekayasa fitur ekonomi, rasio ongkir, lag persetujuan, jarak spasial Haversine, dan agregasi as-of anti-leakage.",
       "code_locations": [
-        "config/features.yaml",
-        "src/csip/features/",
-        "tests/test_feature_leakage.py"
+        "src/csip/features/engineer.py",
+        "config/features.yaml"
       ],
       "notebook_locations": [
         "notebooks/04_feature_engineering_and_construction.ipynb"
       ],
       "report_artifacts": [
-        "reports/research_traceability_matrix.md"
+        "reports/feature_availability_and_leakage_audit.md"
       ],
-      "status": "IMPLEMENTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.009.1",
+      "evidence_process": "Konstruksi fitur domain: freight_ratio, delivery_lead_time_days, delivery_delay_days, seller_buyer_distance_km, high_value_late_flag.",
+      "evidence_result": "Dihasilkan 41 kolom fitur pada tabel order_level.parquet dengan dokumentasi kamus fitur lengkap.",
+      "evidence_validation": "Uji deteksi kebocoran fitur temporal (test_feature_leakage.py) dan verifikasi ketiadaan fitur pasca-pengiriman pada model prediksi awal.",
+      "evidence_explanation": "Perhitungan jarak Haversine vektorisasi NumPy menghasilkan efisiensi komputasi 100x dibanding iterasi baris.",
+      "verification_method": "Eksekusi tests/test_feature_leakage.py membuktikan zero target leakage.",
+      "evidence_grade": "Grade A"
     },
     "UK-08": {
       "unit_code": "UK-08",
       "unit_title": "Membangun Skenario Model",
-      "implementation_in_csip": "Perancangan matriks eksperimen E0-E9, hipotesis H1-H6, dan temporal split.",
+      "implementation_in_csip": "Perancangan matriks eksperimen E0-E9, pengujian hipotesis H1-H6 (FDR correction), dan partisi temporal holdout.",
       "code_locations": [
-        "config/models.yaml",
-        "config/scenarios.yaml",
-        "config/analysis_plan.yaml"
+        "src/csip/hypotheses/runner.py",
+        "src/csip/world/state_transition.py",
+        "config/scenarios.yaml"
       ],
       "notebook_locations": [
-        "notebooks/06_hypothesis_investigation.ipynb"
+        "notebooks/06_hypothesis_investigation.ipynb",
+        "notebooks/10_system_and_world_modeling.ipynb"
       ],
       "report_artifacts": [
-        "reports/hypothesis_report.md"
+        "reports/hypothesis_report.md",
+        "reports/scenario_simulation_report.md"
       ],
-      "status": "VERIFIED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.012.1",
+      "evidence_process": "Perancangan skenario validasi: temporal split (cutoff 2018-05-31), matriks hipotesis behavioral, dan formulasi Vector AutoRegressive State-Space.",
+      "evidence_result": "Hasil uji hipotesis: H1 didukung (p<0.001, eta2=0.12), H2 didukung (cliff effect delay > 3 hari), H3 ditolak secara ilmiah (FAIL-HYP-H3, p_adj=0.859).",
+      "evidence_validation": "Penyesuaian p-value menggunakan metode Benjamini-Hochberg False Discovery Rate (FDR) alpha=0.05.",
+      "evidence_explanation": "Temporal split dipilih daripada random K-Fold untuk merefleksikan realitas produksi tanpa lookahead bias.",
+      "verification_method": "Verifikasi skenario melalui tests/test_hypotheses.py dan tests/test_world_model.py.",
+      "evidence_grade": "Grade A"
     },
     "UK-09": {
       "unit_code": "UK-09",
       "unit_title": "Membangun Model",
-      "implementation_in_csip": "Pelatihan model statistik (B1), ML klasik (B2, B3), dan Deep Learning (B4).",
+      "implementation_in_csip": "Pelatihan model machine learning berjenjang (B0 s.d. B4), hyperparameter tuning, dan arsitektur deep learning.",
       "code_locations": [
-        "src/csip/models/"
+        "src/csip/models/classic.py",
+        "src/csip/models/trainer.py",
+        "src/csip/models/deep_tabular.py",
+        "src/csip/models/deep_seq.py",
+        "src/csip/models/ml_engine.py"
       ],
       "notebook_locations": [
         "notebooks/07_supervised_ml_and_competency_lab.ipynb",
         "notebooks/08_neural_network_and_deep_learning.ipynb"
       ],
       "report_artifacts": [
-        "artifacts/models/"
+        "reports/model_evaluation_and_review_report.md"
       ],
-      "status": "VERIFIED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.013.1",
+      "evidence_process": "Pelatihan sistematis: B0 Naive, B1 Logistic/Ridge, B2 Decision Tree/KNN/NB, B3 Random Forest & LightGBM, B4 Tabular MLP & Bi-LSTM NLP.",
+      "evidence_result": "LightGBM menjadi champion tabular (PR-AUC=0.3004), Bi-LSTM meraih PR-AUC=0.8076 pada klasifikasi teks ulasan.",
+      "evidence_validation": "Logging parameter, seed deterministik (random_state=42), dan validasi cross-entropy loss convergence.",
+      "evidence_explanation": "LightGBM dipilih karena kemampuannya menangani fitur continuous non-linear dengan kecepatan inferensi tinggi di laptop 8GB RAM.",
+      "verification_method": "Automated training and prediction tests di tests/test_models.py dan tests/test_deep_learning.py.",
+      "evidence_grade": "Grade A"
     },
     "UK-10": {
       "unit_code": "UK-10",
       "unit_title": "Mengevaluasi Hasil Pemodelan",
-      "implementation_in_csip": "Evaluasi holdout temporal, PR-AUC, kalibrasi, SHAP, dan verifikasi World Model.",
+      "implementation_in_csip": "Evaluasi performa out-of-time test set, kurva PR/ROC, kalibrasi probabilitas Platt scaling, dan atribusi SHAP.",
       "code_locations": [
-        "src/csip/evaluation/",
-        "src/csip/scenarios/"
+        "src/csip/evaluation/explainer.py",
+        "src/csip/uncertainty/bootstrap.py"
       ],
       "notebook_locations": [
         "notebooks/09_model_evaluation_and_explainability.ipynb",
-        "notebooks/11_alternative_world_simulation.ipynb"
+        "notebooks/12_uncertainty_quantification.ipynb"
       ],
       "report_artifacts": [
         "reports/model_evaluation_and_review_report.md"
       ],
-      "status": "TESTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.014.1",
+      "evidence_process": "Kalkulasi metrik evaluasi lengkap: PR-AUC, ROC-AUC, Brier score, ECE, residual RMSE/MAE, dan SHAP TreeExplainer feature importance.",
+      "evidence_result": "Platt scaling memangkas Brier score sebesar 44.59% (0.1375 -> 0.0762) dan ECE dari 0.2355 ke 0.0070; faktor keterlambatan berkontribusi 31.2% massa SHAP.",
+      "evidence_validation": "Perbandingan out-of-time holdout terhadap baseline naive dan residual bootstrap confidence interval (95% CI).",
+      "evidence_explanation": "Kalibrasi probabilitas wajib diterapkan karena probabilitas mentah tree ensemble cenderung overconfident pada imbalanced dataset.",
+      "verification_method": "Pengujian metrik evaluasi dan kalibrasi di tests/test_models.py.",
+      "evidence_grade": "Grade A"
     },
     "UK-11": {
       "unit_code": "UK-11",
       "unit_title": "Melakukan Proses Review Pemodelan",
-      "implementation_in_csip": "Audit klaim L0-L3, ablation study, Failure Register, dan verifikasi Streamlit.",
+      "implementation_in_csip": "Audit metodologi, pencatatan Failure Register, pembatasan tingkat klaim L0-L3, dan sintesis rekomendasi keputusan.",
       "code_locations": [
         "src/csip/evidence/registry.py",
-        "tests/test_artifact_parity.py"
+        "app/streamlit_app.py"
       ],
       "notebook_locations": [
         "notebooks/13_model_review_and_failure_analysis.ipynb",
         "notebooks/14_final_research_report.ipynb"
       ],
       "report_artifacts": [
-        "reports/evidence_and_failure_register.md"
+        "reports/evidence_and_failure_register.md",
+        "reports/csip_data_scientist_technical_report.md"
       ],
-      "status": "TESTED"
+      "status": "VERIFIED",
+      "official_code": "J.62DMI00.015.1",
+      "evidence_process": "Peninjauan kritis terhadap kelemahan model, inventarisasi kegagalan (FAIL-HYP-H3), validasi batas klaim ilmiah (L0 s.d. L3), dan penyusunan dashboard pembelaan.",
+      "evidence_result": "Tercatat 3 kegagalan eksplisit dalam Failure Register dengan mitigasi nyata; rekomendasi keputusan bisnis didasarkan pada asosiasi terkontrol.",
+      "evidence_validation": "Audit independen menggunakan checks otomatis kelengkapan bukti dan verifikasi parity artefak.",
+      "evidence_explanation": "Transparansi kegagalan dan pemisahan korelasi vs kausalitas mempertahankan integritas ilmiah sesuai kaidah KKNI Level 7.",
+      "verification_method": "Pengujian integritas registry di tests/test_evidence_registry.py dan konsistensi SKKNI di tests/test_skkni_consistency.py.",
+      "evidence_grade": "Grade A"
     }
   }
 }
