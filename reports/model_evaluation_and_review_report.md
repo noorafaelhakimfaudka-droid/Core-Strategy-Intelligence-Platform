@@ -2,7 +2,7 @@
 
 **Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
 **Author**: Antigravity Autonomous Data Science Agent  
-**Standard**: SKKNI Data Science (BNSP) — [UK-10 Mengevaluasi Hasil Pemodelan] & [UK-11 Mengembangkan Solusi]  
+**Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-10 Mengevaluasi Hasil Pemodelan] & [UK-11 Mengembangkan Solusi]  
 **Evaluation Protocol**: Locked Temporal Out-of-Time Test Set (2018-07-01 to 2018-08-31)  
 **Date**: November 2026  
 
@@ -12,7 +12,7 @@
 
 This report documents the rigorous evaluation of the CSIP Baseline Ladder (B0 through B4), feature ablation architectures (E0 through E4), probability calibration, SHAP feature attributions, and structural limitations under severe class imbalance and temporal distribution shift.
 
-All models were evaluated on a strictly locked, temporal out-of-time evaluation split ($N_{\text{test}} = 12,630$ orders for order-level outcomes; $N_{\text{test}} = 13,021$ customers for cohort outcomes). In compliance with the SHADOW Project Rules and SKKNI competency standards, zero data leakage occurred, and all claims are strictly governed under Level L0 to L3 categories.
+All models were evaluated on a strictly locked, temporal out-of-time evaluation split ($N_{\text{test}} = 12,630$ orders for order-level outcomes; $N_{\text{test}} = 13,021$ customers for cohort outcomes). In compliance with the SHADOW Project Rules and Metodologi Data Science competency standards, zero data leakage occurred, and all claims are strictly governed under Level L0 to L3 categories.
 
 ---
 

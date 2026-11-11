@@ -1,6 +1,6 @@
 """Bab 8: Studio Keputusan Bisnis & Rekomendasi Strategis.
 
-Human-First Editorial Design for CSIP (SKKNI: UK-01, UK-11).
+Human-First Editorial Design for CSIP (Fase: UK-01, UK-11).
 """
 
 from __future__ import annotations
@@ -265,8 +265,8 @@ with col_t3:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
-    st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
+    st.markdown("#### Standar Metodologi Analitik yang Terpenuhi:")
     st.markdown("""
     - **`[UK-01 Menentukan Masalah Bisnis]`**: Perumusan tujuan bisnis optimasi margin platform dan minimasi churn pelanggan e-commerce.
     - **`[UK-11 Mengembangkan Solusi]`**: Penerjemahan temuan empiris menjadi actionable business rules, matriks optimasi kebijakan, dan financial impact model.

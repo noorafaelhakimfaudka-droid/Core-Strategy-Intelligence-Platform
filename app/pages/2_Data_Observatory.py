@@ -153,9 +153,9 @@ editorial_plotly_theme(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
     st.markdown("""
-    **Unit Kompetensi yang Dipenuhi:**
+    **Fase Metodologi yang Dipenuhi:**
     - `[UK-03 Menelaah Data]`: Profiling 9 tabel, rasio missing value, dan distribusi variabel.
     - `[UK-04 Memvalidasi Data]`: Pengecekan 0 orphan FK pada relasi `order_items`, `payments`, `reviews`, `customers`, `products`, `sellers`. Penghapusan 23 baris anomali kronologi tanggal.
     - `[UK-05 Membersihkan Data]`: Kompresi 1.000.163 koordinat mentah menjadi 19.010 kode pos median (-98.1% reduksi kardinalitas).

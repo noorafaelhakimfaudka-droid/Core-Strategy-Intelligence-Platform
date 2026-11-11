@@ -1,10 +1,10 @@
 # CSIP — Computational Society Intelligence Platform
 ### *Universal Data Scientist & Decision Simulator*
-**Master Portfolio & SKKNI BNSP Data Science Certified Research Architecture**
+**Enterprise Observational Data Science & Decision Intelligence Platform**
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![PyTest Status](https://img.shields.io/badge/pytest-72%20passed%20%28100%25%29-brightgreen.svg?style=flat&logo=pytest&logoColor=white)](tests/)
-[![SKKNI BNSP](https://img.shields.io/badge/SKKNI%20Data%20Science-11%2F11%20Competency%20Units%20Verified-blue.svg?style=flat)](reports/skkni_bnsp_traceability_matrix.md)
+[![Methodology](https://img.shields.io/badge/Methodology-End--to--End%20CRISP--DM-blue.svg?style=flat)]()
 [![Streamlit App](https://img.shields.io/badge/Streamlit%20UI-Interactive%20Studio-FF4B4B.svg?style=flat&logo=streamlit&logoColor=white)](app/streamlit_app.py)
 [![ML Frameworks](https://img.shields.io/badge/ML-LightGBM%20%7C%20PyTorch%20%7C%20Scikit--Learn-orange.svg?style=flat)](artifacts/models/)
 [![Hardware Constraints](https://img.shields.io/badge/Hardware-8%20GB%20RAM%20Optimized-success.svg?style=flat)]()
@@ -19,7 +19,7 @@
 1. **CSIP Studio (Universal Adaptive Decision Simulator)**: A drag-and-drop web studio that accepts **any tabular dataset** (e.g., e-commerce, sports facility reservations, logistics, healthcare, HR). It autonomously profiles semantic roles, trains machine learning models on the fly, computes continuous response curves, identifies mathematical **critical tipping points**, and generates deterministic strategic recommendations from **"Nara"** (Strategic AI Advisor) with **zero hallucination** and **zero hardcoded templates**.
 2. **Deep Behavioral & Macroeconomic Research Hub**: A comprehensive, publication-grade investigation into macroeconomic and behavioral dynamics across **~100,000 real-world customer transactions** in the Brazilian E-Commerce Ecosystem (**Olist**). It validates 6 econometric hypotheses, features a state-space macroeconomic world model, and implements a full baseline ladder from naive heuristics to Tabular MLPs and Bi-LSTM neural networks.
 
-CSIP is strictly aligned with the **Standar Kompetensi Kerja Nasional Indonesia (SKKNI) Data Science** (11 Unit Kompetensi) and verified by **72 automated test suites**.
+CSIP follows a strict **end-to-end CRISP-DM observational data science lifecycle** (spanning 11 core analytical stages) and is thoroughly verified by **72 automated test suites**.
 
 ---
 
@@ -61,8 +61,8 @@ CSIP is strictly aligned with the **Standar Kompetensi Kerja Nasional Indonesia 
             ┌────────────────────────────────────────┐        ┌────────────────────────────────────────┐
             │       Universal Auto-Engine            │        │     Olist Macroeconomic Hub            │
             │  (src/csip/data/semantic_profiler.py)  │        │  (14 Pre-Rendered Research Notebooks)  │
-            │  - Dynamic schema role inference       │        │  - 01 Data Understanding               │
-            │  - Live Ridge/LGBM model training      │        │  - 02 Schema Validation & Cleaning     │
+            │  - Dynamic schema role inference       │        │  - 01 Business Understanding           │
+            │  - Live Ridge/LGBM model training      │        │  - 02 Data Validation & Cleaning       │
             │  - Inflection point derivative search  │        │  - 03 Exploratory Data Analysis (EDA)  │
             │  - Grounded deterministic narrative    │        │  - 04 Feature Engineering (Anti-Leak)  │
             └────────────────────────────────────────┘        │  - 05 Behavioral Clustering (K-Means)  │
@@ -74,7 +74,7 @@ CSIP is strictly aligned with the **Standar Kompetensi Kerja Nasional Indonesia 
                                                               │  - 11 Alternative World Simulator      │
                                                               │  - 12 Uncertainty Quantification       │
                                                               │  - 13 Model Review & Failure Audit     │
-                                                              │  - 14 Final Research & BNSP Matrix     │
+                                                              │  - 14 Final Research & Executive Report│
                                                               └────────────────────────────────────────┘
 ```
 
@@ -84,22 +84,22 @@ CSIP is strictly aligned with the **Standar Kompetensi Kerja Nasional Indonesia 
 
 All 14 notebooks in `notebooks/` are **fully executed with complete pre-rendered visual outputs, charts, and tables**:
 
-| # | Notebook | SKKNI Unit | Key Algorithms / Techniques | Status |
+| # | Notebook | Analytical Lifecycle Phase | Key Algorithms / Techniques | Status |
 | :-: | :--- | :--- | :--- | :-: |
-| **01** | [`01_business_and_data_understanding.ipynb`](notebooks/01_business_and_data_understanding.ipynb) | UK-01, UK-02, UK-03 | Business framing, CRISP-DM, data profiling (9 tables, 100k rows) | ✅ Executed |
-| **02** | [`02_data_validation_and_cleaning.ipynb`](notebooks/02_data_validation_and_cleaning.ipynb) | UK-04, UK-05, UK-06 | Temporal sanity, schema integrity, deduplication, cohort definition | ✅ Executed |
-| **03** | [`03_exploratory_data_analysis.ipynb`](notebooks/03_exploratory_data_analysis.ipynb) | UK-03 | Bivariate distributions, log transforms, weekly order trend analysis | ✅ Executed |
-| **04** | [`04_feature_engineering_and_construction.ipynb`](notebooks/04_feature_engineering_and_construction.ipynb) | UK-07 | Anti-leakage temporal splitting, interaction ratios, log scaling | ✅ Executed |
-| **05** | [`05_behavioral_discovery_unsupervised.ipynb`](notebooks/05_behavioral_discovery_unsupervised.ipynb) | UK-09 | $K$-Means clustering ($k=4$), PCA projection, silhouette evaluation | ✅ Executed |
-| **06** | [`06_hypothesis_investigation.ipynb`](notebooks/06_hypothesis_investigation.ipynb) | UK-08, UK-09 | ANOVA, OLS regression, Forest Plot, Benjamini-Hochberg FDR | ✅ Executed |
-| **07** | [`07_supervised_ml_and_competency_lab.ipynb`](notebooks/07_supervised_ml_and_competency_lab.ipynb) | UK-08, UK-09 | LogReg, Decision Trees, Random Forest, LightGBM, Naive Bayes, KNN | ✅ Executed |
-| **08** | [`08_neural_network_and_deep_learning.ipynb`](notebooks/08_neural_network_and_deep_learning.ipynb) | UK-09 | PyTorch Tabular MLP (Entity Embeddings) & Text Bi-LSTM | ✅ Executed |
-| **09** | [`09_model_evaluation_and_explainability.ipynb`](notebooks/09_model_evaluation_and_explainability.ipynb) | UK-10 | Platt Scaling (Brier calibration), TreeSHAP feature importance | ✅ Executed |
-| **10** | [`10_system_and_world_modeling.ipynb`](notebooks/10_system_and_world_modeling.ipynb) | UK-09, UK-10 | State-transition matrix $\Phi$, backtesting replay, parameter recovery | ✅ Executed |
-| **11** | [`11_alternative_world_simulation.ipynb`](notebooks/11_alternative_world_simulation.ipynb) | UK-08, UK-10 | Counterfactual interventions (S0–S5), carrier SLA optimization | ✅ Executed |
-| **12** | [`12_uncertainty_quantification.ipynb`](notebooks/12_uncertainty_quantification.ipynb) | UK-10 | Residual bootstrapping (95% PI), Mahalanobis OOD guardrails | ✅ Executed |
-| **13** | [`13_model_review_and_failure_analysis.ipynb`](notebooks/13_model_review_and_failure_analysis.ipynb) | UK-11 | Feature ablation studies, Evidence Registry, Failure Analysis (H3) | ✅ Executed |
-| **14** | [`14_final_research_and_bnsp_report.ipynb`](notebooks/14_final_research_and_bnsp_report.ipynb) | UK-01 to UK-11 | Executive summary, BNSP competency matrix, scientific audit trail | ✅ Executed |
+| **01** | [`01_business_and_data_understanding.ipynb`](notebooks/01_business_and_data_understanding.ipynb) | Phase 1: Business Understanding | Business framing, CRISP-DM, data profiling (9 tables, 100k rows) | ✅ Executed |
+| **02** | [`02_data_validation_and_cleaning.ipynb`](notebooks/02_data_validation_and_cleaning.ipynb) | Phase 2: Data Validation & Cleaning | Temporal sanity, schema integrity, deduplication, cohort definition | ✅ Executed |
+| **03** | [`03_exploratory_data_analysis.ipynb`](notebooks/03_exploratory_data_analysis.ipynb) | Phase 3: Exploratory Analysis | Bivariate distributions, log transforms, weekly order trend analysis | ✅ Executed |
+| **04** | [`04_feature_engineering_and_construction.ipynb`](notebooks/04_feature_engineering_and_construction.ipynb) | Phase 4: Feature Construction | Anti-leakage temporal splitting, interaction ratios, log scaling | ✅ Executed |
+| **05** | [`05_behavioral_discovery_unsupervised.ipynb`](notebooks/05_behavioral_discovery_unsupervised.ipynb) | Phase 5: Unsupervised Discovery | $K$-Means clustering ($k=4$), PCA projection, silhouette evaluation | ✅ Executed |
+| **06** | [`06_hypothesis_investigation.ipynb`](notebooks/06_hypothesis_investigation.ipynb) | Phase 6: Hypothesis Testing | ANOVA, OLS regression, Forest Plot, Benjamini-Hochberg FDR | ✅ Executed |
+| **07** | [`07_supervised_ml_and_competency_lab.ipynb`](notebooks/07_supervised_ml_and_competency_lab.ipynb) | Phase 7: Supervised Machine Learning | LogReg, Decision Trees, Random Forest, LightGBM, Naive Bayes, KNN | ✅ Executed |
+| **08** | [`08_neural_network_and_deep_learning.ipynb`](notebooks/08_neural_network_and_deep_learning.ipynb) | Phase 8: Deep Neural Networks | PyTorch Tabular MLP (Entity Embeddings) & Text Bi-LSTM | ✅ Executed |
+| **09** | [`09_model_evaluation_and_explainability.ipynb`](notebooks/09_model_evaluation_and_explainability.ipynb) | Phase 9: Model Explainability | Platt Scaling (Brier calibration), TreeSHAP feature importance | ✅ Executed |
+| **10** | [`10_system_and_world_modeling.ipynb`](notebooks/10_system_and_world_modeling.ipynb) | Phase 10: System & World Modeling | State-transition matrix $\Phi$, backtesting replay, parameter recovery | ✅ Executed |
+| **11** | [`11_alternative_world_simulation.ipynb`](notebooks/11_alternative_world_simulation.ipynb) | Phase 11: Counterfactual Simulation | Counterfactual interventions (S0–S5), carrier SLA optimization | ✅ Executed |
+| **12** | [`12_uncertainty_quantification.ipynb`](notebooks/12_uncertainty_quantification.ipynb) | Phase 12: Uncertainty Quantification | Residual bootstrapping (95% PI), Mahalanobis OOD guardrails | ✅ Executed |
+| **13** | [`13_model_review_and_failure_analysis.ipynb`](notebooks/13_model_review_and_failure_analysis.ipynb) | Phase 13: Failure & Ablation Audit | Feature ablation studies, Evidence Registry, Failure Analysis (H3) | ✅ Executed |
+| **14** | [`14_final_research_and_bnsp_report.ipynb`](notebooks/14_final_research_and_bnsp_report.ipynb) | Phase 14: Executive Research Synthesis | Executive summary, full lifecycle matrix, scientific audit trail | ✅ Executed |
 
 ---
 
@@ -189,7 +189,7 @@ csip/
 │   ├── uncertainty/              # Residual bootstrap & prediction intervals
 │   └── world/                    # Macro state-space transition world model
 ├── notebooks/                    # 14 Pre-Rendered Research Notebooks (Modules 01 - 14)
-├── reports/                      # 7 Comprehensive Written Research & BNSP Reports
+├── reports/                      # 7 Comprehensive Written Research Reports
 │   ├── data_quality_report.md
 │   ├── discovery_report.md
 │   ├── evidence_and_failure_register.md

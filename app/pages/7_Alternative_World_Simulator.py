@@ -1,6 +1,6 @@
 """Bab 7: Simulasi 'Bagaimana Jika?' — Menguji Coba Kebijakan Toko.
 
-Human-First Editorial Design for CSIP (SKKNI: UK-08, UK-10, UK-11).
+Human-First Editorial Design for CSIP (Fase: UK-08, UK-10, UK-11).
 """
 
 from __future__ import annotations
@@ -229,8 +229,8 @@ if sim_data:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
-    st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
+    st.markdown("#### Standar Metodologi Analitik yang Terpenuhi:")
     st.markdown(r"""
     - **`[UK-08 Membangun Skenario Model]`**: Perumusan intervensi kebijakan S0 hingga S5 dengan action vector $\mathbf{A}_t$.
     - **`[UK-10 Mengevaluasi Hasil Pemodelan]`**: Kuantifikasi ketidakpastian melalui Residual Bootstrap 500 draws (90% prediction intervals).

@@ -1,5 +1,5 @@
 # LAPORAN BEHAVIORAL DISCOVERY ENGINE (LAPORAN SEGMENTASI PERILAKU)
-**Kepatuhan Standar: SKKNI [UK-03 Menelaah Data], [UK-09 Membangun Model] & Validation Gate G4**
+**Kepatuhan Standar: Metodologi Data Science [UK-03 Menelaah Data], [UK-09 Membangun Model] & Validation Gate G4**
 **Tanggal Pembuatan**: 2026-11-10 | **Dataset**: Olist Processed Order-Level (96,470 baris)
 
 ---

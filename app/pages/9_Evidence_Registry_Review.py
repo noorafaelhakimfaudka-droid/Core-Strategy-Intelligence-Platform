@@ -1,6 +1,6 @@
-"""Bab 9: Kamar Bukti Ilmiah & Ruang Asesor BNSP (Evidence Registry).
+"""Bab 9: Kamar Bukti Ilmiah & Kamar Audit & Bukti Ilmiah (Evidence Registry) (Evidence Registry).
 
-Human-First Editorial Design for CSIP (SKKNI: UK-10, UK-11).
+Human-First Editorial Design for CSIP (Fase: UK-10, UK-11).
 """
 
 from __future__ import annotations
@@ -17,15 +17,15 @@ from app.ui_components import (
     render_story_card,
 )
 
-st.set_page_config(page_title="Bab 9: Ruang Asesor BNSP | CSIP", page_icon="", layout="wide")
+st.set_page_config(page_title="Bab 9: Kamar Audit & Bukti Ilmiah (Evidence Registry) | CSIP", page_icon="", layout="wide")
 apply_editorial_theme()
 
 # --- HERO SECTION ---
 render_hero(
-    title="Bab 9: Kamar Bukti Ilmiah & Ruang Asesor BNSP",
+    title="Bab 9: Kamar Bukti Ilmiah & Kamar Audit & Bukti Ilmiah (Evidence Registry)",
     subtitle=(
         "Selamat datang di ruang transparansi ilmiah CSIP. Di sini, seluruh tirai dibuka: "
-        "mulai dari keterlacakan 11 Unit Kompetensi Kerja Nasional Indonesia (SKKNI/BNSP), "
+        "mulai dari keterlacakan 11 Fase Metodologi Data Science end-to-end, "
         "buku pendaftaran 7 penemuan utama, hasil uji ekonometrika 6 hipotesis, hingga pencatatan kegagalan "
         "dan batasan model secara jujur sesuai Prinsip Etika Proyek SHADOW."
     ),
@@ -47,12 +47,12 @@ c1, c2, c3 = st.columns(3)
 
 with c1:
     render_story_card(
-        title="1. 100% Terlacak ke SKKNI",
+        title="1. 100% Terlacak ke Metodologi",
         body=(
-            "Seluruh <b>11 Unit Kompetensi Data Science BNSP (UK-01 s/d UK-11)</b> memiliki artefak kode, "
+            "Seluruh <b>11 Fase Metodologi Data Science (Fase 01 s/d 11)</b> memiliki artefak kode, "
             "notebook analisis mandiri, dan pengujian otomatis (automated test suite) yang dapat diverifikasi."
         ),
-        tag="STANDAR BNSP",
+        tag="GOVERNANCE",
         tag_class="indigo",
     )
 
@@ -81,35 +81,35 @@ with c3:
 st.markdown("<div style='height: 2rem;'></div>", unsafe_allow_html=True)
 
 # --- 4 TABS GALERI BUKTI ILMIAH ---
-tab_skkni, tab_disc, tab_hyp, tab_fail = st.tabs([
-    " Matriks 11 Unit SKKNI/BNSP",
+tab_matrix, tab_disc, tab_hyp, tab_fail = st.tabs([
+    " Matriks 11 Fase Metodologi Data Science",
     " 7 Temuan Utama (Discoveries)",
     " 6 Uji Hipotesis Ekonometrika",
     " Buku Catatan Kegagalan (Failure Log)",
 ])
 
-# --- TAB 1: MATRIKS 11 UNIT SKKNI ---
-with tab_skkni:
-    st.markdown("###  Matriks Keterlacakan 11 Unit Kompetensi Data Science (SKKNI)")
+# --- TAB 1: MATRIKS 11 FASE METODOLOGI ---
+with tab_matrix:
+    st.markdown("###  Matriks Keterlacakan 11 Fase Metodologi Data Science")
     st.markdown(
-        "Tabel ini memetakan setiap Unit Kompetensi SKKNI terhadap artefak kode sumber, "
+        "Tabel ini memetakan setiap Fase Metodologi Ilmiah terhadap artefak kode sumber, "
         "notebook Jupyter penjelas, skrip pengujian otomatis, dan status verifikasi resmi:"
     )
 
-    bnsp_rows = [
-        {"Kode": "UK-01", "Unit Kompetensi SKKNI": "Menentukan Masalah Bisnis", "Artefak Kode": "config/business_objectives.yaml", "Notebook": "01_business_and_data_understanding.ipynb", "Uji Tes": "tests/test_initialization.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-02", "Unit Kompetensi SKKNI": "Menentukan Kebutuhan Data", "Artefak Kode": "config/data.yaml, data_dictionary.md", "Notebook": "01_business_and_data_understanding.ipynb", "Uji Tes": "tests/test_initialization.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-03", "Unit Kompetensi SKKNI": "Menelaah Data", "Artefak Kode": "src/csip/data/loader.py", "Notebook": "03_exploratory_data_analysis.ipynb", "Uji Tes": "tests/test_data_validation.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-04", "Unit Kompetensi SKKNI": "Memvalidasi Data", "Artefak Kode": "src/csip/cleaning/cleaner.py", "Notebook": "02_data_validation_and_cleaning.ipynb", "Uji Tes": "tests/test_data_validation.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-05", "Unit Kompetensi SKKNI": "Membersihkan Data", "Artefak Kode": "src/csip/cleaning/cleaner.py", "Notebook": "02_data_validation_and_cleaning.ipynb", "Uji Tes": "tests/test_cleaning_and_grain.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-06", "Unit Kompetensi SKKNI": "Mengonstruksi Data", "Artefak Kode": "src/csip/features/engineer.py", "Notebook": "04_feature_engineering_and_construction.ipynb", "Uji Tes": "tests/test_feature_leakage.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-07", "Unit Kompetensi SKKNI": "Menentukan Objek Data", "Artefak Kode": "src/csip/discovery/clusterer.py", "Notebook": "05_behavioral_discovery_unsupervised.ipynb", "Uji Tes": "tests/test_discovery.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-08", "Unit Kompetensi SKKNI": "Membangun Skenario Model", "Artefak Kode": "src/csip/hypotheses/runner.py, world/state_transition.py", "Notebook": "06_hypothesis_investigation.ipynb, 10_system_and_world_modeling.ipynb", "Uji Tes": "tests/test_hypotheses.py, tests/test_world_model.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-09", "Unit Kompetensi SKKNI": "Membangun Model", "Artefak Kode": "src/csip/models/classic.py, trainer.py, deep_tabular.py", "Notebook": "07_supervised_ml.ipynb, 08_neural_network.ipynb", "Uji Tes": "tests/test_models.py, tests/test_deep_learning.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-10", "Unit Kompetensi SKKNI": "Mengevaluasi Hasil Pemodelan", "Artefak Kode": "src/csip/evaluation/explainer.py, bootstrap.py", "Notebook": "09_model_evaluation.ipynb, 12_uncertainty_quantification.ipynb", "Uji Tes": "tests/test_deep_learning.py, test_simulation_sanity.py", "Status": "VERIFIED (Grade A)"},
-        {"Kode": "UK-11", "Unit Kompetensi SKKNI": "Mengembangkan Solusi", "Artefak Kode": "app/streamlit_app.py, app/pages/ (9 Halaman)", "Notebook": "13_model_review.ipynb, 14_final_research_report.ipynb", "Uji Tes": "tests/test_artifact_parity.py (61/61 Pass)", "Status": "VERIFIED (Grade A)"},
+    matrix_rows = [
+        {"Kode": "UK-01", "Fase Metodologi Ilmiah": "Menentukan Masalah Bisnis", "Artefak Kode": "config/business_objectives.yaml", "Notebook": "01_business_and_data_understanding.ipynb", "Uji Tes": "tests/test_initialization.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-02", "Fase Metodologi Ilmiah": "Menentukan Kebutuhan Data", "Artefak Kode": "config/data.yaml, data_dictionary.md", "Notebook": "01_business_and_data_understanding.ipynb", "Uji Tes": "tests/test_initialization.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-03", "Fase Metodologi Ilmiah": "Menelaah Data", "Artefak Kode": "src/csip/data/loader.py", "Notebook": "03_exploratory_data_analysis.ipynb", "Uji Tes": "tests/test_data_validation.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-04", "Fase Metodologi Ilmiah": "Memvalidasi Data", "Artefak Kode": "src/csip/cleaning/cleaner.py", "Notebook": "02_data_validation_and_cleaning.ipynb", "Uji Tes": "tests/test_data_validation.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-05", "Fase Metodologi Ilmiah": "Membersihkan Data", "Artefak Kode": "src/csip/cleaning/cleaner.py", "Notebook": "02_data_validation_and_cleaning.ipynb", "Uji Tes": "tests/test_cleaning_and_grain.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-06", "Fase Metodologi Ilmiah": "Mengonstruksi Data", "Artefak Kode": "src/csip/features/engineer.py", "Notebook": "04_feature_engineering_and_construction.ipynb", "Uji Tes": "tests/test_feature_leakage.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-07", "Fase Metodologi Ilmiah": "Menentukan Objek Data", "Artefak Kode": "src/csip/discovery/clusterer.py", "Notebook": "05_behavioral_discovery_unsupervised.ipynb", "Uji Tes": "tests/test_discovery.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-08", "Fase Metodologi Ilmiah": "Membangun Skenario Model", "Artefak Kode": "src/csip/hypotheses/runner.py, world/state_transition.py", "Notebook": "06_hypothesis_investigation.ipynb, 10_system_and_world_modeling.ipynb", "Uji Tes": "tests/test_hypotheses.py, tests/test_world_model.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-09", "Fase Metodologi Ilmiah": "Membangun Model", "Artefak Kode": "src/csip/models/classic.py, trainer.py, deep_tabular.py", "Notebook": "07_supervised_ml.ipynb, 08_neural_network.ipynb", "Uji Tes": "tests/test_models.py, tests/test_deep_learning.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-10", "Fase Metodologi Ilmiah": "Mengevaluasi Hasil Pemodelan", "Artefak Kode": "src/csip/evaluation/explainer.py, bootstrap.py", "Notebook": "09_model_evaluation.ipynb, 12_uncertainty_quantification.ipynb", "Uji Tes": "tests/test_deep_learning.py, test_simulation_sanity.py", "Status": "VERIFIED (Grade A)"},
+        {"Kode": "UK-11", "Fase Metodologi Ilmiah": "Mengembangkan Solusi", "Artefak Kode": "app/streamlit_app.py, app/pages/ (9 Halaman)", "Notebook": "13_model_review.ipynb, 14_final_research_report.ipynb", "Uji Tes": "tests/test_artifact_parity.py (61/61 Pass)", "Status": "VERIFIED (Grade A)"},
     ]
-    st.dataframe(pd.DataFrame(bnsp_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(matrix_rows), use_container_width=True, hide_index=True)
 
 # --- TAB 2: 7 TEMUAN UTAMA ---
 with tab_disc:
@@ -173,7 +173,7 @@ with tab_fail:
                     <span style="font-size: 0.82rem; font-weight: 700; color: #991B1B; text-transform: uppercase;">
                         ID: {f_entry.get('failure_id', '')} ({f_entry.get('component_type', '')})
                     </span>
-                    <span style="font-size: 0.8rem; color: #7F1D1D;">Unit SKKNI: {f_entry.get('skkni_unit', '')}</span>
+                    <span style="font-size: 0.8rem; color: #7F1D1D;">Fase Metodologi: {f_entry.get('skkni_unit', '')}</span>
                 </div>
                 <div class="editorial-serif" style="font-size: 1.15rem; font-weight: 700; color: #991B1B; margin-bottom: 0.4rem;">
                     {f_entry.get('description', '')}
@@ -197,7 +197,7 @@ with tab_fail:
             <span style="font-size: 0.82rem; font-weight: 700; color: #92400E; text-transform: uppercase;">
                 ID: FAIL-OOD-S4 (Simulation Boundary)
             </span>
-            <span style="font-size: 0.8rem; color: #78350F;">Unit SKKNI: UK-10 Mengevaluasi Hasil Pemodelan</span>
+            <span style="font-size: 0.8rem; color: #78350F;">Fase Metodologi: UK-10 Mengevaluasi Hasil Pemodelan</span>
         </div>
         <div class="editorial-serif" style="font-size: 1.15rem; font-weight: 700; color: #92400E; margin-bottom: 0.4rem;">
             Pemicu Pagar Pengaman Ekstrapolasi pada Skenario S4 (Z-Score = 4.14 > 3.50)

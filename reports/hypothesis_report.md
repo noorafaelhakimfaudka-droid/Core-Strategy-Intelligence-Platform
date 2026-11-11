@@ -1,5 +1,5 @@
 # LAPORAN INVESTIGASI HIPOTESIS PENELITIAN (H1 — H6)
-**Kepatuhan Standar: SKKNI [UK-08 Membangun Skenario Model], [UK-10], [UK-11] & Validation Gate G5**
+**Kepatuhan Standar: Metodologi Data Science [UK-08 Membangun Skenario Model], [UK-10], [UK-11] & Validation Gate G5**
 **Tanggal Pengujian**: 2026-11-10 | **Kontrol FDR**: Benjamini-Hochberg (alpha = 0.05)
 
 ---

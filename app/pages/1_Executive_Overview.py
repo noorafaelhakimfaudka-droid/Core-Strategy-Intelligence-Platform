@@ -147,9 +147,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Assessor Scientific Drawer
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
     st.markdown("""
-    **Unit Kompetensi yang Dipenuhi:**
+    **Fase Metodologi yang Dipenuhi:**
     - `[UK-01 Menentukan Masalah Bisnis]`: Pemetaan dilema biaya transaksi vs kepuasan pelanggan pada platform e-commerce Olist.
     - `[UK-02 Menentukan Kebutuhan Data]`: Audit 96.470 baris pesanan berstatus *delivered*.
     - `[UK-11 Mengembangkan Solusi]`: Translasi temuan regresi spline (H2, F-stat 4218.1, p-val < 0.0001) menjadi 3 pilar aksi bisnis strategis.

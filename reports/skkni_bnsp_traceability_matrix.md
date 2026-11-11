@@ -1,8 +1,8 @@
-# CSIP SKKNI Data Science (BNSP) Traceability & Verification Matrix
+# CSIP Metodologi Data Science Data Science (Audit Registry) Traceability & Verification Matrix
 
 **Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
-**Standard**: Standar Kompetensi Kerja Nasional Indonesia (SKKNI) Bidang Data Science  
-**Sertifikasi**: BNSP Data Scientist Certification Readiness  
+**Standard**: Standar Kompetensi Kerja Nasional Indonesia (Metodologi Data Science) Bidang Data Science  
+**Sertifikasi**: Audit Registry Data Scientist Certification Readiness  
 **Author**: Antigravity Autonomous Data Science Agent  
 **Date**: November 2026  
 
@@ -10,17 +10,17 @@
 
 ## 1. Executive Certification Overview
 
-This document provides complete, transparent requirements traceability across all **11 Unit Kompetensi (UK)** stipulated under SKKNI Data Science. It maps every competency unit directly to:
+This document provides complete, transparent requirements traceability across all **11 Unit Kompetensi (UK)** stipulated under Metodologi Data Science Data Science. It maps every competency unit directly to:
 1. Operational Source Code (`src/csip/`)
 2. Executable Jupyter Notebooks (`notebooks/`)
 3. Automated Test Suites (`tests/`)
 4. Verified Empirical Artifacts & Reports (`artifacts/` and `reports/`)
 
-Every competency requirement is accompanied by executable evidence meeting the strict evidentiary standards of the National Professional Certification Board (BNSP).
+Every competency requirement is accompanied by executable evidence meeting the strict evidentiary standards of the National Professional Certification Board (Audit Registry).
 
 ---
 
-## 2. SKKNI 11-Unit Traceability & Verification Matrix
+## 2. Metodologi Data Science 11-Unit Traceability & Verification Matrix
 
 | Unit ID | Unit Kompetensi Title | Concrete Implementation Artifacts | Notebook Reference | Verification Tests | Status & Evidence Grade |
 | :---: | :--- | :--- | :--- | :--- | :---: |

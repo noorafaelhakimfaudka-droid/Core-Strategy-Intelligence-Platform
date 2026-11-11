@@ -146,9 +146,9 @@ editorial_plotly_theme(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
     st.markdown(r"""
-    **Unit Kompetensi yang Dipenuhi:**
+    **Fase Metodologi yang Dipenuhi:**
     - `[UK-08 Membangun Skenario Model]`: Perancangan pengujian hipotesis formal H1 s.d. H6 dengan koreksi *Benjamini-Hochberg False Discovery Rate (FDR)* pada tingkat signifikansi $\alpha = 0.05$.
     - `[UK-10 Mengevaluasi Hasil Pemodelan]`: Evaluasi diagnostik statistik menyeluruh:
       - **H1 (Supported)**: OLS $t = -37.89$, $\beta = -0.2081$, $p\text{-adj} = 1.56 \times 10^{-32}$ (Claim L2, Grade A).

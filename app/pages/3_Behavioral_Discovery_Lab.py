@@ -118,9 +118,9 @@ editorial_plotly_theme(
 )
 st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
     st.markdown(r"""
-    **Unit Kompetensi yang Dipenuhi:**
+    **Fase Metodologi yang Dipenuhi:**
     - `[UK-07 Menentukan Objek Data]`: Algoritma *K-Means Clustering* dengan evaluasi $k \in [3, 4, 5, 6]$.
     - **Metrik Klasterisasi Objektif**: Terpilih $k=3$ dengan **Silhouette Score = 0.3865** (melampaui syarat PRD $\ge 0.35$), **Davies-Bouldin Index = 1.2168**, dan Calinski-Harabasz = 8.142,1.
     - **Deteksi Anomali Friksi**: Mengidentifikasi 4.824 pesanan ekstrem (5.0%) menggunakan Isolation Forest.

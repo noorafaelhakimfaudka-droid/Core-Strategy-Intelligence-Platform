@@ -1,6 +1,6 @@
 """Bab 5: Hal yang Paling Menggerakkan Hati Pembeli & Kompas Peramal Kepuasan.
 
-Human-First Editorial Design for CSIP (SKKNI: UK-08, UK-09, UK-10).
+Human-First Editorial Design for CSIP (Fase: UK-08, UK-09, UK-10).
 """
 
 from __future__ import annotations
@@ -186,8 +186,8 @@ st.dataframe(df_board, use_container_width=True, hide_index=True)
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
-    st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
+    st.markdown("#### Standar Metodologi Analitik yang Terpenuhi:")
     st.markdown("""
     - **`[UK-08 Membangun Skenario Model]`**: Perancangan skenario evaluasi out-of-time (Juli–Agustus 2018) temporal split tanpa data leakage.
     - **`[UK-09 Membangun Model]`**: Implementasi tangga baseline B0 s/d B4 (Naive, Linear, Classical, Ensemble LightGBM, Deep MLP & Bi-LSTM).

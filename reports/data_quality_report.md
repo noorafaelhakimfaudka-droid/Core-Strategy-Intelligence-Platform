@@ -1,5 +1,5 @@
 # LAPORAN VALIDASI KUALITAS DATA (DATA QUALITY REPORT)
-**Kepatuhan Standar: SKKNI [UK-04 Memvalidasi Data] & PRD Validation Gate G1**
+**Kepatuhan Standar: Metodologi Data Science [UK-04 Memvalidasi Data] & PRD Validation Gate G1**
 **Tanggal Audit**: 2026-11-10 | **Dataset**: Olist Brazilian E-Commerce (9 Tabel Relasional)
 **Auditor**: CSIP Lead Data Science Architect
 

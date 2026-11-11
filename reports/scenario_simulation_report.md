@@ -1,7 +1,7 @@
 # CSIP Alternative World Scenario Simulation & Financial Impact Report
 
 **Computational Society Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
-**Standard**: SKKNI Data Science (BNSP) — [UK-08 Membangun Skenario Model] & [UK-11 Mengembangkan Solusi]  
+**Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-08 Membangun Skenario Model] & [UK-11 Mengembangkan Solusi]  
 **Simulation Engine**: Dynamic State-Space World Model with Non-Parametric Residual Bootstrapping ($B = 300$)  
 **Planning Horizon**: 12 Weeks (Forward Counterfactual Projection)  
 **Date**: November 2026  

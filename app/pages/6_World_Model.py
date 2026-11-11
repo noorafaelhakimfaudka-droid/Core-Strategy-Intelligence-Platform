@@ -1,6 +1,6 @@
 """Bab 6: Denyut Nadi Toko dari Minggu ke Minggu (World Model).
 
-Human-First Editorial Design for CSIP (SKKNI: UK-08, UK-09, UK-10).
+Human-First Editorial Design for CSIP (Fase: UK-08, UK-09, UK-10).
 """
 
 from __future__ import annotations
@@ -189,8 +189,8 @@ with col_u2:
 st.markdown("<div style='height: 2.5rem;'></div>", unsafe_allow_html=True)
 
 # --- MODE ASESOR & DAPUR ILMIAH (EXPANDER DRAWER) ---
-with st.expander(" Buka Catatan Dapur Ilmiah & Standar Kompetensi SKKNI/BNSP (Mode Penguji)"):
-    st.markdown("#### Standar Unit Kompetensi SKKNI yang Terpenuhi:")
+with st.expander(" Buka Catatan Metodologi & Audit Ilmiah (Technical & Governance Notes)"):
+    st.markdown("#### Standar Metodologi Analitik yang Terpenuhi:")
     st.markdown(r"""
     - **`[UK-08 Membangun Skenario Model]`**: Perumusan Vector AutoRegressive State-Space transition function 4-variabel.
     - **`[UK-09 Membangun Model]`**: Estimasi parameter transisi sistem $\mathbf{\Phi}$ dan matriks kovarian residual $\boldsymbol{\Sigma}$.
