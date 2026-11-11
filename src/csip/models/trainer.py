@@ -125,6 +125,31 @@ class ModelExperimentTrainer:
             "distance_x_weight",
             "high_value_late_flag",
         ],
+        "cohort_checkout_features": [
+            "total_item_price",
+            "total_freight",
+            "total_order_value",
+            "freight_ratio",
+            "item_count",
+            "payment_installments_max",
+            "seller_buyer_distance_km",
+            "estimated_lead_time_days",
+        ],
+        "cohort_post_delivery_features": [
+            "total_item_price",
+            "total_freight",
+            "total_order_value",
+            "freight_ratio",
+            "item_count",
+            "payment_installments_max",
+            "seller_buyer_distance_km",
+            "estimated_lead_time_days",
+            "delivery_lead_time_days",
+            "delivery_delay_days",
+            "is_late",
+            "review_score",
+            "has_review_comment",
+        ],
     }
 
     def __init__(
@@ -457,20 +482,10 @@ class ModelExperimentTrainer:
         # 2. Target: Repeat Purchase Prediction (Customer Cohort)
         # -------------------------------------------------------------
         target_repeat = "repeat_purchase_flag"
-        cohort_features = [
-            "total_item_price",
-            "total_freight",
-            "total_order_value",
-            "freight_ratio",
-            "item_count",
-            "seller_buyer_distance_km",
-            "delivery_lead_time_days",
-            "delivery_delay_days",
-            "is_late",
-            "review_score",
-            "has_review_comment",
-        ]
+        cohort_checkout_features = self.FEATURE_SETS["cohort_checkout_features"]
+        cohort_post_delivery_features = self.FEATURE_SETS["cohort_post_delivery_features"]
 
+        # Baseline B0 (Naive Majority)
         self.train_evaluate_classifier(
             "B0_naive_majority",
             ["total_order_value"],
@@ -480,32 +495,55 @@ class ModelExperimentTrainer:
             "E0",
             "naive",
         )
+
+        # Primary Operational Contract: Strict First-Order Checkout Features (Zero Point-in-Time Leakage, t = t_order1_purchase)
         self.train_evaluate_classifier(
             "B1_logistic",
-            cohort_features,
+            cohort_checkout_features,
+            train_coh,
+            val_coh,
+            target_repeat,
+            "E1",
+            "first_order_checkout",
+        )
+        self.train_evaluate_classifier(
+            "B3_lightgbm",
+            cohort_checkout_features,
+            train_coh,
+            val_coh,
+            target_repeat,
+            "E1",
+            "first_order_checkout",
+        )
+        self.train_evaluate_classifier(
+            "B3_lightgbm",
+            cohort_checkout_features,
+            train_coh,
+            test_coh,
+            target_repeat,
+            "E1",
+            "first_order_checkout",
+            split_name="test",
+        )
+
+        # Secondary Diagnostic Contract: Post-Delivery Onboarding Features (t = t_order1_delivered)
+        self.train_evaluate_classifier(
+            "B3_lightgbm",
+            cohort_post_delivery_features,
             train_coh,
             val_coh,
             target_repeat,
             "E3",
-            "first_order_features",
+            "post_delivery_diagnostic",
         )
         self.train_evaluate_classifier(
             "B3_lightgbm",
-            cohort_features,
-            train_coh,
-            val_coh,
-            target_repeat,
-            "E3",
-            "first_order_features",
-        )
-        self.train_evaluate_classifier(
-            "B3_lightgbm",
-            cohort_features,
+            cohort_post_delivery_features,
             train_coh,
             test_coh,
             target_repeat,
             "E3",
-            "first_order_features",
+            "post_delivery_diagnostic",
             split_name="test",
         )
 
@@ -590,13 +628,23 @@ class ModelExperimentTrainer:
                 self.artifacts_dir / "best_negative_review_lightgbm.joblib",
             )
 
-        best_repeat_model = self.trained_models.get(
-            "repeat_purchase_flag_B3_lightgbm_first_order_features"
+        best_repeat_model = (
+            self.trained_models.get("repeat_purchase_flag_B3_lightgbm_first_order_checkout")
+            or self.trained_models.get("repeat_purchase_flag_B3_lightgbm_first_order_features")
         )
         if best_repeat_model:
             joblib.dump(
                 best_repeat_model,
                 self.artifacts_dir / "best_repeat_purchase_lightgbm.joblib",
+            )
+
+        best_repeat_diag = self.trained_models.get(
+            "repeat_purchase_flag_B3_lightgbm_post_delivery_diagnostic"
+        )
+        if best_repeat_diag:
+            joblib.dump(
+                best_repeat_diag,
+                self.artifacts_dir / "best_repeat_purchase_diagnostic_lightgbm.joblib",
             )
 
         best_delay_model = self.trained_models.get(

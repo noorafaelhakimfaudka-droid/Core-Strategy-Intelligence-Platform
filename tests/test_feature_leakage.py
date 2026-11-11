@@ -66,6 +66,73 @@ def test_target_label_integrity_and_zero_contamination():
     assert 0.125 <= prevalence <= 0.130, f"Observed prevalence {prevalence:.4f} outside [0.125, 0.130]"
 
 
+def test_review_target_exact_mapping_values():
+    """Verify that review_score maps strictly to binary detractor ground truth:
+    1 -> 1.0, 2 -> 1.0, 3 -> 0.0, 4 -> 0.0, 5 -> 0.0, and NaN -> NaN.
+    """
+    import numpy as np
+    import pandas as pd
+    order_path = REPO_ROOT / "data" / "processed" / "order_level.parquet"
+    if not order_path.exists():
+        pytest.skip("order_level.parquet not yet generated.")
+
+    df = pd.read_parquet(order_path)
+    
+    # 1. Rating 1 must have 100% negative_review_flag == 1.0
+    r1 = df[df["review_score"] == 1.0]
+    assert len(r1) > 0
+    assert (r1["negative_review_flag"] == 1.0).all()
+
+    # 2. Rating 2 must have 100% negative_review_flag == 1.0
+    r2 = df[df["review_score"] == 2.0]
+    assert len(r2) > 0
+    assert (r2["negative_review_flag"] == 1.0).all()
+
+    # 3. Rating 3 must have 100% negative_review_flag == 0.0 (Non-Detractor)
+    r3 = df[df["review_score"] == 3.0]
+    assert len(r3) > 0
+    assert (r3["negative_review_flag"] == 0.0).all()
+
+    # 4. Rating 4 must have 100% negative_review_flag == 0.0
+    r4 = df[df["review_score"] == 4.0]
+    assert len(r4) > 0
+    assert (r4["negative_review_flag"] == 0.0).all()
+
+    # 5. Rating 5 must have 100% negative_review_flag == 0.0
+    r5 = df[df["review_score"] == 5.0]
+    assert len(r5) > 0
+    assert (r5["negative_review_flag"] == 0.0).all()
+
+    # 6. Missing review_score must be strictly NaN
+    r_null = df[df["review_score"].isnull()]
+    assert len(r_null) == 646
+    assert r_null["negative_review_flag"].isnull().all()
+
+
+def test_repeat_purchase_dual_contract_feature_partition():
+    """Verify that cohort_checkout_features contains ZERO post-order fulfillment or review leakage."""
+    from csip.models.trainer import ModelExperimentTrainer
+
+    checkout_feats = set(ModelExperimentTrainer.FEATURE_SETS["cohort_checkout_features"])
+    post_delivery_feats = set(ModelExperimentTrainer.FEATURE_SETS["cohort_post_delivery_features"])
+
+    # Restricted post-order features
+    fulfillment_and_review_leakage = {
+        "delivery_lead_time_days",
+        "delivery_delay_days",
+        "is_late",
+        "review_score",
+        "has_review_comment",
+    }
+
+    # Primary checkout contract MUST have zero overlap with fulfillment/review leakage
+    leakage_in_checkout = checkout_feats.intersection(fulfillment_and_review_leakage)
+    assert len(leakage_in_checkout) == 0, f"Cohort checkout features contain leakage: {leakage_in_checkout}"
+
+    # Secondary diagnostic contract incorporates these features for retention attribution
+    assert fulfillment_and_review_leakage.issubset(post_delivery_feats)
+
+
 def test_model_leaderboard_metric_unbiasedness():
     """Verify that PR-AUC metric in ml_leaderboard uses unbiased Average Precision."""
     import json

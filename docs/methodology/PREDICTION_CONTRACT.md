@@ -2,8 +2,8 @@
 ## Formal Temporal Boundaries, Target Definitions, and Population Eligibility
 ### Standard: SKKNI No. 299 Tahun 2020 | Unit: J.62DMI00.002.1 & J.62DMI00.007.1
 
-- **Document ID**: `CSIP-DOC-PRED-CONTRACT-2026-V7`
-- **Version**: 7.0.0
+- **Document ID**: `CSIP-DOC-PRED-CONTRACT-2026-V10`
+- **Version**: 10.0.0
 - **Status**: APPROVED & METHODOLOGICALLY DEFENDED
 - **Author**: Principal Data Scientist & ML Systems Architect
 
@@ -21,10 +21,10 @@ Any feature utilized in model training or real-time inference MUST strictly sati
 
 ### 2.1 Problem Formulation & Objectives
 - **Business Objective**: Proactively identify high-risk transactions at the moment of customer checkout to initiate immediate operational mitigations (e.g., priority warehouse dispatch, proactive communication, packaging upgrades) before fulfillment failures occur.
-- **Technical Objective**: Supervised binary classification predicting whether an order will result in a negative customer review ($Y \in \{0, 1\}$).
+- **Technical Objective**: Supervised binary classification predicting whether an order will result in customer dissatisfaction / detractor review ($Y \in \{0, 1\}$).
 - **Formal Estimand**: 
   $$\mathbb{P}(Y_{\text{negative}} = 1 \mid X_{t_0}, \text{Delivered} = 1)$$
-  *Note*: Because review collection surveys are administered only upon delivery confirmation, the empirical model estimates the conditional risk of dissatisfaction among fulfilled orders.
+  *Methodological Clarification (Conditional Retrospective Risk)*: Because customer review surveys are administered strictly upon delivery confirmation, the empirical model estimates the conditional risk of post-delivery dissatisfaction among fulfilled orders. It is explicitly NOT an unconditional cart abandonment or pre-delivery cancellation model. Canceled and unavailable orders are governed by separate operational fulfillment pipelines.
 
 ### 2.2 Temporal and Information Boundaries
 - **Unit of Analysis (Grain)**: Single e-commerce order (`order_id`).
@@ -58,10 +58,11 @@ The following attributes occur strictly after $t_0$ and are **strictly forbidden
 
 ### 2.5 Target Variable & Observability
 - **Target Name**: `negative_review_flag`
-- **Definition**: Binary indicator where:
-  $$Y = \begin{cases} 1, & \text{if } \text{review\_score} \in \{1, 2\} \\ 0, & \text{if } \text{review\_score} \in \{4, 5\} \\ \text{NaN}, & \text{if } \text{review\_score} = 3 \text{ or missing} \end{cases}$$
+- **Definition (Binary Detractor Indicator)**:
+  $$Y = \begin{cases} 1.0, & \text{if } \text{review\_score} \in \{1, 2\} \text{ (Detractor / Dissatisfied)} \\ 0.0, & \text{if } \text{review\_score} \in \{3, 4, 5\} \text{ (Non-Detractor / Neutral or Satisfied)} \\ \text{NaN}, & \text{if } \text{review\_score} \text{ is missing/unobserved} \end{cases}$$
 - **Supervised Training Filter**: `has_observed_review == 1 & negative_review_flag.notnull()`.
-- **Prevalence**: 12.81% positive rate in observed population (10.96% in chronologically ordered training split).
+- **Prevalence**: 12.81% positive rate in observed population (12,272 detractors out of 95,824 observed reviews; 10.96% in chronologically ordered training split).
+- **Polar Sentiment Lens**: For exploratory linguistic text analysis, an alternative subpopulation of 87,908 reviews excludes rating 3, but the primary operational classification model trains on the complete set of 95,824 observed orders.
 
 ---
 
@@ -86,15 +87,23 @@ In addition to all checkout features ($t \le t_0$), diagnostic models may utiliz
 
 ## 4. Model 3: First-Order Customer Cohort 90-Day Retention (`customer_cohort`)
 
-### 4.1 Problem Formulation & Objectives
-- **Business Objective**: Predict customer lifetime value potential and 90-day repeat purchase probability based exclusively on their initial onboarding transaction.
-- **Technical Objective**: Supervised binary classification of 90-day repurchase ($Y_{\text{repeat}} \in \{0, 1\}$).
+### 4.1 Problem Formulation & Dual Contracts
+CSIP establishes two explicit, non-leaking prediction contracts for customer cohort retention:
+
+1. **Primary Operational Contract: First-Order Checkout Retention Risk ($t = T_{\text{order1\_purchase}}$)**
+   - **Business Objective**: Identify high-potential lifetime customers at initial basket checkout to optimize welcome incentives and retention interventions.
+   - **Permitted Features (`cohort_checkout_features`)**: Strictly features known at Order 1 purchase (`total_item_price`, `total_freight`, `total_order_value`, `freight_ratio`, `item_count`, `payment_installments_max`, `seller_buyer_distance_km`, `estimated_lead_time_days`).
+   - **Prohibited Features**: Zero fulfillment metrics (`delivery_lead_time_days`, `delivery_delay_days`, `is_late`) and zero review feedback (`review_score`, `has_review_comment`), which have not occurred at initial purchase.
+
+2. **Secondary Diagnostic Contract: Post-Delivery Onboarding Retention Attribution ($t = T_{\text{order1\_delivered}}$)**
+   - **Business Objective**: Quantify the empirical retention degradation caused by delivery failure or negative onboarding review experience on subsequent 90-day repeat purchasing.
+   - **Permitted Features (`cohort_post_delivery_features`)**: Checkout features plus realized Order 1 fulfillment speed, delay, and customer review feedback.
+
 - **Formal Estimand**: 
-  $$\mathbb{P}(T_{\text{order2}} - T_{\text{order1}} \le 90 \text{ days} \mid X_{\text{order1}}, T_{\text{order1}} \le T_{\max} - 90 \text{ days})$$
+  $$\mathbb{P}(T_{\text{order2}} - T_{\text{order1}} \le 90 \text{ days} \mid X_{\text{contract}}, T_{\text{order1}} \le T_{\max} - 90 \text{ days})$$
 
 ### 4.2 Temporal and Information Boundaries
 - **Unit of Analysis (Grain)**: Unique customer (`customer_unique_id`).
-- **Prediction Timestamp ($t_{\text{cohort}}$)**: The timestamp of the customer's *first ever completed order* ($T_{\text{order1}}$).
 - **Feature Source**: Strictly attributes belonging to Order 1.
 - **Prohibited Sources**:
   - Any feature from subsequent orders (Order 2, Order 3, etc.).
@@ -135,11 +144,11 @@ In addition to all checkout features ($t \le t_0$), diagnostic models may utiliz
 | **Non-Null Delivery Date** | `order_delivered_customer_date.notnull()` | 96,447 | 96.99% |
 | **Matched to Clean Items** | Order has valid items, payments, and geographic data | 96,470 | 97.01% |
 | **Observed Review Feedback** | Customer submitted review survey (`has_observed_review == 1`) | 95,824 | 96.36% |
-| **Unambiguous Polar Target** | `review_score` in {1, 2} (negative) or {4, 5} (positive) | 86,225 | 86.71% |
+| **Binary Detractor Target** | Ground truth label ($Y=1$ for score 1-2, $Y=0$ for score 3-5) | 95,824 | 96.36% |
 
 ### Selection Bias Disclosure
-- **Canceled & Unavailable Orders (2.99%)**: Canceled orders never reach delivery, hence customer review surveys are not triggered. The dissatisfaction model cannot be used to predict order cancellations.
-- **Unobserved Reviews (0.67%)**: Orders with missing review records are excluded from supervised binary classification rather than imputed, ensuring zero synthetic label contamination.
+- **Canceled & Unavailable Orders (1.24%)**: Canceled orders never reach delivery, hence customer review surveys are not triggered. The dissatisfaction model cannot be used to predict order cancellations.
+- **Unobserved Reviews (0.67%)**: 646 orders with missing review records are excluded from supervised binary classification rather than imputed, ensuring zero synthetic label contamination.
 
 ---
 

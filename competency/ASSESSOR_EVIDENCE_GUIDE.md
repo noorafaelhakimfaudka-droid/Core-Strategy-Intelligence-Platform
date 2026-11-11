@@ -57,7 +57,7 @@ csip/
 ---
 
 ### Unit 2: J.62DMI00.002.1 — Menentukan Tujuan Teknis Data Science
-- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 5 KUK (1.1 s.d. 2.2).
+- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
 - **Aktivitas Pembuktian**: Menetapkan tujuan teknis machine learning: supervised classification kepuasan (`negative_review_flag`), regresi keterlambatan (`delivery_delay_days`), dan retensi 90 hari (`repeat_purchase_flag`). Merumuskan kriteria keberhasilan teknis (PR-AUC > Baseline Naive 0,1096, Brier Score < 0,15, WAPE World Model < 20%).
 - **Lokasi Artefak Utama**:
   - `docs/methodology/PREDICTION_CONTRACT.md`
@@ -67,7 +67,7 @@ csip/
 ---
 
 ### Unit 3: J.62DMI00.005.1 — Menelaah Data
-- **Jumlah Elemen**: 3 Elemen | **Jumlah KUK**: 6 KUK (1.1 s.d. 3.2).
+- **Jumlah Elemen**: 3 Elemen | **Jumlah KUK**: 8 KUK (1.1 s.d. 3.3).
 - **Aktivitas Pembuktian**: Memuat 9 tabel relasional e-commerce Olist, memverifikasi skema relasional, menguji integritas referensial Foreign Key (100% konsisten, 0 orphan records), dan melakukan profiling statistik semantik (tipe data, missingness, kardinalitas, deteksi unit harga/freight).
 - **Lokasi Artefak Utama**:
   - `src/csip/data/loader.py` & `src/csip/data/semantic_profiler.py`
@@ -77,7 +77,7 @@ csip/
 ---
 
 ### Unit 4: J.62DMI00.006.1 — Memvalidasi Data
-- **Jumlah Elemen**: 3 Elemen | **Jumlah KUK**: 6 KUK (1.1 s.d. 3.2).
+- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
 - **Aktivitas Pembuktian**: Mengidentifikasi anomali data (23 anomali tanggal pengiriman $t_{\text{del}} < t_{\text{pur}}$, duplikasi koordinat geografis yang membengkak 1.0M baris), mengaudit pola missing value (646 ulasan tidak diobservasi), dan memverifikasi kesesuaian data terhadap aturan bisnis.
 - **Lokasi Artefak Utama**:
   - `reports/data_quality_report.md`
@@ -101,7 +101,7 @@ csip/
 ---
 
 ### Unit 6: J.62DMI00.008.1 — Membersihkan Data
-- **Jumlah Elemen**: 3 Elemen | **Jumlah KUK**: 6 KUK (1.1 s.d. 3.2).
+- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
 - **Aktivitas Pembuktian**: Menjalankan pipeline pembersihan deterministik: menyaring anomali kronologis, melakukan deduplikasi geolokasi dengan reduksi memori -98,1%, menangani duplikasi ulasan melalui strategi `latest_created`, dan memastikan isolasi *split-before-transform*.
 - **Lokasi Artefak Utama**:
   - `src/csip/cleaning/cleaner.py`
@@ -111,7 +111,7 @@ csip/
 ---
 
 ### Unit 7: J.62DMI00.009.1 — Mengkonstruksi Data
-- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
+- **Jumlah Elemen**: 3 Elemen | **Jumlah KUK**: 6 KUK (1.1 s.d. 3.2).
 - **Aktivitas Pembuktian**: Mereka 41 fitur domain e-commerce, termasuk jarak spasial Haversine tervektorisasi, rasio ongkir non-linear, interaksi keterlambatan majemuk (`delay_x_freight_ratio`), agregasi riwayat point-in-time (`prior_order_count`), serta pengelompokan persona perilaku via K-Means ($k=3$).
 - **Lokasi Artefak Utama**:
   - `src/csip/features/engineer.py`
@@ -121,7 +121,7 @@ csip/
 ---
 
 ### Unit 8: J.62DMI00.012.1 — Membangun Skenario Model
-- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 6 KUK (1.1 s.d. 2.3).
+- **Jumlah Elemen**: 3 Elemen | **Jumlah KUK**: 7 KUK (1.1 s.d. 3.2).
 - **Aktivitas Pembuktian**: Merancang skenario pemodelan terstruktur:
   - **Skenario Klasifikasi Tangga Baseline (B0-B3)**: Naive Majority (B0) $\to$ Logistic/Ridge (B1) $\to$ Decision Tree/KNN/Naive Bayes (B2) $\to$ Random Forest & LightGBM (B3).
   - **Skenario Deep Learning**: Categorical Entity Embedding MLP & Bi-LSTM NLP.
@@ -134,7 +134,7 @@ csip/
 ---
 
 ### Unit 9: J.62DMI00.013.1 — Membangun Model
-- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
+- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 6 KUK (1.1 s.d. 2.3).
 - **Aktivitas Pembuktian**: Melatih model machine learning pada partisi waktu historis yang ketat (Train: Minggu 1–64, Val: Minggu 65–78, Test: Minggu 79–87). Seluruh hiperparameter dicatat secara deklaratif dan model diserialisasi secara deterministik (`random_state=42`).
 - **Lokasi Artefak Utama**:
   - `src/csip/models/trainer.py`
@@ -144,7 +144,7 @@ csip/
 ---
 
 ### Unit 10: J.62DMI00.014.1 — Mengevaluasi Hasil Pemodelan
-- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 5 KUK (1.1 s.d. 2.2).
+- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
 - **Aktivitas Pembuktian**: Mengevaluasi model menggunakan metrik klasifikasi imbalanced: PR-AUC (Average Precision tanpa bias), ROC-AUC, F1-Score, Brier Score, dan kalibrasi probabilitas Platt Scaling (memangkas Brier -44,59%). Melakukan atribusi SHAP TreeExplainer serta backtest out-of-sample holdout pada World Model (WAPE ongkir 7,55%, delay 19,80%, volume 19,85%).
 - **Lokasi Artefak Utama**:
   - `artifacts/reports/ml_leaderboard.json` & `ml_leaderboard.csv`
@@ -155,7 +155,7 @@ csip/
 ---
 
 ### Unit 11: J.62DMI00.015.1 — Melakukan Proses Review Pemodelan
-- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 5 KUK (1.1 s.d. 2.3).
+- **Jumlah Elemen**: 2 Elemen | **Jumlah KUK**: 4 KUK (1.1 s.d. 2.2).
 - **Aktivitas Pembuktian**: Menjalankan tinjauan metodologi independen menyeluruh: mengaudit batas-batas kebocoran data, mencatat kegagalan dan penolakan hipotesis H3 secara transparan di Failure Register, menguji ketidakpastian via Bootstrap resampling (B=1.000, CI 95%), serta menyusun rekomendasi mitigasi bisnis yang realistis.
 - **Lokasi Artefak Utama**:
   - `reports/model_evaluation_and_review_report.md`

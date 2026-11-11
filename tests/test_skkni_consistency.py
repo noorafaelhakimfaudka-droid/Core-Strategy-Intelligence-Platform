@@ -218,3 +218,23 @@ def test_report_metrics_and_claims_consistency():
             assert "27" in text, f"{rpt.name} must reference 27 elements"
             assert "11" in text, f"{rpt.name} must reference 11 units"
 
+
+def test_competency_markdown_documents_kuk_distribution():
+    """Verify that competency/ASSESSMENT_READINESS_REPORT.md and ASSESSOR_EVIDENCE_GUIDE.md
+    accurately reflect the canonical distribution of 27 elements and 63 KUKs across all 11 units.
+    """
+    for doc_path in [
+        ROOT_DIR / "competency" / "ASSESSMENT_READINESS_REPORT.md",
+        ROOT_DIR / "competency" / "ASSESSOR_EVIDENCE_GUIDE.md",
+    ]:
+        assert doc_path.exists(), f"Missing competency doc: {doc_path}"
+        text = doc_path.read_text(encoding="utf-8")
+        assert "27" in text, f"{doc_path.name} must reference 27 elements"
+        assert "63" in text, f"{doc_path.name} must reference 63 KUKs"
+        for u_id, metrics in EXPECTED_UNITS_METRIC.items():
+            u_code = metrics["official_code"]
+            assert u_code in text, f"Missing unit code {u_code} in {doc_path.name}"
+            # Check unit KUK count mentions
+            kuks = metrics["kuks"]
+            assert f"{kuks} KUK" in text or f"{kuks} kriteria" in text.lower(), f"{u_id} KUK count ({kuks}) not found in {doc_path.name}"
+

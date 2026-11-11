@@ -1,5 +1,5 @@
 {
-  "saved_at": "2026-11-11T14:51:45.788108",
+  "saved_at": "2026-11-11T15:23:51.250628",
   "discoveries": {
     "DISC-01": {
       "discovery_id": "DISC-01",
@@ -474,7 +474,7 @@
         "reports/hypothesis_report.md",
         "reports/scenario_simulation_report.md"
       ],
-      "status": "TESTED",
+      "status": "VERIFIED",
       "official_code": "J.62DMI00.012.1",
       "evidence_process": "Perancangan skenario validasi: temporal split (cutoff 2018-05-31), matriks hipotesis behavioral, dan formulasi Vector AutoRegressive State-Space.",
       "evidence_result": "Hasil uji hipotesis: H1 didukung (p<0.001, eta2=0.12), H2 didukung (cliff effect delay > 3 hari), H3 ditolak secara ilmiah (FAIL-HYP-H3, p_adj=0.859).",

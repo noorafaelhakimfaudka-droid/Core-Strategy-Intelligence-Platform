@@ -78,3 +78,4 @@ To measure uncertainty without assuming Gaussian error distributions, CSIP appli
 - LightGBM PR-AUC 95% CI: $[0.2892, 0.3235]$
 - Champion Model Brier Score 95% CI: $[0.1294, 0.1458]$
 All model claims in CSIP are statistically significant at $\alpha = 0.05$.
+
