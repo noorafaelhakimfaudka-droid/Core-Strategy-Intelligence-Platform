@@ -17,7 +17,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
 
     fig = go.Figure()
 
-    # Zona perhatian (amber lembut) setelah titik kritis
     if top1_row["Pearson_r"] <= 0:
         z_x0, z_x1 = sim["tipping_x"], x_max
     else:
@@ -29,7 +28,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
         layer="below", line_width=0,
     )
 
-    # Garis Median Standar
     fig.add_hline(
         y=sim["base_val"],
         line=dict(color="#7A756A", width=1.4, dash="dash"),
@@ -38,7 +36,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
         annotation_font=dict(family="Inter", size=12, color="#5A554B"),
     )
 
-    # Garis Titik Kritis (Amber)
     fig.add_vline(
         x=sim["tipping_x"],
         line=dict(color="#E8A23B", width=1.8, dash="dash"),
@@ -51,7 +48,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
         bgcolor="#FFF6E6", bordercolor="rgba(183, 121, 31, 0.38)", borderwidth=1, borderpad=6,
     )
 
-    # Kurva Pola Dasar (Abu-abu hangat putus-putus)
     fig.add_trace(go.Scatter(
         x=sim["grid_x"], y=sim["base_grid_preds"], mode="lines",
         name="Pola Dasar (Standar)",
@@ -59,7 +55,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
         hovertemplate=f"{top1}: %{{x:,.2f}}<br>Standar {target_col}: %{{y:,.2f}}<extra></extra>",
     ))
 
-    # Kurva Utama Simulasi (Deep Teal dengan area fill lembut)
     fig.add_trace(go.Scatter(
         x=sim["grid_x"], y=sim["grid_preds"], mode="lines",
         name="Prediksi Simulasi",
@@ -68,7 +63,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
         hovertemplate=f"<b>{top1}: %{{x:,.2f}}</b><br>Prediksi {target_col}: %{{y:,.2f}}<extra></extra>",
     ))
 
-    # Garis vertikal & Titik Posisi Tuas Saat Ini
     fig.add_vline(
         x=sim["current_x"],
         line=dict(color="rgba(14, 107, 99, 0.45)", width=1.2, dash="dot"),
@@ -84,7 +78,6 @@ def build_impact_curve_chart(pipeline: dict, sim: dict, target_col: str, schema_
         hovertemplate=f"<b>Posisi Tuas Saat Ini</b><br>{top1}: {fmt_num(sim['current_x'], f1_unit)}<br>Hasil: {fmt_num(sim['pred_val'], t_unit)}<extra></extra>",
     ))
 
-    # Kotak Tooltip Gelap ala Prototipe pada Posisi Tuas
     ax_offset = -55 if sim["current_x"] > (x_min + x_max) * 0.65 else 55
     fig.add_annotation(
         x=sim["current_x"], y=sim["pred_val"],
