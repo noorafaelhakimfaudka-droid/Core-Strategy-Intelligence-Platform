@@ -40,7 +40,7 @@ CSIP tidak hanya terbatas pada studi kasus rantai pasok e-commerce, melainkan se
 
 Platform ini menyediakan kapabilitas analitis serbaguna lintas domain industri:
 * **Bisnis & Transaksi Pasar Modal / Komoditas:**
-  - Pemodelan harga pasar aset digital/komoditas (tersedia preset bawaan `PAXG_USD_Daily.csv` untuk estimasi harga emas terhadap volume transaksi pasar dan gejolak volatilitas harian).
+  - Pemodelan harga pasar aset digital/komoditas.
   - Optimasi margin profitabilitas, perputaran persediaan (*inventory turnover*), dan proyeksi arus kas operasional.
 * **Manajemen SDM & People Analytics:**
   - Analisis produktivitas kerja, retensi talenta, kepuasan karyawan, dan perbandingan kompensasi terhadap masa kerja (*tenure*).
@@ -253,34 +253,30 @@ Di mana kerugian akibat hilangnya pelanggan karena ulasan buruk yang tidak terta
 
 ---
 
-## 8. Arsitektur Antarmuka & Kokpit Studio Keputusan
+## 8. Arsitektur Antarmuka: Kokpit Studio Keputusan Mandiri
 
-CSIP menghadirkan arsitektur antarmuka dua lapis yang fleksibel: **CSIP Studio** sebagai kokpit interaktif mandiri (*single-page app*), didukung oleh **8 Modul Laboratorium Analitik Terfokus** untuk investigasi saintifik mendalam.
+Aplikasi utama CSIP berjalan sebagai **CSIP Studio (`app/streamlit_app.py`)** — kokpit analitik interaktif terpadu satu halaman (*Single-Viewport Decision Studio*) yang bersih tanpa bilah navigasi samping yang mengaburkan fokus analisis:
 
-### A. Antarmuka Utama: CSIP Studio (`app/streamlit_app.py`)
-Kokpit terpadu satu halaman (*Option A single-viewport*) yang memungkinkan simulasi interaktif tanpa navigasi yang rumit:
-1. **Sumber Data & Fokus:** Tarik dan lepas berkas CSV apa saja, atau pilih dari koleksi dataset bawaan (*Kasus 2: Risiko Kesehatan & Gaya Hidup*, *PAXG_USD_Daily.csv*, dll.).
-2. **Tuas Simulasi Dinamis:** Kendalikan parameter operasional (Volume Transaksi Pasar, Gejolak Volatilitas Harian, Posisi vs Tren Bulanan) dan saksikan pergeseran estimasi secara *real-time*.
-3. **Lensa Tampilan Analitik Multi-Dimensi:** Pilihan visualisasi antara *Kurva Simulasi dan Titik Kritis*, *Peringkat Faktor Penentu (Feature Importance)*, dan *Sebaran Kelompok Data*.
-4. **Nara Penasihat Strategi (Prescriptive Advisor):** Panel narasi rekomendasi preskriptif yang menghitung titik ekuilibrium tuas untuk mengoptimalkan metrik target secara matematis.
-
-### B. 8 Modul Laboratorium Analitik Terfokus (`app/pages/`)
-Untuk audit saintifik dan eksplorasi mendalam, tersedia 8 modul laboratorium terdedikasi:
 ```
 ┌──────────────────────────────────────────────────────────────────────────────────────────┐
-│ Studio CSIP  •  Platform Analitik Keputusan Enterprise  •  Produksi MLOps                │
+│ CSIP Studio  •  Core Strategy & Intelligence Platform  •  Simulator Keputusan Interaktif │
 ├──────────────────────────┬───────────────────────────────────────────────────────────────┤
-│ 1. Tinjauan Eksekutif    │ Metrik ringkas omzet, status keterlambatan & kesehatan sistem │
-│ 2. Observatorium Data    │ 5-Tab Inspektur Data + Radar Drift Real-Time + Distribusi KDE │
-│ 3. Lab Perilaku Pembeli  │ Segmentasi pelanggan K-Means, kecepatan transaksi & RFM       │
-│ 4. Lab Pengujian Hipotesis│ Uji hipotesis permutasi & bootstrap dengan signifikansi statistik│
-│ 5. Kecerdasan Prediktif  │ Kurva ROC/PR, kalibrasi probabilitas & visualisasi SHAP       │
-│ 6. Model Dinamika Dunia  │ Matriks transisi probabilitas status operasional rantai pasok │
-│ 7. Simulator Alternatif  │ Uji ketahanan simulasi stres di bawah skenario guncangan pasar│
-│ 8. Studio Keputusan      │ Rekomendasi tindakan logistik berbasis optimasi matriks biaya │
+│ 1. Sumber Data & Fokus   │ Tarik-lepas berkas CSV apa saja atau pilih preset bawaan      │
+│    (Universal CSV X-Ray) │ (PAXG Emas Digital, Kasus Risiko Medis, Logistik E-Commerce)  │
+├──────────────────────────┼───────────────────────────────────────────────────────────────┤
+│ 2. Tuas Simulasi Dinamis │ Kendali interaktif variabel operasional utama dengan slider   │
+│    (What-If Levers)      │ responsif untuk memprediksi respons pergeseran target         │
+├──────────────────────────┼───────────────────────────────────────────────────────────────┤
+│ 3. Lensa Tampilan Multi  │ • Kurva Simulasi & Titik Kritis (Spline interaktif + batas)   │
+│    Dimensi Analitik      │ • Peringkat Faktor Penentu (Feature Importance / SHAP values) │
+│                          │ • Sebaran Kelompok Data (Kurva densitas klaster K-Means)      │
+├──────────────────────────┼───────────────────────────────────────────────────────────────┤
+│ 4. Nara Penasihat        │ Narasi preskriptif cerdas yang menganalisis kombinasi tuas    │
+│    Strategi              │ optimal untuk memaksimalkan atau meminimalkan metrik bisnis   │
 └──────────────────────────┴───────────────────────────────────────────────────────────────┘
 ```
-*(Catatan Arsitektur: Halaman checklist pengujian lama telah dieliminasi sepenuhnya agar repositori tampil murni sebagai platform analitik produksi profesional).*
+
+> **Catatan Teknis Arsitektur:** Bilah samping (*sidebar*) pada `app/streamlit_app.py` sengaja dinonaktifkan secara baku (`initial_sidebar_state="collapsed"` dengan proteksi CSS) agar seluruh visualisasi analitik tampil utuh dalam satu layar kerja (*single-page cockpit*) tanpa distraksi menu bertingkat. Modul laboratorium di folder `app/pages/` merupakan skrip pendukung analitik riset khusus (misalnya investigasi drift mandiri) yang dapat dieksekusi secara independen jika diperlukan.
 
 ---
 
@@ -408,7 +404,7 @@ Proyek ini dirilis secara sumber terbuka (*open-source*) di bawah naungan **Lise
 
 ```bibtex
 @software{csip2026,
-  author = {Tim Pengembang Inti CSIP},
+  author = Rafael Hakim Souissa,
   title = {Core Strategy & Intelligence Platform (CSIP): Platform Pembelajaran Mesin Perilaku Enterprise & Observatorium Konsep Drift},
   year = {2026},
   version = {1.0.0},
