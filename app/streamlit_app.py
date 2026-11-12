@@ -1315,7 +1315,7 @@ div[data-testid="stRadio"] label[data-baseweb="radio"]:has(input:checked) p {
   .rk { grid-template-columns: 1fr !important; gap: 6px !important; }
 }
 </style>
-<div class="aurora-bg" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="aurora-bg" aria-hidden="true"><i></i><i></i><i></i></div>
 """
 st.markdown(PROTOTYPE_CSS, unsafe_allow_html=True)
 
