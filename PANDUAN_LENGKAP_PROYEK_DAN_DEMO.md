@@ -481,3 +481,4 @@ Berikut adalah 10 pertanyaan tersulit yang sering diajukan Master Asesor BNSP KK
 > [!TIP]
 > **Kunci Keberhasilan Asesmen**:
 > Bicaralah dengan tenang, percaya diri, dan selalu arahkan layar monitor asesor ke file atau baris kode yang membuktikan ucapan Anda. Integritas ilmiah dan kejujuran metodologis adalah nilai tertinggi seorang Ilmuwan Data KKNI Level 7.
+
