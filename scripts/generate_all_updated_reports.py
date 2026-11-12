@@ -290,7 +290,7 @@ def generate_reports():
     final_audit.append("3. **Test Execution Report**: `reports/testing/test_execution_report.md` (83 tests passed in 22.63s).")
     final_audit.append("4. **Evidence Gap Analysis**: `reports/evidence/evidence_gap_analysis.md` (Analisis kesenjangan & panduan pembelaan asesmen).")
     final_audit.append("5. **Final Audit Report**: `FINAL_CSIP_AUDIT_REPORT.md` (Laporan audit akhir komprehensif).")
-    final_audit.append("6. **Source Code ZIP**: `C:\\Users\\asus\\Downloads\\CSIP_Source_Code.zip` (Arsip repositori terbaru).")
+    final_audit.append("6. **Source Code ZIP**: `CSIP_Source_Code_V5.zip` (Arsip repositori terbaru).")
 
     out_audit = ROOT_DIR / "FINAL_CSIP_AUDIT_REPORT.md"
     with open(out_audit, "w", encoding="utf-8") as f:
