@@ -90,7 +90,6 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
     base_val = pipeline["y_baseline"]
 
     top1_row = pipeline["stats_df"].iloc[0]
-    top2_row = pipeline["stats_df"].iloc[1] if len(pipeline["stats_df"]) > 1 else top1_row
     top1 = top1_row["Fitur"]
 
     grid_x = np.linspace(top1_row["Min"], top1_row["Max"], 70)
@@ -118,51 +117,6 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
     if is_f1_discrete:
         tipping_x = float(round(tipping_x))
 
-    t_meta = schema_info.get(target_col, {})
-    t_phrase = t_meta.get("phrase", target_col.lower())
-    t_unit = t_meta.get("unit", "")
-    short_unit = "poin" if "100" in t_unit else t_unit
-
-    f1_phrase = top1_row["Frasa"]
-    f1_unit = top1_row["Unit"]
-    f1_share = top1_row["Pengaruh_Persen"]
-    f2_phrase = top2_row["Frasa"]
-    f2_share = top2_row["Pengaruh_Persen"]
-
-    if top1.startswith("Kategori "):
-        clean_cat = top1.replace("Kategori ", "").lower()
-        if top1_row["Pearson_r"] <= -0.05:
-            headline_main = f"Kelompok {clean_cat} level {int(tipping_x)} cenderung menurunkan"
-            headline_em = f"{t_phrase}."
-            act_1 = f"Evaluasi segmen {clean_cat}"
-            act_2 = f"Fokus pada kelompok {int(tipping_x)}"
-        else:
-            headline_main = f"Kelompok {clean_cat} level {int(tipping_x)} mendorong peningkatan"
-            headline_em = f"{t_phrase}."
-            act_1 = f"Prioritaskan segmen {clean_cat}"
-            act_2 = f"Perkuat faktor #{2}: {top2_row['Fitur'].lower()}"
-    elif top1_row["Pearson_r"] <= -0.05:
-        headline_main = f"Kendalikan {top1.lower()} di bawah {fmt_num(tipping_x, f1_unit)}, agar"
-        headline_em = f"{t_phrase} tetap stabil."
-        act_1 = f"Prioritaskan kendali {top1.lower()}"
-        act_2 = f"Cegah lewati batas {fmt_num(tipping_x, f1_unit)}"
-    else:
-        headline_main = f"Dorong {top1.lower()} mendekati {fmt_num(tipping_x, f1_unit)}, untuk"
-        headline_em = f"mengoptimalkan {t_phrase}."
-        act_1 = f"Optimalkan {top1.lower()} di atas {fmt_num(tipping_x, f1_unit)}"
-        act_2 = f"Perkuat faktor #{2}: {top2_row['Fitur'].lower()}"
-
-    dir_word = "lebih rendah" if diff_val < -0.05 else ("lebih tinggi" if diff_val > 0.05 else "relatif setara")
-    delta_txt = f"{fmt_num(abs(diff_val))} {short_unit}".strip()
-
-    narrative_body = (
-        f"{top1} memegang <b>{f1_share:.0f}%</b> pengaruh terhadap {t_phrase}, lebih dominan daripada {f2_phrase} (<b>{f2_share:.0f}%</b>). "
-        f"Pola perubahan data menunjukkan pergeseran nyata di sekitar titik kritis <b>{fmt_num(tipping_x, f1_unit)}</b>; pada posisi tuas "
-        f"<b>{fmt_num(cur_f1_val, f1_unit)}</b> saat ini, estimasi model menghasilkan nilai yang {dir_word} "
-        f"<b>{delta_txt}</b> ({diff_pct:+.1f}%) dibandingkan nilai acuan standar (<b>{fmt_num(base_val, short_unit)}</b>). "
-        f"Menyesuaikan tuas <b>{top1.lower()}</b> memberikan respons terbesar pada {t_phrase}."
-    )
-
     return {
         "pred_val": pred_val,
         "base_val": base_val,
@@ -173,12 +127,119 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
         "base_grid_preds": base_grid_preds,
         "current_x": cur_f1_val,
         "tipping_x": tipping_x,
-        "headline_main": headline_main,
-        "headline_em": headline_em,
-        "narrative_body": narrative_body,
-        "act_1": act_1,
-        "act_2": act_2,
     }
+
+
+def detect_domain_context(dataset_title: str, columns: list[str], target_col: str) -> dict:
+    cols_text = " ".join([c.lower() for c in columns] + [target_col.lower(), dataset_title.lower()])
+
+    if any(k in cols_text for k in ["kesehatan", "medis", "pasien", "gula_darah", "glukosa", "bmi", "tekanan_darah", "kolesterol", "penyakit", "disease", "insulin", "diet", "ldl", "hdl"]):
+        domain_name = "Kesehatan & Klinis"
+        domain_theme = "indikator biologis dan risiko kesehatan pasien"
+    elif any(k in cols_text for k in ["mutu", "kualitas", "produk", "anggur", "kimia", "flavanoids", "alkohol", "alcohol", "keasaman", "sensor", "getaran", "cacat", "defect", "manufaktur", "proline"]):
+        domain_name = "Mutu Produk & Manufaktur"
+        domain_theme = "parameter komposisi dan kontrol mutu produksi"
+    elif any(k in cols_text for k in ["gaji", "karyawan", "pegawai", "lembur", "absensi", "jam_kerja", "masa_kerja", "hr", "turnover", "kinerja_karyawan", "salary", "tenure"]):
+        domain_name = "SDM & Manajemen Talenta"
+        domain_theme = "produktivitas, kompensasi, dan retensi tenaga kerja"
+    elif any(k in cols_text for k in ["saham", "crypto", "emas", "pasar", "ihsg", "omzet", "pendapatan", "laba", "profit", "revenue", "bunga", "pinjaman", "kredit", "margin", "arus_kas", "paxg"]):
+        domain_name = "Keuangan & Pasar Modal"
+        domain_theme = "kinerja finansial, profitabilitas, dan pergerakan aset"
+    elif any(k in cols_text for k in ["toko", "ongkir", "belanja", "pesanan", "ulasan", "pengiriman", "order", "delivery", "freight", "pelanggan", "customer", "ecommerce", "olist"]):
+        domain_name = "E-Commerce & Logistik"
+        domain_theme = "rantai pasok pengiriman dan kepuasan pelanggan"
+    elif any(k in cols_text for k in ["iklan", "konversi", "klik", "impresi", "churn", "retensi", "cvr", "ctr", "cac", "campaign", "pemasaran"]):
+        domain_name = "Pemasaran Digital & Pertumbuhan"
+        domain_theme = "akuisisi pelanggan dan efektivitas kampanye promosi"
+    elif any(k in cols_text for k in ["rumah", "properti", "tanah", "bangunan", "kamar", "lot_size", "sqft", "real_estate"]):
+        domain_name = "Properti & Real Estate"
+        domain_theme = "valuasi aset dan dinamika pasar properti"
+    elif any(k in cols_text for k in ["nilai", "ujian", "ipk", "belajar", "mahasiswa", "siswa", "kelulusan", "gpa", "score"]):
+        domain_name = "Edukasi & Akademik"
+        domain_theme = "performa belajar dan evaluasi pencapaian akademik"
+    else:
+        domain_name = "Sains & Analitik Terapan"
+        domain_theme = "hubungan kovariat dan dinamika sistem kuantitatif"
+
+    tgt_low = target_col.lower()
+    is_minimize = any(k in tgt_low for k in [
+        "risiko", "risk", "keparahan", "biaya", "cost", "expense", "rugi", "loss",
+        "cacat", "defect", "telat", "delay", "keterlambatan", "churn", "komplain",
+        "complaint", "downtime", "mogok", "absen", "absensi", "error", "kegagalan", "emisi"
+    ])
+
+    return {
+        "domain_name": domain_name,
+        "domain_theme": domain_theme,
+        "is_minimize": is_minimize,
+    }
+
+
+def get_or_compute_drift(pipeline: dict) -> dict:
+    if "drift_res" in pipeline:
+        return pipeline["drift_res"]
+
+    from csip.monitoring.drift_engine import DriftEngine
+
+    plot_df = pipeline.get("plot_df")
+    feats = pipeline.get("feature_cols", [])
+
+    if plot_df is None or len(plot_df) < 10 or not feats:
+        return {}
+
+    n = len(plot_df)
+    split_idx = max(int(n * 0.6), 2)
+    ref_df = plot_df.iloc[:split_idx]
+    curr_df = plot_df.iloc[split_idx:]
+
+    de = DriftEngine()
+    top_feats = [f for f in pipeline.get("stats_df", pd.DataFrame())["Fitur"] if f in feats][:5]
+    if not top_feats:
+        top_feats = feats[:5]
+
+    drift_res = de.evaluate_feature_drift(ref_df, curr_df, top_feats)
+    drift_res["ref_df"] = ref_df
+    drift_res["curr_df"] = curr_df
+    drift_res["ref_len"] = len(ref_df)
+    drift_res["curr_len"] = len(curr_df)
+    drift_res["top_feats"] = top_feats
+
+    feat_dict = drift_res.get("features", {})
+    if feat_dict:
+        sorted_feats = sorted(feat_dict.items(), key=lambda kv: float(kv[1].get("psi", 0.0)), reverse=True)
+        drift_res["top_drift_feat"] = sorted_feats[0][0]
+        drift_res["top_drift_psi"] = float(sorted_feats[0][1].get("psi", 0.0))
+        drift_res["top_drift_w"] = float(sorted_feats[0][1].get("wasserstein_distance", 0.0))
+    else:
+        drift_res["top_drift_feat"] = top_feats[0] if top_feats else ""
+        drift_res["top_drift_psi"] = 0.0
+        drift_res["top_drift_w"] = 0.0
+
+    if top_feats:
+        top1 = top_feats[0]
+        v_ref = ref_df[top1].dropna().values
+        v_curr = curr_df[top1].dropna().values
+        v_min = min(float(np.min(v_ref)), float(np.min(v_curr)))
+        v_max = max(float(np.max(v_ref)), float(np.max(v_curr)))
+        if v_max <= v_min:
+            v_max = v_min + 1.0
+        grid_x = np.linspace(v_min, v_max, 45)
+        try:
+            kde_ref = stats.gaussian_kde(v_ref)(grid_x)
+            kde_curr = stats.gaussian_kde(v_curr)(grid_x)
+        except Exception:
+            kde_ref = np.exp(-0.5 * ((grid_x - np.mean(v_ref)) / (np.std(v_ref) or 1.0)) ** 2)
+            kde_curr = np.exp(-0.5 * ((grid_x - np.mean(v_curr)) / (np.std(v_curr) or 1.0)) ** 2)
+        max_k = max(float(np.max(kde_ref)), float(np.max(kde_curr)), 1e-6)
+        norm_ref = kde_ref / max_k
+        norm_curr = kde_curr / max_k
+        overlap_pct = min(100.0, max(0.0, float(np.sum(np.minimum(norm_ref, norm_curr)) / (np.sum(norm_ref) + 1e-9) * 100.0)))
+        drift_res["overlap_pct"] = overlap_pct
+    else:
+        drift_res["overlap_pct"] = 99.0
+
+    pipeline["drift_res"] = drift_res
+    return drift_res
 
 
 # ==============================================================================
@@ -396,29 +457,17 @@ def build_lens3_ridgeline_svg(pipeline: dict, sim: dict, target_col: str) -> str
 
 
 def build_lens4_drift_svg(pipeline: dict, target_col: str = "") -> str:
-    from csip.monitoring.drift_engine import DriftEngine
-
-    plot_df = pipeline.get("plot_df")
-    feats = pipeline.get("feature_cols", [])
-
-    if plot_df is None or len(plot_df) < 10 or not feats:
+    drift_res = get_or_compute_drift(pipeline)
+    if not drift_res:
         return (
             '<div style="text-align:center; padding: 40px; color:#5A554B;">'
             'Data sampel belum mencukupi untuk evaluasi observatorium drift.'
             '</div>'
         )
 
-    n = len(plot_df)
-    split_idx = max(int(n * 0.6), 2)
-    ref_df = plot_df.iloc[:split_idx]
-    curr_df = plot_df.iloc[split_idx:]
-
-    de = DriftEngine()
-    top_feats = [f for f in pipeline.get("stats_df", pd.DataFrame())["Fitur"] if f in feats][:5]
-    if not top_feats:
-        top_feats = feats[:5]
-
-    drift_res = de.evaluate_feature_drift(ref_df, curr_df, top_feats)
+    ref_df = drift_res["ref_df"]
+    curr_df = drift_res["curr_df"]
+    top_feats = drift_res["top_feats"]
     summary = drift_res.get("summary", {})
     feat_dict = drift_res.get("features", {})
 
@@ -528,6 +577,17 @@ def build_lens4_drift_svg(pipeline: dict, target_col: str = "") -> str:
         tx = plot_left + ratio * plot_w
         tick_svg.append(f'<text x="{tx:.1f}" y="284" font-size="10.5" fill="#6A655A" text-anchor="middle">{fmt_num(tv)}</text>')
 
+    overlap_pct = float(drift_res.get("overlap_pct", 95.0))
+    if overlap_pct >= 85.0:
+        overlap_txt = f"Distribusi Selaras ({overlap_pct:.0f}%)"
+        overlap_bg = "#1D1B17"
+    elif overlap_pct >= 65.0:
+        overlap_txt = f"Pergeseran Ringan ({overlap_pct:.0f}%)"
+        overlap_bg = "#8A5A0C"
+    else:
+        overlap_txt = f"Divergensi Signifikan ({overlap_pct:.0f}%)"
+        overlap_bg = "#B5432F"
+
     svg_content = (
         '<div class="view4-wrap">'
         '<svg viewBox="0 0 860 348" preserveAspectRatio="xMidYMid meet" role="img" style="width:100%; height:auto; max-height:345px; display:block;">'
@@ -552,8 +612,8 @@ def build_lens4_drift_svg(pipeline: dict, target_col: str = "") -> str:
         + f'<line x1="{plot_left}" x2="{plot_right}" y1="{base_y}" y2="{base_y}" stroke="rgba(34,30,24,0.18)"/>'
         + f'<path d="{d_ref}" fill="url(#kdeTeal)" stroke="#0E6B63" stroke-width="2"/>'
         + f'<path d="{d_curr}" fill="url(#kdeAmber)" stroke="#E8A23B" stroke-width="2" stroke-dasharray="4 2.5"/>'
-        + f'<rect x="575" y="102" width="136" height="22" rx="11" fill="#1D1B17"/>'
-        + f'<text x="643" y="117" text-anchor="middle" font-size="10.8" font-weight="600" fill="#FFF">Distribusi Selaras (99%)</text>'
+        + f'<rect x="565" y="102" width="154" height="22" rx="11" fill="{overlap_bg}"/>'
+        + f'<text x="642" y="117" text-anchor="middle" font-size="10.8" font-weight="600" fill="#FFF">{overlap_txt}</text>'
         + "".join(tick_svg)
         + f'<text x="{(plot_left + plot_right)/2:.1f}" y="302" font-size="10.8" font-weight="500" fill="#5A554B" text-anchor="middle">{top1}</text>'
         + f'<circle cx="448" cy="324" r="4" fill="#0E6B63"/>'
@@ -561,10 +621,203 @@ def build_lens4_drift_svg(pipeline: dict, target_col: str = "") -> str:
         + f'<circle cx="585" cy="324" r="4" fill="#E8A23B"/>'
         + f'<text x="595" y="328" font-size="11" font-weight="500" fill="#3A362F">Terpantau (Live Stream)</text>'
         + f'<rect x="735" y="315" width="100" height="18" rx="9" fill="rgba(23,163,148,0.12)"/>'
-        + f'<text x="785" y="328" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0E6B63">Overlap Stabil</text>'
+        + f'<text x="785" y="328" text-anchor="middle" font-size="10.5" font-weight="600" fill="{status_color}">{status_label.title()}</text>'
         + '</svg></div>'
     )
     return svg_content
+
+
+def build_nara_strategic_counsel(
+    pipeline: dict,
+    sim: dict,
+    target_col: str,
+    schema_info: dict,
+    active_lens: str,
+    domain_ctx: dict,
+) -> str:
+    top1_row = pipeline["stats_df"].iloc[0]
+    top2_row = pipeline["stats_df"].iloc[1] if len(pipeline["stats_df"]) > 1 else top1_row
+    top1 = str(top1_row["Fitur"])
+    f1_unit = str(top1_row["Unit"])
+    f1_share = float(top1_row["Pengaruh_Persen"])
+    f1_r = float(top1_row["Pearson_r"])
+    f2_name = str(top2_row["Fitur"])
+    f2_share = float(top2_row["Pengaruh_Persen"])
+
+    t_meta = schema_info.get(target_col, {})
+    t_phrase = t_meta.get("phrase", target_col.lower())
+    t_unit = t_meta.get("unit", "")
+    short_unit = "poin" if "100" in t_unit else t_unit
+
+    cur_f1 = float(sim["current_x"])
+    tipping_x = float(sim["tipping_x"])
+    pred_v = float(sim["pred_val"])
+    base_v = float(sim["base_val"])
+    diff_v = float(sim["diff_val"])
+    diff_p = float(sim["diff_pct"])
+
+    dom_name = domain_ctx["domain_name"]
+    is_min = domain_ctx["is_minimize"]
+
+    is_favorable = (diff_v < -0.05) if is_min else (diff_v > 0.05)
+    is_neutral = abs(diff_v) <= 0.05
+    delta_str = f"{abs(diff_v):.2f} {short_unit}".strip()
+
+    if active_lens == "4. Observatorium Drift & Stabilitas":
+        drift = get_or_compute_drift(pipeline)
+        summary = drift.get("summary", {})
+        overall_st = summary.get("overall_status", "STABLE")
+        mean_psi = float(summary.get("mean_psi", 0.0))
+        ref_n = drift.get("ref_len", 0)
+        curr_n = drift.get("curr_len", 0)
+        overlap_p = float(drift.get("overlap_pct", 95.0))
+        top_drift_name = drift.get("top_drift_feat", top1)
+        top_drift_psi = float(drift.get("top_drift_psi", mean_psi))
+
+        if overall_st == "STABLE":
+            st_text = "Stabil"
+            headline = f"Audit stabilitas distribusi menghasilkan status <b>{st_text}</b>; distribusi data operasional terverifikasi <em>stabil</em> tanpa pergeseran berarti."
+            body = (
+                f"Audit drift membandingkan {ref_n:,} observasi acuan dengan {curr_n:,} observasi terpantau pada target <b>{target_col}</b>. "
+                f"Rata-rata PSI tercatat <b>{mean_psi:.4f}</b> (ambang aman &lt; 0.10). Fitur paling dinamis adalah <b>{top_drift_name}</b> "
+                f"dengan indeks stabilitas <b>{top_drift_psi:.4f}</b>. Keselarasan distribusi mencapai <b>{overlap_p:.0f}%</b>, "
+                f"sehingga model inferensi andal untuk memandu keputusan di sektor <em>{dom_name}</em> tanpa perlu re-training segera."
+            )
+            act_1 = f"Audit PSI: Terverifikasi Stabil ({mean_psi:.4f})"
+            act_2 = f"Integritas: Selaras ({overlap_p:.0f}%)"
+        elif overall_st == "WARNING":
+            st_text = "Waspada"
+            headline = f"Audit stabilitas distribusi menghasilkan status <b>{st_text}</b>; terdeteksi <em>pergeseran moderat</em> pada salah satu faktor utama."
+            body = (
+                f"Audit mendeteksi kenaikan variabilitas pada fitur <b>{top_drift_name}</b> (PSI: <b>{top_drift_psi:.4f}</b>) "
+                f"dengan rata-rata PSI sebesar <b>{mean_psi:.4f}</b>. Meskipun belum melampaui batas kritis 0.25, perubahan ini "
+                f"perlu dipantau secara berkala agar proyeksi estimasi <b>{target_col}</b> tetap presisi."
+            )
+            act_1 = f"Audit PSI: Pergeseran Moderat ({mean_psi:.4f})"
+            act_2 = f"Fokus Pemantauan: {top_drift_name}"
+        else:
+            st_text = "Drift Terdeteksi"
+            headline = f"Audit stabilitas distribusi menghasilkan status <b>{st_text}</b>; pergeseran distribusi <em>signifikan</em> dan disarankan kalibrasi ulang model."
+            body = (
+                f"Kovariat <b>{top_drift_name}</b> menunjukkan divergensi substansial (PSI: <b>{top_drift_psi:.4f}</b>) "
+                f"yang melewati ambang batas aman. Hal ini mengindikasikan adanya pergeseran pola pada domain <em>{dom_name}</em>. "
+                f"Disarankan melakukan penyesuaian bobot (*retraining*) menggunakan data observasi terkini."
+            )
+            act_1 = f"Audit PSI: Drift Terdeteksi ({mean_psi:.4f})"
+            act_2 = "Tindakan: Jadwalkan Kalibrasi Ulang"
+
+        tag = "Audit Integritas Data & Validitas Model • Lensa Stabilitas Kovariat"
+
+    elif active_lens == "2. Peringkat Faktor Penentu":
+        tag = f"Dekomposisi Pengaruh Fitur • Lensa Kepentingan ({dom_name})"
+        headline = (
+            f"Hierarki pengaruh didominasi oleh <b>{top1}</b> ({f1_share:.0f}%) dan <b>{f2_name}</b> ({f2_share:.0f}%); "
+            f"kombinasi keduanya menguasai <em>{f1_share + f2_share:.0f}%</em> dinamika {t_phrase}."
+        )
+        if is_min:
+            role_desc = "meredam" if f1_r < -0.05 else "memicu kenaikan"
+        else:
+            role_desc = "mendorong penguatan" if f1_r > 0.05 else "menggerus"
+
+        body = (
+            f"Dalam analisis multivariat domain <em>{dom_name}</em>, variabel <b>{top1}</b> memegang tuas pengendali utama ({f1_share:.0f}%). "
+            f"Arah korelasi empiris menunjukkan karakter <b>{top1_row['Arah_Singkat']}</b> (r = {f1_r:+.2f}), yang cenderung {role_desc} <b>{target_col}</b>. "
+            f"Sementara itu, <b>{f2_name}</b> bertindak sebagai faktor sekunder ({f2_share:.0f}%). "
+            f"Strategi operasional yang optimal hendaknya memprioritaskan alokasi sumber daya pada tuas <b>{top1.lower()}</b> sebelum menyentuh faktor pelengkap lainnya."
+        )
+        act_1 = f"Prioritas #1: Optimasi {top1}"
+        act_2 = f"Pilar Pendukung: Sinkronisasi {f2_name}"
+
+    elif active_lens == "3. Sebaran Kelompok Data":
+        tag = f"Segmentasi & Stratifikasi Populasi • Lensa Sebaran Data ({dom_name})"
+        groups = pipeline.get("ridge_groups", [])
+        g_hi = groups[0] if groups else {}
+        g_lo = groups[-1] if groups else {}
+        hi_med = float(g_hi.get("median", base_v))
+        lo_med = float(g_lo.get("median", base_v))
+
+        tier_curr = "Kelompok Atas" if pred_v >= (hi_med + base_v) / 2 else ("Kelompok Bawah" if pred_v <= (lo_med + base_v) / 2 else "Kelompok Menengah")
+
+        headline = (
+            f"Pemisahan sebaran {target_col.lower()} antar-strata terlihat kontras; "
+            f"posisi konfigurasi saat ini berada pada <em>{tier_curr}</em>."
+        )
+        body = (
+            f"Stratifikasi populasi memetakan 3 tingkatan data berdasarkan intensitas <b>{top1}</b>. "
+            f"Rentang perbedaan terlihat dari kelompok teratas (median {fmt_num(hi_med, short_unit)}) hingga terendah (median {fmt_num(lo_med, short_unit)}). "
+            f"Dengan konfigurasi tuas simulasi saat ini, estimasi target diproyeksikan mencapai <b>{fmt_num(pred_v, short_unit)}</b>. "
+            f"Posisi ini memberikan gambaran realistis mengenai segmentasi kinerja yang dapat dicapai dibandingkan populasi keseluruhan."
+        )
+        act_1 = f"Tingkat Saat Ini: {tier_curr}"
+        act_2 = f"Benchmark Acuan: {fmt_num(base_v, short_unit)}"
+
+    else:
+        tag = f"Diagnosis Respon & Titik Kritis • Lensa Intervensi ({dom_name})"
+
+        if is_min:
+            if is_favorable:
+                headline = (
+                    f"Konfigurasi tuas berhasil menekan {target_col.lower()}; "
+                    f"estimasi turun <em>{delta_str} ({abs(diff_p):.1f}%)</em> di bawah acuan standar."
+                )
+            elif is_neutral:
+                headline = (
+                    f"Nilai {target_col.lower()} berada dalam rentang acuan standar; "
+                    f"titik kritis berada di sekitar {top1.lower()} <em>{fmt_num(tipping_x, f1_unit)}</em>."
+                )
+            else:
+                headline = (
+                    f"Peringatan risiko pembengkakan {target_col.lower()}; "
+                    f"estimasi meningkat <em>+{delta_str} (+{diff_p:.1f}%)</em> di atas standar."
+                )
+            rec_action = (
+                f"Kendalikan <b>{top1.lower()}</b> pada posisi aman di sekitar <b>{fmt_num(tipping_x, f1_unit)}</b> "
+                f"untuk mencegah eskalasi biaya atau risiko yang tidak diinginkan pada {t_phrase}."
+            )
+        else:
+            if is_favorable:
+                headline = (
+                    f"Konfigurasi tuas mendorong akselerasi {target_col.lower()}; "
+                    f"estimasi melampaui acuan sebesar <em>+{delta_str} (+{diff_p:.1f}%)</em>."
+                )
+            elif is_neutral:
+                headline = (
+                    f"Performa {target_col.lower()} setara dengan nilai acuan; "
+                    f"titik akselerasi berada di sekitar {top1.lower()} <em>{fmt_num(tipping_x, f1_unit)}</em>."
+                )
+            else:
+                headline = (
+                    f"Estimasi {target_col.lower()} mengalami penurunan performa; "
+                    f"tertinggal <em>-{delta_str} ({diff_p:.1f}%)</em> di bawah standar acuan."
+                )
+            rec_action = (
+                f"Tingkatkan <b>{top1.lower()}</b> mendekati atau melampaui titik ungkit <b>{fmt_num(tipping_x, f1_unit)}</b> "
+                f"guna memicu kenaikan respons terbesar pada {t_phrase}."
+            )
+
+        body = (
+            f"Pada domain <em>{dom_name}</em>, kurva respon non-linier membuktikan bahwa <b>{top1}</b> menyumbang <b>{f1_share:.0f}%</b> "
+            f"pengaruh terhadap {t_phrase}, jauh melampaui <b>{f2_name}</b> (<b>{f2_share:.0f}%</b>). "
+            f"Infleksi perubahan paling sensitif terjadi di sekitar titik kritis <b>{fmt_num(tipping_x, f1_unit)}</b>. "
+            f"Pada posisi tuas <b>{fmt_num(cur_f1, f1_unit)}</b> saat ini, proyeksi model menghasilkan nilai <b>{fmt_num(pred_v, short_unit)}</b> "
+            f"(standar acuan: {fmt_num(base_v, short_unit)}). {rec_action}"
+        )
+        if f1_r <= -0.05:
+            act_1 = f"Kendali Tuas: Batasi {top1} ≤ {fmt_num(tipping_x, f1_unit)}"
+        else:
+            act_1 = f"Akselerasi Tuas: Optimalkan {top1} ≥ {fmt_num(tipping_x, f1_unit)}"
+        act_2 = f"Pilar Kompensasi: {f2_name} ({f2_share:.0f}%)"
+
+    card_html = (
+        f'<article class="narrative-card">'
+        f'{NARA_AVATAR_SVG}'
+        f'<div><div class="narr-tag">{tag}</div>'
+        f'<h3 class="headline">{headline}</h3></div>'
+        f'<div class="narr-body">{body}'
+        f'<div class="act-pills"><span>{act_1}</span><span>{act_2}</span></div>'
+        f'</div></article>'
+    )
+    return card_html
 
 
 # ==============================================================================
@@ -1039,8 +1292,8 @@ with col_deck:
         header_slot = st.empty()
 
         uploaded_csv = st.file_uploader(
-            "Tarik berkas CSV ke sini, atau pilih dari komputer",
-            type=["csv"],
+            "Tarik berkas CSV atau EXCEL (.xlsx, .xls) ke sini, atau pilih dari komputer",
+            type=["csv", "xlsx", "xls"],
         )
 
         preset_choice = st.selectbox(
@@ -1052,10 +1305,13 @@ with col_deck:
             ],
         )
 
-        st.caption("Cakupan Analitik: Optimal untuk metrik bisnis, transaksi, SDM, pemasaran, atau sains dengan variabel kontinu saling berkorelasi.")
+        st.caption("Cakupan Analitik: Optimal untuk metrik bisnis, transaksi, finansial, SDM, pemasaran, kesehatan, mutu manufaktur, atau sains dengan variabel kontinu saling berkorelasi.")
 
         if uploaded_csv is not None:
-            raw_df = pd.read_csv(uploaded_csv)
+            if uploaded_csv.name.lower().endswith((".xlsx", ".xls")):
+                raw_df = pd.read_excel(uploaded_csv)
+            else:
+                raw_df = pd.read_csv(uploaded_csv)
             dataset_title = f"Berkas: {uploaded_csv.name}"
         else:
             raw_df = get_builtin_dataset(preset_choice)
@@ -1185,30 +1441,50 @@ short_unit = "poin" if "100" in t_unit else t_unit
 
 
 with col_stage:
-    if sim["diff_pct"] >= 0.5:
-        tone_cls = "good"
-        pill_label = "Di atas standar"
-        delta_cls = "pos"
-        tint_rgba = "rgba(47,125,91,.28)"
-    elif sim["diff_pct"] <= -8.0:
-        tone_cls = "bad"
-        pill_label = "Perlu perhatian"
-        delta_cls = "neg"
-        tint_rgba = "rgba(181,67,47,.26)"
+    domain_ctx = detect_domain_context(dataset_title, human_cols, target_col)
+    is_min = domain_ctx["is_minimize"]
+
+    if is_min:
+        if sim["diff_pct"] <= -0.5:
+            tone_cls = "good"
+            pill_label = "Risiko Tertekan"
+            delta_cls = "pos"
+            tint_rgba = "rgba(47,125,91,.28)"
+        elif sim["diff_pct"] >= 0.5:
+            tone_cls = "bad"
+            pill_label = "Perlu Perhatian"
+            delta_cls = "neg"
+            tint_rgba = "rgba(181,67,47,.26)"
+        else:
+            tone_cls = "warn"
+            pill_label = "Terkendali Standar"
+            delta_cls = "pos"
+            tint_rgba = "rgba(232,162,59,.28)"
     else:
-        tone_cls = "warn"
-        pill_label = "Di bawah standar" if sim["diff_val"] < -0.1 else "Setara standar"
-        delta_cls = "neg" if sim["diff_val"] < -0.1 else "pos"
-        tint_rgba = "rgba(232,162,59,.28)"
+        if sim["diff_pct"] >= 0.5:
+            tone_cls = "good"
+            pill_label = "Di Atas Standar"
+            delta_cls = "pos"
+            tint_rgba = "rgba(47,125,91,.28)"
+        elif sim["diff_pct"] <= -0.5:
+            tone_cls = "bad"
+            pill_label = "Perlu Perhatian"
+            delta_cls = "neg"
+            tint_rgba = "rgba(181,67,47,.26)"
+        else:
+            tone_cls = "warn"
+            pill_label = "Setara Standar"
+            delta_cls = "pos"
+            tint_rgba = "rgba(232,162,59,.28)"
 
     f1_name_low = top1_row["Fitur"].lower()
     tgt_name_low = target_col.lower()
     if top1_row["Pearson_r"] < -0.05:
-        dir_short_text = f"Makin tinggi, {tgt_name_low} turun"
+        dir_short_text = f"Makin tinggi, {tgt_name_low} ditekan turun" if is_min else f"Makin tinggi, {tgt_name_low} tergerus turun"
     elif top1_row["Pearson_r"] > 0.05:
-        dir_short_text = f"Makin tinggi, {tgt_name_low} naik"
+        dir_short_text = f"Makin tinggi, {tgt_name_low} membengkak naik" if is_min else f"Makin tinggi, {tgt_name_low} terdongkrak naik"
     else:
-        dir_short_text = "Pengaruh seimbang"
+        dir_short_text = "Pengaruh seimbang (ambang batas)"
 
     bento_html = (
         f'<div class="bento">'
@@ -1250,13 +1526,19 @@ with col_stage:
             )
 
         if active_lens == "1. Kurva Simulasi dan Titik Kritis":
-            dynamic_chart_title = f"{target_col} mulai bergeser di sekitar {top1_row['Fitur'].lower()} {fmt_num(sim['tipping_x'], top1_row['Unit'])}"
+            if is_min:
+                dynamic_chart_title = f"Titik kritis kenaikan {tgt_name_low} berada di sekitar {f1_name_low} {fmt_num(sim['tipping_x'], top1_row['Unit'])}"
+            else:
+                dynamic_chart_title = f"{target_col} mengalami akselerasi di sekitar {f1_name_low} {fmt_num(sim['tipping_x'], top1_row['Unit'])}"
         elif active_lens == "2. Peringkat Faktor Penentu":
-            dynamic_chart_title = f"{top1_row['Fitur']} menyumbang {top1_row['Pengaruh_Persen']:.0f}% pengaruh terhadap {target_col.lower()}"
+            dynamic_chart_title = f"{top1_row['Fitur']} menyumbang {top1_row['Pengaruh_Persen']:.0f}% pengaruh terhadap {tgt_name_low}"
         elif active_lens == "3. Sebaran Kelompok Data":
-            dynamic_chart_title = f"Perbedaan sebaran {target_col.lower()} pada tiap tingkatan {top1_row['Fitur'].lower()}"
+            dynamic_chart_title = f"Perbedaan sebaran {tgt_name_low} pada tiap tingkatan {f1_name_low}"
         else:
-            dynamic_chart_title = f"Distribusi {target_col.lower()} & faktor penentu terpantau stabil"
+            drift_data = get_or_compute_drift(pipeline)
+            st_lbl = drift_data.get("summary", {}).get("overall_status", "STABLE")
+            lbl_ind = "Distribusi Stabil" if st_lbl == "STABLE" else ("Pergeseran Moderat" if st_lbl == "WARNING" else "Drift Terdeteksi")
+            dynamic_chart_title = f"Audit stabilitas distribusi {tgt_name_low} ({lbl_ind})"
 
         with ch_l:
             st.markdown(
@@ -1274,26 +1556,12 @@ with col_stage:
         else:
             st.markdown(build_lens4_drift_svg(pipeline, target_col), unsafe_allow_html=True)
 
-    if active_lens == "4. Observatorium Drift & Stabilitas":
-        narrative_html = (
-            f'<article class="narrative-card">'
-            f'{NARA_AVATAR_SVG}'
-            f'<div><div class="narr-tag">Audit Integritas Model & Stabilitas Kovariat</div>'
-            f'<h3 class="headline">Distribusi data operasional terverifikasi <em>stabil</em>, model andal untuk keputusan.</h3></div>'
-            f'<div class="narr-body">Seluruh fitur prediktif utama berada dalam ambang batas aman Population Stability Index (PSI &lt; 0.10). '
-            f'Tidak ada pergeseran distribusi ekstrem yang memerlukan kalibrasi ulang (*retrain*) mendesak. '
-            f'Hasil proyeksi dan simulator keputusan memiliki kepastian statistik yang kokoh.'
-            f'<div class="act-pills"><span>Audit PSI: Terverifikasi Stabil</span><span>Status Produksi: Optimal</span></div>'
-            f'</div></article>'
-        )
-    else:
-        narrative_html = (
-            f'<article class="narrative-card">'
-            f'{NARA_AVATAR_SVG}'
-            f'<div><div class="narr-tag">Kesimpulan untuk posisi tuas saat ini</div>'
-            f'<h3 class="headline">{sim["headline_main"]} <em>{sim["headline_em"]}</em></h3></div>'
-            f'<div class="narr-body">{sim["narrative_body"]}'
-            f'<div class="act-pills"><span>{sim["act_1"]}</span><span>{sim["act_2"]}</span></div>'
-            f'</div></article>'
-        )
+    narrative_html = build_nara_strategic_counsel(
+        pipeline=pipeline,
+        sim=sim,
+        target_col=target_col,
+        schema_info=schema_info,
+        active_lens=active_lens,
+        domain_ctx=domain_ctx,
+    )
     st.markdown(narrative_html, unsafe_allow_html=True)

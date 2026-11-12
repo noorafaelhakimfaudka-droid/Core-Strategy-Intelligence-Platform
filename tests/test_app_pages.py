@@ -83,3 +83,32 @@ def test_analytical_scope_and_limitations_visible() -> None:
     full_caption_text = " ".join(captions)
     assert "Cakupan Analitik" in full_caption_text
     assert "variabel kontinu" in full_caption_text
+
+
+@pytest.mark.parametrize(
+    "dataset_preset",
+    [
+        "Kasus 1: Toko Online & Kepuasan Pembeli (Data Olist)",
+        "Kasus 2: Risiko Kesehatan & Gaya Hidup (Data Medis)",
+        "Kasus 3: Kualitas Produk & Komposisi Bahan (Data Mutu)",
+    ],
+)
+def test_cross_domain_datasets_render(dataset_preset: str) -> None:
+    """Verifies that switching between distinct cross-domain datasets renders cleanly."""
+    at = AppTest.from_file(str(APP_PATH), default_timeout=25)
+    at.run(timeout=25)
+    assert not at.exception
+
+    preset_selectbox = None
+    for sb in at.selectbox:
+        if dataset_preset in sb.options:
+            preset_selectbox = sb
+            break
+
+    assert preset_selectbox is not None, f"Could not find selectbox with '{dataset_preset}'"
+    preset_selectbox.select(dataset_preset)
+    at.run(timeout=25)
+
+    if at.exception:
+        pytest.fail(f"Selecting preset '{dataset_preset}' raised uncaught exception: {at.exception[0]}")
+
