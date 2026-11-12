@@ -3,7 +3,7 @@
 from pathlib import Path
 import re
 
-root = Path("c:/Users/asus/.gemini/antigravity/scratch/csip_v15")
+root = Path(__file__).resolve().parent.parent
 patterns = [
     r"60\s*VERIFIED",
     r"3\s*PARTIALLY_VERIFIED",

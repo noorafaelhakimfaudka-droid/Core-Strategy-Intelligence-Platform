@@ -86,9 +86,9 @@ CSIP FINAL 1.0.0 strictly maps all **11 Units, 27 Elements, and 63 KUKs** under 
 ## 5. Independent Verification & Quality Assurance Summary
 
 The platform has been validated through 4 non-interfering reproducibility tracks:
-1. **Master Quality Gates**: **19/19 PASSED** ([`reports/final/FINAL_QUALITY_GATES_REPORT.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip_final/reports/final/FINAL_QUALITY_GATES_REPORT.md)).
-2. **Documentation Consistency**: **11/11 Checks PASSED** ([`reports/final/FINAL_DOCUMENTATION_VALIDATION_REPORT.md`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip_final/reports/final/FINAL_DOCUMENTATION_VALIDATION_REPORT.md)).
-3. **Automated Release Gates**: **10/10 PASSED** ([`tests/test_final_release_gates.py`](file:///C:/Users/asus/.gemini/antigravity/scratch/csip_final/tests/test_final_release_gates.py)).
+1. **Master Quality Gates**: **19/19 PASSED** ([`reports/final/FINAL_QUALITY_GATES_REPORT.md`](reports/final/FINAL_QUALITY_GATES_REPORT.md)).
+2. **Documentation Consistency**: **11/11 Checks PASSED** ([`reports/final/FINAL_DOCUMENTATION_VALIDATION_REPORT.md`](reports/final/FINAL_DOCUMENTATION_VALIDATION_REPORT.md)).
+3. **Automated Release Gates**: **10/10 PASSED** ([`tests/test_final_release_gates.py`](tests/test_final_release_gates.py)).
 4. **Cryptographic Checksum Manifest**: **366/366 Physical Files 100% Bitwise Identical** (`SHA256SUMS_FINAL.txt`).
 
 ---

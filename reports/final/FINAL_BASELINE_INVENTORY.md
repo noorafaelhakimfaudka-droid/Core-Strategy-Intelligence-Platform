@@ -13,14 +13,14 @@
 
 ## 1. Executive Summary of Baseline State
 
-Prior to initiating modifications for the final consolidation release (**CSIP FINAL 1.0.0**), an exhaustive forensic inventory of the extracted V16 source code repository (`c:\Users\asus\.gemini\antigravity\scratch\csip_final`) was conducted. The archive was verified bitwise identical with the 361 tracked files in `AUDIT/SHA256SUMS.txt` and `SHA256SUMS_V16.txt`.
+Prior to initiating modifications for the final consolidation release (**CSIP FINAL 1.0.0**), an exhaustive forensic inventory of the extracted V16 source code repository was conducted. The archive was verified bitwise identical with the 361 tracked files in `AUDIT/SHA256SUMS.txt` and `SHA256SUMS_V16.txt`.
 
 While V16 demonstrated major advances in automated testing (161 passing tests) and SKKNI 299/2020 verbatim alignment, the forensic inspection confirmed the presence of seven critical material defects that must be resolved in this final release:
 1. **Model Metric Inconsistencies**: Release manifests and executive summaries reported inflated or simulation-derived metrics (e.g., ROC-AUC `0.8711`, delay MAE `2.14` days) that contradicted the actual experimental test split results in `artifacts/reports/ml_leaderboard.json` (ROC-AUC `0.6745`, delay MAE `4.8256` days).
 2. **Model Artifact Path Inconsistencies**: Model artifact references in `V16_RELEASE_MANIFEST.json` cited idealized names (`negative_review_lgbm.joblib`, `delivery_delay_lgbm.joblib`) instead of the actual physical files on disk (`best_negative_review_lightgbm.joblib`, `best_delivery_delay_lightgbm.joblib`).
 3. **Competency Unit Code Inconsistencies**: While canonical JSON and registry tables used the legal SKKNI 299/2020 Data Management and Data Science prefix `J.62DMI00`, `EVIDENCE_INTEGRITY_REPORT.md` erroneously used `J.62DCO00`.
 4. **Missing Documented Pipeline Script**: `V16_REPRODUCIBILITY_REPORT.md` referenced `scripts/run_full_retraining.py`, but the script was absent from the repository.
-5. **Hardcoded Machine-Specific Windows Paths**: Several audit and reconciliation scripts contained hardcoded absolute paths (`C:\Users\asus\...`) violating cross-platform portability.
+5. **Hardcoded Machine-Specific Windows Paths**: Several audit and reconciliation scripts previously contained hardcoded machine-specific absolute paths violating cross-platform portability.
 6. **Documentation Validation Tool Limitations**: `tools/validate_documentation_consistency.py` validated existence and regex invariants but did not cross-reference model manifest values against the actual leaderboard JSON.
 7. **Consolidation Release Identity**: Requirement to transition project release metadata from temporary iteration `16.0.0` to the permanent product identity: **CSIP FINAL 1.0.0**.
 

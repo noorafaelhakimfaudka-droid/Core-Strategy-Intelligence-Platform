@@ -290,8 +290,8 @@ Aplikasi utama CSIP berjalan sebagai **CSIP Studio (`app/streamlit_app.py`)** â€
 
 ### 1. Kloning Repositori & Penyiapan Virtual Environment
 ```bash
-git clone https://github.com/your-org/csip.git
-cd csip
+git clone https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform.git
+cd Core-Strategy-Intelligence-Platform
 
 # Buat lingkungan virtual mandiri
 python -m venv .venv
@@ -397,10 +397,10 @@ Proyek ini dirilis secara sumber terbuka (*open-source*) di bawah naungan **Lise
 
 ```bibtex
 @software{csip2026,
-  author = Rafael Hakim Souissa,
+  author = {Noorafael Hakim Faudka},
   title = {Core Strategy & Intelligence Platform (CSIP): Platform Pembelajaran Mesin Perilaku Enterprise & Observatorium Konsep Drift},
   year = {2026},
   version = {1.0.0},
-  url = {https://github.com/your-org/csip}
+  url = {https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform}
 }
 ```
