@@ -94,7 +94,7 @@ def main() -> int:
         "CSIP CREDENTIAL & SECRET SCAN REPORT",
         "================================================================================",
         f"Scan Timestamp (UTC): {datetime.now(timezone.utc).isoformat()}",
-        f"Repository Root: {REPO_ROOT}",
+        f"Repository Root: . (Workspace Root)",
         f"Total Files Scanned: {summary['scanned_files']:,}",
         f"Total Bytes Analyzed: {summary['scanned_bytes']:,} bytes ({summary['scanned_bytes'] / (1024*1024):.2f} MB)",
         f"Detection Patterns Applied: {len(summary['patterns_applied'])} ({', '.join(summary['patterns_applied'])})",
