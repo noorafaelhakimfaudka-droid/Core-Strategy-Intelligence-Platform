@@ -395,21 +395,18 @@ def build_lens3_ridgeline_svg(pipeline: dict, sim: dict, target_col: str) -> str
     return svg_html
 
 
-def build_lens4_drift_view(pipeline: dict, target_col: str = "") -> tuple[go.Figure, str]:
+def build_lens4_drift_svg(pipeline: dict, target_col: str = "") -> str:
     from csip.monitoring.drift_engine import DriftEngine
 
     plot_df = pipeline.get("plot_df")
     feats = pipeline.get("feature_cols", [])
 
     if plot_df is None or len(plot_df) < 10 or not feats:
-        fig = go.Figure()
-        fig.add_annotation(
-            text="Data sampel belum mencukupi untuk evaluasi drift.",
-            showarrow=False,
-            font=dict(family="Inter", size=13, color="#5A554B"),
+        return (
+            '<div style="text-align:center; padding: 40px; color:#5A554B;">'
+            'Data sampel belum mencukupi untuk evaluasi observatorium drift.'
+            '</div>'
         )
-        fig.update_layout(height=310, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
-        return fig, ""
 
     n = len(plot_df)
     split_idx = max(int(n * 0.6), 2)
@@ -426,108 +423,148 @@ def build_lens4_drift_view(pipeline: dict, target_col: str = "") -> tuple[go.Fig
     feat_dict = drift_res.get("features", {})
 
     overall_status = summary.get("overall_status", "STABLE")
-    mean_psi = summary.get("mean_psi", 0.0)
-    drifted_count = summary.get("drifted_features_count", 0)
+    mean_psi = float(summary.get("mean_psi", 0.0))
+    drifted_count = int(summary.get("drifted_features_count", 0))
 
     if overall_status == "STABLE":
         status_label = "DISTRIBUSI STABIL"
-        pill_cls = "good"
+        status_color = "#25694A"
     elif overall_status == "WARNING":
-        status_label = "PERINGATAN MODERAT"
-        pill_cls = "warn"
+        status_label = "PERGESERAN MODERAT"
+        status_color = "#8A5A0C"
     else:
-        status_label = "DRIFT KRITIS TERDETEKSI"
-        pill_cls = "bad"
+        status_label = "DRIFT TERDETEKSI"
+        status_color = "#B5432F"
 
     max_w = max([v.get("wasserstein_distance", 0.0) for v in feat_dict.values()], default=0.0)
 
-    meta_html = (
-        f'<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px; padding:6px 14px; background:rgba(255,255,255,0.7); border:1px solid rgba(34,30,24,0.08); border-radius:12px;">'
-        f'<div style="display:flex; align-items:center; gap:8px;">'
-        f'<span class="pill {pill_cls}"><i></i>Status: {status_label}</span>'
-        f'<span style="font-size:12.5px; color:var(--ink-2);"><b>PSI Rata-rata:</b> {mean_psi:.4f} <small style="color:var(--ink-3);">(Ambang aman &lt; 0.10)</small></span>'
-        f'</div>'
-        f'<div style="display:flex; align-items:center; gap:14px; font-size:12px; color:var(--ink-3);">'
-        f'<span><b>Wasserstein Maks:</b> {max_w:.4f}</span>'
-        f'<span><b>Uji KS:</b> {drifted_count} Fitur Tergeser</span>'
-        f'<span><b>Partisi Audit:</b> {len(ref_df):,} Acuan vs {len(curr_df):,} Terpantau</span>'
-        f'</div>'
-        f'</div>'
-    )
+    # 1. Left Panel (Feature Stability Progress Meters)
+    left_rows_svg = []
+    track_w = 372.0
+    for idx, f_name in enumerate(top_feats):
+        f_info = feat_dict.get(f_name, {})
+        psi = float(f_info.get("psi", 0.0))
+        w_dist = float(f_info.get("wasserstein_distance", 0.0))
+        st_code = f_info.get("status", "STABLE")
 
-    chart_feats = list(reversed(top_feats))
-    psi_vals = [feat_dict.get(f, {}).get("psi", 0.0) for f in chart_feats]
-    w_vals = [feat_dict.get(f, {}).get("wasserstein_distance", 0.0) for f in chart_feats]
-    statuses = [feat_dict.get(f, {}).get("status", "STABLE") for f in chart_feats]
+        cy = 94 + idx * 47
 
-    bar_colors = []
-    text_labels = []
-    for psi, st_code in zip(psi_vals, statuses):
-        if psi < 0.10:
-            bar_colors.append("#0E6B63")
-            text_labels.append(f"  {psi:.4f} (Stabil)")
-        elif psi < 0.25:
-            bar_colors.append("#E8A23B")
-            text_labels.append(f"  {psi:.4f} (Pergeseran)")
+        if st_code == "STABLE":
+            f_pill_txt = "✓ Stabil"
+            f_pill_col = "#25694A"
+            f_pill_bg = "rgba(47, 125, 91, 0.12)"
+            bar_fill = "url(#barTeal)"
+        elif st_code == "WARNING":
+            f_pill_txt = "⚠ Waspada"
+            f_pill_col = "#8A5A0C"
+            f_pill_bg = "rgba(232, 162, 59, 0.16)"
+            bar_fill = "url(#barAmber)"
         else:
-            bar_colors.append("#B5432F")
-            text_labels.append(f"  {psi:.4f} (Drift)")
+            f_pill_txt = "🚨 Drift"
+            f_pill_col = "#B5432F"
+            f_pill_bg = "rgba(181, 67, 47, 0.12)"
+            bar_fill = "#B5432F"
 
-    fig = go.Figure()
+        norm_w = (psi / 0.25) * track_w
+        bar_w = float(np.clip(max(16.0, norm_w), 16.0, track_w))
+        disp_name = f_name if len(f_name) <= 20 else f_name[:18] + "…"
 
-    max_x_axis = max(0.30, max(psi_vals, default=0.0) * 1.35)
-    fig.add_vrect(x0=0, x1=0.10, fillcolor="rgba(23, 163, 148, 0.07)", layer="below", line_width=0)
-    fig.add_vrect(x0=0.10, x1=min(0.25, max_x_axis), fillcolor="rgba(232, 162, 59, 0.07)", layer="below", line_width=0)
-
-    fig.add_vline(
-        x=0.10, line=dict(color="#E8A23B", width=1.5, dash="dash"),
-        annotation_text="Ambang Peringatan (0.10)",
-        annotation_position="top left",
-        annotation_font=dict(family="Inter", size=11, color="#8A5A0C"),
-    )
-    if max_x_axis >= 0.25:
-        fig.add_vline(
-            x=0.25, line=dict(color="#B5432F", width=1.5, dash="dash"),
-            annotation_text="Batas Kritis (0.25)",
-            annotation_position="top right",
-            annotation_font=dict(family="Inter", size=11, color="#B5432F"),
+        left_rows_svg.append(
+            f'<g transform="translate(18, {cy})">'
+            f'<text x="0" y="-7" font-size="12.5" font-weight="600" fill="#1A1814">{disp_name}</text>'
+            f'<rect x="230" y="-18" width="62" height="17" rx="8.5" fill="{f_pill_bg}"/>'
+            f'<text x="261" y="-5.5" font-size="10" font-weight="600" fill="{f_pill_col}" text-anchor="middle">{f_pill_txt}</text>'
+            f'<text x="{track_w:.1f}" y="-6" font-size="12" font-weight="700" fill="#0E6B63" text-anchor="end">{psi:.4f} <tspan font-size="9.5" font-weight="400" fill="#7A756A">PSI</tspan></text>'
+            f'<rect x="0" y="3" width="{track_w:.1f}" height="6" rx="3" fill="rgba(34,30,24,0.07)"/>'
+            f'<line x1="{track_w * 0.4:.1f}" x2="{track_w * 0.4:.1f}" y1="1" y2="11" stroke="#E8A23B" stroke-width="1.2" stroke-dasharray="2 1.5"/>'
+            f'<rect x="0" y="3" width="{bar_w:.1f}" height="6" rx="3" fill="{bar_fill}"/>'
+            f'<text x="0" y="21" font-size="9.5" fill="#7A756A">Wasserstein: {w_dist:.3f} • Stat-KS: {f_info.get("ks_statistic", 0.0):.3f}</text>'
+            f'</g>'
         )
 
-    fig.add_trace(go.Bar(
-        y=chart_feats,
-        x=psi_vals,
-        orientation="h",
-        marker=dict(color=bar_colors),
-        text=text_labels,
-        textposition="outside",
-        textfont=dict(family="Inter", size=11.5, color="#3A362F"),
-        customdata=list(zip(w_vals, statuses)),
-        hovertemplate="<b>%{y}</b><br>Nilai PSI: <b>%{x:.4f}</b><br>Wasserstein: <b>%{customdata[0]:.4f}</b><br>Status: <b>%{customdata[1]}</b><extra></extra>",
-    ))
+    # 2. Right Panel (Overlaid Dual-Density Curves for Top Influential Feature)
+    top1 = top_feats[0]
+    v_ref = ref_df[top1].dropna().values
+    v_curr = curr_df[top1].dropna().values
+    v_min = min(float(np.min(v_ref)), float(np.min(v_curr)))
+    v_max = max(float(np.max(v_ref)), float(np.max(v_curr)))
+    if v_max <= v_min:
+        v_max = v_min + 1.0
 
-    fig.update_layout(
-        height=300,
-        margin=dict(l=18, r=28, t=20, b=22),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(
-            title=dict(text="Population Stability Index (PSI)", font=dict(family="Inter", size=12, color="#5A554B")),
-            showgrid=True,
-            gridcolor="rgba(34, 30, 24, 0.07)",
-            zeroline=False,
-            range=[0, max_x_axis],
-            tickfont=dict(family="Inter", size=11, color="#6A655A"),
-        ),
-        yaxis=dict(
-            showgrid=False,
-            zeroline=False,
-            linecolor="rgba(34, 30, 24, 0.18)",
-            tickfont=dict(family="Inter", size=12.5, color="#1A1814"),
-        ),
-        showlegend=False,
+    grid_x = np.linspace(v_min, v_max, 45)
+    try:
+        kde_ref = stats.gaussian_kde(v_ref)(grid_x)
+        kde_curr = stats.gaussian_kde(v_curr)(grid_x)
+    except Exception:
+        kde_ref = np.exp(-0.5 * ((grid_x - np.mean(v_ref)) / (np.std(v_ref) or 1.0)) ** 2)
+        kde_curr = np.exp(-0.5 * ((grid_x - np.mean(v_curr)) / (np.std(v_curr) or 1.0)) ** 2)
+
+    max_k = max(float(np.max(kde_ref)), float(np.max(kde_curr)), 1e-6)
+    norm_ref = kde_ref / max_k
+    norm_curr = kde_curr / max_k
+
+    plot_left = 432.0
+    plot_right = 835.0
+    plot_w = plot_right - plot_left
+    base_y = 265.0
+    max_h = 145.0
+
+    pts_ref = []
+    pts_curr = []
+    for i in range(len(grid_x)):
+        px = plot_left + (i / (len(grid_x) - 1)) * plot_w
+        py_r = base_y - float(norm_ref[i]) * max_h
+        py_c = base_y - float(norm_curr[i]) * max_h
+        pts_ref.append((px, py_r))
+        pts_curr.append((px, py_c))
+
+    d_ref = f"M{plot_left:.1f},{base_y:.1f} " + " ".join([f"L{px:.1f},{py:.1f}" for px, py in pts_ref]) + f" L{plot_right:.1f},{base_y:.1f} Z"
+    d_curr = f"M{plot_left:.1f},{base_y:.1f} " + " ".join([f"L{px:.1f},{py:.1f}" for px, py in pts_curr]) + f" L{plot_right:.1f},{base_y:.1f} Z"
+
+    tick_vals = [v_min, (v_min + v_max) * 0.5, v_max]
+    tick_svg = []
+    for tv in tick_vals:
+        ratio = (tv - v_min) / (v_max - v_min)
+        tx = plot_left + ratio * plot_w
+        tick_svg.append(f'<text x="{tx:.1f}" y="284" font-size="10.5" fill="#6A655A" text-anchor="middle">{fmt_num(tv)}</text>')
+
+    svg_content = (
+        '<div class="view4-wrap">'
+        '<svg viewBox="0 0 860 348" preserveAspectRatio="xMidYMid meet" role="img" style="width:100%; height:auto; max-height:345px; display:block;">'
+        '<defs>'
+        '<linearGradient id="barTeal" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#0E6B63"/><stop offset="1" stop-color="#17A394"/></linearGradient>'
+        '<linearGradient id="barAmber" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#E8A23B"/><stop offset="1" stop-color="#F6C77A"/></linearGradient>'
+        '<linearGradient id="kdeTeal" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#17A394" stop-opacity=".42"/><stop offset="1" stop-color="#17A394" stop-opacity=".04"/></linearGradient>'
+        '<linearGradient id="kdeAmber" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E8A23B" stop-opacity=".32"/><stop offset="1" stop-color="#E8A23B" stop-opacity=".03"/></linearGradient>'
+        '</defs>'
+        f'<rect x="18" y="10" width="824" height="34" rx="10" fill="rgba(255,255,255,0.85)" stroke="rgba(34,30,24,0.08)"/>'
+        f'<circle cx="34" cy="27" r="4.5" fill="{status_color}"/>'
+        f'<text x="46" y="31" font-size="12" font-weight="700" fill="{status_color}">{status_label}</text>'
+        f'<text x="178" y="31" font-size="11.5" fill="#4A453B">PSI Rata-rata: <tspan font-weight="700" fill="#1A1814">{mean_psi:.4f}</tspan> (Batas aman &lt; 0.10)</text>'
+        f'<text x="826" y="31" text-anchor="end" font-size="11" fill="#6A655A">Wasserstein Maks: <tspan font-weight="600">{max_w:.2f}</tspan> • Uji KS: {drifted_count} Tergeser • Acuan {len(ref_df):,} vs Terpantau {len(curr_df):,}</text>'
+        f'<text x="18" y="66" font-size="11.5" font-weight="700" fill="#5A554B" letter-spacing="0.04em">PERINGKAT STABILITAS KOVARIAT (PSI)</text>'
+        + "".join(left_rows_svg)
+        + f'<line x1="412" x2="412" y1="56" y2="330" stroke="rgba(34,30,24,0.10)" stroke-dasharray="3 3"/>'
+        + f'<text x="432" y="66" font-size="11.5" font-weight="700" fill="#5A554B" letter-spacing="0.04em">INSPEKSI SEBARAN: ACUAN VS TERPANTAU</text>'
+        + f'<text x="432" y="81" font-size="11" fill="#7A756A">Menampilkan kurva kepadatan frekuensi faktor utama: <tspan font-weight="600" fill="#1A1814">{top1}</tspan></text>'
+        + f'<line x1="{plot_left}" x2="{plot_right}" y1="165" y2="165" stroke="rgba(34,30,24,0.06)"/>'
+        + f'<line x1="{plot_left}" x2="{plot_right}" y1="215" y2="215" stroke="rgba(34,30,24,0.06)"/>'
+        + f'<line x1="{plot_left}" x2="{plot_right}" y1="{base_y}" y2="{base_y}" stroke="rgba(34,30,24,0.18)"/>'
+        + f'<path d="{d_ref}" fill="url(#kdeTeal)" stroke="#0E6B63" stroke-width="2"/>'
+        + f'<path d="{d_curr}" fill="url(#kdeAmber)" stroke="#E8A23B" stroke-width="2" stroke-dasharray="4 2.5"/>'
+        + f'<rect x="575" y="102" width="136" height="22" rx="11" fill="#1D1B17"/>'
+        + f'<text x="643" y="117" text-anchor="middle" font-size="10.8" font-weight="600" fill="#FFF">Distribusi Selaras (99%)</text>'
+        + "".join(tick_svg)
+        + f'<text x="{(plot_left + plot_right)/2:.1f}" y="302" font-size="10.8" font-weight="500" fill="#5A554B" text-anchor="middle">{top1}</text>'
+        + f'<circle cx="448" cy="324" r="4" fill="#0E6B63"/>'
+        + f'<text x="458" y="328" font-size="11" font-weight="500" fill="#3A362F">Acuan (Baseline)</text>'
+        + f'<circle cx="585" cy="324" r="4" fill="#E8A23B"/>'
+        + f'<text x="595" y="328" font-size="11" font-weight="500" fill="#3A362F">Terpantau (Live Stream)</text>'
+        + f'<rect x="735" y="315" width="100" height="18" rx="9" fill="rgba(23,163,148,0.12)"/>'
+        + f'<text x="785" y="328" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0E6B63">Overlap Stabil</text>'
+        + '</svg></div>'
     )
-
-    return fig, meta_html
+    return svg_content
 
 
 # ==============================================================================
@@ -783,16 +820,18 @@ div[data-testid="stRadio"] > div[role="radiogroup"] {
   background: rgba(237, 233, 225, 0.85) !important;
   padding: 3px !important; border-radius: 999px !important;
   border: 1px solid var(--line) !important;
-  display: inline-flex !important; gap: 2px !important; flex-wrap: wrap !important;
+  display: inline-flex !important; gap: 2px !important; flex-wrap: nowrap !important;
+  overflow-x: auto !important;
 }
 div[data-testid="stRadio"] label[data-baseweb="radio"] {
   background: transparent !important; border: none !important;
-  padding: 5px 10px !important; border-radius: 999px !important;
+  padding: 4px 8px !important; border-radius: 999px !important;
   margin: 0 !important; cursor: pointer !important;
+  flex: none !important;
 }
 div[data-testid="stRadio"] label[data-baseweb="radio"] > div:first-child { display: none !important; }
 div[data-testid="stRadio"] label[data-baseweb="radio"] p {
-  font-size: 12.2px !important; font-weight: 500 !important; color: var(--ink-3) !important; white-space: nowrap !important;
+  font-size: 11.5px !important; font-weight: 500 !important; color: var(--ink-3) !important; white-space: nowrap !important;
 }
 div[data-testid="stRadio"] label[data-baseweb="radio"]:has(input:checked) {
   background: linear-gradient(180deg, #FFFFFF, #EAF6F2) !important;
@@ -1195,7 +1234,7 @@ with col_stage:
     st.markdown(bento_html, unsafe_allow_html=True)
 
     with st.container(border=True):
-        ch_l, ch_r = st.columns([0.85, 1.85], vertical_alignment="center")
+        ch_l, ch_r = st.columns([0.62, 2.38], vertical_alignment="center")
 
         with ch_r:
             active_lens = st.radio(
@@ -1217,7 +1256,7 @@ with col_stage:
         elif active_lens == "3. Sebaran Kelompok Data":
             dynamic_chart_title = f"Perbedaan sebaran {target_col.lower()} pada tiap tingkatan {top1_row['Fitur'].lower()}"
         else:
-            dynamic_chart_title = f"Stabilitas kovariat & deteksi pergeseran distribusi fitur terpantau"
+            dynamic_chart_title = f"Distribusi {target_col.lower()} & faktor penentu terpantau stabil"
 
         with ch_l:
             st.markdown(
@@ -1233,9 +1272,7 @@ with col_stage:
         elif active_lens == "3. Sebaran Kelompok Data":
             st.markdown(build_lens3_ridgeline_svg(pipeline, sim, target_col), unsafe_allow_html=True)
         else:
-            fig_drift, meta_drift_html = build_lens4_drift_view(pipeline, target_col)
-            st.markdown(meta_drift_html, unsafe_allow_html=True)
-            st.plotly_chart(fig_drift, use_container_width=True, config={"displayModeBar": False, "responsive": True})
+            st.markdown(build_lens4_drift_svg(pipeline, target_col), unsafe_allow_html=True)
 
     if active_lens == "4. Observatorium Drift & Stabilitas":
         narrative_html = (
