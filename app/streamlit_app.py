@@ -829,17 +829,17 @@ PROTOTYPE_CSS = """
 
 :root {
   color-scheme: light only !important;
-  --bg:            #F5F2EC;
-  --bg-deep:       #EDE9E1;
+  --bg:            #FAF7F2;
+  --bg-deep:       #F3EDE3;
   --surface:       #FFFFFF;
-  --surface-soft:  #FBFAF7;
-  --surface-tint:  #F1F6F3;
-  --line:          rgba(34, 30, 24, .08);
-  --line-strong:   rgba(34, 30, 24, .14);
-  --ink:           #1A1814;
-  --ink-2:         #3A362F;
-  --ink-3:         #5A554B;
-  --ink-4:         #6A655A;
+  --surface-soft:  #FCFAF7;
+  --surface-tint:  #F2F7F4;
+  --line:          rgba(36, 30, 22, .07);
+  --line-strong:   rgba(36, 30, 22, .13);
+  --ink:           #181613;
+  --ink-2:         #343028;
+  --ink-3:         #565044;
+  --ink-4:         #767064;
   --accent:        #0E6B63;
   --accent-2:      #17A394;
   --accent-soft:   rgba(14, 107, 99, .10);
@@ -862,15 +862,110 @@ PROTOTYPE_CSS = """
 html, body, [data-testid="stAppViewContainer"], .stApp {
   font-family: var(--font-ui) !important;
   color: var(--ink) !important;
-  background: linear-gradient(155deg, #F8F4EC 0%, #F2EEE5 38%, #E8F0EB 72%, #F4EBDC 100%) !important;
+  background-color: #FAF7F2 !important;
+  background-image: 
+    radial-gradient(at 10% 12%, rgba(254, 250, 243, 0.95) 0%, transparent 55%),
+    radial-gradient(at 90% 88%, rgba(244, 237, 224, 0.90) 0%, transparent 55%),
+    linear-gradient(168deg, #FCFAF6 0%, #F8F3EA 45%, #F1EAE0 100%) !important;
+  background-attachment: fixed !important;
   font-variant-numeric: tabular-nums;
+  overflow-x: hidden;
 }
 
-.aurora-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.aurora-bg i { position: absolute; border-radius: 50%; filter: blur(90px); }
-.aurora-bg i:nth-child(1) { width: 680px; height: 680px; right: -150px; top: -240px; opacity: .52; background: radial-gradient(circle at 35% 35%, #4FD1C0 0%, rgba(23,163,148,0) 68%); }
-.aurora-bg i:nth-child(2) { width: 620px; height: 620px; left: -180px; bottom: -260px; opacity: .50; background: radial-gradient(circle at 55% 45%, #F7C46C 0%, rgba(232,162,59,0) 68%); }
-.aurora-bg i:nth-child(3) { width: 520px; height: 520px; left: 34%; top: 26%; opacity: .28; background: radial-gradient(circle, #BDA8F2 0%, rgba(150,125,230,0) 70%); }
+/* =========================================================
+   ANIMATED MODERN EXPERIENCE DESIGN: FLOATING AMBIENT ORBS
+   ========================================================= */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-attachment: fixed;
+}
+
+.aurora-bg i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(105px);
+  will-change: transform;
+  mix-blend-mode: multiply;
+}
+
+.aurora-bg i:nth-child(1) {
+  width: 760px;
+  height: 760px;
+  right: -120px;
+  top: -200px;
+  opacity: 0.38;
+  background: radial-gradient(circle at 40% 40%, #5EEAD4 0%, #14B8A6 36%, rgba(20,184,166,0) 70%);
+  animation: floatOrb1 24s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.aurora-bg i:nth-child(2) {
+  width: 720px;
+  height: 720px;
+  left: -140px;
+  bottom: -220px;
+  opacity: 0.36;
+  background: radial-gradient(circle at 45% 45%, #FDE68A 0%, #F59E0B 36%, rgba(245,158,11,0) 70%);
+  animation: floatOrb2 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.aurora-bg i:nth-child(3) {
+  width: 600px;
+  height: 600px;
+  left: 36%;
+  top: 20%;
+  opacity: 0.22;
+  background: radial-gradient(circle at 50% 50%, #E9D5FF 0%, #C084FC 36%, rgba(192,132,252,0) 70%);
+  animation: floatOrb3 32s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.aurora-bg i:nth-child(4) {
+  width: 540px;
+  height: 540px;
+  right: 20%;
+  bottom: 10%;
+  opacity: 0.32;
+  background: radial-gradient(circle at 50% 50%, #FFEDD5 0%, #FB923C 32%, rgba(251,146,60,0) 70%);
+  animation: floatOrb4 26s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+.aurora-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(36, 30, 22, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+@keyframes floatOrb1 {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(-100px, 90px, 0) scale(1.10) rotate(45deg); }
+  100% { transform: translate3d(-150px, 40px, 0) scale(0.92) rotate(90deg); }
+}
+
+@keyframes floatOrb2 {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(120px, -100px, 0) scale(1.12) rotate(-35deg); }
+  100% { transform: translate3d(70px, -160px, 0) scale(0.95) rotate(-70deg); }
+}
+
+@keyframes floatOrb3 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(80px, -70px, 0) scale(1.16); }
+  66% { transform: translate3d(-70px, 80px, 0) scale(0.90); }
+  100% { transform: translate3d(50px, 50px, 0) scale(1.05); }
+}
+
+@keyframes floatOrb4 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-90px, -80px, 0) scale(1.14); }
+  100% { transform: translate3d(-130px, 40px, 0) scale(0.96); }
+}
 
 .block-container {
   position: relative; z-index: 1;
@@ -1220,7 +1315,7 @@ div[data-testid="stRadio"] label[data-baseweb="radio"]:has(input:checked) p {
   .rk { grid-template-columns: 1fr !important; gap: 6px !important; }
 }
 </style>
-<div class="aurora-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="aurora-bg" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 """
 st.markdown(PROTOTYPE_CSS, unsafe_allow_html=True)
 
