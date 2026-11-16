@@ -1,10 +1,4 @@
-"""Unit tests for Evidence Registry, Claim Level governance, and Failure Register.
-
-SKKNI Compliance:
-- [UK-01 Objektif Bisnis]
-- [UK-10 Mengevaluasi Hasil Pemodelan]
-- [UK-11 Melakukan Proses Review Pemodelan]
-"""
+"""Unit tests for Evidence Registry, Claim Level governance, and Failure Register."""
 
 import sys
 from pathlib import Path
@@ -26,13 +20,11 @@ from csip.evidence.registry import (
 
 
 def test_evidence_registry_initialization(tmp_path):
-    """Verify registry initializes with default 11 SKKNI units."""
+    """Verify registry initializes discovery, hypothesis, and failure containers."""
     reg = EvidenceRegistry(registry_dir=tmp_path)
-    assert len(reg.skkni_matrix) == 11
-
-    # Check that unit 1 and 11 are present
-    assert "UK-01" in reg.skkni_matrix
-    assert "UK-11" in reg.skkni_matrix
+    assert isinstance(reg.discoveries, dict)
+    assert isinstance(reg.hypotheses, dict)
+    assert isinstance(reg.failures, list)
 
 
 def test_register_discovery_and_export(tmp_path):
@@ -92,7 +84,7 @@ def test_record_failure_in_register(tmp_path):
         description="KNN classifier (k=5) failed to outperform naive baseline on repeat purchase PR-AUC.",
         root_cause="High dimensionality and sparse customer repeat transaction frequency.",
         impact_assessment="Cannot use KNN for production repeat purchase targeting.",
-        mitigation_action="Retain KNN in Competency Lab only; deploy LightGBM with class weights for production.",
+        mitigation_action="Retain KNN as a benchmark baseline only; deploy LightGBM with class weights for production.",
     )
     reg.record_failure(failure)
     assert len(reg.failures) == 1
@@ -103,7 +95,7 @@ def test_record_failure_in_register(tmp_path):
 
 
 def test_save_registry_snapshot(tmp_path):
-    """Verify full registry state can be saved to JSON and contains all sections."""
+    """Verify full registry state can be saved to JSON and contains all core sections."""
     reg = EvidenceRegistry(registry_dir=tmp_path)
     snapshot_path = reg.save_registry_snapshot(filename="test_snapshot.json")
     assert snapshot_path.exists()
@@ -112,7 +104,6 @@ def test_save_registry_snapshot(tmp_path):
         import json
         data = json.load(f)
 
-    assert "skkni_matrix" in data
     assert "hypotheses" in data
     assert "discoveries" in data
     assert "failures" in data

@@ -1,8 +1,6 @@
 """CSIP Feature Engineering, Multi-Grain Construction & Anti-Leakage Module.
 
-SKKNI Compliance:
-- [UK-05 Menentukan Objek Data]: Konstruksi 4 Objek Data Analitik.
-- [UK-07 Mengkonstruksi Data]: Rekayasa fitur ekonomi, pengalaman, as-of histori,
+Pipeline Scope:
   interaksi non-linear, dan isolasi first-order bebas leakage.
 
 Optimized for 8 GB RAM laptop execution with vectorized operations and Parquet storage.
@@ -55,8 +53,6 @@ def haversine_np(
 
 class FeatureEngineer:
     """End-to-End Feature Constructor for CSIP Multi-Grain Analytical Datasets.
-
-    Fulfills SKKNI [UK-07 Mengkonstruksi Data].
     """
 
     def __init__(

@@ -108,9 +108,8 @@
   },
   "artifact_path": "artifacts\\models\\world_model_state_transition.joblib",
   "figure_path": "artifacts\\reports\\figures\\world_model_historical_replay.png",
-  "skkni_compliance": [
-    "UK-08 Membangun Skenario Model",
-    "UK-09 Membangun Model",
-    "UK-10 Mengevaluasi Hasil Pemodelan"
+  "pipeline_stages": [
+    "Dynamic State-Space Modeling",
+    "Historical Replay Validation"
   ]
 }

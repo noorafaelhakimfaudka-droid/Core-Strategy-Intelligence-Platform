@@ -5,7 +5,6 @@ Orchestrates:
 2. Supervised ML model training across B0-B3 baselines and LightGBM champions.
 3. World Model econometric state-space fitting and historical replay.
 4. Model artifact validation and sidecar verification.
-5. Evidence registry reconciliation.
 
 Usage:
     python scripts/run_full_retraining.py [--skip-dl]
@@ -74,10 +73,6 @@ def main():
 
     # 5. Model Artifact Registry Validation
     if not run_step("Model Artifact & Sidecar Verification", "tools/validate_model_artifact_registry.py"):
-        sys.exit(1)
-
-    # 6. Reconcile Canonical Evidence System
-    if not run_step("Evidence Registry Reconciliation", "scripts/reconcile_evidence_system.py"):
         sys.exit(1)
 
     total_time = time.time() - start_total

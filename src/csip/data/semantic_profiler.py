@@ -143,7 +143,7 @@ NATURAL_LEXICON = [
 # ==============================================================================
 def infer_dynamic_semantics(c: str, s: pd.Series) -> tuple[str, str, str, str, str, str, str]:
     """
-    [UK-01, UK-02] Inferensi semantik otomatis untuk kolom apa saja di luar kamus statis.
+    Inferensi semantik otomatis untuk kolom apa saja di luar kamus statis.
     Mendeduksi: ui_label, phrase, verb_up, verb_down, unit, description, dan role secara cerdas.
     """
     c_clean = c.replace("_", " ").replace("-", " ").strip()
@@ -239,7 +239,7 @@ def infer_dynamic_semantics(c: str, s: pd.Series) -> tuple[str, str, str, str, s
 
 def unpack_embedded_serialized_dicts(data: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
     """
-    [UK-03, UK-04] Mendeteksi dan mengekstrak kolom teks yang berisi kamus bersarang
+    Mendeteksi dan mengekstrak kolom teks yang berisi kamus bersarang
     (JSON atau Ruby Hash seperti {'key'=>'val'}) menjadi kolom fitur terstruktur.
     """
     work = data.copy()
@@ -294,7 +294,7 @@ def unpack_embedded_serialized_dicts(data: pd.DataFrame) -> tuple[pd.DataFrame, 
 
 def is_spatial_or_identifier(col_name: str, s: pd.Series) -> bool:
     """
-    [UK-03, UK-05] Menyaring kolom identifier (ID/Index) dan koordinat spasial (Latitude/Longitude/Zip)
+    Menyaring kolom identifier (ID/Index) dan koordinat spasial (Latitude/Longitude/Zip)
     agar tidak dijadikan variabel regresi numerik atau tuas keputusan bisnis.
     """
     c_low = col_name.lower().strip()
@@ -321,7 +321,7 @@ def is_spatial_or_identifier(col_name: str, s: pd.Series) -> bool:
 # ==============================================================================
 def smart_transform_uploaded_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, str, dict]:
     """
-    [UK-03, UK-04, UK-07] Menelaah, memvalidasi, dan mengkonstruksi fitur cerdas.
+    Menelaah, memvalidasi, dan mengkonstruksi fitur cerdas.
     1. Jika ada kolom teks berisi kamus bersarang (JSON/Ruby Hash), ekstrak otomatis.
     2. Jika tabel OHLCV (Keuangan/Kripto), ekstrak indikator tren & volatilitas agar tidak kolinear.
     3. Konversi kolom boolean menjadi numerik biner (0.0 / 1.0).
@@ -415,7 +415,7 @@ def smart_transform_uploaded_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, 
 
 
 def build_fluent_schema(df: pd.DataFrame) -> tuple[pd.DataFrame, dict, str, dict]:
-    """[UK-01, UK-02, UK-05] Membangun skema bahasa manusia dan memilih variabel target terbaik."""
+    """Membangun skema bahasa manusia dan memilih variabel target terbaik."""
     transformed_df, banner_note, audit_info = smart_transform_uploaded_dataframe(df)
     num_cols = [
         c for c in transformed_df.select_dtypes(include=[np.number]).columns

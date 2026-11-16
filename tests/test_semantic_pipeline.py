@@ -1,12 +1,12 @@
 """Unit tests for CSIP Fluent Auto-Semantic ML & Decision Pipeline.
 
 Validates:
-- [UK-01 s/d UK-05] Fluent Schema Building & Human Translation
-- [UK-06] Auto Data Cleaning and Transform
-- [UK-07] Feature Engineering and Metric Extraction
-- [UK-08, UK-09] Multi-Model Training (Baseline Ladder vs Random Forest) & K-Means Clustering
-- [UK-10] Model Evaluation (Metrics, Pearson Correlations, Statistical Significance)
-- [UK-11] Simulation & Human Story Generation
+- Fluent Schema Building & Human Translation
+- Auto Data Cleaning and Transform
+- Feature Engineering and Metric Extraction
+- Multi-Model Training (Baseline Ladder vs Random Forest) & K-Means Clustering
+- Model Evaluation (Metrics, Pearson Correlations, Statistical Significance)
+- Simulation & Human Story Generation
 
 100% Real Computation, Local, Zero Emojis.
 """
@@ -47,7 +47,7 @@ def test_fmt_num_human_formatting():
 
 
 def test_fluent_schema_building():
-    """Verify semantic schema building, target selection, and audit metadata [UK-01 - UK-05]."""
+    """Verify semantic schema building, target selection, and audit metadata."""
     test_df = pd.DataFrame({
         "price": [120.50, 45.00, 230.10, 89.90],
         "freight_value": [15.20, 10.00, 25.00, 12.50],
@@ -64,7 +64,7 @@ def test_fluent_schema_building():
 
 
 def test_train_fluent_ml_pipeline_regression():
-    """Verify model training, benchmark comparison, and K-Means segmentation [UK-08 - UK-11]."""
+    """Verify model training, benchmark comparison, and K-Means segmentation."""
     raw_df = get_builtin_dataset("Kasus 2: Risiko Kesehatan & Gaya Hidup (Data Medis)")
     clean_df, schema_info, auto_target, audit_info = build_fluent_schema(raw_df)
 
@@ -88,7 +88,7 @@ def test_train_fluent_ml_pipeline_regression():
 
 
 def test_train_fluent_ml_pipeline_classification():
-    """Verify classification training and benchmark comparison [UK-08 - UK-10]."""
+    """Verify classification training and benchmark comparison."""
     raw_df = get_builtin_dataset("Kasus 3: Kualitas Produk & Komposisi Bahan (Data Mutu)")
     clean_df, schema_info, auto_target, audit_info = build_fluent_schema(raw_df)
 
@@ -108,7 +108,7 @@ def test_train_fluent_ml_pipeline_classification():
 
 
 def test_simulate_and_narrate():
-    """Verify interactive decision simulation and natural language narration [UK-11]."""
+    """Verify interactive decision simulation and natural language narration."""
     raw_df = get_builtin_dataset("Kasus 1: Toko Online & Kepuasan Pembeli (Data Olist)")
     clean_df, schema_info, auto_target, audit_info = build_fluent_schema(raw_df)
 

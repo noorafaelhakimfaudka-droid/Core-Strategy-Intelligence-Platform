@@ -63,8 +63,8 @@
       "status": "VALID"
     },
     {
-      "notebook_name": "07_supervised_ml_and_competency_lab.ipynb",
-      "path": "notebooks/07_supervised_ml_and_competency_lab.ipynb",
+      "notebook_name": "07_supervised_ml_and_benchmark_lab.ipynb",
+      "path": "notebooks/07_supervised_ml_and_benchmark_lab.ipynb",
       "total_cells": 11,
       "code_cells": 5,
       "markdown_cells": 6,

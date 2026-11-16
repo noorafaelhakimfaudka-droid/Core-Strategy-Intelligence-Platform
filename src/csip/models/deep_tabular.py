@@ -1,7 +1,6 @@
 """CSIP Tabular Neural Network with Entity Embeddings (Baseline Ladder B4).
 
-SKKNI Compliance:
-- [UK-09 Membangun Model]: Arsitektur Neural Network & Deep Learning untuk data tabular.
+Pipeline Scope:
 - Modul Kompetensi 14 & 15: MLP, Batch Normalization, Dropout, dan Entity Embeddings.
 
 Optimized for 8 GB RAM laptop execution with PyTorch CPU acceleration.

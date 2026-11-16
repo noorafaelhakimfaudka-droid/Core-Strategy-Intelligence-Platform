@@ -1,9 +1,4 @@
-"""Automated Test Suite for Model Calibration and Brier Score Verification (CSIP V14).
-
-SKKNI Compliance:
-- [UK-10 Mengevaluasi Hasil Pemodelan]: Evaluasi diagnostik kurva kalibrasi, ECE, dan Brier score.
-- Modul Kompetensi 16: Model Diagnostics & Probability Calibration.
-"""
+"""Automated Test Suite for Model Calibration and Brier Score Verification."""
 
 from __future__ import annotations
 

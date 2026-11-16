@@ -1,9 +1,5 @@
 """Unit tests for Hypothesis Investigation Engine and Statistical Evidence Verification.
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]
-- [UK-10 Mengevaluasi Hasil Pemodelan]
-- [UK-11 Melakukan Proses Review Pemodelan]
 """
 
 import sys

@@ -1,9 +1,9 @@
-"""CSIP World Model & State Transition Engine (Milestone 9 - Gate G8).
+"""CSIP World Model & State Transition Engine.
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Formulasi dynamic state transition untuk simulasi skenario.
-- [UK-09 Membangun Model]: Vector AutoRegressive State-Space dynamics.
-- [UK-10 Mengevaluasi Model]: Backtesting via Historical Replay & Out-of-Sample Chronological Validation.
+Core Capabilities:
+- Dynamic state-transition formulation for counterfactual scenario simulation.
+- Vector AutoRegressive State-Space dynamics with Ridge regularization.
+- Backtesting via Historical Replay & Out-of-Sample Chronological Validation.
 
 Mathematical Formulation:
 S_{t+1} = C + Phi * S_t + epsilon_t
@@ -316,6 +316,7 @@ class WorldStateTransitionModel:
 
         import sklearn, sys
         from datetime import datetime, timezone
+        from csip._version import __version__
         sidecar_data = {
             "model_name": "world_model_state_transition",
             "state_cols": self.state_cols,
@@ -323,7 +324,7 @@ class WorldStateTransitionModel:
             "sklearn_version": sklearn.__version__,
             "python_version": sys.version.split()[0],
             "trained_at": datetime.now(timezone.utc).isoformat(),
-            "git_or_release_version": "v13.0.0",
+            "git_or_release_version": f"v{__version__}",
         }
         with open(f"{p}.json", "w", encoding="utf-8") as f:
             json.dump(sidecar_data, f, indent=2)

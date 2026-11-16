@@ -1,9 +1,5 @@
 """Unit tests for data validation, memory downsizing, and schema sanity.
 
-SKKNI Compliance:
-- [UK-03 Menelaah Data]
-- [UK-04 Memvalidasi Data]
-- [UK-06 Membersihkan Data]
 """
 
 import sys

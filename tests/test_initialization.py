@@ -1,10 +1,4 @@
-"""Unit tests for configuration integrity and SKKNI traceability initialization.
-
-SKKNI Compliance:
-- [UK-01 Objektif Bisnis]
-- [UK-02 Tujuan Teknis DS]
-- [UK-05 Menentukan Objek Data]
-"""
+"""Unit tests for configuration integrity and scientific governance initialization."""
 
 import sys
 from pathlib import Path
@@ -15,15 +9,7 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from csip import SKKNI_UNITS, CLAIM_LEVELS, EVIDENCE_GRADES
-
-
-def test_skkni_11_units_complete():
-    """Verify all 11 SKKNI Enterprise Standard units are registered."""
-    assert len(SKKNI_UNITS) == 11
-    expected_codes = [f"UK-{i:02d}" for i in range(1, 12)]
-    for code in expected_codes:
-        assert code in SKKNI_UNITS
+from csip import CLAIM_LEVELS, EVIDENCE_GRADES
 
 
 def test_claim_levels_complete():

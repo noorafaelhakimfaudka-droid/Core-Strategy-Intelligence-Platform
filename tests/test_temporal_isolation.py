@@ -63,9 +63,7 @@ def test_rapid_repeat_sensitivity():
 
 def test_feature_sets_isolation():
     """Verify that feature availability matrix isolates post-delivery from checkout features."""
-    matrix_path = REPO_ROOT / "AUDIT" / "FEATURE_AVAILABILITY_MATRIX.csv"
-    if not matrix_path.exists():
-        matrix_path = REPO_ROOT / "reports" / "modeling" / "feature_availability_matrix.csv"
+    matrix_path = REPO_ROOT / "reports" / "modeling" / "feature_availability_schema.csv"
     if not matrix_path.exists():
         pytest.skip("FEATURE_AVAILABILITY_MATRIX.csv not found")
 

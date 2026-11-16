@@ -1,9 +1,6 @@
 """CSIP Behavioral Discovery Engine & Unsupervised Clustering Module.
 
-SKKNI Compliance:
-- [UK-03 Menelaah Data]: Pencarian pola perilaku tersembunyi.
-- [UK-08 Membangun Skenario Model]: Pemilihan parameter klasterisasi (k-range, kriteria metrik).
-- [UK-09 Membangun Model]: Pelatihan model K-Means, reduksi dimensi PCA, dan deteksi anomali.
+Pipeline Scope:
 
 Provides reproducible customer segmentation, Silhouette/Davies-Bouldin evaluation,
 and cluster persona generation for the Streamlit Behavioral Discovery Lab.
@@ -57,8 +54,6 @@ class ClusterProfile:
 
 class BehavioralClusterer:
     """Unsupervised Machine Learning Engine for Customer & Transaction Segmentation.
-
-    Fulfills SKKNI [UK-09 Membangun Model - Unsupervised Learning].
     """
 
     DEFAULT_FEATURES = [
@@ -91,9 +86,7 @@ class BehavioralClusterer:
         df: pd.DataFrame,
         sample_size_eval: int = 15000,
     ) -> Dict[str, Any]:
-        """Train KMeans across k_range, evaluate metrics, and select optimal k.
-
-        SKKNI [UK-09 Membangun Model].
+        """Train KMeans across k_range, evaluate metrics, and select optimal k. .
         """
         logger.info(
             "Starting Behavioral Clustering on %d rows with features: %s",

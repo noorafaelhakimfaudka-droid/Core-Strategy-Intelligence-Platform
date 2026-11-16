@@ -1,9 +1,6 @@
 """Execute Hypothesis Investigation Battery (H1 - H6) and Generate Evidence Deliverables.
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]
-- [UK-10 Mengevaluasi Hasil Pemodelan]
-- [UK-11 Melakukan Proses Review Pemodelan]
+Pipeline Scope:
 """
 
 import json
@@ -32,7 +29,6 @@ def run_hypotheses():
     results = runner.run_all()
     runner.save_artifacts(REPO_ROOT / "artifacts" / "reports" / "hypothesis_evaluation.json")
 
-    # Update Evidence Registry
     registry = EvidenceRegistry(registry_dir=REPO_ROOT / "artifacts" / "reports")
     for rec in results.values():
         registry.register_hypothesis(rec)
@@ -47,9 +43,6 @@ def run_hypotheses():
                 mitigation_action="Gunakan model gabungan multi-faktor (E3/LightGBM) dengan variabel kategori produk dan lead time pengiriman.",
             )
             registry.record_failure(fail_rec)
-    registry.update_skkni_status("UK-08", "TESTED")
-    registry.update_skkni_status("UK-10", "TESTED")
-    registry.update_skkni_status("UK-11", "TESTED")
     snapshot_path = registry.save_registry_snapshot()
     print(f"Evidence Registry snapshot updated: {snapshot_path}")
 
@@ -107,7 +100,7 @@ def generate_markdown_report(results: dict):
 
     lines = [
         "# LAPORAN INVESTIGASI HIPOTESIS PENELITIAN (H1 — H6)",
-        "**Kepatuhan Standar: SKKNI [UK-08 Membangun Skenario Model], [UK-10], [UK-11] & Validation Gate G5**",
+        "**Kepatuhan Standar: , , & Validation Gate G5**",
         "**Tanggal Pengujian**: 2026-11-10 | **Kontrol FDR**: Benjamini-Hochberg (alpha = 0.05)",
         "",
         "---",

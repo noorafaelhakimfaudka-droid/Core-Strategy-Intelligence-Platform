@@ -3,7 +3,6 @@
 Provides Baseline Ladder (B0 - B4), classical and ensemble ML algorithms,
 deep learning neural architectures (Tabular MLP and Text Bi-LSTM),
 and standardized temporal experiment trainers.
-Complies with SKKNI [UK-08 Membangun Skenario Model] and [UK-09 Membangun Model].
 """
 
 from csip.models.classic import (

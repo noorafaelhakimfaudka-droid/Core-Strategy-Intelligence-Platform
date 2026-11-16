@@ -1,8 +1,5 @@
 """Unit tests for Grain selection, Cohort Filtering, and Right-Censoring mitigation.
 
-SKKNI Compliance:
-- [UK-05 Menentukan Objek Data]
-- [UK-06 Membersihkan Data]
 """
 
 import sys

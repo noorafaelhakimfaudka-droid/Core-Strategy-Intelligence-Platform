@@ -1,5 +1,4 @@
 # CSIP Alternative World Simulation & Scenario Analysis Configuration
-# SKKNI Compliance: [UK-08 Membangun Skenario Model], [UK-10 Mengevaluasi Hasil Pemodelan]
 
 world_model:
   cadence: "weekly"

@@ -1,8 +1,7 @@
 # CSIP Data Quality Audit: Before vs After Transformation Report
 ## Quantitative Ingestion, Cleansing, Deduplication & Imputation Reconciliation
 
-**Audit Target:** Data Engineering Pipeline (`src/csip/cleaning/cleaner.py` & `scripts/build_clean_datasets.py`)  
-**Standard Compliance:** SKKNI 299/2020 Unit 4 (`J.62DMI00.006.1`) & Unit 6 (`J.62DMI00.008.1`)  
+**Pipeline Stage:** Data Validation & Cleaning (`src/csip/cleaning/cleaner.py`)  
 **Audit Date:** 11 November 2026  
 
 ---

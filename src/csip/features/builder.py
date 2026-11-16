@@ -1,7 +1,6 @@
 """CSIP Automated Feature Construction Engine.
 
-Implements Enterprise Standard SKKNI Competency:
-- [UK-07] Mengonstruksi Data: Menghasilkan fitur interaksi, rasio,
+Core Capabilities:
   dan transformasi matematis baru secara terotomatisasi tanpa kebocoran data.
 
 100% Real Computation, Zero Emojis.
@@ -15,7 +14,7 @@ import pandas as pd
 
 
 class AutoFeatureBuilder:
-    """[UK-07] Automated feature interaction and ratio constructor."""
+    """Automated feature interaction and ratio constructor."""
 
     def __init__(self, max_new_features: int = 5, epsilon: float = 1e-6) -> None:
         self.max_new_features = max_new_features
@@ -68,7 +67,7 @@ def build_interaction_features(
     feature_cols: Optional[List[str]] = None,
     max_new_features: int = 5,
 ) -> Tuple[pd.DataFrame, List[str]]:
-    """Functional interface for automatic feature engineering [UK-07]."""
+    """Functional interface for automatic feature engineering ."""
     builder = AutoFeatureBuilder(max_new_features=max_new_features)
     return builder.construct(df, feature_cols)
 

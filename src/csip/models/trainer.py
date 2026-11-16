@@ -1,9 +1,6 @@
 """CSIP Model Experiment Trainer & Leaderboard Generator.
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Matriks eksperimen E0-E6 & temporal split.
-- [UK-09 Membangun Model]: Pelatihan model supervised learning B0-B3.
-- [UK-10 Mengevaluasi Hasil Pemodelan]: Evaluasi PR-AUC, ROC-AUC, Brier score, MAE, RMSE.
+Pipeline Scope:
 
 Strictly enforces Split-Before-Transform and Temporal & Feature Isolation.
 """
@@ -371,7 +368,7 @@ class ModelExperimentTrainer:
 
     def run_all_experiments(self) -> pd.DataFrame:
         """Execute full matrix of experiments across classification and regression targets."""
-        logger.info("Executing Full Supervised ML & Competency Lab Experiments (B0 - B3)...")
+        logger.info("Executing Full Supervised ML & Benchmark Lab Experiments (B0 - B3)...")
 
         orders_df = pd.read_parquet(self.order_level_path)
         cohort_df = pd.read_parquet(self.customer_cohort_path)
@@ -520,7 +517,7 @@ class ModelExperimentTrainer:
         )
 
         # Task B: Post-Delivery Fulfillment & Experience Diagnostic Modeling
-        # Combined + Competency Lab (All B1 - B3) on Validation & Locked Holdout Test Set
+        # Combined + Benchmark Lab (All B1 - B3) on Validation & Locked Holdout Test Set
         for m_key in [
             "B1_logistic",
             "B2_decision_tree",
@@ -834,7 +831,7 @@ class ModelExperimentTrainer:
                 "lightgbm_version": lightgbm.__version__,
                 "python_version": sys.version.split()[0],
                 "trained_at": datetime.now(timezone.utc).isoformat(),
-                "git_or_release_version": "v13.0.0",
+                "git_or_release_version": "v1.1.0",
             }
             sidecar_path = self.artifacts_dir / f"{artifact_name}.joblib.json"
             with open(sidecar_path, "w", encoding="utf-8") as f:

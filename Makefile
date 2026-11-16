@@ -1,7 +1,7 @@
 .PHONY: help reproduce verify test lint docs-check app-test app clean
 
 help:
-	@echo "CSIP V17 Master Makefile Commands:"
+	@echo "CSIP Makefile Commands:"
 	@echo "  make reproduce   Run full end-to-end reproduction pipeline"
 	@echo "  make test        Run entire automated pytest test suite"
 	@echo "  make verify      Run test suite + release quality gate verifier"

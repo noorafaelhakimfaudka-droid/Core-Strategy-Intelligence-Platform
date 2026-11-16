@@ -4,7 +4,7 @@ Validates:
 - OmniRouter natural language parsing and intent classification
 - ScenarioDuelEngine trade-off calculations, what-if simulations, and duels
 - TextConstellationEngine topic clustering and 2D celestial coordinate projection
-- UniversalCSVXRay role detection, auto-cleaning, clustering, and factor discovery (SKKNI UK-03 to UK-07)
+- UniversalCSVXRay role detection, auto-cleaning, clustering, and factor discovery
 """
 
 from __future__ import annotations
@@ -86,7 +86,7 @@ def test_text_constellation_engine():
 
 
 def test_universal_csv_xray_pipeline():
-    """Verify UniversalCSVXRay fulfills SKKNI UK-03 to UK-07 on arbitrary tabular data."""
+    """Verify UniversalCSVXRay role detection, cleaning, and clustering on tabular data."""
     xray = UniversalCSVXRay()
     sample_df = xray.generate_sample_csv(n_rows=200)
 

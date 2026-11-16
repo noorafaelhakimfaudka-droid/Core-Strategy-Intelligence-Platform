@@ -1,6 +1,5 @@
-# CSIP Pre-Registered Analysis Plan & Research Protocol (V17 Protocol Freeze)
-# Standards: SKKNI No. 299 Tahun 2020 | LSP TRI SKM/2905/LSP-TRI/VII/2025
-# Governance: Mandatory Pre-Registration & Locked Research Protocol
+# CSIP Pre-Registered Analysis Plan & Research Protocol
+# Governance: Pre-Registration & Locked Experimental Protocol
 
 version: "1.0.0"
 protocol_status: "PRE_REGISTERED_FROZEN"

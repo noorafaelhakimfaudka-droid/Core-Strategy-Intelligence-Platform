@@ -1,7 +1,7 @@
 """CSIP Evidence and Claim Governance Module.
 
-Enforces Claim Levels (L0-L3), Evidence Grades (A-D), and SKKNI Traceability.
-Complies with SKKNI [UK-11 Melakukan Proses Review Pemodelan].
+Enforces Claim Levels (L0-L3) and Evidence Grades (A-D) across discoveries,
+statistical hypotheses, and failure registers.
 """
 
 from csip.evidence.registry import (
@@ -12,7 +12,6 @@ from csip.evidence.registry import (
     FailureRecord,
     HypothesisRecord,
     HypothesisStatus,
-    SKKNITraceabilityItem,
 )
 
 __all__ = [
@@ -23,6 +22,4 @@ __all__ = [
     "FailureRecord",
     "HypothesisRecord",
     "HypothesisStatus",
-    "SKKNITraceabilityItem",
 ]
-

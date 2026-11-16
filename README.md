@@ -1,13 +1,12 @@
 # CSIP — Core Strategy & Intelligence Platform
 ### *Platform Machine Learning Perilaku Enterprise, Observatorium Konsep Drift Real-Time & Simulator Keputusan Operasional*
 
-[![Versi](https://img.shields.io/badge/versi-1.1.0-blue.svg?style=flat-square)](CHANGELOG.md)
+[![Versi](https://img.shields.io/badge/versi-1.1.0-blue.svg?style=flat-square)](pyproject.toml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.162.4-009688.svg?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.61.1-FF4B4B.svg?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![LightGBM](https://img.shields.io/badge/LightGBM-4.7.0-brightgreen.svg?style=flat-square)](https://lightgbm.readthedocs.io/)
-[![Pengujian Unit](https://img.shields.io/badge/pytest-216%20lulus%20bersih-success.svg?style=flat-square&logo=pytest&logoColor=white)](reports/testing/pytest_actual.txt)
-[![Quality Gates](https://img.shields.io/badge/Gerbang%20Rilis-12%2F12%20LULUS-success.svg?style=flat-square)](reports/verification/gates.json)
+[![Quality Gates](https://img.shields.io/badge/Quality%20Gates-8%2F8%20LULUS-success.svg?style=flat-square)](tools/verify_release.py)
 [![Docker](https://img.shields.io/badge/Docker-Siap%20Pakai-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](Dockerfile)
 [![Lisensi: MIT](https://img.shields.io/badge/Lisensi-MIT-yellow.svg?style=flat-square)](LICENSE)
 
@@ -384,7 +383,7 @@ Buka peramban web pada alamat `http://localhost:8501`.
 # Jalankan seluruh rangkaian unit & integration test
 pytest
 
-# Evaluasi 12 Quality Gates pengujian rilis
+# Evaluasi 8 Quality Gates kelayakan ML & integritas kode
 python tools/verify_release.py
 
 # Periksa kepatuhan anti-overclaim
@@ -437,10 +436,10 @@ csip/
 │   ├── hypotheses/               # Uji signifikansi hipotesis statistik
 │   ├── models/                   # Pelatih algoritma LightGBM, SHAP, & registry siklus
 │   └── monitoring/               # Mesin drift PSI/KS/Wasserstein & auto-retrainer
-├── tests/                        # Rangkaian 39 Berkas Pengujian Unit & Integrasi
+├── tests/                        # Rangkaian Pengujian Unit & Integrasi ML
 ├── tools/                        # Alat Verifikasi Standar & Integritas Klaim
 │   ├── check_claims.py           # Pemindai kepatuhan bahasa anti-overclaim
-│   └── verify_release.py         # Mesin verifikasi 12 Quality Gates rilis
+│   └── verify_release.py         # Mesin verifikasi 8 Quality Gates ML & rilis
 ├── Dockerfile                    # Spesifikasi kontainerisasi produksi
 ├── Makefile                      # Perintah pintas otomatisasi build & test
 └── pyproject.toml                # Konfigurasi build metadata standar PEP 517/518
@@ -452,7 +451,7 @@ csip/
 
 1. **Privasi Lokal Terkendali:** Seluruh komputasi berjalan secara internal (*in-process*) atau lewat IPC lokal. Tidak ada data pribadi pelanggan, koordinat geospasial, atau teks transaksi yang dikirimkan ke API cloud pihak ketiga.
 2. **Efisiensi Komputasi Tinggi:** Dirancang hemat sumber daya (<8 GB RAM dengan komputasi vektor NumPy/SciPy), memungkinkan implementasi skala *enterprise* pada perangkat keras standar tanpa beban biaya komputasi akselerator GPU eksternal.
-3. **Reproduktifitas Penuh:** Semua proses stokastik diikat secara deterministik dengan nilai acak tetap (`seed=42`), dan keabsahan berkas data dijamin melalui pemeriksaan *checksum* kriptografis SHA-256 (`SHA256SUMS_FINAL.txt`).
+3. **Reproduktifitas Penuh:** Semua proses stokastik diikat secara deterministik dengan nilai acak tetap (`seed=42`), dan keabsahan berkas data dijamin melalui pemeriksaan *checksum* kriptografis SHA-256 (`data/dataset_manifest.json`).
 
 ---
 

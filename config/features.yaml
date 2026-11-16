@@ -1,5 +1,4 @@
 # CSIP Feature Engineering Specification & Anti-Leakage Governance
-# SKKNI Compliance: [UK-06 Membersihkan Data], [UK-07 Mengkonstruksi Data]
 
 feature_groups:
   economic:

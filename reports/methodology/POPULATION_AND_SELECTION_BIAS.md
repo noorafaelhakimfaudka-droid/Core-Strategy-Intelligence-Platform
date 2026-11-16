@@ -1,6 +1,5 @@
 # CSIP Population Definition, Selection Bias, and Label Observability
 ## Rigorous Methodological Audit of Analytical Population and Survivor Bias
-### Reference Standard: SKKNI No. 299 Tahun 2020 | Unit: J.62DMI00.005.1 & J.62DMI00.007.1
 
 - **Document ID**: `CSIP-METH-POP-BIAS-2026-V7`
 - **Version**: 7.0.0

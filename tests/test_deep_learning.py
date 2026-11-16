@@ -1,8 +1,5 @@
 """Unit tests for CSIP Deep Learning & Model Explainability Module (Milestone 8).
 
-SKKNI Compliance:
-- [UK-09 Membangun Model]: Verifikasi fungsional arsitektur Neural Network (Tabular MLP & Text Bi-LSTM).
-- [UK-10 Mengevaluasi Model]: Verifikasi kalibrasi probabilitas dan metrik diagnostik (ECE, Brier).
 """
 
 from __future__ import annotations

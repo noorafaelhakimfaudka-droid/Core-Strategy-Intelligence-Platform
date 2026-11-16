@@ -1,9 +1,6 @@
 """CSIP Data Loader, Schema Validator, and Memory Optimization Module.
 
-SKKNI Compliance:
-- [UK-03 Menelaah Data]: Profiling tabel relasional, tipe data, dan relasi kunci.
-- [UK-04 Memvalidasi Data]: Uji skema, kardinalitas, missing values, dan timestamp sanity.
-- [UK-05 Menentukan Objek Data]: Pemisahan grain tabel dan seleksi kohort.
+Pipeline Scope:
 
 Designed specifically for 8 GB RAM laptop execution with automatic dtype downsizing
 and DuckDB/Parquet acceleration.
@@ -73,9 +70,7 @@ def downcast_dataframe(
     categorical_columns: Optional[List[str]] = None,
     max_categorical_cardinality: int = 50,
 ) -> Tuple[pd.DataFrame, float, float]:
-    """Downcast DataFrame data types to minimize memory usage on 8 GB RAM systems.
-
-    SKKNI [UK-06 Membersihkan Data] - Efisiensi tipe data.
+    """Downcast DataFrame data types to minimize memory usage on 8 GB RAM systems. Efisiensi tipe data.
 
     Conversions:
     - float64 -> float32
@@ -137,8 +132,6 @@ def downcast_dataframe(
 
 class OlistDataLoader:
     """Enterprise Data Loader for Olist Relational E-Commerce Tables.
-
-    Complies with SKKNI [UK-03], [UK-04], [UK-05].
     Provides schema verification, referential integrity validation,
     and automatic downcasting.
     """
@@ -173,9 +166,7 @@ class OlistDataLoader:
         validate: bool = True,
         use_cache: bool = True,
     ) -> pd.DataFrame:
-        """Load a single Olist table from CSV, apply downcasting and schema validation.
-
-        SKKNI [UK-03 Menelaah Data] & [UK-04 Memvalidasi Data].
+        """Load a single Olist table from CSV, apply downcasting and schema validation..
         """
         if use_cache and table_key in self.cached_tables:
             logger.debug("Returning cached DataFrame for: %s", table_key)
@@ -231,9 +222,7 @@ class OlistDataLoader:
         mem_init: float = 0.0,
         mem_opt: float = 0.0,
     ) -> ValidationResult:
-        """Execute strict schema validation rules against a loaded DataFrame.
-
-        SKKNI [UK-04 Memvalidasi Data].
+        """Execute strict schema validation rules against a loaded DataFrame. .
         """
         table_meta = self.tables_config.get(table_key, {})
         pk_cols = table_meta.get("primary_key", [])
@@ -338,9 +327,7 @@ class OlistDataLoader:
         return violations
 
     def build_validation_summary_df(self) -> pd.DataFrame:
-        """Compile validation results across loaded tables into an audit DataFrame.
-
-        SKKNI [UK-04 Memvalidasi Data] deliverable.
+        """Compile validation results across loaded tables into an audit DataFrame. deliverable.
         """
         records = []
         for name, res in self.validation_history.items():

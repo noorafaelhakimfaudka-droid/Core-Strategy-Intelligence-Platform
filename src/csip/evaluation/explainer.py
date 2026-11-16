@@ -1,7 +1,6 @@
-"""CSIP Model Evaluation & Explainability Module (G7 & Competency Lab).
+"""CSIP Model Evaluation & Explainability Module (Evaluation & Diagnostics).
 
-SKKNI Compliance:
-- [UK-10 Mengevaluasi Model]: Analisis performa mendalam, kalibrasi probabilitas (Brier score, ECE),
+Pipeline Scope:
   dan validasi diagnostik out-of-time.
 - Modul Kompetensi 16: Model Explainability menggunakan SHAP (SHapley Additive exPlanations)
   dan Reliability Diagrams.

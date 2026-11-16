@@ -1,16 +1,14 @@
-"""CSIP FINAL 1.0.0 — Automated Master Release Acceptance Gates.
+"""CSIP 1.1.0 — Automated Core Release Acceptance Gates.
 
 Verifies:
-1. Version Invariant (strict 1.0.0 across pyproject.toml, setup.py, __init__.py, Dockerfile, sidecars).
+1. Version Invariant across pyproject.toml, setup.py, __init__.py, Dockerfile, sidecars.
 2. Model Results Registry & Artifact Parity (MODEL_RESULTS_REGISTRY.csv matches physical files & SHA-256).
-3. Canonical Evidence Distribution (35 VERIFIED, 12 ARTIFACT, 13 DEMO, 3 EXTERNAL across 63 KUKs).
-4. SKKNI 299/2020 Traceability Matrix completeness (all 13 columns, verbatim KUK 2.2).
-5. Explicit Model Maturity Taxonomy across all active model cards.
-6. Dataset Parquet Cryptographic Integrity (13 tables match dataset_manifest.json).
-7. Streamlit Application Pages Syntax & Entrypoint compilation.
-8. Zero Hardcoded Private Credentials or Local Paths in src/.
-9. Pipeline Retraining Script (scripts/run_full_retraining.py) existence & syntax.
-10. Model Artifact Registry Validation Tool (tools/validate_model_artifact_registry.py) pass rate.
+3. Explicit Model Maturity Taxonomy across all active model cards.
+4. Dataset Parquet Cryptographic Integrity (13 tables match dataset_manifest.json).
+5. Streamlit Application Pages Syntax & Entrypoint compilation.
+6. Zero Hardcoded Private Credentials or Local Paths in src/.
+7. Pipeline Retraining Script (scripts/run_full_retraining.py) existence & syntax.
+8. Model Artifact Registry Validation Tool (tools/validate_model_artifact_registry.py) pass rate.
 """
 
 from __future__ import annotations
@@ -78,44 +76,6 @@ def test_final_gate_02_model_results_registry_integrity():
             assert full_p.exists(), f"Physical artifact missing: {rel}"
             actual_sha = hashlib.sha256(full_p.read_bytes()).hexdigest()
             assert actual_sha == r["Artifact_SHA256"], f"SHA mismatch for {rel}"
-
-def test_final_gate_03_canonical_evidence_breakdown():
-    """Gate 3: Canonical 35/12/13/3 evidence breakdown across 63 KUKs."""
-    canon_path = REPO_ROOT / "competency" / "CANONICAL_EVIDENCE_REGISTRY.csv"
-    assert canon_path.exists()
-    with open(canon_path, "r", encoding="utf-8") as f:
-        rows = list(csv.DictReader(f))
-    assert len(rows) == 63
-
-    counts = {}
-    for r in rows:
-        st = r["verification_result"]
-        counts[st] = counts.get(st, 0) + 1
-
-    assert counts.get("VERIFIED", 0) == 35
-    assert counts.get("ARTIFACT_ONLY", 0) == 12
-    assert counts.get("CANDIDATE_DEMONSTRATION_REQUIRED", 0) == 13
-    assert counts.get("EXTERNAL_CONFIRMATION_REQUIRED", 0) == 3
-    assert counts.get("PARTIALLY_VERIFIED", 0) == 0
-    assert counts.get("MISSING", 0) == 0
-
-def test_final_gate_04_skkni_traceability_matrix_and_verbatim_kuk():
-    """Gate 4: Verify SKKNI_TRACEABILITY_MATRIX.csv has all 63 KUKs, official J.62DMI00 codes, and verbatim KUK 2.2."""
-    trace_path = REPO_ROOT / "competency" / "SKKNI_TRACEABILITY_MATRIX.csv"
-    assert trace_path.exists()
-    with open(trace_path, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-    assert len(rows) == 63
-    
-    # Check unit codes prefix
-    for r in rows:
-        assert r["Unit_Code"].startswith("J.62DMI00."), f"Invalid unit code: {r['Unit_Code']}"
-
-    # Check verbatim KUK 2.2
-    kuk_22 = [r for r in rows if r["KUK_Code"] == "J.62DMI00.001.1-2.2"]
-    assert len(kuk_22) == 1
-    assert kuk_22[0]["Canonical_Wording"] == "Persetujuan atas kebutuhan, asumsi dan batasan proyek diperoleh dari pengguna."
 
 def test_final_gate_05_model_maturity_taxonomy():
     """Gate 5: Explicit maturity taxonomy across all model cards."""

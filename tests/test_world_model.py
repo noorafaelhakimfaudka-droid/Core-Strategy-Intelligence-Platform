@@ -1,9 +1,5 @@
 """Unit tests for CSIP World Model & State Transition Engine (Milestone 9 - Gate G8).
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Verifikasi formulasi state transition & rollout.
-- [UK-09 Membangun Model]: Verifikasi estimasi parameter state-space.
-- [UK-10 Mengevaluasi Model]: Verifikasi pengujian identifiabilitas & metrik evaluasi (WAPE, MAPE).
 """
 
 from __future__ import annotations

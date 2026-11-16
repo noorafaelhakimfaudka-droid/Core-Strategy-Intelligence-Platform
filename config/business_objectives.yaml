@@ -1,5 +1,4 @@
 # CSIP Business Objectives & Technical Metrics Alignment
-# SKKNI Compliance: [UK-01 Objektif Bisnis], [UK-02 Tujuan Teknis DS]
 
 business_objectives:
   BO_01:
@@ -45,41 +44,41 @@ technical_targets:
     id: "TT-01"
     name: "Data Engineering & Konstruksi Bebas Leakage"
     target: "100% lolos automated schema & leakage test (pytest); unhandled nulls = 0% pada fitur model."
-    skkni_unit: "UK-06 Membersihkan Data & UK-07 Mengkonstruksi Data"
+    pipeline_stage: "Data Cleaning & Feature Engineering"
 
   TT_02:
     id: "TT-02"
     name: "Unsupervised Learning (Segmentasi)"
     target: "Silhouette Score >= 0.35, Davies-Bouldin terendah, profil klaster stabil lintas waktu."
-    skkni_unit: "UK-09 Membangun Model"
+    pipeline_stage: "Unsupervised Modeling"
 
   TT_03:
     id: "TT-03"
     name: "Hypothesis Testing & Statistik"
     target: "Minimal 6 hipotesis (H1-H6) diuji dengan kontrol FDR alpha=0.05, effect size + 95% CI."
-    skkni_unit: "UK-08 Membangun Skenario Model & UK-10 Mengevaluasi Hasil Pemodelan"
+    pipeline_stage: "Hypothesis & Statistical Evaluation"
 
   TT_04:
     id: "TT-04"
     name: "Supervised Learning (Klasifikasi)"
     target: "Mengungguli naive baseline (B0/B1) pada temporal test set untuk PR-AUC, ROC-AUC, F1, Brier Score."
-    skkni_unit: "UK-09 Membangun Model & UK-10 Mengevaluasi Hasil Pemodelan"
+    pipeline_stage: "Supervised Classification & Evaluation"
 
   TT_05:
     id: "TT-05"
     name: "Supervised Learning (Regresi)"
     target: "Penurunan MAE dan RMSE minimal 10% vs baseline mean predictor pada estimasi waktu pengiriman."
-    skkni_unit: "UK-09 Membangun Model & UK-10 Mengevaluasi Hasil Pemodelan"
+    pipeline_stage: "Supervised Regression & Evaluation"
 
   TT_06:
     id: "TT-06"
     name: "Neural Network & Deep Learning"
     target: "Arsitektur MLP Embedding tabular dan Text Deep Learning konvergen tanpa overfitting ekstrem."
-    skkni_unit: "UK-09 Membangun Model (Deep Learning Competency Lab)"
+    pipeline_stage: "Deep Learning Benchmark"
 
   TT_07:
     id: "TT-07"
     name: "World Model & Simulasi Skenario"
     target: "Lolos Synthetic Recovery Test, historical replay error terukur, menampilkan 90%/95% prediction interval."
-    skkni_unit: "UK-08 Membangun Skenario Model & UK-10 Mengevaluasi Hasil Pemodelan"
+    pipeline_stage: "World Modeling & Scenario Simulation"
 

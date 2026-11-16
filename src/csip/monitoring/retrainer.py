@@ -5,7 +5,7 @@ When a Drift or Concept Decay alert triggers:
 2. Evaluates Champion (historical baseline) vs. Challenger on the recent holdout batch.
 3. Computes PR-AUC, ROC-AUC, F1, Brier score, and relative lift.
 4. Generates a Model Promotion Verdict (PROMOTED vs. RETAINED).
-5. Logs execution to artifacts/metadata/MODEL_RESULTS_REGISTRY.csv fulfilling SKKNI Unit 11 (J.62DMI00.015.1).
+5. Logs execution to artifacts/metadata/MODEL_RESULTS_REGISTRY.csv for end-to-end model auditability.
 """
 
 from __future__ import annotations

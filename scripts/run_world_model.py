@@ -120,10 +120,10 @@ def main():
         "out_of_sample_metrics": oos_metrics,
         "artifact_path": str(model_save_path),
         "figure_path": str(fig_path),
-        "skkni_compliance": [
-            "UK-08 Membangun Skenario Model",
-            "UK-09 Membangun Model",
-            "UK-10 Mengevaluasi Hasil Pemodelan",
+        "pipeline_stages": [
+            "Scenario State-Space Formulation",
+            "Vector AutoRegressive Modeling",
+            "Historical Replay Validation",
         ],
     }
 
@@ -152,7 +152,7 @@ def main():
                 "synth_max_rel_error": synth_res["max_rel_error"],
                 "synth_mean_rel_error": synth_res["mean_rel_error"],
             },
-            skkni_unit="UK-08 Membangun Skenario Model",
+            pipeline_stage="Scientific Evaluation & Modeling",
             claim_level="L1 (Predictive)",
             evidence_grade="Grade A (Kuat & Tervalidasi)",
             notes="Gate G8 verified via Historical Replay & Identifiability Recovery.",

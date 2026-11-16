@@ -1,37 +1,22 @@
 """CSIP: Core Strategy & Intelligence Platform.
 
-Behavioral Decision Intelligence (BDI) MVP Module.
-Master Edition — SKKNI, Enterprise Standard & Industry Portfolio Compliant.
+Behavioral Decision Intelligence (BDI) Engine.
 
 Core Principles:
-1. Business & Technical Alignment > Blind Coding (SKKNI Unit 1 & 2)
+1. Business & Technical Alignment > Blind Coding
 2. Evidence > Assumption (Claim Levels L0-L3, Evidence Grades A-D)
 3. Validation > Complexity (Strict Temporal & Feature Isolation, Out-of-Time Evaluation)
 4. Explanation > Superficial Correlation (Alternative Hypothesis Testing)
-5. Reproducibility > One-time Results (Deterministic Pipeline & Audit Registry)
+5. Reproducibility > One-time Results (Deterministic Pipeline & Model Registry)
 6. Honest Uncertainty > False Confidence (Prediction Intervals & Guardrails)
-7. Data Science Rigor > Unnecessary AI Hype (Pure ML/DL/Stats Foundations)
+7. Data Science Rigor > Unnecessary Hype (ML, Deep Learning & Econometric Foundations)
 """
 
 from csip._version import __version__
-__author__ = "CSIP Data Science Team"
 
-# 11 Unit Kompetensi SKKNI Enterprise Standard Registry
-SKKNI_UNITS = {
-    "UK-01": "Menentukan Objektif Bisnis",
-    "UK-02": "Menentukan Tujuan Teknis Data Science",
-    "UK-03": "Menelaah Data",
-    "UK-04": "Memvalidasi Data",
-    "UK-05": "Menentukan Objek Data",
-    "UK-06": "Membersihkan Data",
-    "UK-07": "Mengkonstruksi Data",
-    "UK-08": "Membangun Skenario Model",
-    "UK-09": "Membangun Model",
-    "UK-10": "Mengevaluasi Hasil Pemodelan",
-    "UK-11": "Melakukan Proses Review Pemodelan",
-}
+__author__ = "Noorafael Hakim Faudka"
 
-# Scientific Claim Hierarchy (System Specification Section 7.1)
+# Scientific Claim Hierarchy
 CLAIM_LEVELS = {
     "L0": "Descriptive — Menggambarkan distribusi dan pola teramati dalam sampel data.",
     "L1": "Predictive — Model memprediksi target out-of-sample lebih baik dari baseline.",
@@ -39,19 +24,16 @@ CLAIM_LEVELS = {
     "L3": "Causal — Efek perubahan intervensi X terhadap Y teridentifikasi secara kausal.",
 }
 
-# Evidence Grading Standard (System Specification Section 7.2)
+# Evidence Grading Standard
 EVIDENCE_GRADES = {
-    "Grade A": "Kuat & Tervalidasi (Lolos seluruh gates, stabil lintas waktu, mengalahkan baseline).",
+    "Grade A": "Kuat & Tervalidasi (Lolos seluruh uji validasi, stabil lintas waktu, mengalahkan baseline).",
     "Grade B": "Cukup / Bersyarat (Didukung bukti valid dengan asumsi/keterbatasan terdefinisi).",
     "Grade C": "Eksploratif / Lemah (Ukuran sampel kecil atau sensitif terhadap asumsi).",
-    "Grade D": "Tidak Terbukti / Gagal (Hipotesis ditolak, masuk Failure Register).",
+    "Grade D": "Tidak Terbukti / Gagal (Hipotesis ditolak, tercatat dalam Failure Register).",
 }
 
 __all__ = [
-    "SKKNI_UNITS",
     "CLAIM_LEVELS",
     "EVIDENCE_GRADES",
     "__version__",
 ]
-
-

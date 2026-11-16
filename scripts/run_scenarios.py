@@ -204,7 +204,7 @@ def main():
                 "s1_net_profit_brl": s1["net_incremental_profit_brl"],
                 "s1_review_reduction_pp": s1["delta_negative_review_pp"],
             },
-            skkni_unit="UK-11 Mengembangkan Solusi",
+            pipeline_stage="Scientific Evaluation & Modeling",
             claim_level="L1 (Predictive)",
             evidence_grade="Grade B (Cukup / Bersyarat)",
             notes="Gate G9 simulated across 12-week horizon with B=300 residual bootstrap draws.",

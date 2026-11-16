@@ -1,7 +1,7 @@
 """CSIP Model Evaluation & Explainability Module.
 
 Provides SHAP feature attribution, reliability diagrams, Expected Calibration Error (ECE),
-and probability calibration tools complying with SKKNI [UK-10 Mengevaluasi Model].
+and probability calibration tools
 """
 
 from csip.evaluation.business_impact import (

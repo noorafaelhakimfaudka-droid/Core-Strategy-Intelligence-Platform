@@ -1,8 +1,6 @@
 """CSIP Uncertainty Quantification Module: Multi-Trajectory Residual Bootstrapping.
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Kuantifikasi ketidakpastian proyeksi simulasi.
-- [UK-10 Mengevaluasi Model]: Estimasi Prediction Intervals (50%, 90%, 95%) berbasis empirical residuals.
+Pipeline Scope:
 
 Methodology:
 Generates B recursive state-space rollout trajectories by sampling empirical innovation residuals

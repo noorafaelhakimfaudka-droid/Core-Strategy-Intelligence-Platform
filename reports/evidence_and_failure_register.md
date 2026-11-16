@@ -1,8 +1,7 @@
 # CSIP Master Evidence & Failure Register
 
 **Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
-**Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-10 Mengevaluasi Hasil Pemodelan] & [UK-11 Mengembangkan Solusi]  
-**Governance Protocol**: SHADOW Evidence Hierarchy (L0 to L3, Grades A to D)  
+**Governance Protocol**: Scientific Evidence Hierarchy (L0 to L3, Grades A to D)  
 **Date**: November 2026  
 
 ---
@@ -55,7 +54,7 @@ All hypotheses were pre-registered and evaluated with **Benjamini-Hochberg False
 
 ## 4. Failure Register & Limitation Audit
 
-In strict compliance with the **SHADOW Project Rules (Section 2 & 13)**, negative outcomes, model limitations, and guardrail alerts are preserved with full diagnostic root causes:
+In strict adherence to empirical scientific rigor, negative outcomes, model limitations, and guardrail alerts are preserved with full diagnostic root causes:
 
 ### Entry FAIL-HYP-H3: Empirical Rejection of Hypothesis H3
 - **Component**: Statistical Hypothesis Testing (`src/csip/hypotheses/runner.py`)

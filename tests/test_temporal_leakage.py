@@ -1,10 +1,4 @@
-"""Automated Test Suite for Temporal Data Integrity and Leakage Prevention (CSIP V14).
-
-SKKNI Compliance:
-- [UK-04 Memvalidasi Data]: Validasi integritas temporal dan ketiadaan kebocoran data (data leakage).
-- [UK-07 Mengkonstruksi Data]: Validasi rekayasa fitur berbasis horizon waktu (Split-Before-Transform).
-- [UK-08 Membangun Skenario Model]: Validasi isolasi partisi waktu (temporal embargo splits).
-"""
+"""Automated Test Suite for Temporal Data Integrity and Leakage Prevention."""
 
 from __future__ import annotations
 
@@ -47,9 +41,9 @@ def test_checkout_feature_set_has_no_delivery_or_review_features():
 
 
 def test_feature_availability_matrix_csv_integrity():
-    """Verify AUDIT/FEATURE_AVAILABILITY_MATRIX.csv exists, is readable, and maps all features correctly."""
-    matrix_path = REPO_ROOT / "AUDIT" / "FEATURE_AVAILABILITY_MATRIX.csv"
-    assert matrix_path.exists(), "AUDIT/FEATURE_AVAILABILITY_MATRIX.csv does not exist"
+    """Verify reports/modeling/feature_availability_schema.csv exists, is readable, and maps all features correctly."""
+    matrix_path = REPO_ROOT / "reports" / "modeling" / "feature_availability_schema.csv"
+    assert matrix_path.exists(), "reports/modeling/feature_availability_schema.csv does not exist"
 
     df = pd.read_csv(matrix_path)
     assert "feature_name" in df.columns

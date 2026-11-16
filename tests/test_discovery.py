@@ -1,9 +1,5 @@
 """Unit tests for Behavioral Discovery Engine and Unsupervised Clustering.
 
-SKKNI Compliance:
-- [UK-03 Menelaah Data]
-- [UK-08 Membangun Skenario Model]
-- [UK-09 Membangun Model]
 """
 
 import sys

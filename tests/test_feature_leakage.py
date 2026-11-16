@@ -1,8 +1,5 @@
 """Unit tests for Anti-Leakage Governance and Point-in-Time Correctness.
 
-SKKNI Compliance:
-- [UK-07 Mengkonstruksi Data]
-- [UK-08 Membangun Skenario Model]
 """
 
 import sys

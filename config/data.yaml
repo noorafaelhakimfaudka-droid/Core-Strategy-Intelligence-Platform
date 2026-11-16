@@ -1,5 +1,4 @@
 # CSIP Data Configuration & Schema Registry
-# SKKNI Compliance: [UK-03 Menelaah Data], [UK-04 Memvalidasi Data], [UK-05 Menentukan Objek Data]
 
 raw_data_dir: "data/raw"
 interim_data_dir: "data/interim"
@@ -130,30 +129,26 @@ tables:
       - "product_category_name"
       - "product_category_name_english"
 
-# Analytical Grains Defined in System Specification Section 5.3
+# Analytical Grains Specification
 analytical_grains:
   grain_1_order_level:
     key: "order_id"
     description: "Order-level table for fulfillment delay risk and transaction satisfaction prediction."
-    skkni_unit: "UK-05 Menentukan Objek Data"
     output_path: "data/processed/order_level.parquet"
 
   grain_2_customer_cohort:
     key: "customer_unique_id"
     description: "Customer cohort table for retention, behavioral segmentation, and repeat purchase prediction."
-    skkni_unit: "UK-05 Menentukan Objek Data"
     output_path: "data/processed/customer_cohort.parquet"
 
   grain_3_review_text:
     key: "review_id"
     description: "Review text corpus for sentiment analysis, TF-IDF, and Deep Learning sequence modeling."
-    skkni_unit: "UK-05 Menentukan Objek Data"
     output_path: "data/processed/review_corpus.parquet"
 
   grain_4_weekly_system_state:
     key: "year_week"
     description: "Weekly system state panel for World Model, time series, and scenario simulation."
-    skkni_unit: "UK-05 Menentukan Objek Data"
     output_path: "data/processed/weekly_system_state.parquet"
 
 # Memory Optimization Rules for 8 GB RAM constraints

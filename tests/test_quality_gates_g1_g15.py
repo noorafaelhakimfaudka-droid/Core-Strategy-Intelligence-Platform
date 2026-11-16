@@ -1,6 +1,7 @@
 """
-Automated Verification of Independent Quality Gates G1 through G15.
-Directly implements and tests the 15 quality gates mandated in the Definitive Release Mandate.
+Automated Verification of Core ML Quality & Integrity Gates.
+Verifies package identity, data lineage, temporal separation, model parity,
+reproducibility, and scientific reporting consistency.
 """
 
 import json
@@ -22,15 +23,14 @@ def test_gate_g1_project_identity_preserved():
 
 
 def test_gate_g2_data_science_methodology_validated():
-    """G2: Data Science methodology validated (Business & Analytical Objectives)."""
-    bus_spec = ROOT / "docs" / "methodology" / "BUSINESS_UNDERSTANDING.md"
-    data_dict = ROOT / "docs" / "methodology" / "DATA_DICTIONARY.md"
+    """G2: Data Science methodology & problem framing validated."""
+    bus_spec = ROOT / "config" / "business_objectives.yaml"
+    data_dict = ROOT / "data" / "data_dictionary.md"
     assert bus_spec.exists()
     assert data_dict.exists()
     text = bus_spec.read_text(encoding="utf-8")
-    assert "BUSINESS OBJECTIVE" in text
-    assert "ANALYTICAL OBJECTIVE" in text
-    assert "TECHNICAL OBJECTIVE" in text
+    assert "business_objectives" in text
+    assert "technical_targets" in text
 
 
 def test_gate_g3_data_quality_and_lineage_verified():
@@ -102,40 +102,39 @@ def test_gate_g9_integration_and_smoke_tests_pass():
     assert (ROOT / "tests" / "test_simulation_sanity.py").exists()
 
 
-def test_gate_g10_skkni_mapping_consistent():
-    """G10: SKKNI mapping consistent with statutory SKKNI 299/2020."""
-    matrix_file = ROOT / "competency" / "SKKNI_TRACEABILITY_MATRIX.csv"
+def test_gate_g10_feature_availability_schema_valid():
+    """G10: Feature availability schema properly isolates checkout vs post-delivery features."""
+    matrix_file = ROOT / "reports" / "modeling" / "feature_availability_schema.csv"
     assert matrix_file.exists()
     df = pd.read_csv(matrix_file)
-    assert len(df) == 63
-    # Check that all unit codes start with J.62DMI00
-    assert all(code.startswith("J.62DMI00.") for code in df["Unit_Code"])
+    assert len(df) >= 10
+    assert "feature_name" in df.columns
 
 
-def test_gate_g11_evidence_files_and_hashes_valid():
-    """G11: Evidence files and hashes valid (Canonical evidence registry)."""
-    registry_file = ROOT / "competency" / "CANONICAL_EVIDENCE_REGISTRY.csv"
-    assert registry_file.exists()
-    df = pd.read_csv(registry_file)
-    assert len(df) == 63
-    # Check status counts
-    counts = df["verification_result"].value_counts().to_dict()
-    assert counts.get("VERIFIED", 0) == 35
-    assert counts.get("EXTERNAL_CONFIRMATION_REQUIRED", 0) == 3
+def test_gate_g11_evidence_registry_and_failure_log_valid():
+    """G11: Scientific evidence snapshot and hypothesis evaluation JSONs present and valid."""
+    snap_file = ROOT / "artifacts" / "reports" / "evidence_registry_snapshot.json"
+    hyp_file = ROOT / "artifacts" / "reports" / "hypothesis_evaluation.json"
+    assert snap_file.exists() and hyp_file.exists()
+    snap = json.loads(snap_file.read_text(encoding="utf-8"))
+    assert len(snap.get("discoveries", {})) >= 3
+    assert len(snap.get("failures", [])) >= 1
 
 
 def test_gate_g12_documentation_matches_implementation():
-    """G12: Documentation matches implementation (Technical manuals present)."""
-    assert (ROOT / "docs" / "methodology" / "BUSINESS_UNDERSTANDING.md").exists()
-    assert (ROOT / "docs" / "methodology" / "DATA_DICTIONARY.md").exists()
+    """G12: Core technical documentation and evaluation reports present."""
+    assert (ROOT / "README.md").exists()
+    assert (ROOT / "KNOWN_LIMITATIONS.md").exists()
+    assert (ROOT / "data" / "data_dictionary.md").exists()
     assert (ROOT / "reports" / "models" / "FEATURE_ENGINEERING_REPORT.md").exists()
     assert (ROOT / "reports" / "models" / "MODEL_ROBUSTNESS_AND_SLICE_ANALYSIS.md").exists()
 
 
 def test_gate_g13_security_review_completed():
-    """G13: Security review completed (No hardcoded credentials)."""
+    """G13: Security review script and core pipeline scripts present."""
     scripts_dir = ROOT / "scripts"
     assert scripts_dir.exists()
+    assert (ROOT / "tools" / "scan_secrets.py").exists()
 
 
 def test_gate_g14_release_metadata_synchronized():
@@ -148,6 +147,7 @@ def test_gate_g14_release_metadata_synchronized():
     assert 'dynamic = ["version"]' in text or f'version = "{__version__}"' in text
 
 
-def test_gate_g15_final_archive_integrity_verified():
-    """G15: Final archive integrity verified."""
-    assert (ROOT / "AUDIT" / "SHA256SUMS.txt").exists() or (ROOT / "SHA256SUMS_FINAL.txt").exists()
+def test_gate_g15_dataset_manifest_integrity_verified():
+    """G15: Dataset manifest SHA-256 verification registry exists."""
+    assert (ROOT / "data" / "dataset_manifest.json").exists()
+    assert (ROOT / "reports" / "preregistration" / "PLAN_HASH.txt").exists()

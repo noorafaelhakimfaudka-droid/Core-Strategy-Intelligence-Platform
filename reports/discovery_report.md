@@ -1,12 +1,12 @@
 # LAPORAN BEHAVIORAL DISCOVERY ENGINE (LAPORAN SEGMENTASI PERILAKU)
-**Kepatuhan Standar: SKKNI [UK-03 Menelaah Data], [UK-09 Membangun Model] & Validation Gate G4**
+**Modul Analisis: Segmentasi Perilaku Unsupervised & Deteksi Anomali**
 **Tanggal Pembuatan**: 2026-11-10 | **Dataset**: Olist Processed Order-Level (96,470 baris)
 
 ---
 
-## 1. Ringkasan Eksekutif & Status Validation Gate G4
+## 1. Ringkasan Eksekutif & Status Evaluasi Segmentasi
 
-| Parameter Evaluasi | Hasil Evaluasi Empiris | Status Gate G4 |
+| Parameter Evaluasi | Hasil Evaluasi Empiris | Status Evaluasi |
 |---|---|:---:|
 | **Jumlah Klaster Optimal (k)** | **k = 3** (di antara k in [3, 4, 5, 6]) | **PASS** |
 | **Silhouette Score** | **0.3865** | **PASS** |

@@ -1,9 +1,6 @@
-"""Execute Supervised ML & Competency Lab Experiments (B0 - B3).
+"""Execute Supervised ML & Benchmark Lab Experiments (B0 - B3).
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]
-- [UK-09 Membangun Model]
-- [UK-10 Mengevaluasi Hasil Pemodelan]
+Pipeline Scope:
 """
 
 import json
@@ -26,7 +23,7 @@ from csip.evidence.registry import EvidenceRegistry
 
 
 def main():
-    print("Starting Supervised ML & Competency Lab Training...")
+    print("Starting Supervised ML & Benchmark Lab Training...")
     trainer = ModelExperimentTrainer(
         order_level_path=REPO_ROOT / "data" / "processed" / "order_level_clustered.parquet",
         customer_cohort_path=REPO_ROOT / "data" / "processed" / "customer_cohort.parquet",
@@ -72,10 +69,7 @@ def main():
     plt.close()
     print(f"Comparison chart saved: {chart_path}")
 
-    # Update Evidence Registry SKKNI UK-09 status to VERIFIED
     registry = EvidenceRegistry(registry_dir=REPO_ROOT / "artifacts" / "reports")
-    registry.update_skkni_status("UK-08", "VERIFIED")
-    registry.update_skkni_status("UK-09", "VERIFIED")
     snapshot_path = registry.save_registry_snapshot()
     print(f"Evidence Registry updated: {snapshot_path}")
 

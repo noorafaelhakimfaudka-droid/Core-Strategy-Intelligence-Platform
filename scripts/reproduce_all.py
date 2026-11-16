@@ -139,7 +139,7 @@ def step_6_notebook_execution_audit() -> None:
 
 def main() -> None:
     print("=" * 70)
-    print("CSIP V17 MASTER REPRODUCTION PIPELINE")
+    print("CSIP MASTER REPRODUCTION PIPELINE")
     print("=" * 70)
     start_time = time.time()
 

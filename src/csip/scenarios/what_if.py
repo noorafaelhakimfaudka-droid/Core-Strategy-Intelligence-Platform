@@ -1,8 +1,6 @@
 """CSIP What-If & Partial Dependence Scenario Intelligence.
 
-Implements Enterprise Standard SKKNI Competencies:
-- [UK-08] Membangun Skenario Model: Simulasi interaktif perubahan variabel input pada model inferensi.
-- [UK-11] Mengembangkan Solusi: Kurva respons parsial (Partial Dependence Curve) dan proyeksi selisih terhadap baseline populasi.
+Core Capabilities:
 
 100% Real Computation, Local, Zero Emojis.
 """
@@ -15,7 +13,7 @@ import pandas as pd
 
 
 def predict_what_if(pipeline: Dict[str, Any], custom_inputs: Dict[str, float]) -> Dict[str, Any]:
-    """[UK-08, UK-11] Run model inference and calculate Partial Dependence Curves on user scenario.
+    """Run model inference and calculate Partial Dependence Curves on user scenario.
     
     Args:
         pipeline: Trained pipeline dictionary produced by train_semantic_ml_pipeline.

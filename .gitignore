@@ -35,3 +35,9 @@ Thumbs.db
 *.egg-info/
 .streamlit/secrets.toml
 
+# Generated Verification Outputs
+reports/testing/
+reports/security/
+reports/verification/
+
+

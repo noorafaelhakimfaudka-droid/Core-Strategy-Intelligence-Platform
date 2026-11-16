@@ -1,10 +1,6 @@
 """CSIP Hypothesis Investigation Engine.
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Formulasi pengujian hipotesis statistik dan spesifikasi model.
-- [UK-09 Membangun Model]: Estimasi model regresi OLS, Logistik, dan interaksi term.
-- [UK-10 Mengevaluasi Hasil Pemodelan]: Evaluasi ukuran efek, interval kepercayaan, dan FDR.
-- [UK-11 Melakukan Proses Review Pemodelan]: Evaluasi penjelasan alternatif dan falsifikasi.
+Pipeline Scope:
 
 Enforces Benjamini-Hochberg FDR correction and System Specification Claim Levels (L1/L2).
 """
@@ -47,8 +43,6 @@ if not logger.handlers:
 
 class HypothesisTestRunner:
     """Rigorous Statistical Hypothesis Testing & Alternative Explanation Engine.
-
-    Fulfills System Specification Section 4.1.B and SKKNI Unit 8, 9, 10.
     """
 
     def __init__(
@@ -132,7 +126,7 @@ class HypothesisTestRunner:
             confidence_interval_95=[round(ci[0], 4), round(ci[1], 4)],
             claim_level=ClaimLevel.L2_ASSOCIATIONAL.value,
             evidence_grade=EvidenceGrade.GRADE_A.value if not falsified else EvidenceGrade.GRADE_D.value,
-            skkni_unit="UK-08 Membangun Skenario Model & UK-10",
+            pipeline_stage="Scientific Evaluation & Modeling",
             falsification_tested=True,
             alternative_explanations_tested=["Controlled for basket item count and total item price"],
             limitations=["Secondary observational data without direct price elasticity experiment"],
@@ -173,7 +167,7 @@ class HypothesisTestRunner:
             confidence_interval_95=[round(ci_late[0], 4), round(ci_late[1], 4)],
             claim_level=ClaimLevel.L2_ASSOCIATIONAL.value,
             evidence_grade=EvidenceGrade.GRADE_A.value,
-            skkni_unit="UK-08 Membangun Skenario Model & UK-10",
+            pipeline_stage="Scientific Evaluation & Modeling",
             falsification_tested=True,
             alternative_explanations_tested=["Piecewise slope comparison against early delivery bonus"],
             limitations=["Estimated delivery date is promised SLA by marketplace, not buyer private expectation"],
@@ -208,7 +202,7 @@ class HypothesisTestRunner:
             confidence_interval_95=ci_or,
             claim_level=ClaimLevel.L2_ASSOCIATIONAL.value,
             evidence_grade=EvidenceGrade.GRADE_A.value,
-            skkni_unit="UK-08 Membangun Skenario Model & UK-10",
+            pipeline_stage="Scientific Evaluation & Modeling",
             falsification_tested=True,
             alternative_explanations_tested=["Controlled for first-order basket value and freight ratio"],
             limitations=["Right-censoring mitigation fixed at 90 days; long-tail repeat buyers after 180 days excluded"],
@@ -240,7 +234,7 @@ class HypothesisTestRunner:
             confidence_interval_95=[round(f_stat * 0.8, 3), round(f_stat * 1.2, 3)],
             claim_level=ClaimLevel.L2_ASSOCIATIONAL.value,
             evidence_grade=EvidenceGrade.GRADE_A.value,
-            skkni_unit="UK-08 Membangun Skenario Model & UK-10",
+            pipeline_stage="Scientific Evaluation & Modeling",
             falsification_tested=True,
             alternative_explanations_tested=["Interactions evaluated across K-Means cluster personas"],
             limitations=["Clusters are data-driven approximations rather than immutable demographic attributes"],
@@ -298,7 +292,7 @@ class HypothesisTestRunner:
             confidence_interval_95=[round(delta_pr_auc * 0.85, 4), round(delta_pr_auc * 1.15, 4)],
             claim_level=ClaimLevel.L1_PREDICTIVE.value,
             evidence_grade=EvidenceGrade.GRADE_A.value,
-            skkni_unit="UK-10 Mengevaluasi Hasil Pemodelan",
+            pipeline_stage="Scientific Evaluation & Modeling",
             falsification_tested=True,
             alternative_explanations_tested=["Evaluated on locked out-of-time temporal test set"],
             limitations=["Logistic regression linear baseline; deeper non-linear lift evaluated in E3/E7"],
@@ -339,7 +333,7 @@ class HypothesisTestRunner:
             confidence_interval_95=[round(attenuation_pct * 0.9, 2), round(attenuation_pct * 1.1, 2)],
             claim_level=ClaimLevel.L2_ASSOCIATIONAL.value,
             evidence_grade=EvidenceGrade.GRADE_B.value,
-            skkni_unit="UK-11 Melakukan Proses Review Pemodelan",
+            pipeline_stage="Scientific Evaluation & Modeling",
             falsification_tested=True,
             alternative_explanations_tested=["Adjusted for buyer state fixed effects and basket complexity"],
             limitations=["Unobserved confounders like household income or marketing email exposure remain unmeasured"],

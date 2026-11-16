@@ -1,9 +1,6 @@
 """CSIP Raw Data Profiling and Referential Integrity Audit Script.
 
-SKKNI Compliance:
-- [UK-03 Menelaah Data]
-- [UK-04 Memvalidasi Data]
-- [UK-05 Menentukan Objek Data]
+Pipeline Scope:
 """
 
 import json

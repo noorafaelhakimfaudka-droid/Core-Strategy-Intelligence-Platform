@@ -1,7 +1,7 @@
-"""Artifact parity tests verifying end-to-end deliverables for CSIP (Milestone 12 - Gate G11).
+"""Artifact parity tests verifying end-to-end deliverables for CSIP.
 
-SKKNI Compliance:
-- [UK-11 Mengembangkan Solusi]: Verifikasi ketersediaan dan integritas seluruh artefak, model, laporan, dan dashboard.
+Verifies availability and integrity of processed grains, models, reports,
+visualization figures, notebooks, and Streamlit cockpit modules.
 """
 
 from __future__ import annotations
@@ -92,7 +92,7 @@ def test_written_reports_parity():
         "reports/model_evaluation_and_review_report.md",
         "reports/scenario_simulation_report.md",
         "reports/evidence_and_failure_register.md",
-        "reports/research_traceability_matrix.md",
+        "reports/feature_availability_and_leakage_audit.md",
     ]
     for rel_path in expected_md:
         p = Path(rel_path)

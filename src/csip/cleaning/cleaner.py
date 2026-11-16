@@ -1,8 +1,6 @@
 """CSIP Data Cleaning and Deduplication Module.
 
-SKKNI Compliance:
-- [UK-05 Menentukan Objek Data]: Pemisahan grain dan eliminasi Cartesian explosion.
-- [UK-06 Membersihkan Data]: Deduplikasi geolokasi (median), deduplikasi ulasan ganda,
+Pipeline Scope:
   penyaringan status delivered, pembersihan anomali timestamp, dan imputasi terstandarisasi.
 
 Outputs clean interim Parquet files in data/interim/ optimized for 8 GB RAM laptop execution.
@@ -46,8 +44,6 @@ class CleaningStepReport:
 
 class OlistDataCleaner:
     """Enterprise Data Cleaning & Interim Pipeline for Olist E-Commerce Dataset.
-
-    Fulfills SKKNI [UK-06 Membersihkan Data].
     """
 
     def __init__(
@@ -458,7 +454,7 @@ class OlistDataCleaner:
 
     def run_full_pipeline(self) -> Dict[str, Any]:
         """Execute end-to-end cleaning and interim export across all datasets."""
-        logger.info("Starting Full CSIP Data Cleaning Pipeline (SKKNI Unit 6)...")
+        logger.info("Starting Full CSIP Data Cleaning Pipeline...")
 
         # 1. Clean Orders
         clean_orders_df = self.clean_orders(status_filter="delivered", drop_chrono_anomalies=True)

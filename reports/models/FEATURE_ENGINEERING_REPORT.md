@@ -1,8 +1,7 @@
 # CSIP Feature Engineering & Attribution Report
 ## Theoretical Rationales, Leakage Avoidance, Baseline vs Engineered Lift & Feature Stability
 
-**Document Version:** 1.0.0-Definitive  
-**Standard Compliance:** SKKNI 299/2020 Unit 7 (`J.62DMI00.009.1`) & Unit 8 (`J.62DMI00.012.1`)  
+**Scope:** Leak-Free Feature Construction & Attribution Analysis  
 **Target Models:** Customer Negative Review Classifier & Delivery Delay Regressor  
 
 ---

@@ -1,5 +1,5 @@
 {
-  "audited_at": "2026-11-11T14:36:06.495422+00:00",
+  "audited_at": "2026-11-16T12:57:24.751863+00:00",
   "total_notebooks": 14,
   "total_cells": 111,
   "total_code_cells": 51,
@@ -14,7 +14,7 @@
       "executed_cells": 3,
       "execution_coverage": 1.0,
       "output_cells_sha256": "059ba393ba32f0a5edd2bdd0657d385f39f0a65af20b69d9fbf4f4b1f4f7f916",
-      "audit_runtime_sec": 0.003,
+      "audit_runtime_sec": 0.002,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -25,7 +25,7 @@
       "executed_cells": 4,
       "execution_coverage": 1.0,
       "output_cells_sha256": "ce26a4f9b6cdd6fa238e638f83271dbb18b6722f6f9d0ae0da71f789173b3acd",
-      "audit_runtime_sec": 0.002,
+      "audit_runtime_sec": 0.001,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -35,7 +35,7 @@
       "code_cells": 5,
       "executed_cells": 5,
       "execution_coverage": 1.0,
-      "output_cells_sha256": "93688cd67ef363d495d9e3ad8ab4cd15983f65a4eb0a51acd729648be65cf006",
+      "output_cells_sha256": "803de35a9c06571e0648921f0243badd9f7f3d4f05de0fe63499decf8f07d310",
       "audit_runtime_sec": 0.004,
       "status": "VALID_AND_EXECUTED"
     },
@@ -58,7 +58,7 @@
       "executed_cells": 4,
       "execution_coverage": 1.0,
       "output_cells_sha256": "2abbb159f6b3654fffb0638ce46e66e58a98c7e4a6fbb2da7a75f6275f1fc566",
-      "audit_runtime_sec": 0.003,
+      "audit_runtime_sec": 0.002,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -69,18 +69,18 @@
       "executed_cells": 3,
       "execution_coverage": 1.0,
       "output_cells_sha256": "aa2629fdcfb7901b782d12676dbcfa2e5cca3cf873074f91120566acec1ef684",
-      "audit_runtime_sec": 0.003,
+      "audit_runtime_sec": 0.002,
       "status": "VALID_AND_EXECUTED"
     },
     {
-      "notebook_name": "07_supervised_ml_and_competency_lab.ipynb",
-      "path": "notebooks/07_supervised_ml_and_competency_lab.ipynb",
+      "notebook_name": "07_supervised_ml_and_benchmark_lab.ipynb",
+      "path": "notebooks/07_supervised_ml_and_benchmark_lab.ipynb",
       "total_cells": 11,
       "code_cells": 5,
       "executed_cells": 5,
       "execution_coverage": 1.0,
       "output_cells_sha256": "db9c9fb93f347d5d57c2dbd23d290190c9e8bc4e5e323c2f30040ed784ff71ae",
-      "audit_runtime_sec": 0.003,
+      "audit_runtime_sec": 0.002,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -91,7 +91,7 @@
       "executed_cells": 4,
       "execution_coverage": 1.0,
       "output_cells_sha256": "13ef0b2dbd0454dc227ace0128b9618c25a050d8b3b899b2915bc1f39ce67ef4",
-      "audit_runtime_sec": 0.004,
+      "audit_runtime_sec": 0.002,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -102,7 +102,7 @@
       "executed_cells": 3,
       "execution_coverage": 1.0,
       "output_cells_sha256": "123c52157b5cafd6e83b2b7a050b5225b035dedf40729d9eea66b339f9c6c7d1",
-      "audit_runtime_sec": 0.004,
+      "audit_runtime_sec": 0.003,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -146,7 +146,7 @@
       "executed_cells": 3,
       "execution_coverage": 1.0,
       "output_cells_sha256": "852f54b343376902611a04d2be296b619f1dcee05d409b775d5f8026c8bbc12a",
-      "audit_runtime_sec": 0.002,
+      "audit_runtime_sec": 0.001,
       "status": "VALID_AND_EXECUTED"
     },
     {
@@ -156,8 +156,8 @@
       "code_cells": 3,
       "executed_cells": 3,
       "execution_coverage": 1.0,
-      "output_cells_sha256": "9f1e2a489e4ce609dd7c31bd2c9c10591a153616e58e3934923ecc884039f96c",
-      "audit_runtime_sec": 0.002,
+      "output_cells_sha256": "cceb8b2e9e3c1ac3bd0da5b0b6ea0d040636a251997e686e443bf62f77c01ee8",
+      "audit_runtime_sec": 0.009,
       "status": "VALID_AND_EXECUTED"
     }
   ]

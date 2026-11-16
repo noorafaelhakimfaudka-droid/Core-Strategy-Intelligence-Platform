@@ -15,7 +15,7 @@
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
     "evidence_grade": "Grade A (Kuat & Tervalidasi)",
-    "skkni_unit": "UK-08 Membangun Skenario Model & UK-10",
+    "pipeline_stage": "Membangun Skenario Model",
     "falsification_tested": true,
     "alternative_explanations_tested": [
       "Controlled for basket item count and total item price"
@@ -41,7 +41,7 @@
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
     "evidence_grade": "Grade A (Kuat & Tervalidasi)",
-    "skkni_unit": "UK-08 Membangun Skenario Model & UK-10",
+    "pipeline_stage": "Membangun Skenario Model",
     "falsification_tested": true,
     "alternative_explanations_tested": [
       "Piecewise slope comparison against early delivery bonus"
@@ -67,7 +67,7 @@
     "status": "REJECTED",
     "claim_level": "L2 (Associational)",
     "evidence_grade": "Grade A (Kuat & Tervalidasi)",
-    "skkni_unit": "UK-08 Membangun Skenario Model & UK-10",
+    "pipeline_stage": "Membangun Skenario Model",
     "falsification_tested": true,
     "alternative_explanations_tested": [
       "Controlled for first-order basket value and freight ratio"
@@ -93,7 +93,7 @@
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
     "evidence_grade": "Grade A (Kuat & Tervalidasi)",
-    "skkni_unit": "UK-08 Membangun Skenario Model & UK-10",
+    "pipeline_stage": "Membangun Skenario Model",
     "falsification_tested": true,
     "alternative_explanations_tested": [
       "Interactions evaluated across K-Means cluster personas"
@@ -119,7 +119,7 @@
     "status": "SUPPORTED",
     "claim_level": "L1 (Predictive)",
     "evidence_grade": "Grade A (Kuat & Tervalidasi)",
-    "skkni_unit": "UK-10 Mengevaluasi Hasil Pemodelan",
+    "pipeline_stage": "Mengevaluasi Hasil Pemodelan",
     "falsification_tested": true,
     "alternative_explanations_tested": [
       "Evaluated on locked out-of-time temporal test set"
@@ -145,7 +145,7 @@
     "status": "SUPPORTED",
     "claim_level": "L2 (Associational)",
     "evidence_grade": "Grade B (Cukup / Bersyarat)",
-    "skkni_unit": "UK-11 Melakukan Proses Review Pemodelan",
+    "pipeline_stage": "Melakukan Proses Review Pemodelan",
     "falsification_tested": true,
     "alternative_explanations_tested": [
       "Adjusted for buyer state fixed effects and basket complexity"

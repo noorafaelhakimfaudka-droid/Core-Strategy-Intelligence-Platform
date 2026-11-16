@@ -15,7 +15,7 @@
   - Dropout: 0.20
   - Output: Binary classification (Negative Sentiment = Review Score 1 or 2)
 
-### 2. Training Population & Population Reconciliation (Addressing F-V14-03)
+### 2. Training Population & Population Reconciliation
 - **Population Definition**: Unlike tabular models (which evaluate on all orders regardless of review text availability), the BiLSTM model is trained and evaluated strictly on the subset of orders with **non-empty review comment text** (`data/processed/review_corpus.parquet`, total $N = 41,524$ reviews).
 - **Base Rate Difference**: Customers who write text feedback exhibit an elevated rate of severe dissatisfaction (~16.2% negative) compared to the overall order population (~9.85% negative).
 - **Training Samples**: $N_{train} = 26,450$ reviews.

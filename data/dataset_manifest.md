@@ -3,7 +3,7 @@
 
 **Document ID**: `CSIP-DATA-MANIFEST-2026`  
 **Reference Case Study**: Brazilian E-Commerce Public Dataset by Olist  
-**Verification Standard**: Audit Registry Data Scientist KKNI Level 7  
+**Verification Standard**: Schema Contracts & SHA-256 Data Lineage  
 **Date**: November 2026  
 
 ---
@@ -61,13 +61,13 @@ flowchart TD
         R6["customers / sellers / products"]
     end
 
-    subgraph Cleaning["Tahap Pembersihan (UK-04 & UK-06)"]
+    subgraph Cleaning["Tahap Pembersihan & Validasi"]
         C1["Filter status delivered<br>& buang 23 anomali tanggal"]
         C2["Deduplikasi spasial median<br>(1.0M -> 19k unik, -98.1%)"]
         C3["Deduplikasi multi-item ulasan"]
     end
 
-    subgraph Processed["Tahap Konstruksi Grain (UK-05 & UK-07)"]
+    subgraph Processed["Tahap Konstruksi Grain Analitis"]
         P1["order_level.parquet (96,470 rows, 41 cols)<br>Unit Analisis Transaksi Utama"]
         P2["customer_cohort.parquet (93,358 rows)<br>Mitigasi Right-Censoring (delta_w=90d)"]
         P3["weekly_system_state.parquet (86 weeks)<br>Deret Waktu Sistem Makro"]

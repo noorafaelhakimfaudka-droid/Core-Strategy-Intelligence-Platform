@@ -1,7 +1,6 @@
 """CSIP Sequence Deep Learning Module: Bi-LSTM for Review Text (Baseline Ladder B4).
 
-SKKNI Compliance:
-- [UK-09 Membangun Model]: Sequence modeling & Deep Learning untuk representasi teks ulasan.
+Pipeline Scope:
 - Modul Kompetensi 15 & 16: NLP, Word Embeddings, Bidirectional LSTM, dan Sentiment Classification.
 
 Optimized for 8 GB RAM laptop execution with PyTorch CPU acceleration.

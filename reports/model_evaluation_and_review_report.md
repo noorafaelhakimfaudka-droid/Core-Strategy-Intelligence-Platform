@@ -1,8 +1,7 @@
 # CSIP Comprehensive Model Evaluation & Diagnostic Review Report
 
 **Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
-**Author**: Antigravity Autonomous Data Science Agent  
-**Standard**: Metodologi Data Science Data Science (Audit Registry) — [UK-10 Mengevaluasi Hasil Pemodelan] & [UK-11 Mengembangkan Solusi]  
+**Author**: Noorafael Hakim Faudka  
 **Evaluation Protocol**: Locked Temporal Out-of-Time Test Set (2018-07-01 to 2018-08-31)  
 **Date**: November 2026  
 
@@ -12,7 +11,7 @@
 
 This report documents the rigorous evaluation of the CSIP Baseline Ladder (B0 through B4), feature ablation architectures (E0 through E4), probability calibration, SHAP feature attributions, and structural limitations under severe class imbalance and temporal distribution shift.
 
-All models were evaluated on a strictly locked, temporal out-of-time evaluation split ($N_{\text{test}} = 12,630$ orders for order-level outcomes; $N_{\text{test}} = 6,439$ customers for cohort checkout outcomes; $N_{\text{test}} = 4,232$ customers for post-delivery fulfillment outcomes). In compliance with the SHADOW Project Rules and Metodologi Data Science competency standards, the Temporal & Feature Isolation Protocol (audited, residual risks documented) was strictly applied, and all claims are strictly governed under Level L0 to L3 categories.
+All models were evaluated on a strictly locked, temporal out-of-time evaluation split ($N_{\text{test}} = 12,630$ orders for order-level outcomes; $N_{\text{test}} = 6,439$ customers for cohort checkout outcomes; $N_{\text{test}} = 4,232$ customers for post-delivery fulfillment outcomes). Under the strict Temporal & Feature Isolation Protocol, all evaluation splits were strictly separated, and all claims are strictly governed under Level L0 to L3 categories.
 
 ---
 

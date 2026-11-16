@@ -1,9 +1,5 @@
 """Unit tests for Supervised Machine Learning Pipelines & Baseline Ladder (B0 - B3).
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]
-- [UK-09 Membangun Model]
-- [UK-10 Mengevaluasi Hasil Pemodelan]
 """
 
 import sys

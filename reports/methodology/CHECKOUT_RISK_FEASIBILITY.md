@@ -2,7 +2,7 @@
 ## Analisis Estimand, Populasi Pesanan Non-Delivered, dan Batas Seleksi (Manski Bounds)
 
 **Dokumen ID**: `CSIP-FEAS-CR-01`  
-**Standar**: SKKNI No. 299 Tahun 2020 | LSP TRI `SKM/2905/LSP-TRI/VII/2025`  
+**Ruang Lingkup**: Analisis Estimand & Batas Seleksi Statistik  
 **Tanggal**: 11 November 2026  
 **Status Kelayakan**: **TIDAK LAYAK UNTUK CHECKOUT-TIME MURNI (Pertahankan Model Retrospektif Berlabel Tegas)**  
 
@@ -55,9 +55,9 @@ Konstruksi model `bad_order_outcome = (status ∈ {canceled, unavailable}) ∨ (
 
 1. **Missingness Struktural Ekstrem:** Memaksa model checkout yang menggunakan fitur item (harga, ongkos kirim, kategori produk) akan secara sistematis membuang 62.2% pesanan non-delivered (767 dari 1.234 pesanan). Hal ini menciptakan bias seleksi parah pada sampel latihan.
 2. **Sinyal Keterlambatan adalah Realisasi Pasca-Pengiriman:** Daya diskriminasi ulasan buruk sebesar 80%+ digerakkan oleh penalti keterlambatan logistik riil yang baru teramati berhari-hari setelah checkout. Mencoba memprediksi ketidakpuasan hanya dari atribut checkout (nilai keranjang, metode bayar) menghasilkan sinyal sangat lemah mendekati acak.
-3. **Sikap Integritas CSIP:** Sesuai Aturan Keras 2 dan Aturan 4, CSIP tidak merekayasa fitur atau memaksakan inferensi pada label yang tidak teramati.
+3. **Sikap Integritas CSIP:** Sesuai protokol integritas ilmiah, CSIP tidak merekayasa fitur atau memaksakan inferensi pada label yang tidak teramati.
 
-**Kebijakan Model Resmi CSIP V17:**
+**Kebijakan Model Resmi CSIP:**
 - **Pertahankan Model Retrospektif (`best_negative_review_lightgbm`)** sebagai instrumen diagnostik post-delivery.
 - **Wajibkan Pelabelan Tegas:** Seluruh metrik, model card, dan halaman Streamlit wajib mencantumkan status `RETROSPEKTIF (Post-Delivery Diagnostic)` dan menegaskan bahwa **CSIP tidak memiliki model prediktif checkout-time untuk risiko ulasan**.
 

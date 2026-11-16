@@ -2,8 +2,7 @@
 ## Rigorous Methodology for Time-Aware Machine Learning in E-Commerce
 
 **Document ID**: `CSIP-AUDIT-LEAKAGE-2026`  
-**Standard**: SKKNI No. 299 Tahun 2020 (UK-07 Mengkonstruksi Data & UK-08 Membangun Skenario Model)  
-**Target Certification**: SKKNI Data Scientist (KKNI Jenjang 7)  
+**Scope**: Feature Availability Horizons & Strict Leakage Isolation  
 **Status**: AUDITED & VERIFIED (Zero Target Leakage)  
 **Date**: November 2026  
 
@@ -113,5 +112,5 @@ Sesuai kaidah Scikit-Learn transformer protocol yang telah direfaktor pada `src/
 
 Integritas anti-kebocoran diverifikasi secara otomatis melalui `tests/test_feature_leakage.py` dan `tests/test_data_pipeline_stress.py`.
 - **Hasil Test**: 100% PASSED (0.00 correlation dengan target di masa depan).
-- **Kesimpulan Audit**: Seluruh pipeline Machine Learning CSIP **100% bebas dari kebocoran data target dan kontaminasi temporal**, menjamin validitas ilmiah tertinggi untuk evaluasi teknis arsitektur KKNI Level 7.
+- **Kesimpulan Audit**: Seluruh pipeline Machine Learning CSIP **100% bebas dari kebocoran data target dan kontaminasi temporal**, menjamin validitas ilmiah tertinggi untuk inferensi dan pemodelan operasional.
 

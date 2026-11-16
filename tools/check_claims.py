@@ -46,12 +46,7 @@ NEGATION_PATTERNS = [
 EXCLUDED_FILES = {
     "check_claims.py",
     "test_claims_and_overclaims.py",
-    "test_v12_remediation.py",
-    "test_v13_remediation.py",
     "test_quality_gates_g1_g15.py",
-    "test_v14_master.py",
-    "pytest_actual.txt",
-    "secret_scan.txt",
 }
 
 EXCLUDED_DIRS = {

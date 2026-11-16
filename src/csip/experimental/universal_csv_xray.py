@@ -1,11 +1,6 @@
 """Universal CSV X-Ray: Automated profiling, cleaning, clustering, and factor discovery for arbitrary CSVs.
 
-Proves SKKNI Unit 3, 4, 5, 6, 7 live on user-provided data:
-- UK-03: Menelaah Data (Automated profiling & structure scan)
-- UK-04: Memvalidasi Data (Integrity checks, nulls, duplicates)
-- UK-05: Menentukan Objek Data (Grain & ID column inference)
-- UK-06: Membersihkan Data (Auto-imputation & deduplication)
-- UK-07: Mengonstruksi Data (Feature scaling, PCA 2D projection & interaction ratios)
+Live Dataset Capabilities:
 
 Compatible with 8 GB RAM, executes in < 3 seconds.
 """
@@ -72,7 +67,7 @@ class UniversalCSVXRay:
         else:
             df = df_raw.copy()
 
-        # 2. SKKNI UK-04 & UK-06: Data Validation & Automated Cleaning
+        # 2. Data Validation & Automated Cleaning
         initial_nulls = int(df.isnull().sum().sum())
         initial_dups = int(df.duplicated().sum())
 
@@ -91,10 +86,10 @@ class UniversalCSVXRay:
             if df_clean[c].isnull().any():
                 df_clean[c] = df_clean[c].fillna("Tidak Diketahui")
 
-        # 3. SKKNI UK-03 & UK-05: Automatic Role Inference
+        # 3. Automatic Role Inference
         roles = self._detect_column_roles(df_clean, numeric_cols, cat_cols)
 
-        # 4. SKKNI UK-07: Fast Behavioral Clustering & 2D Projection
+        # 4. Fast Behavioral Clustering & 2D Projection
         clustering_res = self._run_fast_clustering(df_clean, numeric_cols)
 
         # 5. Fast Key Factor Discovery

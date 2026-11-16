@@ -1,8 +1,6 @@
 """CSIP Classical Machine Learning Models & Baseline Ladder (B0 - B3).
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Baseline Ladder B0-B3 dan parameter model.
-- [UK-09 Membangun Model]: Pelatihan model LogReg, Ridge, Decision Tree, KNN, Naive Bayes, Random Forest, LightGBM.
+Pipeline Scope:
 
 All models adhere to 8 GB RAM laptop limits (bounded depths, n_jobs limits, vectorized scalers).
 """

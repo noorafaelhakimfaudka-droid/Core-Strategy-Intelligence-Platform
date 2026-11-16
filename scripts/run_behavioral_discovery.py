@@ -1,10 +1,6 @@
 """Execute Behavioral Discovery Engine and Generate Segmentation Deliverables.
 
-SKKNI Compliance:
-- [UK-03 Menelaah Data]
-- [UK-08 Membangun Skenario Model]
-- [UK-09 Membangun Model]
-- [UK-11 Melakukan Proses Review Pemodelan]
+Pipeline Scope:
 """
 
 import json
@@ -111,7 +107,7 @@ def run_discovery():
         discovered_at="2026-11-10",
         grain="order_id",
         key_metrics={"median_freight_ratio": 0.38, "risk_ratio_negative_review": 1.78},
-        skkni_unit="UK-03 Menelaah Data",
+        pipeline_stage="Scientific Evaluation & Modeling",
         claim_level=ClaimLevel.L0_DESCRIPTIVE.value,
         evidence_grade=EvidenceGrade.GRADE_A.value,
     )
@@ -123,7 +119,7 @@ def run_discovery():
         discovered_at="2026-11-10",
         grain="order_id",
         key_metrics={"median_lead_time_days": 21.2, "repeat_purchase_rate_pct": 1.62},
-        skkni_unit="UK-09 Membangun Model",
+        pipeline_stage="Scientific Evaluation & Modeling",
         claim_level=ClaimLevel.L2_ASSOCIATIONAL.value,
         evidence_grade=EvidenceGrade.GRADE_B.value,
     )
@@ -135,7 +131,7 @@ def run_discovery():
         discovered_at="2026-11-10",
         grain="order_id",
         key_metrics={"median_order_value": 284.5, "median_installments": 8},
-        skkni_unit="UK-09 Membangun Model",
+        pipeline_stage="Scientific Evaluation & Modeling",
         claim_level=ClaimLevel.L0_DESCRIPTIVE.value,
         evidence_grade=EvidenceGrade.GRADE_B.value,
     )
@@ -143,7 +139,6 @@ def run_discovery():
     registry.register_discovery(disc_1)
     registry.register_discovery(disc_2)
     registry.register_discovery(disc_3)
-    registry.update_skkni_status("UK-09", "TESTED")
     snapshot_path = registry.save_registry_snapshot()
     print(f"Evidence Registry snapshot updated: {snapshot_path}")
 
@@ -157,7 +152,7 @@ def generate_markdown_report(eval_res: Dict[str, Any], profiles: list):
 
     lines = [
         "# LAPORAN BEHAVIORAL DISCOVERY ENGINE (LAPORAN SEGMENTASI PERILAKU)",
-        "**Kepatuhan Standar: SKKNI [UK-03 Menelaah Data], [UK-09 Membangun Model] & Validation Gate G4**",
+        "**Kepatuhan Standar: , & Validation Gate G4**",
         "**Tanggal Pembuatan**: 2026-11-10 | **Dataset**: Olist Processed Order-Level (96,470 baris)",
         "",
         "---",

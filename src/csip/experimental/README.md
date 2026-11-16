@@ -10,6 +10,5 @@ Modul dalam direktori ini (`src/csip/experimental/`):
 Modul-modul ini berstatus **EKSPERIMENTAL** dan ditujukan untuk eksplorasi interaktif pada Decision Studio.
 Modul ini:
 1. **BUKAN** merupakan bagian dari pipeline pemodelan prediktif inti (`csip.data` -> `csip.features` -> `csip.models` -> `csip.evaluation`).
-2. **TIDAK** termasuk dalam klaim kompetensi inti SKKNI 299/2020.
-3. **TIDAK** menggunakan agen AI, LLM, atau dependensi eksternal tertutup.
+2. **TIDAK** menggunakan agen AI, LLM, atau dependensi eksternal tertutup.
 

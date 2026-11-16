@@ -1,8 +1,5 @@
 """Unit tests for CSIP Simulation Sanity & Uncertainty Invariants (Milestone 10 - Gate G9).
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Verifikasi invariant simulasi kebijakan skenario.
-- [UK-10 Mengevaluasi Model]: Uji batas invariant ketidakpastian & Extrapolation Guardrails.
 """
 
 from __future__ import annotations

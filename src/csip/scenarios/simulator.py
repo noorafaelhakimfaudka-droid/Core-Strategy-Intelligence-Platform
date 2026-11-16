@@ -1,9 +1,6 @@
 """CSIP Alternative World Simulator & Policy Intervention Engine (Milestone 10 - Gate G9).
 
-SKKNI Compliance:
-- [UK-08 Membangun Skenario Model]: Simulasi skenario alternatif kebijakan (S0 - S5).
-- [UK-10 Mengevaluasi Model]: Validasi sanity constraints & Extrapolation Guardrails.
-- [UK-11 Mengembangkan Solusi]: Proyeksi dampak bisnis (GMV lift, biaya subsidi, net profit, ROI).
+Pipeline Scope:
 
 Claim Governance:
 - In-distribution scenarios are assigned Grade B (Cukup / Bersyarat) associational evidence.

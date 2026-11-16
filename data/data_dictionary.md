@@ -1,5 +1,4 @@
 # KAMUS DATA (DATA DICTIONARY) — CSIP MVP BDI
-**Kepatuhan SKKNI: [UK-03 Menelaah Data] & [UK-05 Menentukan Objek Data]**
 **Dataset Acuan**: Brazilian E-Commerce Public Dataset by Olist (9 Tabel Relasional)
 
 Dokumen ini mendokumentasikan skema, tipe data, relasi kunci, dan peran analitik dari 9 tabel relasional Olist yang digunakan dalam platform CSIP.

@@ -1,5 +1,4 @@
-# CSIP Modeling, Baseline Ladder & Competency Laboratory Configuration
-# SKKNI Compliance: [UK-02 Tujuan Teknis DS], [UK-08 Membangun Skenario Model], [UK-09 Membangun Model], [UK-10 Mengevaluasi Hasil Pemodelan]
+# CSIP Modeling, Baseline Ladder & Benchmark Configuration
 
 random_seed: 42
 
@@ -56,7 +55,7 @@ baseline_ladder:
           alpha: 1.0
 
   B2_classical_benchmarks:
-    description: "Classical non-linear and probabilistic algorithms (Competency Lab)"
+    description: "Classical non-linear and probabilistic algorithms (Benchmark Lab)"
     models:
       decision_tree:
         algorithm: "DecisionTreeClassifier"
@@ -146,7 +145,7 @@ experiments_matrix:
   E3: "Combined + Interaction Features"
   E4: "Imbalanced Data Handling (Class Weights vs Threshold Tuning)"
   E5: "Unsupervised Behavioral Clustering"
-  E6: "Classical Algorithm Competency Lab (KNN & Naive Bayes)"
+  E6: "Classical Algorithm Benchmark Lab (KNN & Naive Bayes)"
   E7: "Deep Learning 1 (Tabular MLP + Entity Embeddings)"
   E8: "Deep Learning 2 (Text Deep Learning NLP)"
   E9: "Ablation, Error Subgroup Audit & Robustness"
