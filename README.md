@@ -461,7 +461,7 @@ Proyek ini dirilis secara sumber terbuka (*open-source*) di bawah naungan **Lise
 
 ```bibtex
 @software{csip2026,
-  author = {Noorafael Hakim Faudka},
+  author = {Rafael Hakim Souissa},
   title = {Core Strategy & Intelligence Platform (CSIP): Platform Pembelajaran Mesin Perilaku Enterprise & Observatorium Konsep Drift},
   year = {2026},
   version = {1.1.0},

@@ -1,7 +1,7 @@
 # CSIP Comprehensive Model Evaluation & Diagnostic Review Report
 
 **Core Strategy & Intelligence Platform (CSIP) — Behavioral Decision Intelligence (BDI)**  
-**Author**: Noorafael Hakim Faudka  
+**Author**: Rafael Hakim Souissa  
 **Evaluation Protocol**: Locked Temporal Out-of-Time Test Set (2018-07-01 to 2018-08-31)  
 **Date**: November 2026  
 

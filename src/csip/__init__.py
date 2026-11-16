@@ -14,7 +14,7 @@ Core Principles:
 
 from csip._version import __version__
 
-__author__ = "Noorafael Hakim Faudka"
+__author__ = "Rafael Hakim Souissa"
 
 # Scientific Claim Hierarchy
 CLAIM_LEVELS = {

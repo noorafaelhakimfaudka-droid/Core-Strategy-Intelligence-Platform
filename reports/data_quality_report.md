@@ -1,7 +1,7 @@
 # LAPORAN VALIDASI KUALITAS DATA (DATA QUALITY REPORT)
 **Protokol Validasi: Integritas Skema Relasional & Kualitas Data Olist**
 **Tanggal Audit**: 2026-11-10 | **Dataset**: Olist Brazilian E-Commerce (9 Tabel Relasional)
-**Auditor**: CSIP Lead Data Science Architect
+**Auditor**: Rafael Hakim Souissa
 
 ---
 
