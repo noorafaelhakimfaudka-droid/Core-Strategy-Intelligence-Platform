@@ -13,12 +13,7 @@ EXCLUDED_FILES = {
     "AUDIT/HASH_VERIFICATION_REPORT.md",
     "RELEASE_SHA256_MANIFEST.txt",
     "SHA256SUMS_FINAL.txt",
-    "SHA256SUMS_V16.txt",
     "SHA256SUMS.txt",
-    "reports/final/final_documentation_validation_report.json",
-    "reports/final/FINAL_DOCUMENTATION_VALIDATION_REPORT.md",
-    "reports/quality/DOCUMENTATION_CONSISTENCY_REPORT.md",
-    "reports/final/FINAL_QUALITY_GATES_REPORT.md",
 }
 
 EXCLUDED_DIRS = {
@@ -33,9 +28,11 @@ EXCLUDED_DIRS = {
 
 def is_excluded(rel_path: str) -> bool:
     normalized = rel_path.replace("\\", "/")
-    if normalized in EXCLUDED_FILES:
+    if normalized in EXCLUDED_FILES or normalized.endswith(".zip"):
         return True
     parts = normalized.split("/")
+    if parts and parts[-1].startswith("~$"):
+        return True
     for p in parts:
         if p in EXCLUDED_DIRS or p.endswith(".pyc"):
             return True
@@ -61,10 +58,9 @@ def generate_manifest():
 
     print(f"Computed SHA-256 for {len(file_hashes)} physical files.")
 
-    # 1. Write AUDIT/SHA256SUMS.txt, SHA256SUMS_FINAL.txt, and SHA256SUMS_V16.txt
+    # 1. Write AUDIT/SHA256SUMS.txt and SHA256SUMS_FINAL.txt
     sums_file = ROOT / "AUDIT" / "SHA256SUMS.txt"
     sums_file_final = ROOT / "SHA256SUMS_FINAL.txt"
-    sums_file_v16 = ROOT / "SHA256SUMS_V16.txt"
     sums_file.parent.mkdir(parents=True, exist_ok=True)
     
     with open(sums_file, "w", encoding="utf-8") as f:
@@ -77,16 +73,11 @@ def generate_manifest():
             f.write(f"{sha}  {rel_path}\n")
     print(f"Saved {sums_file_final}")
 
-    with open(sums_file_v16, "w", encoding="utf-8") as f:
-        for rel_path, sha in file_hashes.items():
-            f.write(f"{sha}  {rel_path}\n")
-    print(f"Saved {sums_file_v16}")
-
     # 2. Write AUDIT/HASH_VERIFICATION_REPORT.json
     report_json = ROOT / "AUDIT" / "HASH_VERIFICATION_REPORT.json"
     data = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "release_version": "1.0.0",
+        "release_version": "1.1.0",
         "total_files": len(file_hashes),
         "excluded_files": sorted(list(EXCLUDED_FILES)),
         "files": file_hashes
@@ -97,11 +88,11 @@ def generate_manifest():
 
     # 3. Write AUDIT/HASH_VERIFICATION_REPORT.md
     report_md = ROOT / "AUDIT" / "HASH_VERIFICATION_REPORT.md"
-    md_content = f"""# CSIP FINAL 1.0.0 SHA-256 Release Hash Verification Report
-## Release Integrity & Cryptographic Checksum Audit — Version 1.0.0
+    md_content = f"""# CSIP FINAL 1.1.0 SHA-256 Release Hash Verification Report
+## Release Integrity & Cryptographic Checksum Audit — Version 1.1.0
 
 **Generated At**: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}  
-**Release Version**: 1.0.0  
+**Release Version**: 1.1.0  
 **Algorithm**: SHA-256 (Bitwise Cryptographic Hash)  
 **Total Tracked Files**: {len(file_hashes)}  
 **Manifest Files**: `AUDIT/SHA256SUMS.txt` and `SHA256SUMS_FINAL.txt`  

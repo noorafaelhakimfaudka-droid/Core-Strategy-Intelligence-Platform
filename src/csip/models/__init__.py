@@ -16,6 +16,12 @@ from csip.models.ml_engine import (
     train_real_ml_pipeline,
     train_semantic_ml_pipeline,
 )
+from csip.models.registry import (
+    MaturityStatus,
+    ModelLifecycleManager,
+    ModelRegistration,
+    ModelRole,
+)
 from csip.models.trainer import ModelExperimentTrainer
 
 
@@ -36,6 +42,10 @@ __all__ = [
     "MeanRegressor",
     "get_model_pipeline",
     "ModelExperimentTrainer",
+    "ModelLifecycleManager",
+    "ModelRegistration",
+    "ModelRole",
+    "MaturityStatus",
     "SimpleTokenizer",
     "TextBiLSTM",
     "TextBiLSTMClassifier",

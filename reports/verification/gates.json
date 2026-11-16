@@ -1,11 +1,11 @@
 {
-  "verified_at": "2026-11-12T03:58:38.367765+00:00",
+  "verified_at": "2026-11-16T11:46:37.656490+00:00",
   "mandatory_artifacts_present": true,
   "gates": {
     "G1": {
       "name": "Single Version Truth (1.0.0)",
       "status": "PASS",
-      "evidence": "Single version truth confirmed (1.0.0) across package and all sidecars."
+      "evidence": "Single version truth confirmed (1.1.0) across package and all sidecars."
     },
     "G2": {
       "name": "Zero Failed Tests",

@@ -1,14 +1,37 @@
-"""
-CSIP Data Contracts & Schema Validation Engine
+"""CSIP Data Contracts & Schema Validation Engine.
+
 Defines declarative contracts for data ingestion, cleaning, and feature pipelines.
-Categorizes validation findings into INVALID (fatal), SUSPICIOUS (out-of-bound/warning),
-and VALID_ANOMALOUS (extreme but plausible business observations).
+Categorizes validation findings into explicit severity tiers:
+- INFO: Informational schema telemetry.
+- WARNING: Plausible out-of-bounds observations or non-fatal coercions.
+- RECOVERABLE_ERROR: Non-critical anomalies that can be imputed or dropped.
+- CRITICAL_FAILURE: Fatal structural defects (missing keys, corrupt types, unhandled duplicates).
+Strictly prevents pipelines from proceeding silently when critical failures occur.
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Any, Set, Tuple
-import pandas as pd
+from enum import Enum
+from typing import Any, Dict, List, Optional, Set, Tuple
 import numpy as np
+import pandas as pd
+
+
+class ContractSeverity(str, Enum):
+    INFO = "INFO"
+    WARNING = "WARNING"
+    RECOVERABLE_ERROR = "RECOVERABLE_ERROR"
+    CRITICAL_FAILURE = "CRITICAL_FAILURE"
+
+
+class DataContractViolationError(Exception):
+    """Raised when a critical contract requirement fails in a production pipeline."""
+    def __init__(self, contract_name: str, fatal_errors: List[str]):
+        self.contract_name = contract_name
+        self.fatal_errors = fatal_errors
+        msg = f"DataContractViolationError in '{contract_name}': {'; '.join(fatal_errors)}"
+        super().__init__(msg)
 
 
 @dataclass
@@ -16,14 +39,24 @@ class ValidationReport:
     contract_name: str
     total_rows: int
     is_valid: bool
+    schema_version: str = "1.1.0"
+    severity: ContractSeverity = ContractSeverity.INFO
     fatal_errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
     suspicious_row_indices: List[int] = field(default_factory=list)
     metrics: Dict[str, Any] = field(default_factory=dict)
+    business_constraints: Dict[str, str] = field(default_factory=dict)
+
+    def assert_pipeline_valid(self) -> None:
+        """Enforces that the pipeline halts immediately if critical contract errors exist."""
+        if not self.is_valid or self.severity == ContractSeverity.CRITICAL_FAILURE:
+            raise DataContractViolationError(self.contract_name, self.fatal_errors)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
             "contract_name": self.contract_name,
+            "schema_version": self.schema_version,
+            "severity": self.severity.value,
             "total_rows": self.total_rows,
             "is_valid": self.is_valid,
             "fatal_errors_count": len(self.fatal_errors),
@@ -32,12 +65,14 @@ class ValidationReport:
             "warnings": self.warnings,
             "suspicious_rows_count": len(self.suspicious_row_indices),
             "metrics": self.metrics,
+            "business_constraints": self.business_constraints,
         }
 
 
 class DataContract:
     """Base class for CSIP dataset contracts."""
     contract_name: str = "BaseContract"
+    schema_version: str = "1.1.0"
     required_columns: Dict[str, str] = {}  # col_name -> type_category ('numeric', 'string', 'datetime')
     unique_columns: List[str] = []
     non_null_columns: List[str] = []
@@ -50,13 +85,16 @@ class DataContract:
         warnings = []
         suspicious_indices = set()
         metrics = {}
+        business_constraints = {}
 
         total_rows = len(df)
         if total_rows == 0:
             return ValidationReport(
                 contract_name=cls.contract_name,
+                schema_version=cls.schema_version,
                 total_rows=0,
                 is_valid=False,
+                severity=ContractSeverity.CRITICAL_FAILURE,
                 fatal_errors=["Dataset is empty (0 rows)."]
             )
 
@@ -126,15 +164,24 @@ class DataContract:
         metrics["duplicate_rows"] = int(df.duplicated().sum())
 
         is_valid = len(fatal_errors) == 0
+        if not is_valid:
+            severity = ContractSeverity.CRITICAL_FAILURE
+        elif len(warnings) > 0:
+            severity = ContractSeverity.WARNING
+        else:
+            severity = ContractSeverity.INFO
 
         return ValidationReport(
             contract_name=cls.contract_name,
+            schema_version=cls.schema_version,
             total_rows=total_rows,
             is_valid=is_valid,
+            severity=severity,
             fatal_errors=fatal_errors,
             warnings=warnings,
             suspicious_row_indices=sorted(list(suspicious_indices)),
             metrics=metrics,
+            business_constraints=business_constraints,
         )
 
 

@@ -46,3 +46,31 @@ Dokumen ini mendokumentasikan batasan metodologis, keterbatasan data, dan ruang 
 - **Verifikasi Resmi**: Halaman resmi skema sertifikasi LSP TRI (`lsptri.id/skema/sertifikasi-ilmuwan-data-SKKNI`) memverifikasi: 11 kode dan judul unit SKKNI 299/2020, nomor skema `SKM/2905/LSP-TRI/VII/2025`, jenjang KKNI Level 7, metode uji Portofolio dan Instruksi Terstruktur, serta lingkup kerja mencakup "mendukung deployment model".
 - **Elemen dan KUK**: Rincian 27 elemen dan 63 KUK berstatus `NOT VERIFIED` terhadap sumber online resmi sampai dokumen SKKNI 299/2020 atau FR/APL resmi diterbitkan secara publik. Proyek ini memetakan 63 KUK secara konsisten berdasarkan kanonikal internal.
 
+---
+
+## 7. Rekomendasi Mesin Keputusan: Observasional vs. Kausalitas Intervensi (L2 vs. L3)
+- **Sifat Rekomendasi**: Rekomendasi operasional yang dihasilkan oleh `BusinessDecisionEngine` didasarkan pada pemetaan aturan heuristik atas skor risiko prediksi asosiasional (Judea Pearl Level L2).
+- **Batasan Pembuktian**: CSIP **tidak mengklaim** bahwa tindakan intervensi (seperti kontak proaktif atau perubahan mitra logistik) secara otomatis menjamin penurunan laju ulasan negatif atau pembatalan, karena data historis Olist tidak memuat uji coba acak terkendali (*randomized controlled trial* / A/B testing).
+- **Protokol Verifikasi**: Evaluasi efektivitas intervensi harus dilakukan melalui pilot bertahap dengan kelompok kontrol (*holdout control group*) sebelum diterapkan secara penuh ke seluruh pesanan.
+
+---
+
+## 8. Beban Operasional False Positive & Batasan Kapasitas Triage
+- **Dilema Presisi vs. Recall**: Pada tingkat prevalensi ulasan negatif yang rendah (~8-10%), menargetkan recall tinggi akan meningkatkan jumlah *false positive* (pesanan yang diprediksi berisiko padahal tidak bermasalah).
+- **Beban Tim Operasional**: Setiap intervensi layanan pelanggan atau eskalasi logistik membutuhkan waktu dan biaya operasional riil. Jika batas ambang risiko ditetapkan terlalu rendah tanpa kuota triage harian, tim operasional akan mengalami kelebihan beban kerja (*alert fatigue*).
+- **Mitigasi di v1.1.0**: `BusinessDecisionEngine` dilengkapi konfigurasi kapasitas operasional maksimal (`max_daily_capacity`) dan klasifikasi prioritas bertingkat (CRITICAL, HIGH, MEDIUM, LOW) untuk membatasi intervensi pada kasus dengan dampak tertinggi.
+
+---
+
+## 9. Batas Daya Prediksi Tabular Pembelian Ulang (Repeat Purchase)
+- **Temuan Empiris Negatif**: Model tabular *repeat purchase* berbasis data checkout menunjukkan interval kepercayaan 95% untuk ROC-AUC melintasi garis peluang acak ($0.50$), yaitu $[0.472, 0.531]$.
+- **Kejujuran Ilmiah**: CSIP secara transparan mendokumentasikan temuan negatif ini sebagai keterbatasan inheren dari sinyal fitur transaksi awal Olist, dan tidak memaksakan klaim prediksi akurat pada ranah yang secara statistik tidak didukung oleh data.
+
+---
+
+## 10. Partisi Pos Operasional: Peringatan Dini Checkout vs. Pasca-Pengiriman
+- **Isolasi Fitur Pos Terbuka**: Model peringatan dini checkout (`best_early_warning_review_lightgbm`) secara ketat dibatasi pada 10 fitur yang sah diketahui saat pembayaran, dengan performa aktual pada holdout terkunci ($N=12.571$) sebesar PR-AUC **0.1335** (95% CI $[0.1220, 0.1480]$), ROC-AUC **0.5468**, dan Brier uncalibrated **0.2370**. Sinyal prediktif saat checkout masih lemah karena faktor penentu utama kepuasan (keterlambatan transit kurir) belum terjadi.
+- **Model Pasca-Pengiriman**: Model ulasan pasca-pengiriman (`best_negative_review_lightgbm`) memanfaatkan 15 fitur termasuk durasi aktual transit dan hari keterlambatan logistik, mencapai PR-AUC **0.3061** (95% CI $[0.2792, 0.3343]$) dan ROC-AUC **0.6745** (Brier uncalibrated **0.1373**; Brier **0.0762** dengan kalibrator Platt eksternal di `ModelExplainer`).
+- **Larangan Kontaminasi**: Model pasca-pengiriman dilarang keras digunakan pada antarmuka checkout karena melibatkan variabel masa depan (*lookahead leakage*).
+
+

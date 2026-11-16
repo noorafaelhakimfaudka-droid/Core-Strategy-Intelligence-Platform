@@ -11,6 +11,9 @@ env/
 venv/
 ENV/
 
+# Release archives
+*.zip
+
 # Data Directories
 data/raw/*.csv
 data/raw/*.zip
@@ -28,6 +31,7 @@ htmlcov/
 # OS Specific
 .DS_Store
 Thumbs.db
+~$*
 *.egg-info/
 .streamlit/secrets.toml
 

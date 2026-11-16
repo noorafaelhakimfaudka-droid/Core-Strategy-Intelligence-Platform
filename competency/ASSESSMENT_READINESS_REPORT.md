@@ -3,9 +3,9 @@
 ### Lembaga Sertifikasi Profesi: LSP TRI | Kode Skema: SKM/2905/LSP-TRI/VII/2025
 ### Acuan Standar: SKKNI Nomor 299 Tahun 2020 | Target Jenjang: KKNI Level 7
 
-- **Dokumen ID**: `CSIP-REP-SKKNI-READINESS-2026-V15`
-- **Versi Rilis**: 15.0.0
-- **Tanggal Evaluasi**: 2026-11-11
+- **Dokumen ID**: `CSIP-REP-SKKNI-READINESS-2026-V110`
+- **Versi Rilis**: 1.1.0
+- **Tanggal Evaluasi**: 2026-11-13
 - **Auditor Kompetensi**: Independent Quality Assurance Lead & SKKNI Competency Specialist
 - **Status Evaluasi**: CANONICAL RECONCILIATION COMPLETE — READY FOR SKKNI DEFENSE
 
@@ -22,7 +22,7 @@
 ## 2. Ringkasan Eksekutif Kesiapan per Unit Kompetensi
 
 Berdasarkan klasifikasi kanonikal 6-tier (Rule F01):
-- **VERIFIED (35 KUK / 55.56%)**: Kode produksi Python teruji di `src/csip/` dan lulus otomatis dalam rangkaian 136+ unit test pytest.
+- **VERIFIED (35 KUK / 55.56%)**: Kode produksi Python teruji di `src/csip/` dan lulus otomatis dalam rangkaian 211 unit test pytest tanpa kegagalan (100% pass rate).
 - **ARTIFACT_ONLY (12 KUK / 19.05%)**: Dokumen spesifikasi arsitektur, profil data, kamus data relasional, dan diagram sistem fisik di disk yang siap diinspeksi asesor.
 - **CANDIDATE_DEMONSTRATION_REQUIRED (13 KUK / 20.63%)**: Tugas perumusan objektif bisnis, translasi teknis, dan justifikasi pemodelan yang disiapkan untuk demonstrasi praktik langsung di terminal/notebook saat asesmen.
 - **EXTERNAL_CONFIRMATION_REQUIRED (3 KUK / 4.76%)**: Persetujuan pengguna akhir pada UK-01 (KUK 2.2, 3.3, 4.3) yang disimulasikan melalui instrumen tata kelola enterprise (`STAKEHOLDER_APPROVAL_DEFENSE_PACKET.md`) karena menggunakan dataset publik sekunder.
@@ -101,10 +101,10 @@ Berdasarkan klasifikasi kanonikal 6-tier (Rule F01):
 
 ### Unit 10: `J.62DMI00.014.1` — Mengevaluasi Hasil Pemodelan
 - **Komposisi KUK**: 4 KUK (3 VERIFIED, 1 ARTIFACT_ONLY).
-- **Cakupan Pembuktian**: Evaluasi out-of-time test set tanpa bias, perhitungan PR-AUC, ROC-AUC, Brier Score terkalibrasi Platt scaling (0.0762 vs 0.0985 baseline), ECE (0.0070), 95% bootstrap confidence intervals, dan TreeExplainer SHAP attribution.
-- **Artefak Bukti**: `artifacts/reports/ml_leaderboard.json`, `artifacts/reports/figures/calibration_curves.png`, `tests/test_calibration_audit.py`.
+- **Cakupan Pembuktian**: Evaluasi out-of-time test set tanpa bias, perhitungan PR-AUC, ROC-AUC, Brier Score terkalibrasi Platt scaling (0.0762 vs 0.0985 baseline), ECE (0.0070), 95% bootstrap confidence intervals, TreeExplainer SHAP attribution, dan evaluasi dampak bisnis operasional (Precision@K, Recall@K, perbandingan biaya intervensi asimetris via `src/csip/evaluation/business_impact.py`).
+- **Artefak Bukti**: `artifacts/reports/ml_leaderboard.json`, `artifacts/reports/figures/calibration_curves.png`, `tests/test_calibration_audit.py`, `tests/test_business_impact.py`.
 
 ### Unit 11: `J.62DMI00.015.1` — Melakukan Proses Review Pemodelan
 - **Komposisi KUK**: 4 KUK (2 ARTIFACT_ONLY, 2 CANDIDATE_DEMONSTRATION_REQUIRED).
-- **Cakupan Pembuktian**: Audit metodologis menyeluruh, pengungkapan jujur temuan negatif (repeat purchase checkout ROC-AUC 0.5021 spans chance line), batasan klaim ilmiah (Level L1/L2 vs L3), dan panduan model card.
-- **Artefak Bukti**: `reports/model_cards/MODEL_SELECTION_DECISION_REPORT.md`, `FINAL_CSIP_AUDIT_REPORT.md`.
+- **Cakupan Pembuktian**: Audit metodologis menyeluruh, pengungkapan jujur temuan negatif (repeat purchase checkout ROC-AUC 0.5021 spans chance line), batasan klaim ilmiah (Level L1/L2 vs L3), tata kelola siklus hidup model Champion-Challenger dengan gerbang promosi dan rollback via `src/csip/models/registry.py`, serta integrasi mesin keputusan bisnis via `src/csip/decision_engine/`.
+- **Artefak Bukti**: `reports/model_cards/MODEL_SELECTION_DECISION_REPORT.md`, `FINAL_CSIP_AUDIT_REPORT.md`, `tests/test_model_lifecycle.py`, `tests/test_decision_engine.py`.

@@ -6,9 +6,10 @@
 - **Artifact Path**: `artifacts/models/best_negative_review_lightgbm.joblib`
 - **Metadata Sidecar**: `artifacts/models/best_negative_review_lightgbm.joblib.json`
 - **Model Type**: Gradient Boosted Decision Tree (LightGBM `LGBMClassifier`)
-- **Version**: 17.0.0
+- **Version**: 1.1.0
 - **Release Date**: November 2026
 - **Developer / Maintainer**: CSIP ML Engineering & Research Group
+- **Temporal Scope**: Post-Fulfillment Diagnostic (Uses in-transit and post-delivery fulfillment features. For checkout-time predictions, use `best_early_warning_review_lightgbm`).
 
 ### 2. Model Purpose & Intended Use
 - **Primary Objective**: Identify e-commerce transactions at high risk of severe customer dissatisfaction (review score 1 or 2) across order fulfillment lifecycle.

@@ -103,9 +103,8 @@ def simulate_studio(pipeline: dict, custom_inputs: dict, target_col: str, schema
 
     cur_f1_val = float(row[top1])
     smooth_pred = float(np.interp(cur_f1_val, grid_x, grid_preds))
-    pred_val = 0.65 * smooth_pred + 0.35 * pred_val
-    base_val = float(np.interp(float(pipeline["X_median"][top1]), grid_x, base_grid_preds))
-
+    # Scientific Integrity: Maintain genuine, unadulterated model prediction
+    # Visual curve smoothing is isolated strictly to the display grid
     diff_val = pred_val - base_val
     diff_pct = (diff_val / (abs(base_val) + 1e-9)) * 100.0
 
@@ -815,6 +814,10 @@ def build_nara_strategic_counsel(
         f'<h3 class="headline">{headline}</h3></div>'
         f'<div class="narr-body">{body}'
         f'<div class="act-pills"><span>{act_1}</span><span>{act_2}</span></div>'
+        f'<div style="margin-top:10px;font-size:11.5px;color:#7A7263;font-style:italic;line-height:1.4;">'
+        f'Catatan Metodologis & Integritas Ilmiah: Simulasi di atas merupakan analisis sensitivitas respons kondisional '
+        f'(asumsi hipotetis ceteris paribus), bukan bukti kausal intervensi langsung. Evaluasi operasional nyata '
+        f'memerlukan uji terkontrol (A/B testing atau phased rollout).</div>'
         f'</div></article>'
     )
     return card_html
@@ -1660,3 +1663,4 @@ with col_stage:
         domain_ctx=domain_ctx,
     )
     st.markdown(narrative_html, unsafe_allow_html=True)
+

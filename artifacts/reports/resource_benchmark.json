@@ -1,0 +1,25 @@
+{
+  "python_traced_current_mb": 50.47,
+  "python_traced_peak_mb": 51.57,
+  "process_rss_mb": 263.68,
+  "models": {
+    "best_negative_review_lightgbm.joblib": {
+      "load_ms": 4910.88,
+      "batch_1000_ms": 13.02,
+      "batch_per_row_ms": 0.013,
+      "single_row_ms": 3.78
+    },
+    "best_early_warning_review_lightgbm.joblib": {
+      "load_ms": 5.61,
+      "batch_1000_ms": 4.54,
+      "batch_per_row_ms": 0.0045,
+      "single_row_ms": 2.94
+    },
+    "best_delivery_delay_lightgbm.joblib": {
+      "load_ms": 4.4,
+      "batch_1000_ms": 4.33,
+      "batch_per_row_ms": 0.0043,
+      "single_row_ms": 2.62
+    }
+  }
+}

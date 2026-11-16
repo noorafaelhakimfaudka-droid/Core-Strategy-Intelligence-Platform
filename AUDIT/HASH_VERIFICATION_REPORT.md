@@ -1,12 +1,10 @@
-> [HISTORICAL ARCHIVE] - This document is preserved as an unedited historical audit record from previous versions.
+# CSIP FINAL 1.1.0 SHA-256 Release Hash Verification Report
+## Release Integrity & Cryptographic Checksum Audit — Version 1.1.0
 
-# CSIP FINAL 1.0.0 SHA-256 Release Hash Verification Report
-## Release Integrity & Cryptographic Checksum Audit — Version 1.0.0
-
-**Generated At**: 2026-11-11 13:23:44 UTC  
-**Release Version**: 1.0.0  
+**Generated At**: 2026-11-16 11:46:38 UTC  
+**Release Version**: 1.1.0  
 **Algorithm**: SHA-256 (Bitwise Cryptographic Hash)  
-**Total Tracked Files**: 410  
+**Total Tracked Files**: 330  
 **Manifest Files**: `AUDIT/SHA256SUMS.txt` and `SHA256SUMS_FINAL.txt`  
 
 ---
@@ -40,20 +38,21 @@ Expected result: Every single file must report `OK` with zero mismatches, zero m
 
 | Directory | File Count |
 | :--- | :---: |
-| `(root)` | 36 |
+| `(root)` | 26 |
+| `.github` | 1 |
 | `.streamlit` | 1 |
-| `AUDIT` | 14 |
-| `app` | 14 |
-| `artifacts` | 37 |
-| `competency` | 13 |
+| `AUDIT` | 2 |
+| `app` | 7 |
+| `artifacts` | 42 |
+| `competency` | 12 |
 | `config` | 6 |
 | `data` | 25 |
-| `docs` | 20 |
+| `docs` | 25 |
 | `notebooks` | 15 |
-| `reports` | 99 |
-| `scripts` | 52 |
-| `src` | 40 |
+| `reports` | 39 |
+| `scripts` | 22 |
+| `src` | 61 |
 | `standards` | 2 |
-| `tests` | 32 |
+| `tests` | 40 |
 | `tools` | 4 |
-| **TOTAL** | **410** |
+| **TOTAL** | **330** |
