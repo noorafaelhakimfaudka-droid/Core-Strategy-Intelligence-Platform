@@ -1,6 +1,6 @@
 """FastAPI Decoupled Inference & Monitoring Microservice.
 
-CSIP v1.1.0 Production-Oriented REST API providing:
+CSIP Production-Oriented REST API providing:
 1. GET /health - Service health, active champion model version, and baseline reference window.
 2. GET /ready - Kubernetes / container orchestration readiness probe.
 3. POST /predict/batch - Dual-model inference (delivery delay + review risk) with latency profiling.

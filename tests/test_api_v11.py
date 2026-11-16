@@ -1,4 +1,4 @@
-"""Integration and Unit Tests for CSIP REST API v1.1.0."""
+"""Integration and Unit Tests for CSIP REST API."""
 
 import pytest
 from fastapi.testclient import TestClient

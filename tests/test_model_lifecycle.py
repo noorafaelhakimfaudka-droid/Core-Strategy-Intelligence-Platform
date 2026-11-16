@@ -22,7 +22,7 @@ def test_candidate_registration_and_hash(tmp_path: Path):
     reg = manager.register_candidate(
         model_id="test_candidate_1",
         model_name="Test LightGBM Candidate",
-        version="1.1.0",
+        version="1.0.0",
         target_name="negative_review_flag",
         artifact_path=model_file,
         feature_list=["feat_a", "feat_b"],
@@ -46,7 +46,7 @@ def test_promotion_safeguards_rejection(tmp_path: Path):
     candidate_research = ModelRegistration(
         model_id="research_model",
         model_name="Research Model",
-        version="1.1.0",
+        version="1.0.0",
         role=ModelRole.CANDIDATE,
         maturity_status=MaturityStatus.RESEARCH_ONLY,
         target_name="target",
@@ -80,7 +80,7 @@ def test_promotion_safeguards_rejection(tmp_path: Path):
     inferior_candidate = ModelRegistration(
         model_id="inferior",
         model_name="Inferior",
-        version="1.1.0",
+        version="1.0.0",
         role=ModelRole.CANDIDATE,
         maturity_status=MaturityStatus.BENCHMARK_VALIDATED,
         target_name="target",
@@ -121,7 +121,7 @@ def test_successful_promotion_and_rollback(tmp_path: Path):
     challenger_v2 = ModelRegistration(
         model_id="lgbm_review",
         model_name="Negative Review LGBM",
-        version="1.1.0",
+        version="1.0.0",
         role=ModelRole.CHALLENGER,
         maturity_status=MaturityStatus.BENCHMARK_VALIDATED,
         target_name="negative_review_flag",

@@ -1,5 +1,5 @@
 # CSIP Known Limitations & Scientific Scope Disclosure
-## Core Strategy & Intelligence Platform — Version 1.1.0
+## Core Strategy & Intelligence Platform
 
 Dokumen ini mendokumentasikan batasan metodologis, keterbatasan data, dan ruang lingkup operasional CSIP secara terbuka dan jujur.
 

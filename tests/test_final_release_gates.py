@@ -1,4 +1,4 @@
-"""CSIP 1.1.0 — Automated Core Release Acceptance Gates.
+"""CSIP — Automated Core Release Acceptance Gates.
 
 Verifies:
 1. Version Invariant across pyproject.toml, setup.py, __init__.py, Dockerfile, sidecars.

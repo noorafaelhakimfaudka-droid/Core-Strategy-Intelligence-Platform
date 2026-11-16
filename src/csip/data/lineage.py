@@ -120,7 +120,7 @@ class DataLineageTracker:
 
         lineage_manifest = {
             "schema_version": "1.0.0",
-            "lineage_spec_version": "1.1.0",
+            "lineage_spec_version": "1.0.0",
             "platform": "Core Strategy & Intelligence Platform (CSIP)",
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "pipeline_stages": [

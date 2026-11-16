@@ -1,7 +1,6 @@
 # CSIP — Core Strategy & Intelligence Platform
 ### *Platform Machine Learning Perilaku Enterprise, Observatorium Konsep Drift Real-Time & Simulator Keputusan Operasional*
 
-[![Versi](https://img.shields.io/badge/versi-1.1.0-blue.svg?style=flat-square)](pyproject.toml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.162.4-009688.svg?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.61.1-FF4B4B.svg?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/)
@@ -21,7 +20,7 @@ Platform perdagangan elektronik modern di wilayah geografis kepulauan atau benua
 * **Dilema Label Tertunda (*Delayed Ground-Truth Labels*):** Penilaian kepuasan konsumen (skor ulasan/bintang) dan transaksi pemesanan ulang (*repeat purchase*) baru terjadi beberapa hari hingga beberapa bulan setelah transaksi pembelian pertama diselesaikan. Sistem analitik naif kerap terjebak dalam *lookahead target leakage* karena melatih model menggunakan fitur-fitur yang baru diketahui setelah pengiriman tiba di tangan konsumen.
 * **Peluruhan Model & Konsep Drift (*Concept Decay*):** Fluktuasi musiman belanja (seperti lonjakan volume *Black Friday*), kenaikan tarif kargo logistik, serta kendala operasional kurir menyebabkan kalibrasi probabilitas model di lini produksi mengalami degradasi senyap.
 
-**CSIP menjawab tantangan tersebut melalui arsitektur decoupled terpadu (v1.1.0):**
+**CSIP menjawab tantangan tersebut melalui arsitektur decoupled terpadu:**
 1. **Partisi Temporal Ketat & Pencegahan Kebocoran Data:** Validasi silang berbasis jendela waktu bergerak (*expanding-window temporal CV*) dengan embargo pasca-pengiriman selama 90 hari, mengeliminasi kebocoran target dan fitur masa depan.
 2. **Pemodelan Multi-Target Terkalibrasi:** Algoritma LightGBM presisi tinggi dipadukan dengan kalibrasi probabilitas *Platt Scaling* serta atribusi fitur berbasis *SHAP TreeExplainer*.
 3. **Mesin Keputusan Bisnis (*Business Decision Engine*):** Lapisan *Decision Intelligence* terstruktur yang menerjemahkan estimasi probabilitas risiko dan keterlambatan logistik menjadi aksi operasional spesifik per fungsi (Logistik, CX, Merchant Ops, Eksekutif) dengan kuota triage harian terkonfigurasi.
@@ -181,7 +180,7 @@ curl -X GET http://127.0.0.1:8000/ready
 ```json
 {
   "status": "healthy",
-  "service_version": "1.1.0",
+  "service_version": "1.0.0",
   "active_model_version": "champion_v1",
   "models_loaded": {
     "delivery_delay_regressor": true,
@@ -393,10 +392,10 @@ python tools/check_claims.py
 ### 5. Deployment Menggunakan Docker
 ```bash
 # Bangun citra container Docker
-docker build -t csip-platform:1.1.0 .
+docker build -t csip-platform:latest .
 
 # Jalankan container dengan memetakan port 8501 dan 8000
-docker run -p 8501:8501 -p 8000:8000 csip-platform:1.1.0
+docker run -p 8501:8501 -p 8000:8000 csip-platform:latest
 ```
 
 ---
@@ -464,7 +463,6 @@ Proyek ini dirilis secara sumber terbuka (*open-source*) di bawah naungan **Lise
   author = {Rafael Hakim Souissa},
   title = {Core Strategy & Intelligence Platform (CSIP): Platform Pembelajaran Mesin Perilaku Enterprise & Observatorium Konsep Drift},
   year = {2026},
-  version = {1.1.0},
   url = {https://github.com/noorafaelhakimfaudka-droid/Core-Strategy-Intelligence-Platform}
 }
 ```

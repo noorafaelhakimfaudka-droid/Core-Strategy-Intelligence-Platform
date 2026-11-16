@@ -27,7 +27,7 @@ def test_single_import_path() -> None:
     """Verifies that 'csip' is the canonical package name and no active code imports from 'src.csip'."""
     import csip
     assert hasattr(csip, "__version__")
-    assert csip.__version__ in ("1.0.0", "1.1.0", "17.0.0")
+    assert csip.__version__ == "1.0.0"
 
     # Scan src/csip for any legacy 'src.csip' imports
     src_dir = REPO_ROOT / "src" / "csip"

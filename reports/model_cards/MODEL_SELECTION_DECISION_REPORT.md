@@ -1,4 +1,4 @@
-# CSIP v1.1.0 MODEL SELECTION & DEPLOYMENT GOVERNANCE REPORT
+# CSIP MODEL SELECTION & DEPLOYMENT GOVERNANCE REPORT
 ## Formal Multi-Model Assessment, Empirical Benchmarking & Decision Recommendations
 
 ### 1. Executive Summary

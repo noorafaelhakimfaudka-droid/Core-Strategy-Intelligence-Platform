@@ -831,7 +831,7 @@ class ModelExperimentTrainer:
                 "lightgbm_version": lightgbm.__version__,
                 "python_version": sys.version.split()[0],
                 "trained_at": datetime.now(timezone.utc).isoformat(),
-                "git_or_release_version": "v1.1.0",
+                "git_or_release_version": "v1.0.0",
             }
             sidecar_path = self.artifacts_dir / f"{artifact_name}.joblib.json"
             with open(sidecar_path, "w", encoding="utf-8") as f:

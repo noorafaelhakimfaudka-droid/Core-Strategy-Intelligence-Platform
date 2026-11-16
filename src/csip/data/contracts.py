@@ -39,7 +39,7 @@ class ValidationReport:
     contract_name: str
     total_rows: int
     is_valid: bool
-    schema_version: str = "1.1.0"
+    schema_version: str = "1.0.0"
     severity: ContractSeverity = ContractSeverity.INFO
     fatal_errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
@@ -72,7 +72,7 @@ class ValidationReport:
 class DataContract:
     """Base class for CSIP dataset contracts."""
     contract_name: str = "BaseContract"
-    schema_version: str = "1.1.0"
+    schema_version: str = "1.0.0"
     required_columns: Dict[str, str] = {}  # col_name -> type_category ('numeric', 'string', 'datetime')
     unique_columns: List[str] = []
     non_null_columns: List[str] = []

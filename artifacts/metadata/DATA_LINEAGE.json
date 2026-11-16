@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "lineage_spec_version": "1.1.0",
+  "lineage_spec_version": "1.0.0",
   "platform": "Core Strategy & Intelligence Platform (CSIP)",
-  "generated_at": "2026-11-16T13:01:36.906527+00:00",
+  "generated_at": "2026-11-16T13:44:05.631700+00:00",
   "pipeline_stages": [
     "raw_ingestion",
     "interim_cleaning",

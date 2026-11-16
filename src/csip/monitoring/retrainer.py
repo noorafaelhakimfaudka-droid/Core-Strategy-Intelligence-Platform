@@ -235,7 +235,7 @@ class SlidingWindowRetrainer:
             return self.registry_path
 
         timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        challenger_version = f"1.1.0-retrained-{datetime.now(timezone.utc).strftime('%m%d%H%M')}"
+        challenger_version = f"1.0.0-retrained-{datetime.now(timezone.utc).strftime('%m%d%H%M')}"
         sha_stub = hashlib.sha256(f"retrained_{timestamp}".encode("utf-8")).hexdigest()
 
         # Append new evaluation row

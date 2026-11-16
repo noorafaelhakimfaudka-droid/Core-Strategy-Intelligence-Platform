@@ -48,15 +48,15 @@ def check_required_artifacts() -> Tuple[bool, List[str]]:
 
 def gate_g1_single_version() -> Tuple[str, str]:
     from csip._version import __version__
-    if __version__ not in ["1.0.0", "1.1.0"]:
-        return "FAIL", f"Version mismatch: csip.__version__ is {__version__}, expected 1.1.0 or 1.0.0"
+    if __version__ != "1.0.0":
+        return "FAIL", f"Version mismatch: csip.__version__ is {__version__}, expected 1.0.0"
 
     models_dir = REPO_ROOT / "artifacts" / "models"
     for sidecar in models_dir.glob("*.json"):
         data = json.loads(sidecar.read_text(encoding="utf-8"))
         v = str(data.get("git_or_release_version") or data.get("model_version") or "")
-        if "1.0.0" not in v and "1.1.0" not in v:
-            return "FAIL", f"Sidecar {sidecar.name} version is '{v}', expected '1.1.0' or '1.0.0'"
+        if "1.0.0" not in v:
+            return "FAIL", f"Sidecar {sidecar.name} version is '{v}', expected '1.0.0'"
 
     return "PASS", f"Single version truth confirmed ({__version__}) across package and all sidecars."
 
