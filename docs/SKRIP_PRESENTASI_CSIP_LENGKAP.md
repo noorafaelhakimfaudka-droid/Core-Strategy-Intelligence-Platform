@@ -12,31 +12,33 @@
 ## DAFTAR ISI NAVIGASI CEPAT
 
 - **PANDUAN ALUR PRESENTASI DATA SCIENCE (SLIDE 01–69)**
-- **BAGIAN I — PERUMUSAN MASALAH & ESTIMAND (`BABAK 1–2` · Slide 01–11)**
-  - **BABAK 1:** Masalah Keterlambatan vs Harga & Empat Risiko Metodologi ML (Slide 03–06)
+- **BAGIAN 01 — PERUMUSAN MASALAH & ESTIMAND (`BABAK 1–2` · Slide 01–11)**
+  - **BABAK 1:** Pembukaan, Alur Kerja 8 Tahap, Keterlambatan vs Harga & Empat Kesalahan Metodologi (Slide 01–06)
   - **BABAK 2:** Peta Estimand, Isolasi Populasi (`1.234` *unavailable* & `962 pre-repeaters`), dan Alur Pipeline (Slide 07–11)
-- **BAGIAN II — DATA PREPARATION, GRAIN DATA, & 41 FITUR (`BABAK 3–4` · Slide 12–19)**
+- **BAGIAN 02 — DATA ENGINEERING & 41 FITUR (`BABAK 3–4` · Slide 12–19)**
   - **BABAK 3:** Profil 9 Tabel Olist, Kompresi Spasial Median, Anti-*Fan-Out*, dan Integritas `646 NaN` (Slide 12–16)
   - **BABAK 4:** Rekayasa 41 Fitur Fisik-Ekonomi, Pembatasan Fitur Menurut Tahap Waktu, *Point-in-Time As-Of*, & *Bayesian Encoding* (Slide 17–19)
-- **BAGIAN III — VALIDASI TEMPORAL KRONOLOGIS (`BABAK 5` · Slide 20–24)**
+- **BAGIAN 03 — VALIDASI TEMPORAL KRONOLOGIS (`BABAK 5` · Slide 20–24)**
   - **BABAK 5:** Alasan Menolak *Random Split*, *4-Fold Rolling-Origin CV*, Jeda *Embargo 90 Hari*, & *Moving-Block Bootstrap* (Slide 20–24)
-- **BAGIAN IV — ENAM KELUARGA MODEL MACHINE LEARNING (`BABAK 6–8` · Slide 25–34)**
+- **BAGIAN 04 — ARSITEKTUR ENAM KELUARGA MODEL MACHINE LEARNING (`BABAK 6–8` · Slide 25–34)**
   - **BABAK 6:** Komparasi Model Klasik & Ensemble: `Majority/Heuristic` → `LogReg/Ridge` → `CART/KNN/GaussianNB` → `Random Forest` vs `LightGBM` (Slide 25–29)
   - **BABAK 7:** *Deep Learning* (`TabularEmbeddingMLP` & `TextBiLSTM` Portugis) (Slide 30–31)
   - **BABAK 8:** Pemodelan Tanpa Supervisi (`K-Means + PCA + ARI`), Ketahanan `Kaplan-Meier`, & Dinamika `VAR(1)` Ridge (Slide 32–34)
-- **BAGIAN V — EVALUASI MENDALAM & BATAS KEJUJURAN ILMIAH (`BABAK 9–12` · Slide 35–49)**
+- **BAGIAN 05 — EVALUASI BERLAPIS & BATAS MODEL (`BABAK 9–12` · Slide 35–49)**
   - **BABAK 9:** Kelemahan *Accuracy* `90,37%`, Papan Peringkat `N=12.571`/`12.630`, Studi Ablasi Fitur, & Pergeseran Rezim `Fold 3` (Slide 35–40)
   - **BABAK 10:** Batas Sinyal Checkout Saat Bayar (`0,1335`), Penolakan `Repeat Purchase (0,5021)`, *Manski Bounds*, & Tiga Poros Evaluasi (Slide 41–44)
   - **BABAK 11:** Kalibrasi *Platt Scaling* (`Brier 0,0762`, `ECE 0,0070`, `BSS +0,1215`), *Decision Curve Analysis*, & *Top-K Lift* (`5,154×`) (Slide 45–46)
   - **BABAK 12:** Interpretasi *SHAP TreeExplainer* (Asosiasi Model vs Uji Kausal) & Evaluasi Subkelompok Wilayah/Ketepatan (*Slice Robustness*) (Slide 47–49)
-- **BAGIAN VI — STATISTIKA INFERENSIAL, KEPUTUSAN, SIMULASI & GENERALISASI (`BABAK 13–19` · Slide 50–69)**
+- **BAGIAN 06 — STATISTIKA INFERENSIAL, KEPUTUSAN & SIMULASI (`BABAK 13–14` · Slide 50–57)**
   - **BABAK 13:** Enam Hipotesis Praregistrasi (+ *FDR*), Penolakan Rating -> Retensi, & *Confounder* Wilayah (Slide 50–52)
   - **BABAK 14:** *Cost-Sensitive Threshold* (`$45 vs $5` → `tau*=0,18`), Desain A/B `80/20`, & Simulasi Kontrafaktual `VAR(1)` (6 Skenario & Batas `OOD`) (Slide 53–57)
+- **BAGIAN 07 — MONITORING DRIFT, GENERALISASI & REPRODUKSI (`BABAK 15–18` · Slide 58–66)**
   - **BABAK 15:** Pemantauan Pergeseran Data (`PSI`, `KS`, `Wasserstein-1`, `JSD`) & Kriteria Seleksi *Champion–Challenger* (Slide 58–60)
-  - **BABAK 16:** Generalisasi Pipeline ML Anti-Kebocoran untuk Dataset Tabular Baru (Slide 61)
-  - **BABAK 17:** Reproduksi Eksperimen 14 Notebooks (`01–14`), Model Cards, & Verifikasi Invarian Statistik (Slide 62–64)
+  - **BABAK 16:** Generalisasi Pipeline ML Anti-Kebocoran & Empat Lensa Diagnostik Interaktif (Slide 61)
+  - **BABAK 17:** Reproduksi Eksperimen 14 Notebooks (`01–14`), Tujuh Model Cards, & Verifikasi Invarian Statistik (Slide 62–64)
   - **BABAK 18:** Agenda Riset Lanjutan & Analisis Bias Induktif Lintas Keluarga Algoritma (Slide 65–66)
-  - **BABAK 19:** Rekapitulasi Capaian, Enam Kontrol Validitas Metodologis, & Penutup (Slide 67–69)
+- **BAGIAN 08 — RINGKASAN CAPAIAN, KONTROL VALIDITAS & PENUTUP (`BABAK 19` · Slide 67–69)**
+  - **BABAK 19:** Rekapitulasi Capaian Empiris, Enam Kontrol Validitas Metodologis, & Penutup (Slide 67–69)
 - **LAMPIRAN MATERI: RINGKASAN METRIK & KAMUS ISTILAH MACHINE LEARNING**
 
 ---
@@ -54,7 +56,7 @@ Setiap bagian dalam presentasi ini mengikuti tiga alur yang saling terhubung:
 
 | Rentang Slide | Babak | Fokus Utama Materi | Konsep Kunci & Analogi |
 | :---: | :---: | :--- | :--- |
-| **01–06** | Babak 1 | Pembukaan, Alur 8 Tahap, *Loss Aversion*, 4 Risiko Bias | Penurunan tajam pasca-estimasi (`r=-0,334` vs `+0,015`), *Lookahead*, *Fan-Out* |
+| **01–06** | Babak 1 | Pembukaan, Alur 8 Tahap, *Loss Aversion*, 4 Kesalahan Kontrol Bias | Penurunan tajam pasca-estimasi (`r=-0,334` vs `+0,015`), *Lookahead*, *Fan-Out* |
 | **07–11** | Babak 2 | Kontrak Estimand Pemodelan, Eksklusi Populasi, Pipeline | `1.234 unavailable` (99% kosong), `962 pre-repeaters`, *Right-Censoring* 90 hari |
 | **12–19** | Babak 3–4 | 9 Tabel, Median GPS `-98,1%`, Grain `order_id`, 41 Fitur | Antiledakan baris struk kasir, tahap saat bayar / serah kurir / pasca-tiba, *Bayesian Encoding* ($\alpha=10$) |
 | **20–24** | Babak 5 | Larangan Acak, 4-Fold Temporal CV, Embargo & Kalender | Jeda 90 hari (*delayed ground truth*), *Moving-Block Bootstrap* (`block=5, 1000×`) |
@@ -63,14 +65,15 @@ Setiap bagian dalam presentasi ini mengikuti tiga alur yang saling terhubung:
 | **41–44** | Babak 10 | Model Saat Bayar, Penolakan Retensi, *Manski Bounds*, 3 Poros Uji | Saat Bayar `0,1335` (Indikator Awal), `Repeat 0,5021` (Ditolak Riset), Manski `<=0,59%` |
 | **45–49** | Babak 11–12 | *Platt Scaling*, *DCA Net Benefit*, *Top-K Lift*, *SHAP*, & *Slices* | Kalibrasi cuaca (`ECE 0,0070`), `5,154× Lift`, `is_late` SHAP=0, `On-Time 0,6522` |
 | **50–57** | Babak 13–14 | 6 Hipotesis (*FDR*), Matriks Biaya `$45 vs $5`, A/B `80/20`, 6 Skenario & `OOD` | Penolakan Rating -> Retensi, *Confounder* es krim `-47,3%`, `tau*=0,18`, hemat `50,3%`, `Z=3,68` |
-| **58–69** | Babak 15–19 | 4 Metrik *Drift*, Pipeline Generik, 14 Notebooks, Bias Induktif | `PSI/KS/W1/JSD`, Invarian Anti-Leakage, Kesesuaian Model vs Data, Penutup |
+| **58–66** | Babak 15–18 | 4 Metrik *Drift*, Pipeline Generik, 14 Notebooks, Bias Induktif | `PSI/KS/W1/JSD`, Invarian Anti-Leakage, Kesesuaian Model vs Data |
+| **67–69** | Babak 19 | Ringkasan Capaian Empiris, Enam Kontrol Validitas, & Penutup | `PR-AUC`, `ECE`, 6 Kontrol Validitas, Kesimpulan Jujur |
 
-# BAGIAN I — PERUMUSAN MASALAH DATA SCIENCE & ARSITEKTUR EKSPERIMEN
+# BAGIAN 01 — PERUMUSAN MASALAH & ESTIMAND (SLIDE 01–11)
 
 ## BABAK 1: HOOK PAKET HARI JUMAT & MENGAPA MODEL ML SERING MENIPU DI PRODUKSI
-*(Alokasi waktu: 3–4 menit)*
+*(Alokasi waktu: 3–4 menit · Slide 01–06)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 01–02 | VISUAL LAYAR]**  
 *Latar gelap minimalis:*  
 **CSIP — Behavioral Machine Learning & Model Evaluation Architecture**  
 *Membangun Model yang Jujur di Dunia Nyata, Tanpa Kebocoran Waktu, Tanpa Ilusi Skor.*
@@ -85,7 +88,7 @@ Setiap bagian dalam presentasi ini mengikuti tiga alur yang saling terhubung:
 
 Izinkan saya membuka sesi teknis hari ini bukan dengan rumus, melainkan dengan sebuah fakta psikologi manusia yang tercatat di hampir seratus ribu pesanan belanja online."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 03–04 | VISUAL LAYAR]**  
 *Dua angka besar kontras:*  
 Tiba Tepat Waktu: **`4,25 Bintang`** vs Paket Terlambat: **`2,26 Bintang`** *(melewati > 3 hari jatuh ke `1,6 bintang`)*  
 *Catatan:* `99.441 transaksi Olist Brasil · 8,0% terlambat · Korelasi keterlambatan terhadap skor ulasan r = -0,334 (sedangkan harga barang r = +0,015!)`
@@ -97,7 +100,7 @@ Namun begitu paket meleset melewati janji pengiriman—terutama setelah **melewa
 
 Lebih menarik lagi bagi seorang *Data Scientist*: korelasi linier antara **harga barang** (`total_item_price`) dan skor bintang ternyata mendekati nol (**$r = +0,015$**), sedangkan **lama keterlambatan (`delivery_delay_days`)** mencatat korelasi terkuat (**$r = -0,334$**)! Pembeli di Brasil tidak marah karena harga barangnya mahal; mereka marah karena ketepatan waktunya dilanggar!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 05–06 | VISUAL LAYAR]**  
 *Empat Dosa Besar Pemodelan ML yang Mematikan Model di Lapangan:*  
 1. **Kebocoran Masa Depan (*Lookahead Leakage*):** Melatih model prediksi kasir memakai fitur yang baru ada setelah kurir sampai.  
 2. **Kebocoran Gabung Tabel (*Cartesian Fan-Out*):** Satu order terpecah jadi baris ganda antara data latih dan data uji.  
@@ -111,19 +114,19 @@ Hari ini, saya ingin membedah tuntas **bagaimana CSIP merancang, melatih, mengad
 
 ---
 
-## BABAK 2: PETA 6 MASALAH DATA SCIENCE DI CSIP (*ESTIMAND*, POPULASI, TARGET, & IMBALANCE*)
-*(Alokasi waktu: 3,5 menit)*
+## BABAK 2: PETA MASALAH DATA SCIENCE DI CSIP (*ESTIMAND*, POPULASI, TARGET, & IMBALANCE*)
+*(Alokasi waktu: 3,5 menit · Slide 07–11)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 07–08 | VISUAL LAYAR]**  
 *Dari Pertanyaan Bisnis Menjadi Formulasi Matematis ML (spesifikasi eksperimen praregistrasi):*  
 Sebelum menulis satu baris kode `fit()`, setiap model wajib mendefinisikan **Estimand** *(besaran target pasti yang ingin ditaksir di populasi mana dan pada detik kapan)*:
 
 | ID Model | Jenis Tugas ML *(Bahasa Sederhana)* | Variabel Target `y` | Detik Prediksi Sah (*Prediction Time*) | Populasi Uji | Metrik Primer & Aturan Sukses |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Regresi Delay** | **Regresi Kontinu** *(menebak selisih angka hari)* | `delivery_delay_days` (`actual - estimated`) | **Saat Disposisi Kurir** | Semua order terkirim | **MAE** *(harus turun $\ge 10\%$ vs median)* |
-| **Risiko Ulasan (Pasca-Kirim)** | **Klasifikasi Biner Timpang** *(menebak ya/tidak keluhan)* | `negative_review_flag` (`1` jika bintang `1–2`, `0` jika `3–5`, `NaN` jika kosong) | **tahap pasca-pengiriman** *(pasca-tiba — diagnostik)* | Order `delivered` dgn ulasan | **PR-AUC** (`> base rate` & `LogReg`) + *Brier* |
-| **Peringatan Dini Checkout** | **Klasifikasi Biner Dini** *(peringatan awal di kasir)* | `negative_review_flag` | **tahap checkout** *(detik klik bayar)* | Order `delivered` dgn ulasan | **PR-AUC** (hanya indikator awal jika sinyal tipis) |
-| **Retensi 90 Hari & Survival** | **Klasifikasi Retensi 90 Hari & *Survival*** *(tebak beli lagi & daya tahan waktu)* | `repeat_purchase_flag` / `repeat_purchase_post_delivery` | **tahap checkout / tahap pasca-pengiriman** | Pembeli pertama *(buang `962` pre-repeaters & buffer 90h)* | **PR-AUC & ROC-AUC** (`Tolak` jika `95% CI` menyentuh `0,50`!) |
+| **Risiko Ulasan (Pasca-Kirim)** | **Klasifikasi Biner Timpang** *(menebak ya/tidak keluhan)* | `negative_review_flag` (`1` jika bintang `1–2`, `0` jika `3–5`, `NaN` jika kosong) | **Tahap Pasca-Pengiriman** *(pasca-tiba — diagnostik)* | Order `delivered` dgn ulasan | **PR-AUC** (`> base rate` & `LogReg`) + *Brier* |
+| **Peringatan Dini Checkout** | **Klasifikasi Biner Dini** *(peringatan awal di kasir)* | `negative_review_flag` | **Tahap Checkout** *(detik klik bayar)* | Order `delivered` dgn ulasan | **PR-AUC** (hanya indikator awal jika sinyal tipis) |
+| **Retensi 90 Hari & Survival** | **Klasifikasi Retensi 90 Hari & *Survival*** *(tebak beli lagi & daya tahan waktu)* | `repeat_purchase_flag` / `repeat_purchase_post_delivery` | **Tahap Checkout / Pasca-Pengiriman** | Pembeli pertama *(buang `962` pre-repeaters & buffer 90h)* | **PR-AUC & ROC-AUC** (`Tolak` jika `95% CI` menyentuh `0,50`!) |
 | **Segmentasi K-Means** | **Unsupervised Clustering** *(kelompok tanpa label)* | Segmen `Cluster 0..K` | Eksplorasi perilaku | `N = 96.470` transaksi bersih | **Silhouette** $\ge 0,35$ & stabilitas **ARI** $\ge 0,80$ |
 | **NLP Teks Ulasan** | **Deep Sequence NLP** *(baca teks kalimat)* | Sentimen komentar `review_score <= 2` | **Pasca-Ulasan** *(saat teks masuk)* | Ulasan dengan komentar teks | **Macro-F1** *(mengatasi timpang kelas)* |
 | **Dinamika Sistem VAR(1)** | **State-Space Time Series `VAR(1)`** *(prediksi berantai mingguan)* | Vektor 4 negara bagian `[Volume, Delay, Freight, NegRate]` | Mingguan `t -> t+1` | Panel `87` minggu | **WAPE, Spectral Radius `< 1,0`, Synthetic Recovery** |
@@ -135,19 +138,19 @@ Analogi mudahnya seperti seorang dokter sebelum memberi resep: kita tidak boleh 
 
 Pada tahap praregistrasi, seluruh desain pemodelan ditetapkan dan dikunci secara eksplisit sejak awal sebelum melatih satu model pun—persis seperti pra-registrasi uji klinis medis agar tidak ada yang mengubah definisi target di tengah jalan supaya skor terlihat cantik!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 09–10 | VISUAL LAYAR]**  
 *Dua Jebakan Populasi yang Diam-Diam Merusak Target Label:*  
 1. **Pesanan Tidak Tersedia (`1.234 unavailable/canceled`):** Tingkat komplain ~88%, namun **99,0% pesanan `unavailable` tidak punya baris item produk** di `order_items` → tidak sah dipaksa masuk model berbasis fitur produk!  
 2. **Pembeli Ulang Sebelum Paket Pertama Tiba (`962 Pre-Delivery Repeaters`):** Bayangkan melatih model *'Apakah setelah menerima paket ke-1 pelanggan puas lalu beli paket ke-2?'*, padahal ada `962` pelanggan yang sudah memesan paket ke-2 *sebelum* paket ke-1 sempat datang! Kalau tidak dikeluarkan dari estimand Retensi 90 Hari, targetnya terkontaminasi oleh pengalaman yang belum terjadi!
 
 **[KALIMAT YANG DIUCAPKAN]:**  
 "Dua detail pembersihan populasi ini sering terlewatkan oleh praktisi, padahal menentukan sah atau tidaknya label target `y` kita:  
-Pertama, di studi kelayakan studi populasi transaksi gagal, kami menemukan bahwa `99,0%` pesanan berstatus *unavailable* tidak memiliki catatan produk maupun harga di database—jadi model produk hanya sah diuji pada pesanan dengan data fisik lengkap, sementara tingkat pembatalan dilaporkan terpisah.  
+Pertama, di studi kelayakan populasi transaksi non-delivered, kami menemukan bahwa `99,0%` pesanan berstatus *unavailable* tidak memiliki catatan produk maupun harga di database—jadi model produk hanya sah diuji pada pesanan dengan data fisik lengkap, sementara tingkat pembatalan dilaporkan terpisah.  
 Kedua, ketika membangun model retensi pasca-pengiriman (`repeat_purchase_post_delivery`), kami menemukan **`962` pelanggan** yang ternyata sudah menekan tombol beli order kedua *bahkan sebelum* kurir mengantar order pertamanya! Secara logika sebab-waktu, pengalaman kurir pada order pertama mustahil memengaruhi order kedua yang terjadi lebih dulu. Maka di dalam spesifikasi praregistrasi, ke-962 pelanggan itu dikeluarkan secara eksplisit dari populasi estimand Retensi 90 Hari."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 11 | VISUAL LAYAR]**  
 *Alur Pipeline End-to-End Pemodelan & Evaluasi (`src/csip/`):*  
-`Raw 9 CSV (1,5M+ baris)` → `Cleaner & Grain order_id` → `Split Kronologis + Embargo 90 Hari` → `41 Fitur & Bayesian Target Encoding (Strict Fit on Train)` → `Baseline Ladder baseline hingga deep learning + K-Means + Survival + VAR(1)` → `Locked Test Eval + Platt Scaling + DCA + SHAP + Slice Robustness` → `Concept Drift & Lifecycle Registry`.
+`Raw 9 CSV (1,5M+ baris)` → `Cleaner & Grain order_id` → `Split Kronologis + Embargo 90 Hari` → `41 Fitur & Bayesian Target Encoding (Strict Fit on Train)` → `Baseline Ladder hingga Deep Learning + K-Means + Survival + VAR(1)` → `Locked Test Eval + Platt Scaling + DCA + SHAP + Slice Robustness` → `Concept Drift & Lifecycle Registry`.
 
 **[KALIMAT YANG DIUCAPKAN]:**  
 "Dengan definisi estimand dan populasi yang jernih tadi, seluruh pipa eksperimen kita di `src/csip/` berdiri di atas satu garis lurus yang diaudit otomatis dari ujung data mentah hingga pemantauan pasca-tayang. Sekarang, mari kita bedah langkah pertamanya: **bagaimana data mentah dirapikan dan diubah menjadi fitur tanpa membocorkan satu detik pun informasi masa depan**."
@@ -155,12 +158,12 @@ Kedua, ketika membangun model retensi pasca-pengiriman (`repeat_purchase_post_de
 
 ---
 
-# BAGIAN II — DATA PREPARATION, REKAYASA FITUR & VALIDASI WAKTU (*"GARBAGE IN, LEAKAGE OUT"*)
+# BAGIAN 02 — DATA ENGINEERING & 41 FITUR (SLIDE 12–19)
 
 ## BABAK 3: MENJINAKKAN 9 TABEL OLIST, ANALOGI NOTA KASIR (*CARTESIAN FAN-OUT*), & INTEGRITAS LABEL TARGET
-*(Alokasi waktu: 4 menit)*
+*(Alokasi waktu: 4 menit · Slide 12–16)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 12–13 | VISUAL LAYAR]**  
 *Inventaris Skema 9 Tabel Olist & Audit Ekor Panjang (profil 9 tabel awal):*  
 `orders (99.441)` · `order_items (112.650)` · `order_payments (103.886)` · `order_reviews (99.224 — 1.603 PK duplikat)` · `customers (99.441)` · `sellers (3.095)` · `products (32.951)` · `geolocation (1.000.163 — 999.120 kode pos duplikat)` · `category_translation (71)` · **0 *orphan records*** pada *Foreign Key*.
 
@@ -171,7 +174,7 @@ Sebelum melatih satu model pun, di `OlistDataCleaner` kami menjalankan audit rel
 
 Analogi sederhananya: kalau satu kode pos punya 50 titik GPS dan satu titik nyasar di tengah Samudra Atlantik, mengambil **rata-rata (*mean*)** akan menyeret pusat pengiriman ke laut! Karena itu kami mengambil **nilai tengah (*median*)** per prefiks kode pos sehingga `1.000.163` titik menyusut bersih menjadi **`19.015` koordinat daratan (`-98,1%`)**."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 14–15 | VISUAL LAYAR]**  
 *Mencegah **Cartesian Fan-Out** (Ledakan Penggandaan Baris) & Menjaga **Grain** (Satuan Dasar 1 Baris = `1 order_id`):*  
 - **Masalah Nyata (*Analogi Nota Kasir*):** 1 pesanan berisi `3 item barang` × `2 metode bayar` × `2 ulasan` → jika di-`JOIN` mentah menghasilkan **`12` baris kembar!** Akibatnya di ML: bobot sampel terdistorsi dan salinan pesanan yang sama bisa masuk ke data *train* sekaligus *test*!  
 - **Solusi di `OlistDataCleaner`:** Agregasi `order_items` & `order_payments` ke level `order_id` sebelum digabung · Deduplikasi `814` ulasan ganda mempertahankan survei pertama · Kompresi GPS **`1.000.163 → 19.015`** prefiks median Brasil (`-98,1%`) · Eliminasi **23 anomali kronologis** (`order_delivered_customer_date < order_delivered_carrier_date`).  
@@ -185,7 +188,7 @@ Karena itu, kami kunci **`Grain`**—artinya satuan dasar mutlak yang diwakili s
 
 **Ranjau kedua adalah jebakan nama kolom `customer_id`.** Di Olist, meski bernama `customer_id`, ternyata kolom itu adalah tiket sesi pesanan sekali pakai (jumlah uniknya tepat `99.441`, sama persis dengan jumlah order!). Identitas permanen manusia aslinya ada di **`customer_unique_id`**. Membedakan dua kunci ini mencegah seorang pelanggan muncul di kubu *train* sekaligus *test* saat memodelkan retensi!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 16 | VISUAL LAYAR]**  
 *Integritas Target & Corong Populasi (dataset bersih level order = `96.470` baris bersih):*  
 `99.441 Raw` → pisahkan `2.963` non-delivered (`1.234 unavailable/canceled`) → `96.478` delivered → **`96.470`** dataset fitur bersih:  
 - **`95.824`** memiliki `review_score` (`has_observed_review = 1`): bintang `1–2` dipetakan jadi **`1.0` (`negative_review_flag`)**, bintang `3–5` jadi **`0.0`**.  
@@ -196,10 +199,10 @@ Karena itu, kami kunci **`Grain`**—artinya satuan dasar mutlak yang diwakili s
 
 ---
 
-## BABAK 4: REKAYASA 41 FITUR, PEMBATASAN FITUR TAHAP WAKTU (Saat Bayar / Serah Kurir / Pasca-Tiba), *POINT-IN-TIME AS-OF*, & *BAYESIAN TARGET ENCODING*
-*(Alokasi waktu: 4,5 menit)*
+## BABAK 4: REKAYASA 41 FITUR, PENYEKATAN TAHAP WAKTU, *POINT-IN-TIME AS-OF*, & *BAYESIAN TARGET ENCODING*
+*(Alokasi waktu: 4,5 menit · Slide 17–19)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 17 | VISUAL LAYAR]**  
 *Anatomi Rekayasa Fitur Domain (tahap rekayasa fitur — Total `41` Atribut Analitik) + Bukti Stabilitas `PSI` (evaluasi rekayasa fitur):*  
 1. **Fitur Ekonomi & Beban Biaya:** `total_item_price`, `total_freight`, `total_order_value`, **`freight_ratio`** ($\frac{\text{total\_freight}}{\text{total\_item\_price} + \text{total\_freight}}$ — seberapa mencekik ongkir vs harga barang!), `item_count`, `payment_installments_max`. *(Stabilitas temporal `freight_ratio`: **`PSI = 0,021`**, jauh di bawah batas `0,10`!)*  
 2. **Fitur Fisika Spasial & Waktu:** **`seller_buyer_distance_km`** (rumus **Haversine** $2R \arcsin\sqrt{\dots}$ — penggaris garis lengkung bumi antar-koordinat penjual & pembeli, **`PSI = 0,018`**), `distance_x_weight`, `estimated_lead_time_days`, `approval_lag_hours`.  
@@ -216,19 +219,19 @@ Perhatikan tiga fitur rekayasa unggulan kami:
 
 Sementara untuk riwayat pelanggan, **`prior_order_count`** memakai aturan **Point-in-Time As-Of**—artinya memotret rekam jejak transaksi murni **sebelum** stempel waktu `t_order` detik ini, layaknya mencetak rekening koran sampai kemarin sore tanpa mengintip mutasi bulan depan. Dan sebelum dipasok ke model, kami audit stabilitas distribusinya antara pra-Maret dan pasca-Maret 2018 memakai **`PSI` (*Population Stability Index*)**: hasilnya `freight_ratio = 0,021`, `distance = 0,018`, dan `delivery_delay = 0,048`—semuanya nyaman di bawah ambang peringatan `0,10`!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 18 | VISUAL LAYAR]**  
 *Benteng Anti-Kebocoran Waktu (Pemisahan Himpunan Fitur `FEATURE_SETS`):*  
 - **Himpunan Fitur Saat Checkout (`10 Fitur`):** Hanya fakta pra-pembayaran. **Diblokir keras** oleh validasi anti-kebocoran fitur: `approval_lag_hours`, tanggal serah kurir, `delivery_delay_days`, `delivery_lead_time_days`, `is_late`, rating & teks ulasan.  
 - **Himpunan Fitur Saat Serah Kurir (`5 Fitur`):** `total_order_value`, `freight_ratio`, `estimated_lead_time_days`, `seller_buyer_distance_km`, `approval_lag_hours`.  
-- **Himpunan Fitur Pasca-Pengiriman (`15 Fitur`):** Menggabungkan fitur ekonomi, pengalaman aktual kurir (kurir aktual), dan interaksi non-linear untuk *triage* sebelum bintang satu muncul / akar masalah pasca-kirim.  
+- **Himpunan Fitur Pasca-Pengiriman (`15 Fitur`):** Menggabungkan fitur ekonomi, pengalaman aktual kurir, dan interaksi non-linear untuk *triage* sebelum bintang satu muncul / akar masalah pasca-kirim.  
 - **Himpunan Fitur Kohort Retensi (`cohort_checkout_features` `8 fitur` vs `cohort_post_delivery_features` `11 fitur` vs `cohort_post_survey_features` `13 fitur`).**
 
 **[KALIMAT YANG DIUCAPKAN]:**  
 "Namun merekayasa 41 fitur canggih saja justru berbahaya kalau kita mencampurkan detik kelahirannya! Analogi klasiknya: memakai suhu tubuh pasien saat masuk UGD tiga hari setelah minum obat untuk 'meramal' pendaftaran asuransi di hari pertama jelas curang—dalam ML itu disebut **Temporal Target Leakage**.
 
-Pada tahap pemisahan fitur ini, setiap fitur dikunci ke dalam **batasan tahap waktu masing-masing**: saat bayar di kasir (saat bayar) model hanya boleh menyentuh **`10` fitur pra-bayar**; saat paket disetujui dan siap serah kurir (saat serah kurir) model delay memakai **`5` fitur rute awal**; dan baru di pos pasca-tiba (pasca-pengiriman) model diagnostik ulasan diizinkan membuka ke-**`15` fitur pengalaman lengkap**. Pemisahan kamus fitur ini menjamin tidak satu pun atribut pengiriman pasca-transaksi masuk ke pelatihan tahap pembayaran."
+Pada tahap pemisahan fitur ini, setiap fitur dikunci ke dalam **batasan tahap waktu masing-masing**: pada tahap checkout saat bayar di kasir, model hanya boleh menyentuh **`10` fitur pra-bayar**; pada tahap serah kurir saat paket dikirim, model delay memakai **`5` fitur rute awal**; dan baru pada tahap pasca-pengiriman, model diagnostik ulasan diizinkan membuka ke-**`15` fitur pengalaman lengkap**. Pemisahan kamus fitur ini menjamin tidak satu pun atribut pengiriman pasca-transaksi masuk ke pelatihan tahap pembayaran."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 19 | VISUAL LAYAR]**  
 *Transformasi Kategorikal Tanpa Bocor & Efisiensi Memori (`Split-Before-Transform` + **Bayesian Target Encoding $\alpha = 10$**):*  
 - **Mengapa tidak pakai *One-Hot Encoding* mentah untuk 70+ kategori produk & 27 provinsi?** Meledakkan dimensi kolom, memboroskan memori, dan kategori kecil mudah *overfit*.  
 - **Cara Kerja **`CategoricalFoldEncoder`** (pipeline *fold encoding*):** Menghitung rata-rata risiko tiap kategori **hanya pada training fold aktif**, ditarik ke rata-rata global dengan faktor pemulus **Bayesian $\alpha = 10$** *(analogi: warung baru yang baru 1 kali telat tidak langsung dicap 100% gagal, melainkan ditarik lembut ke rata-rata seluruh toko sebelum punya cukup bukti transaksi)*. Kategori baru di uji/validasi otomatis mendapat *global training mean*.  
@@ -240,10 +243,12 @@ Di CSIP, `CategoricalFoldEncoder` menerapkan **Bayesian Target Encoding** ($\alp
 
 ---
 
-## BABAK 5: STRATEGI VALIDASI TEMPORAL — *4-FOLD ROLLING-ORIGIN CV*, KARANTINA *EMBARGO 90 HARI*, *MOVING-BLOCK BOOTSTRAP* & *SINGLE LOCKED TEST*
-*(Alokasi waktu: 4 menit)*
+# BAGIAN 03 — VALIDASI TEMPORAL KRONOLOGIS (SLIDE 20–24)
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+## BABAK 5: STRATEGI VALIDASI TEMPORAL — *4-FOLD ROLLING-ORIGIN CV*, KARANTINA *EMBARGO 90 HARI*, *MOVING-BLOCK BOOTSTRAP* & *SINGLE LOCKED TEST*
+*(Alokasi waktu: 4 menit · Slide 20–24)*
+
+**[SLIDE 20–22 | VISUAL LAYAR]**  
 *Skema **Rolling-Origin Temporal Cross-Validation** (modul evaluasi temporal):*  
 - **`RollingOriginTemporalCV(n_folds=4, embargo_days=90, min_train_days=180, val_window_days=45, test_start_date="2018-07-01")`**  
 - Penegakan invarian matematis: **`fold.val_start >= fold.train_end + 90 hari`**  
@@ -254,7 +259,7 @@ Di CSIP, `CategoricalFoldEncoder` menerapkan **Bayesian Target Encoding** ($\alp
 
 Pada skema validasi temporal ini, kami melarang pengocokan acak dan menerapkan **4-Fold Expanding-Window Rolling-Origin Cross-Validation**—persis seperti melatih seorang analis dari sejarah 2016–awal 2017 untuk diuji memprediksi pertengahan 2017, lalu memperluas ilmunya ke akhir 2017 untuk meramal awal 2018, maju mengikuti panah waktu! Lebih ketat lagi, di antara ujung data latih dan awal validasi kami pasang **karantina Embargo minimal `90` hari kalender**. Mengapa? Karena pesanan yang dibeli di hari terakhir masa *training* masih berjalan di truk kurir berminggu-minggu dan status puas atau beli-ulangnya baru terwujud puluhan hari kemudian!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 23 | VISUAL LAYAR]**  
 *Ketidakpastian Berurutan Waktu (**Moving-Block Bootstrap**) & Evaluasi Holdout Sekali Jalan (**Locked Test Protection**):*  
 1. **`compute_block_bootstrap_ci(block_size=5, n_bootstraps=1000, seed=42)`:**  
    - **Apa itu *Bootstrap* biasa?** Mengocok ulang sampel acak berulang-ulang untuk mengukur rentang keyakinan (*95% Confidence Interval*).  
@@ -266,7 +271,7 @@ Pada skema validasi temporal ini, kami melarang pengocokan acak dan menerapkan *
 Pertama, kapan pun kita melaporkan skor rata-rata model, angka tunggal tanpa rentang kepercayaan hanyalah ilusi kepastian. Karena data transaksi harian memiliki autokorelasi (*macet minggu ini berimbas ke minggu depan*), kami tidak mengocok baris secara terpisah melainkan memakai **`Moving-Block Bootstrap` (`block_size=5`, `1.000` iterasi)**—ibarat mengocok potongan video berdurasi 5 detik alih-alih mengacak bingkai foto lepas agar struktur waktu tetap utuh.  
 Kedua, setelah seluruh validasi selesai, ruang uji masa depan (`Locked Test`) disegel oleh **`evaluate_locked_test_once()`**: jika ada program atau pengembang mencoba mengevaluasi ulang berulang kali untuk mencuri penyesuaian parameter (*test-set overfitting*), kode langsung menolak dengan **`RuntimeError`**!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 24 | VISUAL LAYAR]**  
 *Peta Tanggal Partisi Final di `ModelExperimentTrainer` & `TemporalCVManager`:*  
 - **Training Window Utama:** Awal data (`2016-09`) s/d **`2018-03-31`**  
 - **Validation Window Utama:** **`2018-04-01`** s/d **`2018-06-30`** *(tuning hiperparameter, seleksi model, fitting kalibrator Platt, kalibrasi threshold kuota)*  
@@ -279,12 +284,12 @@ Kedua, setelah seluruh validasi selesai, ruang uji masa depan (`Locked Test`) di
 
 ---
 
-# BAGIAN III — BEDAH MENDALAM SELURUH MODEL MACHINE LEARNING (*"MODELS UNDER THE HOOD"*)
+# BAGIAN 04 — ARSITEKTUR ENAM KELUARGA MODEL MACHINE LEARNING (SLIDE 25–34)
 
 ## BABAK 6: PERBANDINGAN MODEL DASAR HINGGA ENSEMBLE POHON (*LIGHTGBM*)
-*(Alokasi waktu: 5–6 menit)*
+*(Alokasi waktu: 5–6 menit · Slide 25–29)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 25–26 | VISUAL LAYAR]**  
 *Filosofi Tangga Tanding (Urutan Pembandingan Algoritma dari Sederhana ke Kompleks):*  
 Setiap model yang lebih rumit wajib membuktikan dirinya mengalahkan seluruh anak tangga di bawahnya pada data evaluasi yang identik (`seed = 42`):
 - **Kelompok Baseline Non-ML (Aturan & Mayoritas):**  
@@ -302,7 +307,7 @@ Di CSIP, seluruh model wajib mendaki **perbandingan bertingkat dari baseline hin
 - **Pada baseline sederhana**, kita pasang tiga patokan paling lugu: menebak konstan mayoritas, menebak rata-rata keterlambatan, dan **`DelayHeuristicClassifier`**—aturan satu baris staf operasional (*'Pokoknya paket telat → risiko 85%'*). Hukum wajibnya: model ML apa pun yang kalah melawan aturan satu baris ini langsung didiskualifikasi!
 - **Pada model linier**, kita menguji apakah polanya cukup ditangkap secara linier: **`LogisticRegression` (`C=1,0`, `class_weight="balanced"`, `solver="lbfgs"`)** untuk klasifikasi keluhan (di mana `class_weight="balanced"` memberi hukuman sembilan kali lipat kalau gagal menangkap keluhan minoritas), dan **`Ridge Regression` ($\alpha = 1,0$)** untuk meramal hari keterlambatan."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 27 | VISUAL LAYAR]**  
 *Kelompok Klasik Non-Linier — Evaluasi Algoritma Klasik Non-Linier:*  
 1. **`DecisionTreeClassifier / Regressor(max_depth=6, min_samples_split=50)`** — *Satu Pohon Keputusan Tunggal*: Membelah data dengan pertanyaan berjenjang (*misal: apakah telat > 3 hari? → ya/tidak*), dibatasi kedalaman 6 tingkat & minimal 50 transaksi per cabang supaya pohon tidak menghafal contoh unik (*overfitting*).  
 2. **`StandardScaler` + `KNeighborsClassifier(n_neighbors=15, weights="distance", metric="euclidean")`** — *Bertanya ke 15 Tetangga Terdekat*: Mencari 15 transaksi historis yang paling mirip profilnya di ruang fitur terstandar, lalu memberi suara lebih besar kepada tetangga yang paling mirip (`weights="distance"`). *(Wajib pakai `StandardScaler` agar fitur jutaan tidak menenggelamkan fitur pecahan desimal!)*  
@@ -314,7 +319,7 @@ Di CSIP, seluruh model wajib mendaki **perbandingan bertingkat dari baseline hin
 - Kedua, **K-Nearest Neighbors (`K=15`, `weights="distance"`)**—analogi termudahnya seperti menilai harga rumah baru dengan bertanya kepada **15 rumah tetangga terdekat** yang luas dan lokasinya paling mirip, di mana tetangga satu pagar suaranya lebih berat daripada rumah beda blok. Perhatikan bahwa di kode kami `StandardScaler` wajib dipasang sebelum KNN, karena tanpa penyama skala, jarak kilometer (`0–3.500`) akan menenggelamkan rasio ongkir (`0–0,95`)!
 - Ketiga, **Gaussian Naive Bayes**, model probabilistik super cepat yang mengasumsikan semua fitur bekerja sendiri-sendiri (*statistically independent*) dan berdistribusi lonceng simetris. Tentu di logistik nyata hal itu dilanggar—paket jauh dan berat hampir pasti ongkirnya tinggi—dan nanti di papan peringkat kita lihat persis berapa harga skor yang dibayar akibat asumsi tersebut!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 28 | VISUAL LAYAR]**  
 *Kelompok Ensemble Pohon — Regu Ansambel Pohon: **Random Forest** vs Juara Tabular **LightGBM Gradient Boosting**:*  
 - **`RandomForestClassifier(n_estimators=100, max_depth=8, min_samples_leaf=20, class_weight="balanced")`:** *Parlemen 100 Pohon Independen* — menumbuhkan 100 pohon pada sampel acak paralel (*Bagging* — mengundi suara terbanyak) untuk meredam varians.  
 - **`LGBMClassifier / LGBMRegressor(n_estimators=150, max_depth=6, num_leaves=31, learning_rate=0.05, subsample=0.8, colsample_bytree=0.8, class_weight="balanced")`:** *Regu Estafet Koreksi Kesalahan* — menumbuhkan **150 pohon secara berurutan** (*Gradient Boosting*), di mana tiap pohon baru khusus belajar memperbaiki gradien sisa kesalahan pohon sebelumnya!
@@ -326,7 +331,7 @@ Pertama adalah **Random Forest (`100` pohon, kedalaman maks `8`, `min_samples_le
 
 Kedua adalah **LightGBM Gradient Boosting (`150` pohon berurutan, `31` daun, `learning_rate=0,05`)**. Alih-alih serentak bekerja sendiri seperti anggota parlemen, pohon-pohon LightGBM bekerja seperti **regu pelukis estafet**: pelukis ke-1 menggambar sketsa utama; pelukis ke-2 datang khusus menambal bagian yang meleset paling parah pada gambar pelukis ke-1; pelukis ke-3 menambal sisa kesalahan pelukis ke-2—berulang 150 kali dengan langkah koreksi kecil `0,05` (`shrinkage`) agar gambar akhirnya presisi tanpa berlebihan!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 29 | VISUAL LAYAR]**  
 *Mengapa **LightGBM** Menjadi Juara Data Tabel di CSIP (Model Terbaik Tabular)?*  
 1. **Tajam Memisahkan Pola Non-Linier (*Leaf-Wise Splitting* vs *Depth-Wise*):** Data belanja & keterlambatan sangat miring (`Skewness +6,21`, ekor `+188 hari`). Strategi tumbuh daun terbaik lebih dulu (**`num_leaves = 31`**, dipagari **`max_depth = 6`**) memusatkan percabangan persis di area krisis (*misal `delay > 3 hari` & `freight_ratio > 0,25`*).  
 2. **Pagar Anti-*Overfitting* (`subsample=0.8`, `colsample_bytree=0.8`):** Setiap pohon hanya mengintip `80%` baris dan `80%` kolom acak supaya model kebal menghafal satu pola tunggal.  
@@ -342,9 +347,9 @@ Dan supaya pertumbuhan agresif itu tidak menghafal *noise*, kita menguncinya lew
 ---
 
 ## BABAK 7: PEMODELAN *DEEP LEARNING* (`TABULAREMBEDDINGMLP` & `TEXTBILSTM`) — KAPAN *NEURAL NET* KALAH DAN KAPAN MENANG
-*(Alokasi waktu: 3,5 menit)*
+*(Alokasi waktu: 3,5 menit · Slide 30–31)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 30 | VISUAL LAYAR]**  
 *Arsitektur 1 (Deep Learning Tabular): **`TabularEmbeddingMLP`** (arsitektur *deep tabular*):*  
 - **Masukan Kategorikal melalui *Entity Embeddings*** *(peta koordinat makna yang dipelajari otomatis oleh jaringan saraf!)*:  
   - `product_category` (`75` kategori) → vektor **`16` dimensi**  
@@ -361,7 +366,7 @@ Pada bagian *deep tabular* ini adalah arsitektur pertama: **`TabularEmbeddingMLP
 
 Apa hasil pembuktian nyatanya? **`PR-AUC` mencapai `0,2875`** dan `ROC-AUC 0,6548`—jauh mengalahkan model linier `LogisticRegression (0,2436)` maupun pohon tunggal `Decision Tree (0,2704)`, **tetapi tetap kalah dari ansambel pohon `LightGBM` (`0,3061`)**! Mengapa? Karena seperti temuan konsisten literatur ML modern, pembelahan tegak lurus pada *gradient boosted trees* lebih hemat sampel untuk memotong batas risiko tajam pada tabel `64.000` baris dengan fitur berdistribusi miring."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 31 | VISUAL LAYAR]**  
 *Arsitektur 2 (Deep Sequence NLP): **`TextBiLSTM`** (Model Sequence NLP Bahasa Portugis):*  
 - **Populasi Khusus Teks Tertulis (Pemisahan Populasi Teks Tertulis):** Beroperasi khusus pada `N = 41.524` pesanan yang memiliki komentar tertulis pada korpus ulasan tertulis (`N_train=26.450`, `N_val=8.150`, **`N_test=4.142`**, *base rate* lebih tinggi yaitu **`16,2%`** karena pelanggan kesal lebih rajin mengetik ulasan!).  
 - **Alur Saraf PyTorch:** `SimpleTokenizer` Portugis (`vocab 5.000`, `min_freq=2`) → `Word Embedding` *(32D/64D)* → **`Bidirectional LSTM` (`hidden=64`, dua arah = `128D`)** → **`Global Max Pooling`** → `Dense(128→64→1) + Dropout`.  
@@ -374,14 +379,14 @@ Apa hasil pembuktian nyatanya? **`PR-AUC` mencapai `0,2875`** dan `ROC-AUC 0,654
 
 Pada kalimat manusia, urutan dan negasi menentukan makna: kalimat *'Pengiriman **tidak** tepat waktu, mengecewakan'* punya arti berlawanan dengan *'**Tidak** ada keluhan, sangat bagus!'* Pencacah frekuensi kata sederhana (*Bag-of-Words*) langsung tertipu oleh kemunculan kata 'tidak' dan 'bagus'.
 
-Maka di **`TextBiLSTM`** , kami menggunakan **`Bidirectional LSTM`**—yaitu pembaca berantai yang menelusuri kalimat dari **kiri-ke-kanan sekaligus kanan-ke-kiri**—lalu menyaringnya dengan **`Global Max Pooling`** (*memetik sinyal emosi terkuat dari seluruh panjang kalimat*). Yang penting untuk dicatat secara jujur (Pemisahan Populasi Teks Tertulis): `TextBiLSTM` diuji di sub-populasi khusus `N_test = 4.142` pelanggan yang benar-benar mengetik komentar (di mana tingkat kemarahannya `16,2%`, bukan `9,85%` populasi umum), dan sukses meraih **`PR-AUC 0,3120`** (+92,6% di atas baseline teks `0,1620`), **`ROC-AUC 0,7240`**, serta **`Macro-F1 = 0,8420`** pada benchmark penuhnya—menjadikannya mesin triase keluhan tertulis setelah survei masuk!"
+Maka di **`TextBiLSTM`**, kami menggunakan **`Bidirectional LSTM`**—yaitu pembaca berantai yang menelusuri kalimat dari **kiri-ke-kanan sekaligus kanan-ke-kiri**—lalu menyaringnya dengan **`Global Max Pooling`** (*memetik sinyal emosi terkuat dari seluruh panjang kalimat*). Yang penting untuk dicatat secara jujur (Pemisahan Populasi Teks Tertulis): `TextBiLSTM` diuji di sub-populasi khusus `N_test = 4.142` pelanggan yang benar-benar mengetik komentar (di mana tingkat kemarahannya `16,2%`, bukan `9,85%` populasi umum), dan sukses meraih **`PR-AUC 0,3120`** (+92,6% di atas baseline teks `0,1620`), **`ROC-AUC 0,7240`**, serta **`Macro-F1 = 0,8420`** pada benchmark penuhnya—menjadikannya mesin triase keluhan tertulis setelah survei masuk!"
 
 ---
 
 ## BABAK 8: MODEL *UNSUPERVISED* (`K-MEANS + PCA`), *SURVIVAL* (`KAPLAN-MEIER`), & *WORLD MODEL* (`VAR(1)`)
-*(Alokasi waktu: 4 menit)*
+*(Alokasi waktu: 4 menit · Slide 32–34)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 32 | VISUAL LAYAR]**  
 *Segmentasi Perilaku Tanpa Label (**`BehavioralClusterer`** di modul klastering & evaluasi segmen):*  
 - **5 Fitur Masukan *(distandardisasi dgn `StandardScaler`)*:** `total_order_value`, `freight_ratio`, `delivery_lead_time_days`, `item_count`, `payment_installments_max`.  
 - **Seleksi Jumlah Klaster `k in [3, 4, 5, 6, 7]` (`N = 96.470` transaksi, subsample `15.000` untuk metrik jarak):**  
@@ -395,7 +400,7 @@ Maka di **`TextBiLSTM`** , kami menggunakan **`Bidirectional LSTM`**—yaitu pem
 Kami mengambil **5 dimensi perilaku transaksi** atas `96.470` pesanan bersih yang sudah disamakan skalanya (`StandardScaler`), lalu menguji **`K-Means` dari $k=3$ hingga $k=7$**. Alih-alih memakai metode subjektif *Elbow* ('mencari siku grafik'), di `BehavioralClusterer` kami menggabungkan tiga metrik matematis: **Silhouette Score** (*mengukur seberapa rapat anggota segmen dibanding jaraknya ke segmen tetangga*), **Davies-Bouldin Index** (*makin kecil makin terpisah rapi*), dan **Calinski-Harabasz** (`3.124,5`).  
 Belum cukup sampai di situ: karena K-Means peka terhadap titik awal acak, kami mengocok ulang data sebanyak **45 kali *bootstrap*** berdasarkan uji stabilitas klaster untuk mengukur **ARI (*Adjusted Rand Index*)**—yaitu konsistensi apakah transaksi yang sama selalu masuk ke kelompok yang sama. Hasilnya sangat kokoh: `ARI = 0,8511` pada $k=3$ dan memuncak ke **`0,9832`** (`Jaccard 0,9893`) pada $k=4$, plus secara otomatis mendeteksi **`4.824` titik pencilan** di luar ambang jarak centroid `3,1838`."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 33 | VISUAL LAYAR]**  
 *Profil Nyata 3 Segmen Persona dari Data (hasil evaluasi klastering — `N = 96.470`):*
 
 | Segmen Klaster | Ukuran Populasi | Ciri Rata-Rata / Median Utama | Tingkat Keluhan Nyata | Wawasan Bisnis untuk Tim Produk |
@@ -409,9 +414,9 @@ Belum cukup sampai di situ: karena K-Means peka terhadap titik awal acak, kami m
 
 Mayoritas pembeli kita (**Segmen 1, `78%`**) adalah pembeli barang satuan praktis dengan tingkat keluhan rendah `11,63%`. Lalu **Segmen 0 (`19,68%`)** adalah pembeli barang mahal dengan cicilan panjang median `8` kali—ongkir cuma `13%` dari belanja mereka, jadi mereka tidak peduli diskon ongkir; yang mereka tuntut adalah paket jangan telat (`keluhan 15,33%`).
 
-Namun lihat **Segmen 2**: porsinya hanya **`2,32%` (`2.239` pesanan)**, berisi keranjang **3–4 barang sekaligus** dengan **rata-rata beban ongkos kirim tembus `41%`** dari harga barang! Dan tebak berapa tingkat kemarahannya? **Melonjak hampir tiga kali lipat ke `31,20%`!** Kelompok kecil berfriksi tinggi inilah yang nanti menjadi sasaran tepat kebijakan subsidi terarah subsidi terarah di simulasi!"
+Namun lihat **Segmen 2**: porsinya hanya **`2,32%` (`2.239` pesanan)**, berisi keranjang **3–4 barang sekaligus** dengan **rata-rata beban ongkos kirim tembus `41%`** dari harga barang! Dan tebak berapa tingkat kemarahannya? **Melonjak hampir tiga kali lipat ke `31,20%`!** Kelompok kecil berfriksi tinggi inilah yang nanti menjadi sasaran tepat kebijakan subsidi terarah di simulasi!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 34 | VISUAL LAYAR]**  
 *Dua Model Dinamika Waktu Lainnya di CSIP:*  
 1. **`Survival Analysis` (modul analisis survival & DCA):**  
    - **`KaplanMeierEstimator`:** Menghitung kurva peluang bertahan $S(t)$ dan risiko kumulatif $F(t) = 1 - S(t)$ tanpa bias akibat **Sensor Kanan (*Right-Censoring*)**—seperti menghitung daya tahan bola lampu ketika sebagian lampu masih menyala saat uji lab ditutup.  
@@ -429,12 +434,12 @@ Kedua, **`WorldStateTransitionModel`** memodelkan interaksi mingguan antar-4 ind
 
 ---
 
-# BAGIAN IV — SUITE EVALUASI MODEL LENGKAP & KEJUJURAN ILMIAH (*"BEYOND SINGLE METRICS"*)
+# BAGIAN 05 — EVALUASI BERLAPIS & BATAS MODEL (SLIDE 35–49)
 
 ## BABAK 9: KELEMAHAN METRIK *ACCURACY* PADA DATA TIDAK SEIMBANG, PAPAN PERINGKAT MODEL, STUDI ABLASI KELOMPOK FITUR, & DINAMIKA *FOLD 1–4*
-*(Alokasi waktu: 5–6 menit)*
+*(Alokasi waktu: 5–6 menit · Slide 35–40)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 35–36 | VISUAL LAYAR]**  
 *Mengapa Kami Menolak **`Accuracy`** untuk Data Ulasan Timpang (`N_test = 12.571`, `Base Rate = 9,63%`):*  
 - **Baseline Mayoritas (*Dummy Classifier*):** Dari `12.571` pesanan uji, ia cukup menebak **"SEMUA PUAS (`0`)"** ke seluruh `12.571` pesanan → **`Accuracy = 90,37%` (`11.360` benar)**, tetapi **Recall Keluhan = `0%` (`1.211` pelanggan marah kabur tanpa tersapa!)**.  
 - **Timbangan Jujur Data Science CSIP:**  
@@ -443,13 +448,13 @@ Kedua, **`WorldStateTransitionModel`** memodelkan interaksi mingguan antar-4 ind
   3. **`MAE` / `RMSE` / `$R^2$`**: Error selisih hari nyata untuk model regresi.
 
 **[KALIMAT YANG DIUCAPKAN]:**  
-"Selamat datang di Bagian IV—**jantung evaluasi model CSIP**. Pada awal pembahasan evaluasi ini, mari kita lihat mengapa sebuah metrik tunggal sering menyesatkan: **skor Accuracy 90%**!
+"Selamat datang di Bagian 05—**jantung evaluasi berlapis model CSIP**. Pada awal pembahasan evaluasi ini, mari kita lihat mengapa sebuah metrik tunggal sering menyesatkan: **skor Accuracy 90%**!
 
 Bayangkan di meja saya hari ini ada `12.571` pesanan dari set uji terkunci, di mana hanya `1.211` di antaranya (`9,63%`) yang memberi bintang 1–2, sedangkan `11.360` sisanya (`90,37%`) puas. Kalau saya bikin model palsu berbaris kode `return 0`—menebak semua orang puas—berapakah nilai *Accuracy*-nya? **`90,37%`!** Angka ujiannya kelihatan dapat A+, padahal **ke-1.211 pembeli yang kecewa semuanya lolos kecewa (`Recall = 0%`)**!
 
 Karena itu di CSIP kami menilai klasifikasi timpang berdasarkan **`PR-AUC`**—yaitu seberapa tajam model memungut jarum emas keluhan dari tumpukan jerami `90%` mayoritas, dibandingkan patokan lantai bawah `0,0963`—serta menilai regresi memakai **error hari nyata (`MAE`, `RMSE`, `$R^2$`)**."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 37–38 | VISUAL LAYAR]**  
 *Papan Peringkat Resmi Seluruh Model pada **Locked Holdout Test (`> 30 Juni 2018`, hasil uji terkunci)**:*
 
 **Tabel A — Klasifikasi Ulasan Negatif (`negative_review_flag`, `N_train = 63.666`, `N_test = 12.571`, *Base Rate* = `0,0963`):**
@@ -482,7 +487,7 @@ Pada **Klasifikasi Ulasan Negatif (Pasca-Pengiriman)**, karena hanya **`9,63%`**
 Sekarang lihat **kejujuran ilmiah yang menarik di Tabel B (Regresi Waktu Keterlambatan)** dengan `5` fitur awal saat disetujui bayar (Saat Serah Kurir):  
 Apakah model tercanggih *LightGBM* otomatis selalu mengungguli mutlak model linier sederhana? **Tidak selalu!** Lihat angkanya pada uji holdout: pada uji terkunci `N=12.630`, `LightGBM Regressor` memang memangkas kesalahan jauh di bawah patokan median (`4,8256 hari` vs `6,6903 hari`, turun **27,9%**), **tetapi `Ridge Regression` sederhana justru sedikit lebih tajam dengan `MAE 4,7509 hari` dan `$R^2 = 0,4454`**! Mengapa? Karena dengan hanya 5 fitur rute awal (jarak, harga, estimasi waktu, ongkir, jeda bank), pola deviasi ke hari kedatangan cukup dekat dengan garis lurus sehingga penalti regulerisasi *Ridge* lebih kebal terhadap *noise* musiman akhir 2018. Mengakui kapan model linier sanggup menyaingi *gradient boosting* adalah ciri analis data sejati, bukan sekadar pemuja kompleksitas!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 39 | VISUAL LAYAR]**  
 *Studi Ablasi Fitur (`Studi Ablasi Antarkelompok Fitur`, evaluasi rekayasa fitur):*  
 - **Grup Fitur Ekonomi Kasir Saja** *(harga, ongkir, item, cicilan saja, `N_val=19.587`)*: LightGBM PR-AUC **`0,1786`** *(Logistic `0,1787`)* — **sinyal lemah!**  
 - **Grup Fitur Pengalaman Kirim Saja** *(hanya jarak, lead time, hari keterlambatan kurir)*: LightGBM PR-AUC **`0,2986`** *(naik **`+67,2%`** dibanding fitur ekonomi kasir saja!)*  
@@ -492,9 +497,9 @@ Apakah model tercanggih *LightGBM* otomatis selalu mengungguli mutlak model lini
 **[KALIMAT YANG DIUCAPKAN]:**  
 "Banyak orang mengira model kita pintar semata-mata karena kita memilih `LightGBM`. Pada studi ablasi ini, melalui **Studi Ablasi (*Feature Ablation*)**—yaitu melepas sekelompok fitur layaknya melepas komponen mobil satu per satu untuk melihat kontribusinya—kita membuktikan bahwa **rekayasa fiturlah pahlawan utamanya**:
 
-Ketika LightGBM hanya diberi **fitur ekonomi kasir (hanya — harga, item, cicilan)**, skor PR-AUC validasinya tersangkut rendah di **`0,1786`**. Begitu kita tukar dengan **fitur pengalaman kurir (grup pengalaman kirim)**, skornya langsung melesat **`+67,2%` ke `0,2986`**. Dan saat keduanya digabung bersama fitur interaksi non-linier **`delay_x_freight_ratio` (fitur penuh)**, skornya melonjak lebih jauh ke **`0,3598`** (`0,3061` pada uji terkunci)! Uji pengacakan fitur (*Permutation Feature Importance*) mengonfirmasi: apabila kolom `delivery_delay_days` dan `delay_x_freight_ratio` diacak nilainya, daya diskriminasi AUC model langsung ambruk paling parah (`-0,0842` dan `-0,0415`)."
+Ketika LightGBM hanya diberi **fitur ekonomi kasir** (harga, item, cicilan), skor PR-AUC validasinya tersangkut rendah di **`0,1786`**. Begitu kita tukar dengan **fitur pengalaman kurir (grup pengalaman kirim)**, skornya langsung melesat **`+67,2%` ke `0,2986`**. Dan saat keduanya digabung bersama fitur interaksi non-linier **`delay_x_freight_ratio` (fitur penuh)**, skornya melonjak lebih jauh ke **`0,3598`** (`0,3061` pada uji terkunci)! Uji pengacakan fitur (*Permutation Feature Importance*) mengonfirmasi: apabila kolom `delivery_delay_days` dan `delay_x_freight_ratio` diacak nilainya, daya diskriminasi AUC model langsung ambruk paling parah (`-0,0842` dan `-0,0415`)."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 40 | VISUAL LAYAR]**  
 *Mengintip Stabilitas Antar-Musim — Hasil Per-Fold **4-Fold Rolling-Origin Temporal CV** (hasil Temporal CV):*
 
 | Lipatan Waktu | Jumlah Latih | Jumlah Uji Validasi | *Base Rate* Keluhan Nyata | LightGBM **PR-AUC** | LightGBM **ROC-AUC** | Brier Score | Fenomena Dunia Nyata di Lapangan |
@@ -517,8 +522,8 @@ Dari sinilah seorang *Data Scientist* belajar satu hukum penting: performa PR-AU
 ---
 
 
-## BABAK 10: BATAS SINYAL tahap checkout, PENOLAKAN `REPEAT PURCHASE`, *MANSKI BOUNDS*, & PEMETAAN TIGA POROS EVALUASI
-*(Alokasi waktu: 4 menit)*
+## BABAK 10: BATAS SINYAL TAHAP CHECKOUT, PENOLAKAN `REPEAT PURCHASE`, *MANSKI BOUNDS*, & PEMETAAN TIGA POROS EVALUASI
+*(Alokasi waktu: 4 menit · Slide 41–44)*
 
 **[SLIDE 41–42 | VISUAL LAYAR]**  
 *Dua Temuan Batas Prediktif Model:*  
@@ -555,9 +560,9 @@ Pada bagian tersebut, seluruh tolok ukur proyek dipetakan secara konsisten ke ti
 ---
 
 ## BABAK 11: KALIBRASI *PLATT SCALING*, *BRIER SKILL SCORE*, *DECISION CURVE ANALYSIS* (`DCA`), & *TOP-K LIFT*
-*(Alokasi waktu: 4,5 menit)*
+*(Alokasi waktu: 4,5 menit · Slide 45–46)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 45 | VISUAL LAYAR]**  
 *Kalibrasi Probabilitas (**`Platt Scaling`**) & Evaluasi Kuantil Error Regresi (evaluasi kuantil residual & evaluasi residual regresi):*  
 - **Masalah Klasifikasi:** Dilatih dengan `class_weight="balanced"`, output probabilitas mentah LightGBM membengkak ke rata-rata **`33,12%`** saat realita hanya **`9,63%`**! *(Analogi: aplikasi ramalan cuaca yang cenderung melaporkan 70% hujan padahal kenyataan hanya turun hujan 20%.)*  
 - **Solusi **`Platt Scaling`** (`logit calibration` fit strictly on Validation, **`coef = 0,9020`**, **`intercept = -1,8089`**):**  
@@ -567,13 +572,13 @@ Pada bagian tersebut, seluruh tolok ukur proyek dipetakan secara konsisten ke ti
 - **Evaluasi Operasional Regresi Delay (`DeliveryDelayOperationalImpact`):** Karena error logistik punya ekor berat (*heavy right tail* saat mogok kurir/cuaca buruk), kerangka evaluasi kuantil residual memetakan distribusi kuantil sisaan (**`p50`, `p90`, `p99`**) serta persentase paket tepat dalam toleransi **`<= 1 hari`**, **`<= 3 hari`**, dan error ekstrem **`> 7 hari`**—lalu `Model Card Delay` mewajibkan **margin penyangga `+3 hari`** saat memberi estimasi ke pelanggan!
 
 **[KALIMAT YANG DIUCAPKAN]:**  
-"Tiga slide di Babak 11 ini adalah pembeda antara tugas kuliah ML dan **standar industri siap uang**: jangan pernah langsung memakai angka probabilitas mentah dari `predict_proba()` yang dilatih dengan `class_weight="balanced"`!
+"Dua slide di Babak 11 ini (Slide 45–46) adalah pembeda antara tugas kuliah ML dan **standar industri siap uang**: jangan pernah langsung memakai angka probabilitas mentah dari `predict_proba()` yang dilatih dengan `class_weight="balanced"`!
 
 Pada tahap kalibrasi ini, karena LightGBM diberi penalti keseimbangan kelas agar peka pada keluhan langka, rata-rata tebakannya membengkak menjadi **`33,12%`**, padahal kejadian nyatanya di lapangan cuma **`9,63%`**. Itu seperti aplikasi cuaca yang cenderung melaporkan *'80% hujan badai'* setiap pagi—lama-lama kalibrasi probabilitas menjadi bias!  
 Dengan memasang **`Platt Scaling`** (pelurus *log-odds* regresi logistik yang dilatih **hanya pada data validasi**; `coef=0,9020, intercept=-1,8089`), **`Expected Calibration Error (ECE)` rontok `97,02%`** sampai tinggal meleset **`0,70%`**, dan **`Brier Skill Score`** positif **`+0,1215`**—artinya saat model bilang risiko 20%, memang sekitar 20 dari 100 paket itu bermasalah!  
 Dan untuk model regresi `delivery_delay_days`, selain memantau rata-rata MAE `4,83 hari`, kerangka `DeliveryDelayOperationalImpact` mengecek ekor ekstrem (`p90/p99` & error `> 7 hari`), sehingga `Model Card` menetapkan aturan aman: tambahkan **penyangga `+3 hari`** dalam komunikasi estimasi ke konsumen saat cuaca/kurir bermasalah."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 46 · BAGIAN A | VISUAL LAYAR]**  
 ***Decision Curve Analysis (`DCA` — Net Benefit)* (modul analisis survival & DCA & hasil Temporal CV):**  
 - **Rumus *Net Benefit*:** $\text{Net Benefit}(p_t) = \frac{\text{TP}}{N} - \frac{\text{FP}}{N} \cdot \left(\frac{p_t}{1 - p_t}\right)$  
 - **Arti Sederhana (*Analogi Dokter Mengobati Pasien*):** Di dunia nyata, memilih siapa yang diberi tindakan CS punya dua alternatif ekstrem tanpa AI: **"Tangani Semua Pesanan (*Treat All*)"** atau **"Jangan Tangani Siapa Pun (*Treat None*, Net Benefit = 0)"**.  
@@ -587,7 +592,7 @@ Dan untuk model regresi `delivery_delay_days`, selain memantau rata-rata MAE `4,
 
 Tanpa model, manajer cuma punya dua opsi ekstrem: **`Treat None`** (tidak menyapa siapa pun, untung bersih = `0`) atau **`Treat All`** (memberi voucher/telepon CS ke semua paket). Lihat angka dari hasil Temporal CV: pada batas kehati-hatian **`p_t = 0,10` (10%)**, kalau perusahaan nekat menyapa semua pesanan (`Treat All`), biaya salah sasaran menghancurkan keuntungan menjadi **`-0,0044` (rugi bersih!)**. Sebaliknya, memakai saringan model CSIP tetap menjaga **keuntungan bersih positif `+0,0284`**!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 46 · BAGIAN B | VISUAL LAYAR]**  
 *Ketajaman Peringkat Operasional (**Top-K Lift** — hasil Temporal CV):*  
 Seberapa kali lebih banyak keluhan nyata tertangkap jika tim hanya menindak urutan skor risiko tertinggi model dibanding menelpon acak?  
 - **Top `5%` Paling Berisiko:** **`Lift = 5,154×`** *(setiap 100 panggilan di top 5% menemukan **5× lebih banyak** keluhan asli dibanding acak!)*  
@@ -601,9 +606,9 @@ Jawabannya ada pada **`Top-K Lift`** di hasil Temporal CV: jika staf mengambil a
 ---
 
 ## BABAK 12: MEMBUKA OTAK MODEL DENGAN *SHAP TREEEXPLAINER* (ASOSIASI MODEL VS UJI KAUSAL) & AUDIT SUBKELOMPOK (*SLICE ROBUSTNESS*)
-*(Alokasi waktu: 4 menit)*
+*(Alokasi waktu: 4 menit · Slide 47–49)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 47 | VISUAL LAYAR]**  
 *Peringkat Pendorong Internal Model LightGBM Pasca-Pengiriman (**`SHAP TreeExplainer`**, `800` sampel acak terkendali, hasil SHAP TreeExplainer):*  
 1. `delivery_delay_days`: `Mean |SHAP| = 0,3058`  
 2. `delivery_lead_time_days`: `Mean |SHAP| = 0,2252`  
@@ -618,11 +623,11 @@ Jawabannya ada pada **`Top-K Lift`** di hasil Temporal CV: jika staf mengambil a
 Analogi SHAP sangat sederhana: bayangkan empat pemain sepak bola bekerja sama memenangkan pertandingan; SHAP bekerja sebagai **akuntan teori permainan kooperatif** yang membagi persis berapa poin kontribusi masing-masing fitur untuk menaikkan atau menurunkan skor risiko tiap pesanan.  
 Terlihat tiga pendorong puncak secara transparan: **`delivery_delay_days` (`0,3058`)**, panjang total waktu kirim **`delivery_lead_time_days` (`0,2252`)**, dan banyaknya jenis barang dalam satu kardus **`item_count` (`0,2086`)**.
 
-Perhatikan juga dua dua poin penting pada interpretasi ini:  
+Perhatikan juga dua poin penting pada interpretasi ini:  
 1. Mengapa **`is_late`** nilainya tepat **`0,0`**? Karena kolom kontinu `delivery_delay_days` sudah membawa 100% informasi biner telat/tidak ditambah resolusi berapa harinya, sehingga pohon LightGBM selalu memilih membelah pada fitur kontinu yang lebih informatif!  
 2. Kami tegaskan batas klaim **asosiasi di dalam model versus pembuktian kausal**: SHAP menjelaskan *bagaimana model menimbang korelasi di data masa lalu* (asosiasi dalam model), **bukan bukti sebab-akibat mutlak (kausal eksperimental)** layaknya payung dan hujan yang muncul bersamaan!"
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 48–49 | VISUAL LAYAR]**  
 *Audit Keadilan & Batas Pakai Model pada Subkelompok (**Slice Robustness Analysis**, evaluasi subkelompok, Holdout sejak `2018-03-01`, `N = 38.942` / `39.153`):*
 
 | Dimensi Irisan (*Slice*) | Subkelompok | Jumlah Sampel | Prevalensi Komplain | ROC-AUC *(Klasifikasi)* | MAE & Bias *(Regresi Delay)* | Temuan Diagnostik Penting |
@@ -647,12 +652,12 @@ Melalui **`Slice Robustness Analysis`** di evaluasi subkelompok, kami mengiris h
 
 ---
 
-# BAGIAN V — HIPOTESIS STATISTIK, SIMULASI KEBIJAKAN & PEMANTAUAN MODEL (*"STATISTICAL RIGOR TO ACTION"*)
+# BAGIAN 06 — STATISTIKA INFERENSIAL, KEPUTUSAN & SIMULASI (SLIDE 50–57)
 
-## BABAK 13: ENAM HIPOTESIS TERPRA-REGISTRASI (dengan Koreksi *FDR*) — PENOLAKAN HUBUNGAN RATING–RETENSI & EFEK *CONFOUNDER*
-*(Alokasi waktu: 3,5 menit)*
+## BABAK 13: ENAM HIPOTESIS TERPRA-REGISTRASI (DENGAN KOREKSI *FDR*) — PENOLAKAN HUBUNGAN RATING–RETENSI & EFEK *CONFOUNDER*
+*(Alokasi waktu: 3,5 menit · Slide 50–52)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 50–52 | VISUAL LAYAR]**  
 *Uji Hipotesis Statistik Terkontrol (`hypothesis_forest_plot.png` — Uji Praregistrasi dengan koreksi uji ganda **`FDR Adjustment`**):*
 
 | Kode | Hipotesis *(Pernyataan Uji)* | Metode Statistik *(Arti Sederhana)* | Hasil Empiris & Interval 95% | Status & Pelajaran DS |
@@ -673,10 +678,10 @@ Dua temuan paling penting bagi pengambil keputusan ada pada **Uji 3 (Rating vs R
 
 ---
 
-## BABAK 14: DARI EVALUASI MODEL KE KEPUTUSAN — MATRIKS BIAYA ASIMETRIS (`$45 VS $5`), KUOTA CS, UJI A/B `80/20` & SIMULASI *WORLD MODEL* enam skenario kontrafaktual
-*(Alokasi waktu: 5 menit)*
+## BABAK 14: DARI EVALUASI MODEL KE KEPUTUSAN — MATRIKS BIAYA ASIMETRIS (`$45 VS $5`), KUOTA CS, UJI A/B `80/20` & SIMULASI *WORLD MODEL* ENAM SKENARIO KONTRAFAKTUAL
+*(Alokasi waktu: 5 menit · Slide 53–57)*
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 53–54 | VISUAL LAYAR]**  
 *Menghubungkan Skor Model Terkalibrasi ke Ekonomi Bisnis Nyata (kerangka *Cost-Sensitive Classification* di `src/csip/decision_engine/`):*  
 1. **Matriks Biaya Asimetris (`README.md`):**  
    - Biaya salah tebak positif palsu (*False Positive*, $C_{FP}$): **\$5,00** *(menyapa/kompensasi pelanggan yang sebenarnya baik-baik saja)*.  
@@ -689,9 +694,9 @@ Dua temuan paling penting bagi pengambil keputusan ada pada **Uji 3 (Rating vs R
 "Banyak presentasi berhenti pada grafik SHAP lalu bingung saat diterjemahkan menjadi aturan keputusan: *'Terus, pada peluang berapa sistem intervensi harus menekan tombol kirim voucher?'* Pada optimasi ambang berbasis biaya, **kerangka *Cost-Sensitive Classification*** menerjemahkan probabilitas terkalibrasi menjadi ekonomi keputusan!
 
 Lihat ketidakseimbangan biaya bisnis nyata di **Matriks Biaya Asimetris**: kalau model salah menduga orang baik-baik lalu mengirim kupon sapaan (`False Positive`), kerugiannya hanya **\$5**. Tetapi jika model gagal mendeteksi pelanggan berisiko tinggi sampai ia meledak pergi permanen (`False Negative`), nilainya **\$45**—sembilan kali lebih mahal!  
-Jika kita malas memakai titik potong buku teks `0,50`, kita membiarkan terlalu banyak keluhan berharga \$45 lolos. Melalui optimasi biaya harapan, titik potong geser optimal turun ke **`0,18` (`18%`)**, menghasilkan efisiensi **`4,2×`** lebih baik dibanding aturan bawaan `0,50`! Lebih realistis lagi, `calibrate_thresholds_from_capacity` menjaga jumlah tiket di bawah kapasitas kapasitas penanganan supaya tidak terjadi **Alert Fatigue (*kewalahan alarm palsu*)**, dan `design_ab_holdout_plan` otomatis menyisihkan **20% kelompok pembanding acak** agar efek sebab-akibat **bukti kausal eksperimental** diuji di lapangan."
+Jika kita malas memakai titik potong buku teks `0,50`, kita membiarkan terlalu banyak keluhan berharga \$45 lolos. Melalui optimasi biaya harapan, titik potong geser optimal turun ke **`0,18` (`18%`)**, menghasilkan efisiensi **`4,2×`** lebih baik dibanding aturan bawaan `0,50`! Lebih realistis lagi, `calibrate_thresholds_from_capacity` menjaga jumlah tiket di bawah kapasitas penanganan supaya tidak terjadi **Alert Fatigue (*kewalahan alarm palsu*)**, dan `design_ab_holdout_plan` otomatis menyisihkan **20% kelompok pembanding acak** agar efek sebab-akibat **bukti kausal eksperimental** diuji di lapangan."
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 55–57 | VISUAL LAYAR]**  
 *Simulasi Kebijakan Kontrafaktual 12 Minggu dengan **World Model `VAR(1)`** & **Residual Bootstrapping `B = 300×`** (`scenario_simulations.png`):*
 
 | Skenario Kebijakan | Parameter Intervensi | Order 12 Minggu | Laju Ulasan Buruk | Biaya Subsidi | Saldo Simulasi | Guardrail Ekstrapolasi |
@@ -704,18 +709,20 @@ Jika kita malas memakai titik potong buku teks `0,50`, kita membiarkan terlalu b
 | **Intervensi Gabungan** | `-15%` ongkir & `-3 hari` delay | `9.182` (`-16`) | **`15,58%`** (`-3,76 pp`) | `R$ 41.319` | `-R$ 41.681,30` | **PASS** (Dalam Batas Historis) |
 
 **[KALIMAT YANG DIUCAPKAN]:**  
-"Lalu pada simulasi skenario makro `VAR(1)`, saat berpindah dari satu pesanan ke kebijakan skala ekosistem 12 minggu ke depan, **`WorldStateTransitionModel` (`VAR(1)`)** menjalankan **6 dunia alternatif kontrafaktual (enam skenario kontrafaktual)** yang diguncang **`300` simulasi *Residual Bootstrapping*** (*memutar ulang variasi error historis untuk menggambar sabuk ketidakpastian 90% dan 95%, bukan menebak satu garis kaku*).
+"Lalu pada simulasi skenario makro `VAR(1)`, saat berpindah dari satu pesanan ke kebijakan skala ekosistem 12 minggu ke depan, **`WorldStateTransitionModel` (`VAR(1)`)** menjalankan **enam skenario kebijakan kontrafaktual** yang diguncang **`300` simulasi *Residual Bootstrapping*** (*memutar ulang variasi error historis untuk menggambar sabuk ketidakpastian 90% dan 95%, bukan menebak satu garis kaku*).
 
 Temuan terbesar simulasi ini mematahkan mitos pemasaran konvensional: memberi diskon ongkir `-15%` merata ke semua orang (subsidi merata) memang menaikkan order `+386`, **tetapi biaya subsidinya tembus `R$ 33.544` dan mencatat saldo simulasi `-R$ 24.323`** karena mayoritas subsidi terbuang mensubsidi *Segmen 1* yang aslinya sudah puas tanpa diskon!  
-Sebaliknya, ketika kebijakan disambungkan ke temuan **K-Means Segmen 2** (*High-Friction Multi-Item*) pada skenario **subsidi terarah (Subsidi Terarah)**, **pengeluaran subsidi langsung terpangkas separuh (`-50,3%`, tinggal `R$ 16.664`)** sambil tetap mempertahankan `83,6%` penurunan keluhan!  
+Sebaliknya, ketika kebijakan disambungkan ke temuan **K-Means Segmen 2** (*High-Friction Multi-Item*) pada skenario **Subsidi Terarah**, **pengeluaran subsidi langsung terpangkas separuh (`-50,3%`, tinggal `R$ 16.664`)** sambil tetap mempertahankan `83,6%` penurunan keluhan!  
 Dan lihat pagar kejujuran pada skenario **Shock Ekstrem**: saat skenario krisis memaksa lonjakan `+4 hari` dan `+20%` ongkir hingga **`Z_max = 3,68`** di luar pagar **`3,5 sigma`**, **`Extrapolation Guardrails`** langsung menyalakan peringatan **`OOD (Out-of-Distribution)`**—artinya *di luar peta sejarah yang pernah dipelajari model*—dan menurunkan klaim bukti menjadi **Peringatan Ekstrapolasi (Out-of-Distribution)**."
 
 ---
 
-## BABAK 15: MEMANTAU MODEL BERKALA — OBSERVATORIUM *CONCEPT DRIFT* & *CHAMPION–CHALLENGER*
-*(Alokasi waktu: 3,5 menit)*
+# BAGIAN 07 — MONITORING DRIFT, GENERALISASI & REPRODUKSI EKSPERIMEN (SLIDE 58–66)
 
-**[POIN VISUAL & RINGKASAN DATA]**  
+## BABAK 15: MEMANTAU MODEL BERKALA — OBSERVATORIUM *CONCEPT DRIFT* & *CHAMPION–CHALLENGER*
+*(Alokasi waktu: 3,5 menit · Slide 58–60)*
+
+**[SLIDE 58–60 | VISUAL LAYAR]**  
 *Empat Radar Statistik di **`DriftEngine`** (monitoring pergeseran distribusi) & Gerbang Pergantian Model (Seleksi *Champion–Challenger*):*  
 - **Radar Input (*Covariate Shift* — perubahan ciri pesanan masuk vs zaman latihan):**  
   1. **`PSI` (*Population Stability Index* — 10 kuantil + *Laplace Smoothing* $10^{-4}$):** Hijau `< 0,10` (`STABLE`), Kuning `0,10–0,25` (`WARNING`), Merah **`>= 0,25` (`CRITICAL_DRIFT`)**.  
@@ -731,23 +738,21 @@ Di `DriftEngine`, kami memasang empat radar komplementer: **PSI** (barometer per
 
 ---
 
-# BAGIAN VI — MESIN ML GENERIK, REPRODUKSI EKSPERIMEN, & PENUTUP ILMIAH
+## BABAK 16: GENERALISASI PIPELINE DATA SCIENCE KE DATASET BARU & EMPAT LENSA DIAGNOSTIK
+*(Alokasi waktu: 3–4 menit · Slide 61)*
 
-## BABAK 16: GENERALISASI PIPELINE DATA SCIENCE KE DATASET BARU (PIPELINE LINTAS DATASET BARU)
-*(Alokasi waktu: 3–4 menit)*
-
-**[POIN VISUAL & RINGKASAN DATA]**  
+**[SLIDE 61 | VISUAL LAYAR]**  
 *Alur Pipeline ML Otomatis tanpa Bocoran Data (`train_fluent_ml_pipeline()` di pipeline generik lintas dataset & `SemanticProfiler`):*  
 `Raw Dataset CSV Baru` → **`1. SemanticProfiler & Scale Normalization`** (`1–5` → `0–100`) → **`2. detect_split_strategy()`** *(pemindai otomatis risiko kebocoran tanggal/waktu & ID grup)* → **`3. Split-Before-Transform` Model Shootout** *(Mode EDA vs Regresi `Ridge` vs Klasifikasi `Logistic` vs `Random Forest`)* → **`4. Analisa Respon & Stabilitas`**: Kurva **Tipping Point** ($\frac{dy}{dx}$ puncak), Ranking Kontribusi + Korelasi Pearson, Sebaran Strata, & Audit **`PSI`** Langsung!
 
 **[KALIMAT YANG DIUCAPKAN]:**  
 "Sekarang muncul pertanyaan alami dari sesama *Data Scientist*: *'Apakah seluruh disiplin anti-kebocoran tadi cuma berlaku untuk kasus toko online Olist ini saja?'*  
-Jawabannya tidak. Pada bagian generalisasi pipeline ini, kami merangkum seluruh disiplin metodologi tadi ke dalam mesin ML generik **`train_fluent_ml_pipeline()`** di pipeline generik lintas dataset supaya mampu melatih dan mengevaluasi dataset tabular baru—baik data e-commerce, data medis (`mg/dL`, `mmHg`), maupun data mutu produksi—tanpa merusak kaidah ilmiah:
+Jawabannya tidak. Pada bagian generalisasi pipeline ini, kami merangkum seluruh disiplin metodologi tadi ke dalam mesin ML generik **`train_fluent_ml_pipeline()`** agar mampu melatih dan mengevaluasi dataset tabular baru—baik data e-commerce, data medis (`mg/dL`, `mmHg`), maupun data mutu produksi—tanpa merusak kaidah ilmiah:
 
 1. **Penyaringan & Penyesuaian Skala (`SemanticProfiler`):** Mesin otomatis membuang kolom ID unik yang berbahaya menjadi hafalan (*overfitting*) dan menyelaraskan skala survei `1–5` ke indeks `0–100` dengan `preprocess_intuitive_scales()`.
 2. **Detektor Risiko Kebocoran (`detect_split_strategy()`):** Sebelum membelah data, algoritma memindai kolom bertema waktu (`date/time/year/month`) dan identitas entitas (`customer/user/group_id`) untuk memperingatkan perlunya split kronologis atau berbasis grup.
 3. **Adu Model Aman (`Split-Before-Transform`):** Bergantung pada tipe target `y`, mesin mengadu model linier (*Ridge / LogisticRegression*) melawan ansambel (*Random Forest*), di mana **`SimpleImputer`** dan **`StandardScaler`** dibungkus ketat dalam `Pipeline` agar hanya memelajari rata-rata dan varians dari partisi *training* saja.
-4. **Diagnostik Model Otomatis:** Keluaran pipeline tidak berhenti pada angka skor, melainkan langsung menghitung **Tipping Point** (titik koordinat di mana laju perubahan prediksi $\Delta\hat{y}/\Delta x$ menukik paling tajam), korelasi serta bobot pendorong fitur, sebaran strata distribusi, dan audit **PSI (*Population Stability Index*)** untuk memeriksa kestabilan variabelnya!"
+4. **Empat Lensa Diagnostik & Audit PSI Langsung (Tercermin di Kokpit Interaktif Streamlit & Nara):** Keluaran pipeline tidak berhenti pada angka skor tunggal, melainkan otomatis menyusun **Lensa 1 (Kurva Simulasi & *Tipping Point*)** ($\Delta\hat{y}/\Delta x$ puncak), **Lensa 2 (Peringkat Faktor Penentu & Korelasi Pearson)**, **Lensa 3 (Sebaran Kelompok Data)**, dan **Lensa 4 (Observatorium Drift & Stabilitas)**. Pada Lensa 4 ini, sistem membelah data aktif menjadi **60% observasi awal vs 40% observasi terbaru** dan menghitung **PSI**, lalu penasihat strategi *Nara* menyajikan hasilnya secara adaptif — termasuk langsung memunculkan peringatan *'Drift Terdeteksi; disarankan kalibrasi ulang'* apabila pergeseran distribusi melewati ambang batas!"
 
 ---
 
@@ -765,7 +770,7 @@ Jawabannya tidak. Pada bagian generalisasi pipeline ini, kami merangkum seluruh 
 | `04` | `04_feature_engineering_and_construction` | Konstruksi 41 fitur (`freight_ratio`, Haversine, interaksi), pembatasan Saat Bayar / Serah Kurir / Pasca-Tiba, & audit `PSI < 0,10` |
 | `05` | `05_behavioral_discovery_unsupervised` | Seleksi jumlah klaster `K-Means` (`k=3..7`), proyeksi `PCA 2D`, stabilitas bootstrap `ARI`, & `4.824` pencilan |
 | `06` | `06_hypothesis_investigation` | Pengujian praregistrasi enam hipotesis dengan kontrol `FDR`, penolakan hubungan rating–retensi, & dekomposisi *confounder* (`-47,3%`) |
-| `07` | `07_supervised_ml_and_competency_lab` | Perbandingan komparasi baseline hingga ensemble pada klasifikasi ulasan, regresi delay, retensi kohort, & ablasi kelompok fitur secara bertahap |
+| `07` | `07_supervised_ml_and_benchmark_lab` | Perbandingan komparasi baseline hingga ensemble pada klasifikasi ulasan, regresi delay, retensi kohort, & ablasi kelompok fitur secara bertahap |
 | `08` | `08_neural_network_and_deep_learning` | Evaluasi `TabularEmbeddingMLP` (*Entity Embeddings*) vs `TextBiLSTM` pada teks Portugis |
 | `09` | `09_model_evaluation_and_explainability` | Kalibrasi `Platt Scaling`, *Brier Skill Score*, *Decision Curve Analysis*, *Top-K Lift*, & *SHAP TreeExplainer* |
 | `10` | `10_system_and_world_modeling` | Estimasi matriks dinamika mingguan `VAR(1)` Ridge (`87` minggu), *Spectral Radius* `0,8412`, & *Synthetic Recovery* |
@@ -805,11 +810,13 @@ Kedua pada bagian ini, matriks bias induktif menjawab mengapa tidak ada satu alg
 
 ---
 
+# BAGIAN 08 — RINGKASAN CAPAIAN, KONTROL VALIDITAS, & PENUTUP (SLIDE 67–69)
+
 ## BABAK 19: REKAPITULASI CAPAIAN, KONTROL VALIDITAS, & PENUTUP
 *(Alokasi waktu: 2–3 menit · Slide 67–69)*
 
 **[SLIDE 67–69 | VISUAL LAYAR]**  
-- **Skor Empiris Lintas Tugas:** `LightGBM Pasca-Pengiriman PR-AUC 0,3061` (`3,18×` lantai `0,0963`), Kalibrasi Platt `ECE 0,0070` (`-97,02%`), `Top 5% Lift 5,154×`, Regresi Delay Ridge `MAE 4,75 hari`, `TextBiLSTM PR-AUC 0,3120` (`Macro-F1 0,8420`), Segmen Ongkir Tinggi `31,20%` (`ARI 0,9832`), `VAR(1)` `WAPE 15,83%` (`Spectral Radius 0,8412`), & efisiensi stimulus stimulus terarah `-50,3%`.
+- **Skor Empiris Lintas Tugas:** `LightGBM Pasca-Pengiriman PR-AUC 0,3061` (`3,18×` lantai `0,0963`), Kalibrasi Platt `ECE 0,0070` (`-97,02%`), `Top 5% Lift 5,154×`, Regresi Delay Ridge `MAE 4,75 hari`, `TextBiLSTM PR-AUC 0,3120` (`Macro-F1 0,8420`), Segmen Ongkir Tinggi `31,20%` (`ARI 0,9832`), `VAR(1)` `WAPE 15,83%` (`Spectral Radius 0,8412`), & efisiensi stimulus terarah `-50,3%`.
 - **Slide terkait:** *Evaluasi yang Jujur Mengukur Batasnya Sendiri.*
 
 **[KALIMAT YANG DIUCAPKAN]:**  
@@ -876,7 +883,7 @@ Terima kasih atas perhatian Anda."
 ## Lampiran 3: Disiplin Interpretasi Hasil Pemodelan
 
 * **Tepat dalam Menilai Ketidakseimbangan Kelas:** Laporkan `PR-AUC 0,3061` (> `3,18×` base rate `0,0963`), kalibrasi `ECE 0,0070`, dan `Top 5% Lift 5,154×`, alih-alih mengandalkan `Accuracy 90,37%`.
-* **Tepat dalam Membedakan Asosiasi dan Kausalitas:** Posisikan bobot SHAP (`delivery_delay_days 0,3058`) sebagai bukti asosiasi dalam model (asosiasi dalam model), sedangkan pembuktian efek perlakuan kausal (kausal eksperimental) memerlukan eksperimen acak `A/B Holdout 80/20`.
+* **Tepat dalam Membedakan Asosiasi dan Kausalitas:** Posisikan bobot SHAP (`delivery_delay_days 0,3058`) sebagai **bukti asosiasi dalam model**, sedangkan pembuktian **hubungan kausal eksperimental** memerlukan eksperimen acak `A/B Holdout 80/20`.
 * **Transparan terhadap Keterbatasan Data:** Nyatakan secara langsung pembatasan model saat checkout ke hanya indikator awal (`0,1335`) dan penolakan model `Repeat Purchase` (`0,5021`) sebagai `Temuan Negatif yang Sah` akibat ketiadaan data klik aplikasi maupun insentif historis.
 
 ---
