@@ -75,8 +75,8 @@ Setiap bagian dalam presentasi ini mengikuti tiga alur yang saling terhubung:
 
 **[SLIDE 01–02 | VISUAL LAYAR]**  
 *Latar gelap minimalis:*  
-**CSIP — Behavioral Machine Learning & Model Evaluation Architecture**  
-*Membangun Model yang Jujur di Dunia Nyata, Tanpa Kebocoran Waktu, Tanpa Ilusi Skor.*
+**CSIP · Prediksi Pengalaman & Evaluasi Model Terukur**  
+*Analisis risiko 99.441 transaksi e-commerce Olist dengan pencegahan kebocoran waktu, kalibrasi probabilitas, dan simulasi — Rafael Hakim Souissa.*
 
 **[NADA & GESTUR]**  
 *Berdiri tenang. Pandangi audiens sejenak sebelum kalimat pertama keluar.*
@@ -817,7 +817,7 @@ Kedua pada bagian ini, matriks bias induktif menjawab mengapa tidak ada satu alg
 
 **[SLIDE 67–69 | VISUAL LAYAR]**  
 - **Skor Empiris Lintas Tugas:** `LightGBM Pasca-Pengiriman PR-AUC 0,3061` (`3,18×` lantai `0,0963`), Kalibrasi Platt `ECE 0,0070` (`-97,02%`), `Top 5% Lift 5,154×`, Regresi Delay Ridge `MAE 4,75 hari`, `TextBiLSTM PR-AUC 0,3120` (`Macro-F1 0,8420`), Segmen Ongkir Tinggi `31,20%` (`ARI 0,9832`), `VAR(1)` `WAPE 15,83%` (`Spectral Radius 0,8412`), & efisiensi stimulus terarah `-50,3%`.
-- **Slide terkait:** *Evaluasi yang Jujur Mengukur Batasnya Sendiri.*
+- **Slide penutup:** *Skor Tinggi Tak Cukup Tanpa Validasi yang Jujur — Rafael Hakim Souissa.*
 
 **[KALIMAT YANG DIUCAPKAN]:**  
 "Sebagai penutup pada tiga slide terakhir, seluruh proyek ini merangkai satu kesimpulan utama: ketepatan pemodelan *Data Science* tidak diukur dari seberapa rumit arsitektur yang dipakai atau seberapa tinggi angka akurasi mentahnya, melainkan dari konsistensi menjaga keabsahan data di sepanjang eksperimen.
